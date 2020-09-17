@@ -24,7 +24,7 @@ public class JDBCTemplate {
 		String fileName = JDBCTemplate.class.getResource("/sql/driver/driver.xml").getPath();
 		
 		try {
-			prop.load(new FileInputStream(fileName));
+			prop.loadFromXML(new FileInputStream(fileName));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -35,7 +35,7 @@ public class JDBCTemplate {
 			Class.forName(prop.getProperty("driver"));
 			
 			conn = DriverManager.getConnection(prop.getProperty("url"),
-											   prop.getProperty("username"),
+											   prop.getProperty("sqlId"),
 											   prop.getProperty("password"));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
