@@ -164,8 +164,9 @@
 				<div id="search_result1">
 					<input type="text">
 					<!-- 버튼 누르면 검색결과 나오게->동기식? 비동기식? -->
-					<button id="search_button1">
-						<img src="resources/post_upfiles/콘서트_윤도현단독콘서트.png" width="30px" height="30px"></input>
+						<button id="search_button1">
+						<img src="../img/imgForSearch/search.png" width="30px" height="30px">
+					</input>
 				</div>
 			</div>
 
@@ -212,7 +213,7 @@
 			<div class="search_result_list">
 				<!-- 이미지 -->
 				<div id="search_result_img" style="margin-left: 70px;">
-					<a href=""><img src="image/연극1.PNG" width="150"></a>
+					<a href=""><img src="resources/post_upfiles/전시_빅아이즈.PNG" width="150"></a>
 				</div>
 				<!-- 검색내용 -->
 				<div id="search_result_content">
