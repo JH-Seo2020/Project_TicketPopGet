@@ -165,7 +165,7 @@
 					<input type="text">
 					<!-- 버튼 누르면 검색결과 나오게->동기식? 비동기식? -->
 					<button id="search_button1">
-						<img src="image/search.png" width="30px" height="30px"></input>
+						<img src="resources/post_upfiles/콘서트_윤도현단독콘서트.png" width="30px" height="30px"></input>
 				</div>
 			</div>
 
