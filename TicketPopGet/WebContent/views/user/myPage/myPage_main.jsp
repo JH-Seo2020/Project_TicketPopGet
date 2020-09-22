@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <style>
-
 	 /* 공통사항 */
 	 *:focus{outline: none;}
 	 .more_btn{
@@ -178,8 +177,8 @@
             <div id="mypage_info">
                 <h1>MYPAGE</h1>
                 <p><b>xxx</b>님 환영합니다</p>
-                <!-- contextPath 넣기  -->
-                <a href="">회원정보관리</a>
+                <!-- contextPath/info.my 넣기  -->
+                <a href="information.jsp">회원정보관리</a>
             </div>
             <!-- 마이페이지 메뉴 -->
             <div id="mypage_menu">
