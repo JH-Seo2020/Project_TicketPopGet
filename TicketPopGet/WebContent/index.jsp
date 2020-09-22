@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	테스트
+	<%@ include file="views/common/menubar.jsp" %>
 
 </body>
 </html>
