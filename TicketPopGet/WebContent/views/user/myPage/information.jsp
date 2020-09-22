@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>정보수정</title>
+<title>회원정보변경</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -43,8 +43,8 @@
             
             <br>
         <div style="margin-bottom: 30px;">
-            <button type="button" class="btn" style="border: 1px solid orange; background:orange; color: white;;">확인</button> &nbsp;&nbsp;
-            <button type="button" class="btn" style="border: 1px solid orange;">이전으로</button>
+            <button onclick="location.href=''" class="btn" style="border: 1px solid orange; background:orange; color: white;;">확인</button> &nbsp;&nbsp;
+            <button onclick="history.back()" class="btn" style="border: 1px solid orange;">이전으로</button>
         </div>
         </div>
     </div>
