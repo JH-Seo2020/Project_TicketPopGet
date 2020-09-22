@@ -178,6 +178,7 @@
             <div id="mypage_info">
                 <h1>MYPAGE</h1>
                 <p><b>xxx</b>님 환영합니다</p>
+                <!-- contextPath 넣기  -->
                 <a href="">회원정보관리</a>
             </div>
             <!-- 마이페이지 메뉴 -->
