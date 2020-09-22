@@ -5,19 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Main Page</title>
-
-<!-- bootstrap css, jquery 등 필요한 소스들 CDN으로 연결함 -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-
 <style>
 #carouselExampleCaptions{width: 1200px; height: 360px; margin: 0 auto;}
 .carousel-item>img{width : 600px; height : 360px;}
-   #wrap{
-       width: 1200px;
-       height: 1800px;
+   #wrap_mp{
+       width: 1200px !important;
+       height: 1800px !important;
        margin: auto;
        box-sizing: border-box;
    }
@@ -94,8 +87,9 @@
 </style>
 </head>
 <body>
-
-	<div id="wrap">
+	<%@ include file="/views/common/menubar.jsp" %>
+	
+	<div id="wrap_mp">
 
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -108,42 +102,42 @@
             </ol>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="resources/cats.jpg" class="d-block w-100" alt="">
+                <img src="resources/img/carouselTest.png" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>CATS</h5>
                   <p>MUSICAL</p>
                 </div>
               </div>
               <div class="carousel-item">
-                <img src="resources/jykill.jpg" class="d-block w-100" alt="">
+                <img src="resources/img/carouselTest.png" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>JYKILL</h5>
                   <p>MUSICAL</p>
                 </div>
               </div>
               <div class="carousel-item">
-                <img src="resources/map.jpg" class="d-block w-100" alt="">
+                <img src="resources/img/carouselTest.png" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>MAP</h5>
                   <p>MAP</p>
                 </div>
               </div>
               <div class="carousel-item">
-                <img src="resources/play.jpg" class="d-block w-100" alt="">
+                <img src="resources/img/carouselTest.png" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>PLAY</h5>
                   <p>PLAY</p>
                 </div>
               </div>
               <div class="carousel-item">
-                <img src="resources/play.jpg" class="d-block w-100" alt="">
+                <img src="resources/img/carouselTest.png" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>PLAY</h5>
                   <p>PLAY</p>
                 </div>
               </div>
               <div class="carousel-item">
-                <img src="resources/play.jpg" class="d-block w-100" alt="">
+                <img src="resources/img/carouselTest.png" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>PLAY</h5>
                   <p>PLAY</p>
@@ -166,17 +160,17 @@
                 <div id="posterBody">
                     <ul>
                         <li>
-                            <span><img src="../포스터모음/공연포스터_1.jpg" height="200px" width="150px"></span>
+                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
                             <div>콘서트</div>
                             <div>신용재 콘서트</div>
                         </li>
                         <li>
-                            <span><img src="../포스터모음/공연포스터_2.jpg" height="200px" width="150px"></span>
+                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
                             <div>연극</div>
                             <div>오즈프로젝트</div>
                         </li>
                         <li>
-                            <span><img src="../포스터모음/공연포스터_4.jpg" height="200px" width="150px"></span>
+                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
                             <div>전시</div>
                             <div>고릴라즈 앨범자켓전시</div>
                         </li>
@@ -221,17 +215,17 @@
                 <div id="posterBody">
                     <ul>
                         <li>
-                            <span><img src="../포스터모음/공연포스터_1.jpg" height="200px" width="150px"></span>
+                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
                             <div>콘서트</div>
                             <div>신용재 콘서트</div>
                         </li>
                         <li>
-                            <span><img src="../포스터모음/공연포스터_2.jpg" height="200px" width="150px"></span>
+                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
                             <div>연극</div>
                             <div>오즈프로젝트</div>
                         </li>
                         <li>
-                            <span><img src="../포스터모음/공연포스터_4.jpg" height="200px" width="150px"></span>
+                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
                             <div>전시</div>
                             <div>고릴라즈 앨범자켓전시</div>
                         </li>
@@ -245,19 +239,19 @@
                 <div id="posterBody">
                     <ul>
                         <li>
-                            <span><img src="../포스터모음/공연포스터_1.jpg" height="200px" width="150px"></span>
+                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
                             <div>콘서트</div>
                             <div>신용재 콘서트</div>
                             <div>D-1</div>
                         </li>
                         <li>
-                            <span><img src="../포스터모음/공연포스터_2.jpg" height="200px" width="150px"></span>
+                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
                             <div>연극</div>
                             <div>오즈프로젝트</div>
                             <div>D-1</div>
                         </li>
                         <li>
-                            <span><img src="../포스터모음/공연포스터_4.jpg" height="200px" width="150px"></span>
+                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
                             <div>전시</div>
                             <div>고릴라즈 앨범자켓전시</div>
                             <div>D-1</div>
