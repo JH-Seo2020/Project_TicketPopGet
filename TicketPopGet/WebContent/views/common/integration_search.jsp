@@ -128,7 +128,8 @@
                 <div id="search_result1">
                     <input type="text" >
                     <!-- 버튼 누르면 검색결과 나오게->동기식? 비동기식? -->
-                    <button id="search_button1"><img src="WebContent/resources/img/imgForSearch/search.png"  width="30px" height="30px"></button>
+                    <!-- 이미지 경로 : 기본설정이 views/common으로 돼있기 때문에 .. /TicketPopGet/resources/img/imgForSearch/search.png 요로콤,,해야됨.. 기억하기..  -->
+                    <button id="search_button1"><img src="/TicketPopGet/resources/img/imgForSearch/search.png"  width="30px" height="30px"></button>
                 </div>
             </div>
 
@@ -176,7 +177,7 @@
             <div class="search_result_list">
                 <!-- 이미지 -->
                 <div id="search_result_img" style="margin-left: 70px;">
-                    <a href=""><img src="../resources/post_upfiles/연극_옥탑방고양이.PNG" width="150" ></a>
+                    <a href=""><img src="/TicketPopGet/resources/post_upfiles/111111111111.PNG" width="150" ></a>
                 </div>
                 <!-- 검색내용 -->
                 <div id="search_result_content">
@@ -197,7 +198,7 @@
                 <div class="search_result_list">
                 <!-- 이미지 -->
                 <div id="search_result_img" style="margin-left: 70px;">
-                    <a href=""><img src="resources/post_upfiles/연극_옥탑방고양이.PNG" width="150" ></a>
+                    <a href=""><img src="/TicketPopGet/resources/post_upfiles/111111111111.PNG" width="150" ></a>
                 </div>
                 <!-- 검색내용 -->
                 <div id="search_result_content">
