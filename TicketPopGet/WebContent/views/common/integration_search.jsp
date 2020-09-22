@@ -128,7 +128,7 @@
                 <div id="search_result1">
                     <input type="text" >
                     <!-- 버튼 누르면 검색결과 나오게->동기식? 비동기식? -->
-                    <button id="search_button1"><img src="resources/img/imgForSearch/search.png"  width="30px" height="30px"></button>
+                    <button id="search_button1"><img src="WebContent/resources/img/imgForSearch/search.png"  width="30px" height="30px"></button>
                 </div>
             </div>
 
