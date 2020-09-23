@@ -32,11 +32,13 @@ public class JDBCTemplate {
 		Connection conn = null;
 		
 		try {
+			// 1) jdbc driver 등록
 			Class.forName(prop.getProperty("driver"));
-			
-			conn = DriverManager.getConnection(prop.getProperty("url"),
-											   prop.getProperty("sqlId"),
-											   prop.getProperty("password"));
+						
+			// 2) Connection 객체 생성(DB와 접속)
+			conn = DriverManager.getConnection(prop.getProperty("url"), 
+												prop.getProperty("sqlId"), 
+												prop.getProperty("password"));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

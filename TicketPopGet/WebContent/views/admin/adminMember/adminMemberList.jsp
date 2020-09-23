@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList" import="com.kh.user.model.vo.Member"%>
+<%@ page import="com.kh.admin.adminMember.model.vo.Page;" %>
+<%
+	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+	Page p = (Page)request.getAttribute("page");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,15 +54,22 @@
         </thead>
 
         <tbody>
-            <tr style="height: 50px;">
-                <td>10</td>
-                <td>10사용자</td>
-                <td>user10</td>
-                <td>user10@naver.com</td>
-                <td>010-0000-0000</td>
-                <td>N</td>
-            </tr>
-            
+        <%if(list.isEmpty()) {%>
+        	<tr>
+        		<td colspan="6">조회된 리스트가 없습니다.</td>
+        	</tr>
+        <%}else {%>
+        	<%for(Member m : list) { %>
+            	<tr style="height: 50px;">
+                	<td><%=m.getUserNo()%></td>
+                	<td><%=m.getUserId() %></td>
+	                <td><%=m.getUserName() %></td>
+	                <td><%=m.getEmail() %></td>
+	                <td><%=m.getPhone() %></td>
+	                <td><%=m.getStatus() %></td>
+	            </tr>
+            <%} %>
+        <%} %>    
         </tbody>
 
     </table>
@@ -73,22 +85,19 @@
     </form>
     <br><br>
     <div align="center">
-
-        <button>&lt;&lt;</button>
-        <button>&lt;</button>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button>7</button>
-        <button>8</button>
-        <button>9</button>
-        <button>10</button>
-        <button>&gt;</button>
-        <button>&gt;&gt;</button>   
+		<%if(p.getCurrentPage() != p.getStartPage()) {%>
+        	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=1'">&lt;&lt;</button>
+       	 	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=p.getCurrentPage() - 1%>'">>&lt;</button>
+        <%} %>
+        <%for(int i=0; i<=p.getEndPage(); i++) {%>
         
+        	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=i%>'">><%=i%></button>
+        
+       <%} %>
+        <%if(p.getCurrentPage() != p.getEndPage()) { %>
+        	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=p.getCurrentPage() + 1%>'">>&gt;</button>
+        	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=p.getMaxPage()%>'">>&gt;&gt;</button>   
+        <%} %>
     </div>
 
     </div>

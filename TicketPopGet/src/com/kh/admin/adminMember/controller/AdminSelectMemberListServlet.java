@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.admin.adminMember.model.service.AdminMemberService;
+import com.kh.admin.adminMember.model.vo.Page;
 import com.kh.user.model.vo.Member;
 
 /**
@@ -32,12 +33,26 @@ public class AdminSelectMemberListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int listCount = new AdminMemberService().selectMemberListCount();
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		int pageLimit = 10;
+		int boardLimit = 10;
+		
+		int maxPage = (int)Math.ceil((double)listCount/pageLimit);
+		int startPage = (currentPage-1) / pageLimit * pageLimit + 1 ;
+		int endPage = startPage + pageLimit - 1;
+		
+		if(maxPage<endPage) {
+			endPage = maxPage;
+		}
+		
+		Page page = new Page(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		
 		ArrayList<Member> list = new AdminMemberService().selectMemberList();
 		
-		if(!list.isEmpty()) {
-			request.getRequestDispatcher("/views/admin/adminMember/adminMemberList.jsp").forward(request, response);
-		}
-			
+		request.setAttribute("list", list);
+		request.setAttribute("page", page);
+		request.getRequestDispatcher("/views/admin/adminMember/adminMemberList.jsp").forward(request, response);
 		
 		
 	}
