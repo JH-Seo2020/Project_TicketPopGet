@@ -59,6 +59,7 @@
 </style>
 <body>
 <!-- 메뉴바  -->
+<%@ include file="/views/common/menubar.jsp"%>
 <h2 align="center">회원가입</h2>
     <div class="row justify-content-center">
         <div class="col-md-8">
