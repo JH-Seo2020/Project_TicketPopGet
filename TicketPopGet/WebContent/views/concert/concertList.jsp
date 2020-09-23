@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.contents.model.vo.*" %>
+<%	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Contents> list = (ArrayList<Contents>)request.getAttribute("list");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +50,7 @@
             height: 30%;
         }
         #concertTitle{
-            font-size: 25px;
+            font-size: 20px;
         }
 
         /*paging 버튼*/
@@ -68,10 +79,10 @@
             <label>콘서트 &lt; </label>
             <select>
                 <option>전체</option>
-                <option>서울/경기권</option>
-                <option>강원/충청권</option>
+                <option>서울경기권</option>
+                <option>강원충청권</option>
                 <option>전라권</option>
-                <option>경상/제주권</option>
+                <option>경상제주권</option>
             </select>
         </div>
 
@@ -79,92 +90,40 @@
             
             
             <ul id="posterBody">
-                <li>
-                    <span><img src="../포스터모음/공연포스터_1.jpg" height="200px" width="150px"></span>
-                    <div id=concertTitle><b><a href="">신용재 콘서트</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#누군지#모르는#콘서트#신용재#서울</div>
-                </li>
-                <li>
-                    <span><img src="../포스터모음/공연포스터_2.jpg" height="200px" width="150px"></span>
-                    <div id=concertTitle><b><a href="">오즈프로젝트 콘서트</a></b></div>
-                    <div>2020.02.02</div>
-                    <div>#오즈#마법사#동화#존잼#서울</div>
-                </li>
-                <li>
-                    <span><img src="../포스터모음/공연포스터_4.jpg" height="200px" width="150px"></span>
-                    <div id=concertTitle><b><a href="">고릴라즈 내한콘서트</a></b></div>
-                    <div>2020.03.03</div>
-                    <div>#영국#락#고릴라즈#내한기념#서울</div>
-                </li>
-                <li>
-                    <span><img src="../포스터모음/공연포스터_4.jpg" height="200px" width="150px"></span>
-                    <div id=concertTitle><b><a href="">고릴라즈 내한콘서트</a></b></div>
-                    <div>2020.03.03</div>
-                    <div>#영국#락#고릴라즈#내한기념#서울</div>
-                </li>
-                <li>
-                    <span><img src="../포스터모음/공연포스터_4.jpg" height="200px" width="150px"></span>
-                    <div id=concertTitle><b><a href="">고릴라즈 내한콘서트</a></b></div>
-                    <div>2020.03.03</div>
-                    <div>#영국#락#고릴라즈#내한기념#서울</div>
-                </li>
-                <li>
-                    <span><img src="../포스터모음/공연포스터_4.jpg" height="200px" width="150px"></span>
-                    <div id=concertTitle><b><a href="">고릴라즈 내한콘서트</a></b></div>
-                    <div>2020.03.03</div>
-                    <div>#영국#락#고릴라즈#내한기념#서울</div>
-                </li>
-                <li>
-                    <span><img src="../포스터모음/공연포스터_4.jpg" height="200px" width="150px"></span>
-                    <div id=concertTitle><b><a href="">고릴라즈 내한콘서트</a></b></div>
-                    <div>2020.03.03</div>
-                    <div>#영국#락#고릴라즈#내한기념#서울</div>
-                </li>
-                <li>
-                    <span><img src="../포스터모음/공연포스터_4.jpg" height="200px" width="150px"></span>
-                    <div id=concertTitle><b><a href="">고릴라즈 내한콘서트</a></b></div>
-                    <div>2020.03.03</div>
-                    <div>#영국#락#고릴라즈#내한기념#서울</div>
-                </li>
-                <li>
-                    <span><img src="../포스터모음/공연포스터_4.jpg" height="200px" width="150px"></span>
-                    <div id=concertTitle><b><a href="">고릴라즈 내한콘서트</a></b></div>
-                    <div>2020.03.03</div>
-                    <div>#영국#락#고릴라즈#내한기념#서울</div>
-                </li>
-                <li>
-                    <span><img src="../포스터모음/공연포스터_4.jpg" height="200px" width="150px"></span>
-                    <div id=concertTitle><b><a href="">고릴라즈 내한콘서트</a></b></div>
-                    <div>2020.03.03</div>
-                    <div>#영국#락#고릴라즈#내한기념#서울</div>
-                </li>
-                <li>
-                    <span><img src="../포스터모음/공연포스터_4.jpg" height="200px" width="150px"></span>
-                    <div id=concertTitle><b><a href="">고릴라즈 내한콘서트</a></b></div>
-                    <div>2020.03.03</div>
-                    <div>#영국#락#고릴라즈#내한기념#서울</div>
-                </li>
-                <li>
-                    <span><img src="../포스터모음/공연포스터_4.jpg" height="200px" width="150px"></span>
-                    <div id=concertTitle><b><a href="">고릴라즈 내한콘서트</a></b></div>
-                    <div>2020.03.03</div>
-                    <div>#영국#락#고릴라즈#내한기념#서울</div>
-                </li>
+            <% if(list.isEmpty()){ %>
+            	<li>보여질 포스터가 없습니다..(그럴리가없는데..)</li>
+            <%}else{ %>
+            	<%for(Contents c : list){ %>
+	                <li>
+	                    <span><img src="<%=contextPath %>/<%=c.getImgPath()%>/<%=c.getContentChangeImg() %>" height="200px" width="150px"></span>
+	                    <div id=concertTitle><b><a href=""><%=c.getContentTitle() %></a></b></div>
+	                    <div><%=c.getConcertDate() %></div>
+	                    <div><%=c.getContentKeyword() %></div>
+	                </li>
+                <%} %>
+            <%} %>
             </ul>
             
         </div>
 
         <div id="concertPaging">
-            <button>&lt;&lt;</button>
-            <button>&lt;</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>&gt;</button>
-            <button>&gt;&gt;</button>
+            <button onclick="location.href='<%=contextPath%>/concert.co?currentPage=1';">&lt;&lt;</button>
+            <%if(currentPage != 1) { %>
+            <button onclick="location.href='<%=contextPath%>/concert.co?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            <%} %>
+            
+            <%for(int i = startPage; i <=endPage; i++){ %>
+            	<% if(currentPage != i) {%>
+            		<button onclick="location.href='<%=contextPath%>/concert.co?currentPage=<%=i%>';"><%=i%></button>
+            	<%}else{ %>
+            		<button disabled style="color:black;"><%=i %></button>
+            	<%} %>
+            <%} %>
+            
+            <%if(currentPage != maxPage){ %>
+            <button onclick="location.href='<%=contextPath%>/concert.co?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <% } %>
+            <button onclick="location.href='<%=contextPath%>/concert.co?currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
         </div>
 
     </div>

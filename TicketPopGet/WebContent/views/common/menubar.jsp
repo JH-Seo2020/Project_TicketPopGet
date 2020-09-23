@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -136,7 +139,7 @@
         <div id="navigator">
             <div class="menubar"> 
                 <ul id="list" >
-                    <li><a href="">콘서트</a></li>
+                    <li><a href="<%=contextPath%>/concert.co?currentPage=1">콘서트</a></li>
                     <li><a href="">연극</a></li>
                     <li><a href="">전시</a></li>
                     <li id="menuCommu"><a href="">커뮤니티</a></li>
