@@ -56,9 +56,8 @@
             cursor:pointer;
     }
     
-    .area{
-        float: left;
-    }
+    .area{float: left;}
+    #noticeDiv{margin-left:5%}
 
     .pagination {margin:50px 250px 0; text-align:center;}
     .pagination .btn-prev, .pagination .btn-next, .pagination a span {display: inline-block; margin-right:2px; padding: 4px 12px; border:1px solid #ddd; border-radius: 4px; color: #111; background:#fff; text-decoration: none; text-align: center;}
@@ -76,8 +75,9 @@
 	<!-- 왼쪽 메뉴바 -->
 	<%@ include file="/views/serviceCenter/serviceMenubar.jsp"%>
     </div>
-    <div class="area">
+    <div class="area" id="noticeDiv">
         <div>
+        	<br>
             <h2><b>공지사항</b></h2>
             <nav id="topMenu">
                 <ul  class="servicemenu">
