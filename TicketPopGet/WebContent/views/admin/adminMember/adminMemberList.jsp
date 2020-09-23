@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList" import="com.kh.user.model.vo.Member"%>
-<%@ page import="com.kh.admin.adminMember.model.vo.Page;" %>
+    pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="com.kh.user.model.vo.Member" %>
+<%@ page import="com.kh.admin.adminMember.model.vo.Page" %>
 <%
 	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
 	Page p = (Page)request.getAttribute("page");
@@ -87,16 +89,18 @@
     <div align="center">
 		<%if(p.getCurrentPage() != p.getStartPage()) {%>
         	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=1'">&lt;&lt;</button>
-       	 	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=p.getCurrentPage() - 1%>'">>&lt;</button>
+       	 	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=p.getCurrentPage() - 1%>'">&lt;</button>
         <%} %>
-        <%for(int i=0; i<=p.getEndPage(); i++) {%>
-        
-        	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=i%>'">><%=i%></button>
-        
+        <%for(int i=p.getStartPage(); i<=p.getEndPage(); i++) {%>
+        	<%if(i != p.getCurrentPage()){ %>
+        		<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=i%>'"><%=i%></button>
+        	<%}else{ %>
+        		<button disabled><%=i%></button>
+        	<%} %>
        <%} %>
         <%if(p.getCurrentPage() != p.getEndPage()) { %>
-        	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=p.getCurrentPage() + 1%>'">>&gt;</button>
-        	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=p.getMaxPage()%>'">>&gt;&gt;</button>   
+        	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=p.getCurrentPage() + 1%>'">&gt;</button>
+        	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=p.getMaxPage()%>'">&gt;&gt;</button>   
         <%} %>
     </div>
 

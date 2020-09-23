@@ -46,14 +46,14 @@ public class AdminSelectMemberListServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		Page page = new Page(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		Page p = new Page(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<Member> list = new AdminMemberService().selectMemberList();
+		ArrayList<Member> list = new AdminMemberService().selectMemberList(p);
 		
+		request.setAttribute("page", p);
 		request.setAttribute("list", list);
-		request.setAttribute("page", page);
-		request.getRequestDispatcher("/views/admin/adminMember/adminMemberList.jsp").forward(request, response);
 		
+		request.getRequestDispatcher("views/admin/adminMember/adminMemberList.jsp").forward(request, response);
 		
 	}
 
