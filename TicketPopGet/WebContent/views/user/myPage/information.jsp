@@ -15,7 +15,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<!-- 메뉴바 -->
+	<!-- 메뉴바쓰추가쓰 -->
 	<%@ include file="/views/common/menubar.jsp"%>
 	<div align="center" style="width: 800px; height:500px; margin-left: 450px; margin-top: 100px;">
 		<!-- <h1>내 정보확인</h1> -->

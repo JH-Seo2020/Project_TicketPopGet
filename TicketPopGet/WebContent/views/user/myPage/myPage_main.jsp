@@ -6,199 +6,199 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <style>
-/* 공통사항 */
-*:focus {
-	outline: none;
-}
-
-#mypage {
-	width: 1200px;
-	height: 1500px;
-	margin: auto;
-	box-sizing: border-box;
-}
-
-.more_btn {
-	background: orangered;
-	border: 1px solid orangered;
-	color: white;
-	cursor: pointer;
-	width:45px;
-	height:20px;
-	font-size:10px;
-}
-
-/* 왼쪽 메뉴바 */
-.mypage_left {
-	float: left;
-	width: 230px;
-	height: 700px;
-	margin-top: 50px;
-	margin-left: 40px;
-}
-
-/* 회원정보관리 */
-#mypage_info {
-	width: 100%;
-	height: 200px;
-	text-align: center;
-	background-color: #ffb300;
-	color: white;
-}
-
-#mypage_info h1 {
-	padding-top: 35px;
-	font-size: 35px;
-}
-
-#mypage_info p {
-	font-size: 23px;
-}
-
-#mypage_info_a {
-	font-size: 20px;
-	text-decoration: none;
-	color: white;
-}
-
-#mypage_info_a:hover {
-	color: white;
-}
-
-/* 마이페이지 메뉴 */
-#mypage_menu {
-	border: 1px solid black;
-	width: 100%;
-	height: 430px;
-	margin-top: 30px;
-}
-
-#mypage_menu ul {
-	font-size: 20px;
-	list-style-type: none;
-	margin: 0px;
-	padding: 0px;
-}
-
-.mypage_menu_a {
-	display: block;
-	text-decoration: none;
-	color: black;
-	font-weight: bold;
-	padding: 28px;
-	text-align: center;
-}
-
-.mypage_menu_a:hover {
-	color: tomato;
-	text-decoration: none;
-}
-
-/* 중앙 컨텐츠 */
-.mypage_middle {
-	width: 850px;
-	height: 1500px;
-	margin-left: 200px;
-}
-/* 최근예매내역 */
-#mypage_reservation {
-	height: 350px;
-}
-
-#mypage_reservation  p {
-	float: left;
-	margin-top: 50px;
-	margin-left: 50px;
-}
-
-#mypage_reservation table {
-	margin-left: 55px;
-	text-align: center;
-	border: 1px solid black;
-	width: 850px;
-	height: 200px;
-	border-collapse: collapse;
-}
-
-#mypage_reservation th {
-	border-bottom: 1px solid black;
-	height: 45px;
-	font-size: 18px;
-}
-
-#mypage_reservation td {
-	font-size: 15px;
-}
-
-#mypage_reservation tbody>tr:hover {
-	color: coral;
-	cursor: pointer;
-}
-
-/* 찜리스트 */
-#mypage_wishlist {
-	height: 400px;
-}
-
-/* 찜리스트목록 */
-.wishlist_area {
-	border: 1px solid silver;
-	border-radius: 1em;
-	float: left;
-	width: 850px;
-	margin-left: 50px;
-}
-/* 찜리스트목록 세부 항목 */
-.wishlist {
-	margin-left: 30px;
-	display: inline-block;
-	position: relative;
-	padding-top: 20px;
-}
-/* 찜여부버튼 */
-.wishlist_btn button {
-	position: absolute;
-	top: 3%;
-	right: 0%;
-	background-color: transparent !important;
-	border: 0;
-	outline: 0;
-	cursor: pointer;
-	background: rgba(0, 0, 0, 0);
-	padding-top: 20px;
-}
-
-/* 나의 관람공연/전시 */
-#mypage_watchshow {
-	height: 500px;
-	margin-top: 20px;
-}
-
-.watchshow_area {
-	border: 1px solid silver;
-	border-radius: 1em;
-	float: left;
-	width: 850px;
-	margin-left: 50px;
-}
-
-.watchshow_list {
-	margin-left: 30px;
-	display: inline-block;
-	position: relative;
-	padding-top: 20px;
-}
-
-.watchshow_btn {
-	margin-bottom: 20px;
-	background-color: white;
-	border: 1px solid tomato;
-	cursor: pointer;
-}
-.watchshow_btn:hover{
-	background-color: tomato;
-	color:white;
-}
+	/* 공통사항 */
+	*:focus {
+		outline: none;
+	}
+	
+	#mypage {
+		width: 1200px;
+		height: 1500px;
+		margin: auto;
+		box-sizing: border-box;
+	}
+	
+	.more_btn {
+		background: orangered;
+		border: 1px solid orangered;
+		color: white;
+		cursor: pointer;
+		width:45px;
+		height:20px;
+		font-size:10px;
+	}
+	
+	/* 왼쪽 메뉴바 */
+	.mypage_left {
+		float: left;
+		width: 230px;
+		height: 700px;
+		margin-top: 50px;
+		margin-left: 40px;
+	}
+	
+	/* 회원정보관리 */
+	#mypage_info {
+		width: 100%;
+		height: 200px;
+		text-align: center;
+		background-color: #ffb300;
+		color: white;
+	}
+	
+	#mypage_info h1 {
+		padding-top: 35px;
+		font-size: 35px;
+	}
+	
+	#mypage_info p {
+		font-size: 23px;
+	}
+	
+	#mypage_info_a {
+		font-size: 20px;
+		text-decoration: none;
+		color: white;
+	}
+	
+	#mypage_info_a:hover {
+		color: white;
+	}
+	
+	/* 마이페이지 메뉴 */
+	#mypage_menu {
+		border: 1px solid black;
+		width: 100%;
+		height: 430px;
+		margin-top: 30px;
+	}
+	
+	#mypage_menu ul {
+		font-size: 20px;
+		list-style-type: none;
+		margin: 0px;
+		padding: 0px;
+	}
+	
+	.mypage_menu_a {
+		display: block;
+		text-decoration: none;
+		color: black;
+		font-weight: bold;
+		padding: 28px;
+		text-align: center;
+	}
+	
+	.mypage_menu_a:hover {
+		color: tomato;
+		text-decoration: none;
+	}
+	
+	/* 중앙 컨텐츠 */
+	.mypage_middle {
+		width: 850px;
+		height: 1500px;
+		margin-left: 200px;
+	}
+	/* 최근예매내역 */
+	#mypage_reservation {
+		height: 350px;
+	}
+	
+	#mypage_reservation  p {
+		float: left;
+		margin-top: 50px;
+		margin-left: 50px;
+	}
+	
+	#mypage_reservation table {
+		margin-left: 55px;
+		text-align: center;
+		border: 1px solid black;
+		width: 850px;
+		height: 200px;
+		border-collapse: collapse;
+	}
+	
+	#mypage_reservation th {
+		border-bottom: 1px solid black;
+		height: 45px;
+		font-size: 18px;
+	}
+	
+	#mypage_reservation td {
+		font-size: 15px;
+	}
+	
+	#mypage_reservation tbody>tr:hover {
+		color: coral;
+		cursor: pointer;
+	}
+	
+	/* 찜리스트 */
+	#mypage_wishlist {
+		height: 400px;
+	}
+	
+	/* 찜리스트목록 */
+	.wishlist_area {
+		border: 1px solid silver;
+		border-radius: 1em;
+		float: left;
+		width: 850px;
+		margin-left: 50px;
+	}
+	/* 찜리스트목록 세부 항목 */
+	.wishlist {
+		margin-left: 30px;
+		display: inline-block;
+		position: relative;
+		padding-top: 20px;
+	}
+	/* 찜여부버튼 */
+	.wishlist_btn button {
+		position: absolute;
+		top: 3%;
+		right: 0%;
+		background-color: transparent !important;
+		border: 0;
+		outline: 0;
+		cursor: pointer;
+		background: rgba(0, 0, 0, 0);
+		padding-top: 20px;
+	}
+	
+	/* 나의 관람공연/전시 */
+	#mypage_watchshow {
+		height: 500px;
+		margin-top: 20px;
+	}
+	
+	.watchshow_area {
+		border: 1px solid silver;
+		border-radius: 1em;
+		float: left;
+		width: 850px;
+		margin-left: 50px;
+	}
+	
+	.watchshow_list {
+		margin-left: 30px;
+		display: inline-block;
+		position: relative;
+		padding-top: 20px;
+	}
+	
+	.watchshow_btn {
+		margin-bottom: 20px;
+		background-color: white;
+		border: 1px solid tomato;
+		cursor: pointer;
+	}
+	.watchshow_btn:hover{
+		background-color: tomato;
+		color:white;
+	}
 </style>
 </head>
 <body>
