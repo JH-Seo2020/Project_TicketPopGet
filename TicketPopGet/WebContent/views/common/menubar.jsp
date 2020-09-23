@@ -100,7 +100,7 @@
 	    font-size: 18px;
 	}
 	/* a 태그 href 밑줄속성 지우려고 만든거*/
-	a{text-decoration: none !important; color: black !important;}
+	.menubar_a{text-decoration: none !important; color: black !important;}
 	
 </style>
 </head>
@@ -110,7 +110,7 @@
         <div id="header">
             
             <div id="logoSpace">
-                <a href=""><img src="" width="90%">TicketPopGet로고</a>
+                <a class="menubar_a" href=""><img src="" width="90%">TicketPopGet로고</a>
             </div>
 
             <div id="search" align="center">
@@ -121,9 +121,9 @@
             </div>
 
             <div id="loginSpace" align="right">
-                <label><a href="">로그인</a></label>
-                <label><a href="">회원가입</a></label>
-                <label><a href="">고객센터</a></label>
+                <label><a class="menubar_a" href="">로그인</a></label>
+                <label><a class="menubar_a" href="">회원가입</a></label>
+                <label><a class="menubar_a" href="">고객센터</a></label>
             </div>
 
             <!-- 로그인 시 보여질 부분
@@ -139,16 +139,16 @@
         <div id="navigator">
             <div class="menubar"> 
                 <ul id="list" >
-                    <li><a href="<%=contextPath%>/concert.co?currentPage=1">콘서트</a></li>
-                    <li><a href="<%=contextPath%>/play.co?currentPage=1">연극</a></li>
-                    <li><a href="">전시</a></li>
-                    <li id="menuCommu"><a href="">커뮤니티</a></li>
+                    <li><a class="menubar_a" href="<%=contextPath%>/concert.co?currentPage=1">콘서트</a></li>
+                    <li><a class="menubar_a" href="<%=contextPath%>/play.co?currentPage=1">연극</a></li>
+                    <li><a class="menubar_a" href="">전시</a></li>
+                    <li id="menuCommu"><a class="menubar_a" href="">커뮤니티</a></li>
                 </ul>
                 <ul id="innerList">
-                    <li><a href="">후기</a></li>
-                    <li><a href="">댓글이벤트</a></li>
-                    <li><a href="">홍보게시판</a></li>
-                    <li><a href="">이벤트결과발표</a></li> 
+                    <li><a class="menubar_a" href="">후기</a></li>
+                    <li><a class="menubar_a" href="">댓글이벤트</a></li>
+                    <li><a class="menubar_a" href="">홍보게시판</a></li>
+                    <li><a class="menubar_a" href="">이벤트결과발표</a></li> 
                 </ul>
 
                 <script>
