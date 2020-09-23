@@ -21,7 +21,7 @@ public class ConcertDao {
 		
 	public ConcertDao() {
 		
-		String fileName = ConcertDao.class.getResource("/sql/contents/contents-mapper.xml").getPath();
+		String fileName = ConcertDao.class.getResource("/sql/concert/concert-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(fileName));
