@@ -6,12 +6,16 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <style>
-
-/* css 문제 -> a태그 안먹힘 ㅠㅠ 왜징 */
-
 /* 공통사항 */
 *:focus {
 	outline: none;
+}
+
+#mypage {
+	width: 1200px;
+	height: 1500px;
+	margin: auto;
+	box-sizing: border-box;
 }
 
 .more_btn {
@@ -19,13 +23,9 @@
 	border: 1px solid orangered;
 	color: white;
 	cursor: pointer;
-}
-
-/* 마이페이지 큰 틀 */
-.mypage_main {
-	margin-left: 180px;
-	width: 1200px;
-	height: 1800px;
+	width:45px;
+	height:20px;
+	font-size:10px;
 }
 
 /* 왼쪽 메뉴바 */
@@ -33,8 +33,8 @@
 	float: left;
 	width: 230px;
 	height: 700px;
-	margin-left: 50px;
-	margin-top:50px;
+	margin-top: 50px;
+	margin-left: 40px;
 }
 
 /* 회원정보관리 */
@@ -47,7 +47,7 @@
 }
 
 #mypage_info h1 {
-	padding-top: 20px;
+	padding-top: 35px;
 	font-size: 35px;
 }
 
@@ -55,14 +55,13 @@
 	font-size: 23px;
 }
 
-#mypage_info a {
+#mypage_info_a {
 	font-size: 20px;
 	text-decoration: none;
 	color: white;
-	margin-top:50px;
 }
 
-#mypage_info a:hover {
+#mypage_info_a:hover {
 	color: white;
 }
 
@@ -81,7 +80,7 @@
 	padding: 0px;
 }
 
-#mypage_menu ul li a {
+.mypage_menu_a {
 	display: block;
 	text-decoration: none;
 	color: black;
@@ -90,22 +89,25 @@
 	text-align: center;
 }
 
-#mypage_menu ul li a:hover {
+.mypage_menu_a:hover {
 	color: tomato;
+	text-decoration: none;
 }
 
 /* 중앙 컨텐츠 */
 .mypage_middle {
 	width: 850px;
 	height: 1500px;
-	margin-left: 220px;
+	margin-left: 200px;
 }
 /* 최근예매내역 */
-#mypage_reservation {height: 330px;}
+#mypage_reservation {
+	height: 350px;
+}
 
 #mypage_reservation  p {
 	float: left;
-	margin-top: 40px;
+	margin-top: 50px;
 	margin-left: 50px;
 }
 
@@ -134,8 +136,8 @@
 }
 
 /* 찜리스트 */
-#mypage_wishlist{
-	height:410px;
+#mypage_wishlist {
+	height: 400px;
 }
 
 /* 찜리스트목록 */
@@ -193,19 +195,16 @@
 	border: 1px solid tomato;
 	cursor: pointer;
 }
-
-.watchshow_btn:hover {
+.watchshow_btn:hover{
 	background-color: tomato;
-	color: white;
+	color:white;
 }
 </style>
 </head>
 <body>
-	<!-- 메뉴바 -->
+	<!-- 메뉴바쓰추가쓰 -->
 	<%@ include file="/views/common/menubar.jsp"%>
-	
-	<!-- 마이페이지 큰 틀 -->
-	<div align="center" class="mypage_main">
+	<div id="mypage" align="center">
 		<!-- 왼쪽 메뉴바 -->
 		<div class="mypage_left">
 			<!-- 회원정보관리 -->
@@ -214,17 +213,16 @@
 				<p>
 					<b>xxx</b>님 환영합니다
 				</p>
-				<!-- contextPath/info.my 넣기  -->
-				<a href="information.jsp">회원정보관리</a>
+				<a id="mypage_info_a" href="">회원정보관리</a>
 			</div>
 			<!-- 마이페이지 메뉴 -->
 			<div id="mypage_menu">
 				<ul>
-					<li><a href="">예매내역조회/취소</a></li>
-					<li><a href="">찜 리스트</a></li>
-					<li><a href="">나의 관람공연</a></li>
-					<li><a href="">나의 관람후기</a></li>
-					<li><a href="">나의 홍보 글</a></li>
+					<li><a class="mypage_menu_a" href="">예매내역조회/취소</a></li>
+					<li><a class="mypage_menu_a" href="">찜 리스트</a></li>
+					<li><a class="mypage_menu_a" href="">나의 관람공연</a></li>
+					<li><a class="mypage_menu_a" href="">나의 관람후기</a></li>
+					<li><a class="mypage_menu_a" href="">나의 홍보 글</a></li>
 				</ul>
 			</div>
 		</div>
@@ -233,7 +231,8 @@
 			<!-- 최근예매내역 -->
 			<div id="mypage_reservation">
 				<p>
-					<b style="font-size: 30px;">최근예매내역</b> <span>xxx님의 최근 3개월간 예매하신내역입니다.</span>
+					<b style="font-size: 30px;">최근예매내역</b> <span>xxx님의 최근 3개월간
+						예매하신내역입니다.</span>
 					<button class="more_btn">더보기</button>
 				</p>
 				<table>
@@ -291,10 +290,12 @@
 				</p>
 				<div class="wishlist_area">
 					<div class="wishlist">
-						<img src="/TicketPopGet/resources/post_upfiles/111111111128.PNG" width="200" height="250" align="center"><br>
+						<img src="/TicketPopGet/resources/post_upfiles/111111111126.PNG" width="200"
+							height="250" align="center"><br>
 						<div class="wishlist_btn">
 							<button type="button" class="like_btn">
-								<img src="/TicketPopGet/resources/img/imgForSearch/like_heart.png" width="30" height="30">
+								<img src="/TicketPopGet/resources/img/imgForSearch/like_heart.png" width="30"
+									height="30">
 							</button>
 						</div>
 						<p>
@@ -302,12 +303,12 @@
 						</p>
 					</div>
 					<div class="wishlist">
-						<img src="/TicketPopGet/resources/post_upfiles/111111111128.PNG" width="200" height="250"><br>
+						<img src="/TicketPopGet/resources/post_upfiles/111111111126.PNG" width="200"
+							height="250" align="center"><br>
 						<div class="wishlist_btn">
 							<button type="button" class="like_btn">
-								<img
-									src="/TicketPopGet/resources/img/imgForSearch/like_heart.png"
-									width="30" height="30">
+								<img src="/TicketPopGet/resources/img/imgForSearch/like_heart.png" width="30"
+									height="30">
 							</button>
 						</div>
 						<p>
@@ -315,10 +316,12 @@
 						</p>
 					</div>
 					<div class="wishlist">
-						<img src="/TicketPopGet/resources/post_upfiles/111111111128.PNG" width="200" height="250"><br>
+						<img src="/TicketPopGet/resources/post_upfiles/111111111126.PNG" width="200"
+							height="250" align="center"><br>
 						<div class="wishlist_btn">
 							<button type="button" class="like_btn">
-								<img src="/TicketPopGet/resources/img/imgForSearch/like_heart.png" width="30" height="30">
+								<img src="/TicketPopGet/resources/img/imgForSearch/like_heart.png" width="30"
+									height="30">
 							</button>
 						</div>
 						<p>
@@ -335,17 +338,20 @@
 				</p>
 				<div class="watchshow_area">
 					<div class="watchshow_list">
-						<img src="/TicketPopGet/resources/post_upfiles/111111111126.PNG" width="200" height="250"> <br>
+						<img src="/TicketPopGet/resources/post_upfiles/111111111134.PNG" width="200"
+							height="250"> <br>
 						<p>공연제목</p>
 						<button class="watchshow_btn">후기작성</button>
 					</div>
 					<div class="watchshow_list">
-						<img src="/TicketPopGet/resources/post_upfiles/111111111126.PNG" width="200" height="250"> <br>
+						<img src="/TicketPopGet/resources/post_upfiles/111111111134.PNG" width="200"
+							height="250"> <br>
 						<p>공연제목</p>
 						<button class="watchshow_btn">후기작성</button>
 					</div>
 					<div class="watchshow_list">
-						<img src="/TicketPopGet/resources/post_upfiles/111111111126.PNG" width="200" height="250"> <br>
+						<img src="/TicketPopGet/resources/post_upfiles/111111111134.PNG" width="200"
+							height="250"> <br>
 						<p>공연제목</p>
 						<button class="watchshow_btn">후기작성</button>
 					</div>
