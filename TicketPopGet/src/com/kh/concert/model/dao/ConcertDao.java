@@ -1,4 +1,4 @@
-package com.kh.contents.model.dao;
+package com.kh.concert.model.dao;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,18 +10,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.kh.contents.model.vo.Contents;
-import com.kh.contents.model.vo.PageInfo;
+import com.kh.concert.model.vo.Concert;
+import com.kh.concert.model.vo.PageInfo;
 
 import static com.kh.common.JDBCTemplate.*;
 
-public class ContentsDao {
+public class ConcertDao {
 	
 	private Properties prop = new Properties();
 		
-	public ContentsDao() {
+	public ConcertDao() {
 		
-		String fileName = ContentsDao.class.getResource("/sql/contents/contents-mapper.xml").getPath();
+		String fileName = ConcertDao.class.getResource("/sql/contents/contents-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(fileName));
@@ -60,10 +60,10 @@ public class ContentsDao {
 
 
 
-	public ArrayList<Contents> selectList(Connection conn, PageInfo pi) {
+	public ArrayList<Concert> selectList(Connection conn, PageInfo pi) {
 		//여러행조회, 반환 list
 		
-		ArrayList<Contents> list = new ArrayList<>();
+		ArrayList<Concert> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectList");
@@ -79,7 +79,7 @@ public class ContentsDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Contents(
+				list.add(new Concert(
 									rset.getInt("CONTENT_NO"),
 									rset.getString("CONTENT_TITLE"),
 									rset.getString("CONTENT_KEYWORD"),

@@ -1,4 +1,4 @@
-package com.kh.contents.model.vo;
+package com.kh.concert.model.vo;
 
 public class PageInfo {
 

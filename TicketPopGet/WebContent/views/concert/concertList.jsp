@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.kh.contents.model.vo.*" %>
+<%@ page import="java.util.ArrayList, com.kh.concert.model.vo.*" %>
 <%	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	ArrayList<Contents> list = (ArrayList<Contents>)request.getAttribute("list");
+	ArrayList<Concert> list = (ArrayList<Concert>)request.getAttribute("list");
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -93,7 +93,7 @@
             <% if(list.isEmpty()){ %>
             	<li>보여질 포스터가 없습니다..(그럴리가없는데..)</li>
             <%}else{ %>
-            	<%for(Contents c : list){ %>
+            	<%for(Concert c : list){ %>
 	                <li>
 	                    <span><img src="<%=contextPath %>/<%=c.getImgPath()%>/<%=c.getContentChangeImg() %>" height="200px" width="150px"></span>
 	                    <div id=concertTitle><b><a href=""><%=c.getContentTitle() %></a></b></div>

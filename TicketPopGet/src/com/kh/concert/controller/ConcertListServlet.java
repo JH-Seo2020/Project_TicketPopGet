@@ -1,4 +1,4 @@
-package com.kh.contents.controller;
+package com.kh.concert.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.contents.model.service.ContentsService;
-import com.kh.contents.model.vo.Contents;
-import com.kh.contents.model.vo.PageInfo;
+import com.kh.concert.model.service.ConcertService;
+import com.kh.concert.model.vo.Concert;
+import com.kh.concert.model.vo.PageInfo;
 
 /**
  * Servlet implementation class ConcertListServlet
@@ -50,7 +50,7 @@ public class ConcertListServlet extends HttpServlet {
 		int endPage;		// 5, 10, 15, ...
 		
 		//sql에서 총 콘서트 컨텐츠 개수 조회해오기(일단 10개)
-		listCount = new ContentsService().selectListCount();
+		listCount = new ConcertService().selectListCount();
 		//현재페이지
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		pageLimit = 5;
@@ -70,7 +70,7 @@ public class ConcertListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		//페이징 정보를 통해서 해당되는 게시글 리스트를 받아올 수 있음 
-		ArrayList<Contents> list = new ContentsService().selectList(pi);
+		ArrayList<Concert> list = new ConcertService().selectList(pi);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
