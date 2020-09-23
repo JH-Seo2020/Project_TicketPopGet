@@ -58,7 +58,7 @@
     <div class="area" id="noticeDiv">
         <div>
             <br>
-            <h2><b>공지사항</b></h2>
+            <h2 class="noticetitle"><b>공지사항</b></h2>
             <nav id="topMenu">
                 <ul  class="servicemenu">
                     <li class="servicemenu"><a class="menuLink" href="">전체</a></li>
