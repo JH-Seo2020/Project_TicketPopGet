@@ -42,4 +42,20 @@ public class ConcertService {
 		return list;
 	}
 
+	/**
+	 * 3. 콘서트 세부 조회 페이지 조회용 서비스
+	 * @param concertNo		해당 콘서트 컨텐츠 번호
+	 * @return				번호에 해당하는 콘서트 정보 객체(1개)
+	 * @author 				서지혜
+	 */
+	public Concert concertDetailView(int concertNo) {
+		
+		Connection conn = getConnection();
+		Concert concertObject = new ConcertDao().concertDetailView(conn,concertNo);
+		
+		close(conn);
+		
+		return concertObject;
+	}
+
 }

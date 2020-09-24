@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.concert.model.vo.*" %>
+<%
+	Concert cObject = (Concert)request.getAttribute("concertObject");
+	String getPrice = cObject.getPrice();
+	String price = getPrice.substring(0, getPrice.length()-2);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,16 +102,28 @@
 	<div id="wrap_ccDe">
 
         <div id="concertDetailHead">
-            <label>콘서트</label>
-            <label>&lt;백예린 소극장 콘서트&gt;</;>        
+            <label><%=cObject.getContentType() %></label>
+            <label>&lt;<%=cObject.getContentTitle() %>&gt;</label>        
         </div>
 
         <div id="concertDetailBody">
 
             <div id="cdBody1" align="center">
-                <div><img src="../resources/연극포스터_3.jpg" width="250px" height="350px"></div>
-                <label>관심등록</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><a href=""><img src="KakaoTalk_20200922_003335970.png" height="20px" width="20px"></a></label>
+                <div><img src="<%=contextPath %>/<%=cObject.getImgPath()%>/<%=cObject.getContentChangeImg() %>" width="250px" height="350px"></div>
+                <label>관심등록</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><a><img id="likeImg" src="<%=contextPath %>/resources/img/imgForSearch/heart.png" height="20px" width="20px"></a></label>
             </div>
+            
+            <script>
+            	$(function(){
+            		$("#likeImg").click(function(){
+            			if( $(this).attr("src") === "<%=contextPath %>/resources/img/imgForSearch/heart.png" ){
+            				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/like_heart.png");s
+            			}else{
+            				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/heart.png");
+            			}
+            		});
+            	});
+            </script>
 
             <div id="cdBody2">
                 <table class="table table-sm">
@@ -117,28 +135,32 @@
                     </thead>
                     <tbody align="center">
                       <tr>
+                        <th scope="row">주최</th>
+                        <td><%=cObject.getContentSubject() %></td>
+                      </tr>
+                      <tr>
                         <th scope="row">기간</th>
-                        <td>2020.02.01</td>
+                        <td><%=cObject.getConcertDate() %></td>
                       </tr>
                       <tr>
                         <th scope="row">관람시간</th>
-                        <td>100분</td>
+                        <td><%=cObject.getConcertRuntime() %></td>
                       </tr>
                       <tr>
                         <th scope="row">관람등급</th>
-                        <td colspan="2">만 13세 이상</td>
+                        <td colspan="2"><%=cObject.getLimit() %></td>
                       </tr>
                       <tr>
                         <th scope="row">장소</th>
-                        <td colspan="2">홍대 kt 상상마당</td>
+                        <td colspan="2"><%=cObject.getPlace() %></td>
                       </tr>
                       <tr>
                         <th scope="row">가격</th>
-                        <td colspan="2">10000원</td>
+                        <td colspan="2"><%= price %>원</td>
                       </tr>
                       <tr>
                         <th scope="row">키워드</th>
-                        <td colspan="2">#봉평#강원#누구세요#나귀#문학</td>
+                        <td colspan="2"><%=cObject.getContentKeyword() %></td>
                       </tr>
                     </tbody>
                   </table>
@@ -152,13 +174,15 @@
                 	
                     $("#cdCalendar").datepicker({
                         dateFormat: "yy-mm-dd",     //날짜형식
-                        minDate: '2020-09-10',      //기간시작일
-                        maxDate: '2020-09-20'       //기간끝일
+                        minDate: '<%=cObject.getConcertDate()%>',      //기간시작일
+                        maxDate: '<%=cObject.getConcertDate()%>'       //기간끝일
                         //일단 이정도만? 주말 예외처리..이런건 차차 생각해봐요..
                     });
                     $("#cdCalendar").on("change",function(){
                         var concertDay = $(this).val();         //회원이 고른 날짜 변수에담음
                         $("#cdSeatNo>span").text(concertDay);   //고른 날짜 표기 (필요없으시면 지워도됩니다)
+                        $("#concertSeats").text(<%=cObject.getConcertSeats()%>);
+            			$("#concertMax").text(<%=cObject.getConcertMax()%>);
                     });
                 });
             </script>
@@ -166,8 +190,8 @@
                 <div id="cdSeatNo">
                     날짜 : <span></span>
                     <br>
-                    남은 좌석 : <lable>18</lable>&nbsp;/
-                    <label>전체 35</label>
+                    남은 좌석 : <lable id="concertSeats"></lable>&nbsp;/
+                    전체 : <label id="concertMax"></label>
                 </div>
             </div>
 
@@ -180,10 +204,30 @@
         <div id="concertDetailInfo">
 
             <div id="concertDetailInfoHead">
-                <a  class="btn btn-outline-warning btn-lg">상세정보</a>
-                <a  class="btn btn-outline-warning btn-lg">환불/취소</a>
-                <a  class="btn btn-outline-warning btn-lg">리뷰</a>
+                <a id="cDetail" class="btn btn-outline-warning btn-lg">상세정보</a>
+                <a id="cCancel" class="btn btn-outline-warning btn-lg">환불/취소</a>
+                <a id="cReview" class="btn btn-outline-warning btn-lg">리뷰</a>
             </div>
+            
+            <script>
+            	$(function(){
+            		$("#cDetail").click(function(){
+            			$("#concertDetailInfoBody1").css("display","block");
+            			$("#concertDetailInfoBody2").css("display","none");
+            			$("#concertDetailInfoBody3").css("display","none");
+            		});
+            		$("#cCancel").click(function(){
+            			$("#concertDetailInfoBody1").css("display","none");
+            			$("#concertDetailInfoBody2").css("display","block");
+            			$("#concertDetailInfoBody3").css("display","none");
+            		});
+            		$("#cReview").click(function(){
+            			$("#concertDetailInfoBody1").css("display","none");
+            			$("#concertDetailInfoBody2").css("display","none");
+            			$("#concertDetailInfoBody3").css("display","block");
+            		});
+            	});
+            </script>
 
             <div id="concertDetailInfoBody1">
                 <p style="font-size: 35px;">&lt;상세정보&gt;</p>

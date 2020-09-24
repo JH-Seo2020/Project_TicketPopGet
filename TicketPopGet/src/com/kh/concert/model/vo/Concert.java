@@ -1,5 +1,6 @@
 package com.kh.concert.model.vo;
 
+import java.sql.Clob;
 import java.sql.Date;
 
 public class Concert {
@@ -12,7 +13,7 @@ public class Concert {
 	private String limit;
 	private String price;
 	private String contentKeyword;
-	private String info;
+	private Clob info;
 	private String contentStatus;
 	private int latitude;
 	private int longitude;
@@ -21,13 +22,16 @@ public class Concert {
 	private String contentChangeImg;
 	private String imgPath;
 	private Date concertDate;
+	private String concertRuntime;
+	private int concertMax;
+	private int concertSeats;
 	
 	public Concert() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Concert(int contentNo, String contentType, String contentTitle, String contentSubject, String place,
-			String limit, String price, String contentKeyword, String info, String contentStatus, int latitude,
+			String limit, String price, String contentKeyword, Clob info, String contentStatus, int latitude,
 			int longitude, String region, String contentOriginImg, String contentChangeImg, String imgPath) {
 		super();
 		this.contentNo = contentNo;
@@ -59,6 +63,29 @@ public class Concert {
 		this.contentChangeImg = contentChangeImg;
 		this.imgPath = imgPath;
 		this.concertDate = concertDate;
+	}
+
+	public Concert(String contentType, String contentTitle, String contentSubject, String place, String limit, String price,
+			String contentKeyword, int latitude, int longitude, String region, String contentChangeImg, String imgPath,
+			Date concertDate,String concertRuntime, int concertMax, int concertSeats) {
+		super();
+		this.contentType = contentType;
+		this.contentTitle = contentTitle;
+		this.contentSubject = contentSubject;
+		this.place = place;
+		this.limit = limit;
+		this.price = price;
+		this.contentKeyword = contentKeyword;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.region = region;
+		this.contentChangeImg = contentChangeImg;
+		this.imgPath = imgPath;
+		this.concertDate = concertDate;
+		this.concertRuntime = concertRuntime;
+		this.concertMax = concertMax;
+		this.concertSeats = concertSeats;
+		
 	}
 
 	public int getContentNo() {
@@ -125,11 +152,11 @@ public class Concert {
 		this.contentKeyword = contentKeyword;
 	}
 
-	public String getInfo() {
+	public Clob getInfo() {
 		return info;
 	}
 
-	public void setInfo(String info) {
+	public void setInfo(Clob info) {
 		this.info = info;
 	}
 
@@ -195,6 +222,34 @@ public class Concert {
 
 	public void setConcertDate(Date concertDate) {
 		this.concertDate = concertDate;
+	}
+	
+	
+
+	public String getConcertRuntime() {
+		return concertRuntime;
+	}
+
+	public void setConcertRuntime(String concertRuntime) {
+		this.concertRuntime = concertRuntime;
+	}
+
+	
+	
+	public int getConcertMax() {
+		return concertMax;
+	}
+
+	public void setConcertMax(int concertMax) {
+		this.concertMax = concertMax;
+	}
+
+	public int getConcertSeats() {
+		return concertSeats;
+	}
+
+	public void setConcertSeats(int concertSeats) {
+		this.concertSeats = concertSeats;
 	}
 
 	@Override

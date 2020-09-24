@@ -98,6 +98,53 @@ public class ConcertDao {
 		
 		return list;
 	}
+
+
+
+	public Concert concertDetailView(Connection conn, int concertNo) {
+		// 한 행 select
+		
+		Concert concertObject = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("concertDetailView");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, concertNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				concertObject = new Concert(rset.getString("CONTENT_TYPE"),
+											rset.getString("CONTENT_TITLE"),
+											rset.getString("CONTENT_SUBJECT"),
+											rset.getString("PLACE"),
+											rset.getString("LIMIT"),
+											rset.getString("PRICE"),
+											rset.getString("CONTENT_KEYWORD"),
+											rset.getInt("LATITUDE"),
+											rset.getInt("LONGITUDE"),
+											rset.getString("REGION"),
+											rset.getString("CONTENT_CHIMG"),
+											rset.getString("CONTENT_IMGPATH"),
+											rset.getDate("CONCERT_DATE"),
+											rset.getString("CONCERT_RUNTIME"),
+											rset.getInt("CONCERT_MAX"),
+											rset.getInt("CONCERT_SEATS")
+						
+						
+						);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return concertObject;
+	}
 	
 	
 	

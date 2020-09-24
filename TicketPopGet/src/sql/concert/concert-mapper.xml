@@ -31,4 +31,27 @@
 	        )
 	 WHERE RNUM BETWEEN ? AND ? 
 	</entry>
+	<entry key="concertDetailView">
+		SELECT 
+		       CONTENT_TYPE
+		     , CONTENT_TITLE
+		     , CONTENT_SUBJECT
+		     , PLACE
+		     , LIMIT
+		     , PRICE
+		     , CONTENT_KEYWORD
+		     , LATITUDE
+		     , LONGITUDE
+		     , REGION
+		     , CONTENT_CHIMG
+		     , CONTENT_IMGPATH
+		     , CONCERT_DATE
+		     , CONCERT_RUNTIME
+		     , CONCERT_MAX
+		     , CONCERT_SEATS
+		  FROM CONTENTS
+		  JOIN CONCERT USING (CONTENT_NO)
+		 WHERE CONTENT_NO = ?
+		   AND CONTENT_STATUS = 'Y'	
+	</entry>
 </properties>
