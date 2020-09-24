@@ -1,4 +1,4 @@
-package com.kh.play.controller;
+package com.kh.exhibition.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,23 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.concert.model.vo.PageInfo;
+import com.kh.exhibition.model.service.ExhibitionService;
+import com.kh.exhibition.model.vo.Exhibition;
 import com.kh.play.model.service.PlayService;
 import com.kh.play.model.vo.Play;
 
 /**
- * Servlet implementation class PlayListServlet
+ * Servlet implementation class ExhibitionListServlet
  */
-@WebServlet("/play.co")
-public class PlayListServlet extends HttpServlet {
+@WebServlet("/exhibition.co")
+public class ExhibitionListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	
-	
-	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PlayListServlet() {
+    public ExhibitionListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,7 +40,7 @@ public class PlayListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//페이징처리
-		int listCount;		// 총 연극 컨텐츠 개수 
+		int listCount;		// 총 전시 컨텐츠 개수 
 		int currentPage;	// 내가 요청한 페이지
 		int pageLimit;		// 5개까지 보여질 페이지개수
 		int boardLimit;		// 12개까지 보여질 컨텐츠 개수 
@@ -50,8 +49,8 @@ public class PlayListServlet extends HttpServlet {
 		int startPage;		// 1, 6, 11, ...
 		int endPage;		// 5, 10, 15, ...
 		
-		//sql에서 총 연극 컨텐츠 개수 조회해오기(일단 10개)
-		listCount = new PlayService().selectListCount();
+		//sql에서 총 전시 컨텐츠 개수 조회해오기(일단 10개)
+		listCount = new ExhibitionService().selectListCount();
 		//현재페이지
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		pageLimit = 5;
@@ -71,12 +70,12 @@ public class PlayListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		//페이징 정보를 통해서 해당되는 게시글 리스트를 받아올 수 있음 
-		ArrayList<Play> list = new PlayService().selectList(pi);
+		ArrayList<Exhibition> list = new ExhibitionService().selectList(pi);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		
-		RequestDispatcher view = request.getRequestDispatcher("views/play/playList.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("views/exhibition/exhibitionList.jsp");
 		view.forward(request, response);
 		
 	}

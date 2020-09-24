@@ -50,7 +50,7 @@
 	    height: 30%;
 	}
 	#playTitle{
-	    font-size: 25px;
+	    font-size: 20px;
 	}
 	
 	/*paging 버튼*/
@@ -81,10 +81,10 @@
             <label>연극 &lt; </label>
             <select>
                 <option>전체</option>
-                <option>서울/경기권</option>
-                <option>강원/충청권</option>
+                <option>서울경기권</option>
+                <option>강원충청권</option>
                 <option>전라권</option>
-                <option>경상/제주권</option>
+                <option>경상제주권</option>
             </select>
         </div>
 

@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.concert.model.vo.PageInfo, com.kh.exhibition.model.vo.Exhibition" %>
+<% 
+	ArrayList<Exhibition> list = (ArrayList<Exhibition>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +50,7 @@
             height: 30%;
         }
         #exhibitionTitle{
-            font-size: 25px;
+            font-size: 20px;
         }
 
         /*paging 버튼*/
@@ -68,10 +79,10 @@
             <label>전시 &lt; </label>
             <select>
                 <option>전체</option>
-                <option>서울/경기권</option>
-                <option>강원/충청권</option>
+                <option>서울경기권</option>
+                <option>강원충청권</option>
                 <option>전라권</option>
-                <option>경상/제주권</option>
+                <option>경상제주권</option>
             </select>
         </div>
 
@@ -79,92 +90,40 @@
             
             
             <ul id="posterBody">
-                <li>
-                    <span><img src="../resources/전시포스터_2.jpg" height="200px" width="150px"></span>
-                    <div id=exhibitionTitle><b><a href="">기획전 '100'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#기획전#100#특별한#만남#서울</div>
-                </li>
-                <li>
-                    <span><img src="../resources/전시포스터_2.jpg" height="200px" width="150px"></span>
-                    <div id=exhibitionTitle><b><a href="">기획전 '100'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#기획전#100#특별한#만남#서울</div>
-                </li>
-                <li>
-                    <span><img src="../resources/전시포스터_2.jpg" height="200px" width="150px"></span>
-                    <div id=exhibitionTitle><b><a href="">기획전 '100'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#기획전#100#특별한#만남#서울</div>
-                </li>
-                <li>
-                    <span><img src="../resources/전시포스터_2.jpg" height="200px" width="150px"></span>
-                    <div id=exhibitionTitle><b><a href="">기획전 '100'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#기획전#100#특별한#만남#서울</div>
-                </li>
-                <li>
-                    <span><img src="../resources/전시포스터_2.jpg" height="200px" width="150px"></span>
-                    <div id=exhibitionTitle><b><a href="">기획전 '100'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#기획전#100#특별한#만남#서울</div>
-                </li>
-                <li>
-                    <span><img src="../resources/전시포스터_2.jpg" height="200px" width="150px"></span>
-                    <div id=exhibitionTitle><b><a href="">기획전 '100'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#기획전#100#특별한#만남#서울</div>
-                </li>
-                <li>
-                    <span><img src="../resources/전시포스터_2.jpg" height="200px" width="150px"></span>
-                    <div id=exhibitionTitle><b><a href="">기획전 '100'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#기획전#100#특별한#만남#서울</div>
-                </li>
-                <li>
-                    <span><img src="../resources/전시포스터_2.jpg" height="200px" width="150px"></span>
-                    <div id=exhibitionTitle><b><a href="">기획전 '100'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#기획전#100#특별한#만남#서울</div>
-                </li>
-                <li>
-                    <span><img src="../resources/전시포스터_2.jpg" height="200px" width="150px"></span>
-                    <div id=exhibitionTitle><b><a href="">기획전 '100'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#기획전#100#특별한#만남#서울</div>
-                </li>
-                <li>
-                    <span><img src="../resources/전시포스터_2.jpg" height="200px" width="150px"></span>
-                    <div id=exhibitionTitle><b><a href="">기획전 '100'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#기획전#100#특별한#만남#서울</div>
-                </li>
-                <li>
-                    <span><img src="../resources/전시포스터_2.jpg" height="200px" width="150px"></span>
-                    <div id=exhibitionTitle><b><a href="">기획전 '100'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#기획전#100#특별한#만남#서울</div>
-                </li>
-                <li>
-                    <span><img src="../resources/전시포스터_2.jpg" height="200px" width="150px"></span>
-                    <div id=exhibitionTitle><b><a href="">기획전 '100'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#기획전#100#특별한#만남#서울</div>
-                </li>
+                <%if(list.isEmpty()){ %>
+                	<li>조회된 컨텐츠가 없습니다.(그럴리가..?)</li>
+                <%}else{ %>
+	                <%for(Exhibition e : list){ %>
+		                <li>
+		                    <span><img src="<%=contextPath %>/<%=e.getImgPath() %>/<%=e.getContentChangeImg() %>" height="200px" width="150px"></span>
+		                    <div id=exhibitionTitle><b><a href=""><%=e.getContentTitle() %></a></b></div>
+		                    <div><%=e.getExhibitionStartDate() %>~<%=e.getExhibitionEndDate() %></div>
+		                    <div><%=e.getContentKeyword() %></div>
+		                </li>
+	                <%} %>
+                <%} %>
             </ul>
             
         </div>
 
         <div id="exhibitionPaging">
-            <button>&lt;&lt;</button>
-            <button>&lt;</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>&gt;</button>
-            <button>&gt;&gt;</button>
+            <button onclick="location.href='<%=contextPath%>/exhibition.co?currentPage=1';">&lt;&lt;</button>
+            <%if(currentPage != 1) { %>
+            <button onclick="location.href='<%=contextPath%>/exhibition.co?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            <%} %>
+            
+            <%for(int i = startPage; i <=endPage; i++){ %>
+            	<% if(currentPage != i) {%>
+            		<button onclick="location.href='<%=contextPath%>/exhibition.co?currentPage=<%=i%>';"><%=i%></button>
+            	<%}else{ %>
+            		<button disabled style="color:black;"><%=i %></button>
+            	<%} %>
+            <%} %>
+            
+            <%if(currentPage != maxPage){ %>
+            	<button onclick="location.href='<%=contextPath%>/exhibition.co?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <% } %>
+            <button onclick="location.href='<%=contextPath%>/exhibition.co?currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
         </div>
 
     </div>

@@ -141,7 +141,7 @@
                 <ul id="list" >
                     <li><a class="menubar_a" href="<%=contextPath%>/concert.co?currentPage=1">콘서트</a></li>
                     <li><a class="menubar_a" href="<%=contextPath%>/play.co?currentPage=1">연극</a></li>
-                    <li><a class="menubar_a" href="">전시</a></li>
+                    <li><a class="menubar_a" href="<%=contextPath%>/exhibition.co?currentPage=1">전시</a></li>
                     <li id="menuCommu"><a class="menubar_a" href="">커뮤니티</a></li>
                 </ul>
                 <ul id="innerList">
