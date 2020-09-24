@@ -65,7 +65,7 @@
                 <td><%=m.getUserId() %></td>
                 <td><%=m.getReportCount()%></td>
                 <td>
-                    <button onclick="location.href='<%=request.getContextPath()%>/blacklistDetail.adme'" type="button" class="btn btn-primary" data-toggle="modal" data-target="#reportMyModal">
+                    <button onclick="blacklistDetail();" type="button" class="btn btn-primary" data-toggle="modal" data-target="#reportMyModal">
                         	내용확인
                       </button>
                 </td>
@@ -76,8 +76,31 @@
                       </button>
                 </td>
             </tr>
-            <%} %>
-   
+         <%} %>
+		<script>
+			function blacklistDetail(){
+				
+				$.ajax({
+					url:"<%=request.getContextPath()%>/blacklistDetail.adme",
+					type:"get",
+					data:{userNo:$(".selectTable>tbody>tr").children().eq(0).text()},
+					success:function(list){
+						for(var i=0; i<list.length; i++){
+							$(".modal-header>table>tbody").html(
+								"<tr>" +
+									"<td>" + list[i].reportNo + "</td>" +
+									"<td>" + list[i].reporter + "</td>" +
+									"<td>" + list[i].reportDate + "</td>" +
+									"<td>" + list[i].reportCate + "</td>" +
+								+ "</tr>"
+							);
+						}
+					},error:function(){
+						console.log("블랙리스트 상세조회 모달 ajax통신 실패");
+					}
+				});
+			};
+		</script>
         </tbody>
 
     </table>
@@ -93,7 +116,11 @@
             	<button><</button>
             <%} %>
             <%for(int i=p.getStartPage(); i<=p.getEndPage(); i++) {%>
-            	<button onclick="location.href='<%=request.getContextPath()%>/blacklist.adme?currentPage=<%=i%>'"><%=i%></button>
+            	<%if(p.getCurrentPage() != i) {%>
+            		<button onclick="location.href='<%=request.getContextPath()%>/blacklist.adme?currentPage=<%=i%>'"><%=i%></button>
+            	<%}else { %>
+            		<button disabled onclick="location.href='<%=request.getContextPath()%>/blacklist.adme?currentPage=<%=i%>'"><%=i%></button>
+            	<%} %>
             <%} %>
             <%if(p.getCurrentPage() != p.getEndPage()){ %>
             <button>></button>
@@ -122,13 +149,12 @@
                     </tr>
 
                 </thead>
-                <tbody align="center">
-                    <tr style="height: 50px;">
-                        <td>개인정보</td>
-                        <td>2020-08-09</td>
-                        <td>사용자2</td>
-                        <td>아이디도용</td>
-
+                <tbody align="center" id="reportCheck">
+                	 <tr style="height: 50px;" align="center">
+                        <td width="80px">신고 분류</td>
+                        <td width="100px">신고된날짜</td>
+                        <td width="80">신고자</td>
+                        <td width="200px">신고 사유</td>
                     </tr>
                 </tbody>
             </table>
@@ -157,7 +183,6 @@
       
             <!-- Modal body -->
             <div class="modal-body" align="right">
-              <button class="btn btn-primary" style="width: 150px;">취소</button>
               <button class="btn btn-danger" style="width: 150px;">해제</button>
             </div>
     

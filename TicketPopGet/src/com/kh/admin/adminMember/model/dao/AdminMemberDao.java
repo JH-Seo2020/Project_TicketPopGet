@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.admin.adminMember.model.vo.Page;
+import com.kh.admin.adminMember.model.vo.Report;
 import com.kh.user.model.vo.Member;
 
 public class AdminMemberDao {
@@ -288,6 +289,39 @@ public class AdminMemberDao {
 			close(pstmt);
 		}
 		
+		return list;
+	}
+	
+	public ArrayList<Report> selectReportList(Connection conn, int userNo){
+		// select => 여러행
+		ArrayList<Report> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReportList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Report r = new Report();
+				r.setReportNo(rset.getInt("report_no"));
+				r.setReportDate(rset.getDate("report_date"));
+				r.setReporter(rset.getString("user_name"));
+				r.setReportType(rset.getString("report_type"));
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
 		return list;
 	}
 	

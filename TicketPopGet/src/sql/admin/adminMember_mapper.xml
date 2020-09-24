@@ -168,4 +168,14 @@
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="selectReportList">
+		SELECT REPORT_NO
+		     , REPORT_DATE
+		     , USER_NAME
+		     , REPORT_TYPE
+		  FROM REPORT
+		  JOIN MEMBER ON (REPORTER = USER_NO)
+		 WHERE TROUBLEMAKER = ?
+	</entry>
+	
 </properties>

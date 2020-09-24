@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.kh.admin.adminMember.model.dao.AdminMemberDao;
 import com.kh.admin.adminMember.model.vo.Page;
+import com.kh.admin.adminMember.model.vo.Report;
 import com.kh.user.model.vo.Member;
 
 public class AdminMemberService {
@@ -121,6 +122,23 @@ public class AdminMemberService {
 		close(conn);
 		
 		return list;
+	}
+	
+	/**
+	 * 8. 블랙리스트 신고내역확인용 서비스
+	 * @param userNo	신고내역확을하고자 하는 유저번호
+	 * @return			해당 유저의 신고내역들 객체배열
+	 */
+	public ArrayList<Report> selectReportList(int userNo){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Report> list = new AdminMemberDao().selectReportList(conn, userNo);
+		
+		close(conn);
+		
+		return list;
+		
 	}
 	
 }
