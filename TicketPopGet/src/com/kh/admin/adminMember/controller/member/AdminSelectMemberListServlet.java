@@ -1,4 +1,4 @@
-package com.kh.admin.adminMember.controller;
+package com.kh.admin.adminMember.controller.member;
 
 import java.io.IOException;
 import java.util.ArrayList;
