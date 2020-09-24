@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.concert.model.vo.PageInfo;
+import com.kh.play.model.service.PlayService;
+import com.kh.play.model.vo.Play;
 
 /**
  * Servlet implementation class PlayListServlet

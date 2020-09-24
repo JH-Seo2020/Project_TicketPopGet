@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectListCount">
+		  SELECT COUNT(*) playListCount
+			FROM CONTENTS
+		   WHERE CONTENT_TYPE = '연극'
+			 AND CONTENT_STATUS = 'Y'
+ 
+	</entry>
+	<entry key="selectList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM
+		             , P.*
+		          FROM (
+		                SELECT
+		                       CONTENT_NO  			--등록번호
+		                     , CONTENT_TITLE 		--작품제목
+		                     , CONTENT_KEYWORD 		--키워드
+		                     , REGION 				--지역
+		                     , CONTENT_CHIMG 		--이미지수정
+		                     , CONTENT_IMGPATH 		--파일경로
+		                     , PLAY_START
+		                     , PLAY_END
+		                  FROM CONTENTS
+		                  JOIN PLAY USING (CONTENT_NO)
+		                 WHERE CONTENT_STATUS = 'Y'
+		                 ORDER
+		                    BY CONTENT_NO DESC
+		                )P
+		        )
+		 WHERE RNUM BETWEEN ? AND ? 
+	</entry>
+</properties>

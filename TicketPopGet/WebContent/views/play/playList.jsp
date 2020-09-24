@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.concert.model.vo.PageInfo, com.kh.play.model.vo.Play" %>
+<% 
+	ArrayList<Play> list = (ArrayList<Play>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,6 +68,7 @@
 	}
 	/*a태그 밑줄없애기*/
 	a{text-decoration: none !important; color: balck !important;}
+	
 </style>
 </head>
 <body>
@@ -80,92 +92,40 @@
             
             
             <ul id="posterBody">
-                <li>
-                    <span><img src="../resources/연극포스터_3.jpg" height="200px" width="150px"></span>
-                    <div id=playTitle><b><a href="">'메밀꽃 필 무렵'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#한국#문학#봉평#메밀꽃#강원</div>
-                </li>
-                <li>
-                    <span><img src="../resources/연극포스터_3.jpg" height="200px" width="150px"></span>
-                    <div id=playTitle><b><a href="">'메밀꽃 필 무렵'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#한국#문학#봉평#메밀꽃#강원</div>
-                </li>
-                <li>
-                    <span><img src="../resources/연극포스터_3.jpg" height="200px" width="150px"></span>
-                    <div id=playTitle><b><a href="">'메밀꽃 필 무렵'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#한국#문학#봉평#메밀꽃#강원</div>
-                </li>
-                <li>
-                    <span><img src="../resources/연극포스터_3.jpg" height="200px" width="150px"></span>
-                    <div id=playTitle><b><a href="">'메밀꽃 필 무렵'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#한국#문학#봉평#메밀꽃#강원</div>
-                </li>
-                <li>
-                    <span><img src="../resources/연극포스터_3.jpg" height="200px" width="150px"></span>
-                    <div id=playTitle><b><a href="">'메밀꽃 필 무렵'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#한국#문학#봉평#메밀꽃#강원</div>
-                </li>
-                <li>
-                    <span><img src="../resources/연극포스터_3.jpg" height="200px" width="150px"></span>
-                    <div id=playTitle><b><a href="">'메밀꽃 필 무렵'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#한국#문학#봉평#메밀꽃#강원</div>
-                </li>
-                <li>
-                    <span><img src="../resources/연극포스터_3.jpg" height="200px" width="150px"></span>
-                    <div id=playTitle><b><a href="">'메밀꽃 필 무렵'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#한국#문학#봉평#메밀꽃#강원</div>
-                </li>
-                <li>
-                    <span><img src="../resources/연극포스터_3.jpg" height="200px" width="150px"></span>
-                    <div id=playTitle><b><a href="">'메밀꽃 필 무렵'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#한국#문학#봉평#메밀꽃#강원</div>
-                </li>
-                <li>
-                    <span><img src="../resources/연극포스터_3.jpg" height="200px" width="150px"></span>
-                    <div id=playTitle><b><a href="">'메밀꽃 필 무렵'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#한국#문학#봉평#메밀꽃#강원</div>
-                </li>
-                <li>
-                    <span><img src="../resources/연극포스터_3.jpg" height="200px" width="150px"></span>
-                    <div id=playTitle><b><a href="">'메밀꽃 필 무렵'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#한국#문학#봉평#메밀꽃#강원</div>
-                </li>
-                <li>
-                    <span><img src="../resources/연극포스터_3.jpg" height="200px" width="150px"></span>
-                    <div id=playTitle><b><a href="">'메밀꽃 필 무렵'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#한국#문학#봉평#메밀꽃#강원</div>
-                </li>
-                <li>
-                    <span><img src="../resources/연극포스터_3.jpg" height="200px" width="150px"></span>
-                    <div id=playTitle><b><a href="">'메밀꽃 필 무렵'</a></b></div>
-                    <div>2020.01.01</div>
-                    <div>#한국#문학#봉평#메밀꽃#강원</div>
-                </li>
+            	<%if(list.isEmpty()){ %>
+                	<li>조회된 컨텐츠가 없습니다.(그럴리가..?)</li>
+                <%}else{ %>
+	                <%for(Play p : list){ %>
+		                <li>
+		                    <span><img src="<%=contextPath %>/<%=p.getImgPath() %>/<%=p.getContentChangeImg() %>" height="200px" width="150px"></span>
+		                    <div id=playTitle><b><a href=""><%=p.getContentTitle() %></a></b></div>
+		                    <div><%=p.getPlayStartDate() %>~<%=p.getPlayEndDate() %></div>
+		                    <div><%=p.getContentKeyword() %></div>
+		                </li>
+	                <%} %>
+                <%} %>
             </ul>
             
         </div>
 
         <div id="playPaging">
-            <button>&lt;&lt;</button>
-            <button>&lt;</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>&gt;</button>
-            <button>&gt;&gt;</button>
+        	<button onclick="location.href='<%=contextPath%>/play.co?currentPage=1';">&lt;&lt;</button>
+            <%if(currentPage != 1) { %>
+            <button onclick="location.href='<%=contextPath%>/play.co?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            <%} %>
+            
+            <%for(int i = startPage; i <=endPage; i++){ %>
+            	<% if(currentPage != i) {%>
+            		<button onclick="location.href='<%=contextPath%>/play.co?currentPage=<%=i%>';"><%=i%></button>
+            	<%}else{ %>
+            		<button disabled style="color:black;"><%=i %></button>
+            	<%} %>
+            <%} %>
+            
+            <%if(currentPage != maxPage){ %>
+            	<button onclick="location.href='<%=contextPath%>/play.co?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <% } %>
+            <button onclick="location.href='<%=contextPath%>/play.co?currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
         </div>
 
     </div>

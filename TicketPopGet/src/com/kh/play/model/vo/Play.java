@@ -20,6 +20,8 @@ public class Play {
 	private String contentOriginImg;
 	private String contentChangeImg;
 	private String imgPath;
+	private Date playStartDate;
+	private Date playEndDate;
 	
 	public Play() {
 		// TODO Auto-generated constructor stub
@@ -45,6 +47,21 @@ public class Play {
 		this.contentOriginImg = contentOriginImg;
 		this.contentChangeImg = contentChangeImg;
 		this.imgPath = imgPath;
+	}
+
+	public Play(int contentNo, String contentTitle, String contentKeyword, String region, String contentChangeImg, String imgPath, Date playStartDate,
+			Date playEndDate) {
+		
+		super();
+		this.contentNo = contentNo;
+		this.contentTitle = contentTitle;
+		this.contentKeyword = contentKeyword;
+		this.region = region;
+		this.contentChangeImg = contentChangeImg;
+		this.imgPath = imgPath;
+		this.playStartDate = playStartDate;
+		this.playEndDate = playEndDate;
+		
 	}
 
 	public int getContentNo() {
@@ -173,6 +190,24 @@ public class Play {
 
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
+	}
+	
+	
+
+	public Date getPlayStartDate() {
+		return playStartDate;
+	}
+
+	public void setPlayStartDate(Date playStartDate) {
+		this.playStartDate = playStartDate;
+	}
+
+	public Date getPlayEndDate() {
+		return playEndDate;
+	}
+
+	public void setPlayEndDate(Date playEndDate) {
+		this.playEndDate = playEndDate;
 	}
 
 	@Override

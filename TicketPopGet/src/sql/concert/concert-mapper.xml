@@ -4,9 +4,8 @@
 	<entry key="selectListCount">
 		SELECT COUNT(*) concertListCount
 		  FROM CONTENTS
-		  JOIN CONCERT
-		 USING (CONTENT_NO)
 		 WHERE CONTENT_TYPE = '콘서트'
+		   AND CONTENT_STATUS = 'Y'
 	</entry>
 	<entry key="selectList">
 	 SELECT *
