@@ -40,6 +40,7 @@ public class LoginServlet extends HttpServlet {
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		
 		if(loginUser != null) {
+			
 			response.sendRedirect(request.getContextPath());
 			
 		}else {
@@ -47,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute("errorMsg", "로그인에 실패하였습니다.");
 			
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request,  response);;
+			view.forward(request,  response);
 		}
 	}
 			
