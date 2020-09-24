@@ -55,7 +55,7 @@
 				<button type="button" class="btn" onclick="change_pwd();"
 					style="border: 1px solid orange; background: orange; color: white;">변경</button>
 				&nbsp;&nbsp;
-				<button type="button" class="btn" style="border: 1px solid orange;">이전으로</button>
+				<a href="<%=contextPath%>/mypage.my" class="btn" style="border: 1px solid orange;">이전으로</a>
 			</div>
 		</div>
 	</div>

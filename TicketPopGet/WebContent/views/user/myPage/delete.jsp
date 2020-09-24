@@ -47,9 +47,9 @@
 
 			<br>
 			<div style="margin-bottom: 30px;">
-				<button onclick="location.href='delete_detail.jsp'" class="btn" style="border: 1px solid orange; background: orange; color: white;">확인</button>
+				<a href="<%=contextPath%>/delete_de.my" class="btn" style="border: 1px solid orange; background: orange; color: white;">확인</a>
 				&nbsp;&nbsp;
-				<button type="button" class="btn" style="border: 1px solid orange;">이전으로</button>
+				<a href="<%=contextPath%>/mypage.my" class="btn" style="border: 1px solid orange;">이전으로</a>
 			</div>
 		</div>
 	</div>
