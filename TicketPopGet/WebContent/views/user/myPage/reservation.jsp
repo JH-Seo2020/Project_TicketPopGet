@@ -109,8 +109,7 @@
 	<div id=reservation>
 		<!-- 예매내역확인 헤더부분 -->
 		<div class="reservation_check1">
-			<div
-				style="font-size: 25px; width: 1000px; margin-left: 110px; border-bottom: 1px solid rosybrown;">
+			<div style="font-size: 25px; width: 1000px; margin-left: 110px; border-bottom: 1px solid rosybrown;">
 				<h3 style="margin-bottom: 20px;">
 					<b>예매내역확인</b>
 				</h3>
@@ -146,10 +145,8 @@
 					<li style="padding-left: 480px;">
 						<h6>
 							예매별 상태 조회 |
-							<button
-								style="margin-left: 5px; border: 1px solid rgb(93, 142, 193); color: white; background-color: rgb(93, 142, 193);">예매</button>
-							<button
-								style="margin-left: 5px; border: 1px solid rgb(240, 168, 76); color: white; background-color: rgb(240, 168, 76);">취소</button>
+							<button style="margin-left: 5px; border: 1px solid rgb(93, 142, 193); color: white; background-color: rgb(93, 142, 193);">예매</button>
+							<button style="margin-left: 5px; border: 1px solid rgb(240, 168, 76); color: white; background-color: rgb(240, 168, 76);">취소</button>
 						</h6>
 					</li>
 				</ul>
@@ -172,7 +169,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+				<%-- if문? 암튼 줘서,,, 예매인지 그거 조건 다 줘서,, 취소면 취소페이지로만 가게해야됨!!!!!! --%>
+					<tr onClick="location.href='<%=contextPath%>/re_detail.my'">
 						<td>a123456</td>
 						<td>2020-09-15</td>
 						<td>백예린 소극장 콘서트</td>

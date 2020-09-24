@@ -147,7 +147,7 @@
                   <td>콘서트</td>
                   <td>2020-12-11</td>
                   <td>xxx</td>
-                  <td><button>후기작성</button></td>
+                  <td><button onclick="location.href='<%=contextPath%>/view_write.my'">후기작성</button></td>
                 </tr>
                 <tr>
                     <td>1</td>

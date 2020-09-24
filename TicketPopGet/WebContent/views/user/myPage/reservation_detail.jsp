@@ -155,7 +155,7 @@
 		<div align="center" style="margin-top: 50px;">
 			<button class="btn btn-outline-warning">예매목록내역</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<button class="btn btn-outline-warning">예매취소</button>
+			<a href="<%=contextPath%>/re_cancel.my" class="btn btn-outline-warning">예매취소</a>
 		</div>
 	</div>
 
