@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "com.kh.user.model.vo.Member" %>
 <%
 	String contextPath = request.getContextPath();
+	
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -108,32 +112,31 @@
 
 	<div id="wrap">
         <div id="header">
-            
-            <div id="logoSpace">
-                <a class="menubar_a" href=""><img src="" width="90%">TicketPopGet로고</a>
-            </div>
-
-            <div id="search" align="center">
-                <form>
-                    <input type="search" id="searchBar" placeholder="검색창">
-                    <button id="searchBtn">검색</button>
-                </form>
-            </div>
-
-            <div id="loginSpace" align="right">
-                <label><a class="menubar_a" href="">로그인</a></label>
-                <label><a class="menubar_a" href="">회원가입</a></label>
-                <label><a class="menubar_a" href="">고객센터</a></label>
-            </div>
-
-            <!-- 로그인 시 보여질 부분
+        
+        	<%if(loginUser == null){ %>
+	            <div id="logoSpace">
+	                <a class="menubar_a" href=""><img src="" width="90%">TicketPopGet로고</a>
+	            </div>
+	
+	            <div id="search" align="center">
+	                <form>
+	                    <input type="search" id="searchBar" placeholder="검색창">
+	                    <button id="searchBtn">검색</button>
+	                </form>
+	            </div>
+	
+	            <div id="loginSpace" align="right">
+	                <label><a class="menubar_a" href="<%=contextPath%>/loginview.me">로그인</a></label>
+	                <label><a class="menubar_a" href="">회원가입</a></label>
+	                <label><a class="menubar_a" href="">고객센터</a></label>
+	            </div>
+            <%} else{ %>
                 <div id="loginSpace" align="right";>
                 <label>로그아웃</label>
                 <label>마이페이지</label>
                 <label>고객센터</label>
                 </div>
-
-            -->
+              <%} %>
         </div>
 
         <div id="navigator">
