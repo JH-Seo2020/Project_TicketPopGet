@@ -2,6 +2,7 @@ package com.kh.concert.model.dao;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -131,8 +132,6 @@ public class ConcertDao {
 											rset.getString("CONCERT_RUNTIME"),
 											rset.getInt("CONCERT_MAX"),
 											rset.getInt("CONCERT_SEATS")
-						
-						
 						);
 			}
 			
@@ -144,6 +143,36 @@ public class ConcertDao {
 		}
 		
 		return concertObject;
+	}
+
+
+
+	public String concertInfo(Connection conn, int concertNo) {
+
+		String concertInfo = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("concertInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, concertNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Clob information = rset.getClob("INFO");
+				if(information != null) {
+					concertInfo = information.getSubString(1, (int)information.length());
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return concertInfo;
 	}
 	
 	

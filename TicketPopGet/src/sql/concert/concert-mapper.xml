@@ -54,4 +54,10 @@
 		 WHERE CONTENT_NO = ?
 		   AND CONTENT_STATUS = 'Y'	
 	</entry>
+	<entry key="concertInfo">
+		SELECT INFO
+		  FROM CONTENTS
+		 WHERE CONTENT_NO = ?
+		   AND CONTENT_STATUS = 'Y'
+	</entry>
 </properties>

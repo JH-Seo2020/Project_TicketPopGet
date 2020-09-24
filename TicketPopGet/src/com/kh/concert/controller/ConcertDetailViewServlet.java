@@ -37,9 +37,11 @@ public class ConcertDetailViewServlet extends HttpServlet {
 		Concert concertObject = new ConcertService().concertDetailView(concertNo);
 		
 		//여기서부 clob 테스트할 예정!
+		String concertInfo = new ConcertService().concertInfo(concertNo);
 
 		//보낼거 정리하기
 		request.setAttribute("concertObject", concertObject);
+		request.setAttribute("concertInfo", concertInfo);
 		
 		request.getRequestDispatcher("views/concert/concertDetailView.jsp").forward(request, response);
 		

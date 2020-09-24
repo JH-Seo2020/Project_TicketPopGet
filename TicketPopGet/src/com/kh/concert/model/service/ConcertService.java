@@ -1,6 +1,8 @@
 package com.kh.concert.model.service;
 
 import static com.kh.common.JDBCTemplate.*;
+
+import java.sql.Clob;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -58,4 +60,26 @@ public class ConcertService {
 		return concertObject;
 	}
 
+	/**
+	 * 4. 콘서트 정보 Clob to String으로 가져오는 테스트메소드 
+	 * @param concertNo		해당 콘서트 컨텐츠 번호
+	 * @return				info 컬럼 내용
+	 * @author 				서지혜
+	 */
+	public String concertInfo(int concertNo) {
+		
+		Connection conn = getConnection();
+		String info = new ConcertDao().concertInfo(conn, concertNo);
+		close(conn);
+		return info;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
 }
