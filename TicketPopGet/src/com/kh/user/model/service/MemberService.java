@@ -3,6 +3,9 @@ package com.kh.user.model.service;
 import java.sql.Connection;
 
 import static com.kh.common.JDBCTemplate.*;
+
+import com.kh.common.JDBCTemplate;
+import com.kh.user.model.dao.MemberDao;
 import com.kh.user.model.vo.Member;
 
 public class MemberService {
@@ -14,8 +17,14 @@ public class MemberService {
 	 * @return				아이디,비밀번호 일치 시 조회되는 회원 객체
 	 */
 	public Member loginMember(String userId, String userPwd) {
+		
 		Connection conn = getConnection();
 		
+		Member loginMember = new MemberDao().loginMember(conn, userId, userPwd);
+		
+		JDBCTemplate.close(conn);
+		
+		return loginMember;
 	}
 	
 
