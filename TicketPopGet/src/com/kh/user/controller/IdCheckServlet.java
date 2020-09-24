@@ -1,8 +1,6 @@
 package com.kh.user.controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.user.model.service.MemberService;
-import com.kh.user.model.vo.Member;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class IdCheckServlet
  */
-@WebServlet("/login.me")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/idCheck.me")
+public class IdCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public IdCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,26 +28,18 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//비동기식 요청
 		
-		request.setCharacterEncoding("UTF-8");
+		String checkId = request.getParameter("checkId");
 		
-		String userId = request.getParameter("userId");	// 입력한 아이디
-		String userPwd = request.getParameter("userPwd"); // 입력한 비밀번호
+		int count = new MemberService().idCheck(checkId);
 		
-		Member loginUser = new MemberService().loginMember(userId, userPwd);
-		
-		if(loginUser != null) {
-			response.sendRedirect(request.getContextPath());
-			
+		if(count == 1) {
+			response.getWriter().print("fail");
 		}else {
-			
-			request.setAttribute("errorMsg", "로그인에 실패하였습니다.");
-			
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request,  response);;
+			response.getWriter().print("success");
 		}
 	}
-			
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

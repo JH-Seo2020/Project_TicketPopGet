@@ -3,7 +3,7 @@
 <properties>
 	<entry key="loginMember">
 		SELECT 
-			 , USER_NO
+			   USER_NO
 			 , USER_ID
 			 , USER_PWD
 			 , USER_NAME
@@ -19,7 +19,7 @@
 		  FROM MEMBER
 		 WHERE DELETE_STATUS = 'N'
 		   AND USER_ID = ?
-		   AND USER_PWD = ?;
+		   AND USER_PWD = ?
 	</entry>
 	
 	<entry key="updateInfo">
@@ -48,4 +48,11 @@
 	 WHERE USER_ID = ?
 	   AND DELETE_STATUS = 'N'
 	</entry>
+	
+	<entry key="idCheck">
+	SELECT 
+	       COUNT(*)
+	  FROM MEMBER
+	 WHERE USER_ID = ?
+	 </entry>
 </properties>

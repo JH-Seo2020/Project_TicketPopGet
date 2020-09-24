@@ -31,11 +31,11 @@ public class MemberDao {
 	}
 
 	/**
-	 * @author 김현선
 	 * @param conn
 	 * @param userId
 	 * @param userPwd
 	 * @return
+	 * @author 김현선
 	 */
 	public Member loginMember(Connection conn, String userId, String userPwd) {
 		
@@ -79,6 +79,29 @@ public class MemberDao {
 		
 		return m;
 
+	}
+
+	public int idCheck(Connection conn, String checkId) {
+		
+		int count = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("idCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, checkId);
+			
+			rset = pstmt.executeQuery();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }
