@@ -63,7 +63,7 @@ public class AdminMemberService {
 	 * 4. 회원 전체조회 검색용 서비스
 	 * @param selectUser		검색창에 입력한 검색어
 	 * @param selectUserType	검색창 옆에 조건 아이디/회원명/연락처
-	 * @return					검색 완료된 회원
+	 * @return					검색 완료된 회원객체배열
 	 */
 	public ArrayList<Member> selectMember(Page p, String selectUser, String selectUserType) {
 		
@@ -76,5 +76,20 @@ public class AdminMemberService {
 		return list;
 	}
 	
+	/**
+	 * 5. 회원 상세조회용 서비스
+	 * @param userNo	상세조회할 회원 번호
+	 * @return			상세조회된 회원객체
+	 */
+	public Member selectMemberDetail(int userNo) {
+		
+		Connection conn = getConnection();
+		
+		Member m = new AdminMemberDao().selectMemberDetail(conn, userNo);
+		
+		close(conn);
+		
+		return m;
+	}
 	
 }

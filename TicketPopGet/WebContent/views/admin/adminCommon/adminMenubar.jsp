@@ -21,8 +21,15 @@
             height: 850px;
             background: #6494ed93;
             text-align: left;
+            float:left;
+            margin-right:;
         }
-
+	
+		.wrap{
+	        position: absolute;
+        	left: 300px;
+		}
+	
         .menuTitle{
             width: 100%;
             height: 30px;
@@ -55,11 +62,11 @@
 <body>
 <div id="menubar">
 
-        <h2 align="center" style="padding-bottom: 20px; padding-top: 30px; width: 100% ; cursor: pointer; font-size: 25px;">메인으로</h2>
+        <button align="center" onclick="location.href='<%=request.getContextPath()%>/main.ad'" style="padding-bottom: 60px; padding-top: 30px; width: 100% ; cursor: pointer; font-size: 25px;">메인으로</button>
         
         <div class="menuTitle">회원관리</div>
         <div class="menuWrap">
-        <button>회원전체 조회</button>
+        <button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=1'">회원전체 조회</button>
         <button>탈퇴회원 조회</button>
         <button>블랙리스트 조회</button>
         </div>

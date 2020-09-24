@@ -186,5 +186,42 @@ public class AdminMemberDao {
 		return list;
 	}
 	
+	public Member selectMemberDetail(Connection conn, int userNo) {
+		// select문 => 한행
+		Member m = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemberDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member(rset.getInt("user_no"),
+			            rset.getString("user_id"),
+			            rset.getString("user_pwd"),
+			            rset.getString("user_name"),
+			            rset.getString("email"),
+			            rset.getString("phone"),
+			            rset.getDate("birthdate"),
+			            rset.getString("gender"),
+			            rset.getDate("delete_date"),
+			            rset.getString("delete_status"),
+			            rset.getString("blacklist_status"),
+			            rset.getInt("report_count"),
+			            rset.getString("delete_reason"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
 	
 }

@@ -31,13 +31,14 @@
         float: right;
     }
 
-    .selectTable>tbody:hover{cursor: pointer;}
+    .selectTable>tbody>tr:hover{cursor: pointer; background-color: lightgray;}
 
 </style>
 </head>
 <body>
+	<%@ include file="../adminCommon/adminMenubar.jsp" %>
     <div class="wrap" align="center">
-        <button class="returnMainPage" onclick="location.href='mainMenu.ad'">초기화면</button>
+        <button class="returnMainPage" onclick="location.href='<%=request.getContextPath()%>/main.ad'">초기화면</button>
     <div align="center">
         <h1 style="width: 500px;">회원 전체 조회</h1>
     </div>
@@ -62,7 +63,7 @@
         	</tr>
         <%}else {%>
         	<%for(Member m : list) { %>
-            	<tr style="height: 50px;">
+            	<tr style="height: 50px;" onclick="location.href='<%=request.getContextPath()%>/detailMember.adme?userNo=<%=m.getUserNo()%>'">
                 	<td><%=m.getUserNo()%></td>
                 	<td><%=m.getUserId() %></td>
 	                <td><%=m.getUserName() %></td>
