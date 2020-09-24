@@ -213,7 +213,7 @@
 				<p>
 					<b>xxx</b>님 환영합니다
 				</p>
-				<a id="mypage_info_a" href="">회원정보관리</a>
+				<a id="mypage_info_a" href="<%=contextPath%>/info.my">회원정보관리</a>
 			</div>
 			<!-- 마이페이지 메뉴 -->
 			<div id="mypage_menu">

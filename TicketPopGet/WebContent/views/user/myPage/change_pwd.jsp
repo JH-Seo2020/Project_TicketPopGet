@@ -20,12 +20,9 @@
 	<div align="center" style="width: 800px; height:500px; margin-left: 450px; margin-top: 100px;">
 		<!-- <h1>내 정보확인</h1> -->
 		<ul class="nav nav-tabs nav-justified" style="margin-top: 60px;">
-			<li class="nav-item"><a class="nav-link" style="color: black;"
-				href="information.jsp">정보수정</a></li>
-			<li class="nav-item"><a class="nav-link active"
-				style="color: coral;">비밀번호변경</a></li>
-			<li class="nav-item"><a class="nav-link" style="color: black;"
-				href="delete.jsp">회원탈퇴</a></li>
+			<li class="nav-item"><a class="nav-link" style="color: black;" href="<%=contextPath%>/info.my">정보수정</a></li>
+			<li class="nav-item"><a class="nav-link active" style="color: coral;">비밀번호변경</a></li>
+			<li class="nav-item"><a class="nav-link" style="color: black;" href="<%=contextPath%>/delete.my">회원탈퇴</a></li>
 		</ul>
 		<div style="margin-top: 80px;">
 			<h3 style="margin-top: 30px;">비밀번호 변경</h3>
