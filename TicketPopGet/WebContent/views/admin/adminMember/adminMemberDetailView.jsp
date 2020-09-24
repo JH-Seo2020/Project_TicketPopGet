@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.user.model.vo.Member"%>
+<%
+	Member m = (Member)request.getAttribute("m");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,38 +28,37 @@
     </style>
 </head>
 <body>
+	<%@ include file = "../adminCommon/adminMenubar.jsp" %>
     <div class="wrap">
-        <button class="btn btn-primary" style="float: right; width: 100px; height: 40px;">이전으로</button>
+        <button class="btn btn-primary" style="float: right; width: 100px; height: 40px;" onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=1'">이전으로</button>
         <h1 style="width: 800px; margin: auto;">회원상세조회</h1>
         <button class="btn btn-danger" style="float: right; height: 40px;">회원정보삭제</button>
-        <button class="btn btn-primary" style="float: right; height: 40px;">회원정보등록</button>
+        <button class="btn btn-primary" style="float: right; height: 40px;" >회원정보수정</button>
         <table border="1" width="100%">
             <thead>
                 <tr width="100%"  style="height: 40px; background:#6495ed;" > 
                     <th style="width: 60px;">회원번호</th>
                     <th style="width: 100px;">회원아이디</th>
                     <th style="width: 100px;">회원명</th>
-                    <th style="width: 250px;">이메일</th>
+                    <th style="width: 350px;">이메일</th>
                     <th style="width: 150px;">연락처</th>
                     <th style="width: 100px;">생년월일</th>
                     <th style="width: 60px;" >성별</th>
-                    <th style="width: 60px;">수신동의</th>
                     <th style="width: 60px;">탈퇴여부</th>
                     <th style="width: 60px;">블랙여부</th>
                 </tr>
             </thead>
             <tbody>
-                <tr style="height: 40px;">
-                    <td> <input type="text" name="userNo" value="01" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
-                    <td><input type="text" name="userId" value="user01" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
-                    <td><input type="text" name="userName" value="user01" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
-                    <td><input type="email" name="email" value="email" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
-                    <td><input type="tel" name="phone" value="010-0000-0000" required style="width: 100%; height: 40px; box-sizing: border-box;"> </td>
-                    <td><input type="text" name="" value="980423" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
-                    <td><input type="text" name="" value="M" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
-                    <td><input type="text" name="" value="Y" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
-                    <td><input type="text" name="" value="N" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
-                    <td><input type="text" name="" value="N" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
+                <tr id="MemberDetailView" style="height: 40px;">
+                    <td><input type="text" disabled name="userNo" value="<%=m.getUserNo()%>" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
+                    <td><input type="text" disabled name="userId" value="<%=m.getUserId() %>" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
+                    <td><input type="text" disabled name="userName" value="<%=m.getUserName() %>" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
+                    <td><input type="email" disabled name="email" value="<%=m.getEmail()%>" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
+                    <td><input type="tel" disabled name="phone" value="<%=m.getPhone() %>" required style="width: 100%; height: 40px; box-sizing: border-box;"> </td>
+                    <td><input type="text" disabled name="birthdate" value="<%=m.getBirthdate()%>" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
+                    <td><input type="text" disabled name="gender" value="<%=m.getGender() %>" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
+                    <td><input type="text" disabled name="deleteStatus" value="<%=m.getStatus() %>" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
+                    <td><input type="text" disabled name="blacklistStatus" value="<%=m.getBlacklistStatus() %>" required style="width: 100%; height: 40px; box-sizing: border-box;"></td>
                 </tr>
             </tbody>
         </table>
