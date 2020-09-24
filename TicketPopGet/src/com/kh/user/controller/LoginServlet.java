@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.user.model.service.MemberService;
 import com.kh.user.model.vo.Member;
@@ -40,6 +41,10 @@ public class LoginServlet extends HttpServlet {
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		
 		if(loginUser != null) {
+			
+			HttpSession session = request.getSession(); 
+			session.setAttribute("loginUser",loginUser);
+			
 			
 			response.sendRedirect(request.getContextPath());
 			
