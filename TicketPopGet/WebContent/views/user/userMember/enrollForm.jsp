@@ -65,11 +65,11 @@
         <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <form id="enrollForm" action="" method="POST">
+                        <form id="enrollForm" action="<%=request.getContextPath() %>" method="POST">
                             <div class="form-group row">
                                 <label for="userId" class="col-md-4 col-form-label text-md-right">아이디</label>
                                     <input type="text" id="userId" class="form-control" name="userId" style="width: 300px;" placeholder="띄어쓰기 없이 영문/숫자조합 6~12자리">
-                                    &nbsp;&nbsp;<button type="button"class="checkId">중복확인</button>
+                                    &nbsp;&nbsp;<button type="button"class="checkId" onclick="idCheck();">중복확인</button>
                             </div>
 
                             <div class="form-group row">
@@ -151,7 +151,7 @@
 
                             <br>
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btnRegister">회원가입</button>
+                                <button type="submit" class="btnRegister" id="joinBtn">회원가입</button>
                                 <button type="reset" class="btnRegister">가입취소</button>
                             </div>
                         </form>
@@ -159,6 +159,42 @@
                 </div>
            </div>
     </div>
-</form>
+    <script>
+    	// id 중복체크
+    	function idCheck(){
+    	
+	    	var $userId = $("#enrollForm input[name=userId]");
+	    	
+	    	$.ajax({
+				url:"<%=contextPath%>/idCheck.me",
+				data:{checkId:$userId.val()},
+				type:"get",
+				success:function(result){
+					
+					console.log(result);
+					
+					if(result == "fail"){ 
+						
+						alert("사용할 수 없는 아이디입니다.");
+						
+						$userId.select(); // 재입력가능하도록 입력했던 text 드레그
+					
+					}else{
+						
+						if(confirm("사용가능한 아이디입니다. 사용하시겠습니까?")){
+							
+							$userId.focus(); // 확인 클릭 시 작동
+							
+						}else {
+							$userId.select(); // 취소 시 재입력가능토록 text드레그
+						}
+					}
+				}, 
+				error:function(){
+					console.log("ajax 통신 실패");
+				}
+			});
+    	}
+    </script>
 </body>
 </html>
