@@ -21,4 +21,31 @@
 		   AND USER_ID = ?
 		   AND USER_PWD = ?;
 	</entry>
+	
+	<entry key="updateInfo">
+	UPDATE 
+		   MEMBER
+	   SET USER_NAME = ?
+	     , BIRTHDATE = ?
+	     , GENDER = ?
+	     , PHONE = ?
+	     , EMAIL = ?
+	 WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="updatePwd">
+	 UPDATE 
+	 		MEMBER
+	    SET USER_PWD = ?
+	  WHERE USER_ID = ?
+	    AND USER_PWD = ?
+	</entry>
+	
+	<entry key="updateDelete">
+	UPDATE 
+		   MEMBER
+	   SET DELETE_STATUS = 'Y'
+	 WHERE USER_ID = ?
+	   AND DELETE_STATUS = 'N'
+	</entry>
 </properties>
