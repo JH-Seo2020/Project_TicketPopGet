@@ -37,7 +37,7 @@
 </head>
 <body>
     <div class="wrap" align="center">
-        <button class="returnMainPage">초기화면</button>
+        <button class="returnMainPage" onclick="location.href='mainMenu.ad'">초기화면</button>
     <div align="center">
         <h1 style="width: 500px;">회원 전체 조회</h1>
     </div>
@@ -75,18 +75,19 @@
         </tbody>
 
     </table>
-    <form action="" style="float: right;">
-        <input type="text" list="selectUser">
-        <select name="selectUser" id="selectUser">
-            <option value="selectAll">전체</option>
-            <option value="userId">아이디</option>
-            <option value="userName">회원명</option>
-            <option value="phone">연락처</option>
+    <form action="<%=request.getContextPath()%>/selectMember.adme" style="float: right;" method="post">
+    	<input type="hidden" name="currentPage" value="1">
+        <input type="text" name="selectUser">
+        <select name="selectUserType" id="selectUser">
+        	<option value="ALL">전체조회</option>
+            <option value="USER_ID">아이디</option>
+            <option value="USER_NAME">회원명</option>
+            <option value="PHONE">전화번호</option>
         </select>
         <button>검색</button>
     </form>
     <br><br>
-    <div align="center">
+        <div align="center">
 		<%if(p.getCurrentPage() != p.getStartPage()) {%>
         	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=1'">&lt;&lt;</button>
        	 	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=p.getCurrentPage() - 1%>'">&lt;</button>
@@ -103,7 +104,6 @@
         	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=p.getMaxPage()%>'">&gt;&gt;</button>   
         <%} %>
     </div>
-
     </div>
 </body>
 </html>

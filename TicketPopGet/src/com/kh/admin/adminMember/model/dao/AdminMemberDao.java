@@ -56,6 +56,35 @@ public class AdminMemberDao {
 		
 	}
 	
+	public int selectMemberCount(Connection conn, String selectUser, String selectUserType) {
+		// select문 => 한 행
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemberCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, selectUserType);
+			pstmt.setString(2, selectUser);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	
 	public ArrayList<Member> selectMemberList(Connection conn, Page p){
 		// select문 => 여러행
 		ArrayList<Member> list = new ArrayList<>();
@@ -99,6 +128,61 @@ public class AdminMemberDao {
 			close(pstmt);
 		}
 			
+		return list;
+	}
+	
+	public ArrayList<Member> selectMember(Connection conn,Page p, String selectUser, String selectUserType){
+		// select문 => 여러행?단행?
+		ArrayList<Member> list = new ArrayList<Member>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = "";
+		
+		if(selectUserType.equals("USER_ID")) {
+			sql = prop.getProperty("selectMemberUserId");
+		}else if(selectUserType.equals("USER_NAME")) {
+			sql = prop.getProperty("selectMemberUserName");
+		}else if(selectUserType.equals("PHONE")) {
+			sql = prop.getProperty("selectMemberPhone");
+		}	
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (p.getCurrentPage() - 1) * p.getBoardLimit() + 1;
+			int endRow = startRow + p.getBoardLimit() - 1;
+			
+			pstmt.setString(1, selectUser);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("user_no"),
+			            rset.getString("user_id"),
+			            rset.getString("user_pwd"),
+			            rset.getString("user_name"),
+			            rset.getString("email"),
+			            rset.getString("phone"),
+			            rset.getDate("birthdate"),
+			            rset.getString("gender"),
+			            rset.getDate("delete_date"),
+			            rset.getString("delete_status"),
+			            rset.getString("blacklist_status"),
+			            rset.getInt("report_count"),
+			            rset.getString("delete_reason")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		  close(rset);
+		  close(pstmt);
+		}
 		return list;
 	}
 	
