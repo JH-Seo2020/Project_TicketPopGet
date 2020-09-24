@@ -67,7 +67,7 @@ public class MemberDao {
 						       rset.getString("DELETE_STATUS"),
 						       rset.getString("BLACKLIST_STATUS"),
 						       rset.getInt("REPORT_COUNT"),
-						       rset.getString("DELETE_REASON"));				       )
+						       rset.getString("DELETE_REASON"));
 			}
 			
 		} catch (SQLException e) {
