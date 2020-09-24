@@ -77,13 +77,14 @@
 <body>
 <!-- 상단 메뉴바  -->
 <%@ include file="/views/common/menubar.jsp"%>
+
     <div class="loginbox">
         <h1>로그인</h1>
-        <form action="#" align="center">
+        <form id="loginForm" action="<%= request.getContextPath() %>/login.me" method="post" align="center">
             <label for="loginid" class="labelid">아이디</label>
-            <input type="text" id="loginid"><br>
+            <input type="text" id="loginid" required><br>
             <label for="loginpw" class="labelpw">패스워드</label>&nbsp;
-            <input type="password" id="loginpw">
+            <input type="password" id="loginpw" required>
             <div class="chk">
                 <input type="checkbox" id="idchk">
                 <label for="idchk">비밀번호 저장</label>
@@ -101,6 +102,9 @@
                 <a href="">ID찾기</a>
             </div>
         </form>
+        
+        <script>
+        </script>
     </div>
 </body>
 </html>
