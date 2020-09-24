@@ -224,4 +224,71 @@ public class AdminMemberDao {
 		return m;
 	}
 	
+	public int selectBlacklistListCount(Connection conn) {
+		// select문 => 한행
+		int result = 0;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectBlacklistListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<Member> selectBlacklistList(Connection conn, Page p){
+		
+		ArrayList<Member> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBlacklistList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (p.getCurrentPage() -1) * p.getPageLimit() + 1; 
+			int endRow = startRow + p.getPageLimit() -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("user_no"),
+			            rset.getString("user_id"),
+			            rset.getString("user_pwd"),
+			            rset.getString("user_name"),
+			            rset.getString("email"),
+			            rset.getString("phone"),
+			            rset.getDate("birthdate"),
+			            rset.getString("gender"),
+			            rset.getDate("delete_date"),
+			            rset.getString("delete_status"),
+			            rset.getString("blacklist_status"),
+			            rset.getInt("report_count"),
+			            rset.getString("delete_reason")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
 }

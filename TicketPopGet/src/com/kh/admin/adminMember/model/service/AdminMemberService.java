@@ -92,4 +92,35 @@ public class AdminMemberService {
 		return m;
 	}
 	
+	/**
+	 * 6. 블랙리스트 인원수 조회용 서비스
+	 * @return 블랙리스트 인원수
+	 */
+	public int selectBlacklistListCount(){
+		
+		Connection conn = getConnection();
+		
+		int result = new AdminMemberDao().selectBlacklistListCount(conn);
+		
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	/**
+	 * 7. 블랙리스트 조회용 서비스
+	 * @return 조회된 블랙리스트 객체배열
+	 */
+	public ArrayList<Member> selectBlacklistList(Page p){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new AdminMemberDao().selectBlacklistList(conn, p);
+		
+		close(conn);
+		
+		return list;
+	}
+	
 }

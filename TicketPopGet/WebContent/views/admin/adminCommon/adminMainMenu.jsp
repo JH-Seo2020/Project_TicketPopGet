@@ -73,7 +73,7 @@
                     <th><button type="button" onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=1'">회원전체 조회</button></th>
                 </tr>
                 <tr>
-                    <th><button type="button">블랙리스트 조회</button></th>
+                    <th><button type="button" onclick="location.href='<%=request.getContextPath()%>/blacklist.adme?currentPage=1'">블랙리스트 조회</button></th>
                 </tr>
                 <tr>
                     <th><button type="button">탈퇴회원 조회</button></th>

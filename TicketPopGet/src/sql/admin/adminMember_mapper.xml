@@ -139,4 +139,33 @@
 		  WHERE USER_NO = ? 
 	</entry>
 	
+	<entry key="selectBlacklistListCount">
+		SELECT COUNT(*)
+		  FROM MEMBER
+		 WHERE BLACKLIST_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectBlacklistList">
+		SELECT B.*
+		  FROM (SELECT ROWNUM RNUM
+				     , A.*
+				  FROM (SELECT 
+				        USER_NO 
+				      , USER_ID
+				      , USER_PWD
+				      , USER_NAME
+				      , EMAIL
+				      , PHONE
+				      , BIRTHDATE
+				      , GENDER
+				      , DELETE_DATE
+				      , DELETE_STATUS
+				      , BLACKLIST_STATUS
+				      , REPORT_COUNT
+				      , DELETE_REASON
+				  FROM MEMBER
+				 WHERE BLACKLIST_STATUS = 'Y') A) B
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 </properties>
