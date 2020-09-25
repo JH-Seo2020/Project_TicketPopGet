@@ -68,29 +68,29 @@
                         <form id="enrollForm" action="<%=request.getContextPath() %>" method="POST">
                             <div class="form-group row">
                                 <label for="userId" class="col-md-4 col-form-label text-md-right">아이디</label>
-                                    <input type="text" id="userId" class="form-control" name="userId" style="width: 300px;" placeholder="띄어쓰기 없이 영문/숫자조합 6~12자리">
+                                    <input type="text" id="userId" class="form-control" name="userId" style="width: 300px;" placeholder="띄어쓰기 없이 영문/숫자조합 6~12자리" required>
                                     &nbsp;&nbsp;<button type="button"class="checkId" onclick="idCheck();">중복확인</button>
                             </div>
 
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">비밀번호</label>
-                                    <input type="text" id="password" class="form-control" name="userPwd1" style="width: 400px;" placeholder="영문/숫자/특수문자 조합하여 6~12자리">
+                                    <input type="password" id="password" class="form-control" name="userPwd1" style="width: 400px;" placeholder="영문/숫자/특수문자 조합하여 6~12자리" required>
                             </div>
 
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">비밀번호 확인</label>
-                                    <input type="text" id="password" class="form-control" name="userPawd2" style="width: 400px;" placeholder="비밀번호 재입력">
+                                    <input type="password" id="password" class="form-control" name="userPawd2" style="width: 400px;" placeholder="비밀번호 재입력" required>
                             </div>
 
                             <div class="form-group row">
                                 <label for="userName" class="col-md-4 col-form-label text-md-right">이름</label>
-                                    <input type="text" id="userName" class="form-control" style="width: 400px;" placeholder="이름">
+                                    <input type="text" id="userName" class="form-control" style="width: 400px;" placeholder="이름" required>
                             </div>
 
                             <div class="form-group row">                                    
                                 <label for="birth" class="col-md-4 col-form-label text-md-right">생년월일</label>
-                                    <input type="text" name="year" class="form-control" style="width: 127px;" placeholder="년(4자)">
-                                    &nbsp;&nbsp;<select id="mm" style="width: 127px" class="form-control">
+                                    <input type="text" name="birth_year" class="form-control" maxlength="4" style="width: 127px;" placeholder="년(4자)">
+                                    &nbsp;&nbsp;<select id="birth_mm" style="width: 127px" class="form-control">
                                         <option>월</option>
                                         <option value="01">1</option>
                                         <option value="02">2</option>
@@ -105,21 +105,8 @@
                                         <option value="11">11</option>
                                         <option value="12">12</option>
                                     </select>
-                                    &nbsp;&nbsp;<select id="dd" style="width: 127px" style="font-size:10px;" class="form-control">
-                                        <option style="font-size: 8pt;">일</option>
-                                        <option value="01">1</option>
-                                        <option value="02">2</option>
-                                        <option value="03">3</option>
-                                        <option value="04">4</option>
-                                        <option value="05">5</option>
-                                        <option value="06">6</option>
-                                        <option value="07">7</option>
-                                        <option value="08">8</option>
-                                        <option value="09">9</option>                                    
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                    </select>
+                                    &nbsp;&nbsp;<input type="text" name="birth_dd" class="form-control" maxlength="2" style="width: 127px;" placeholder="일">
+                                        
                             </div>
 
                             <div class="form-group row">
