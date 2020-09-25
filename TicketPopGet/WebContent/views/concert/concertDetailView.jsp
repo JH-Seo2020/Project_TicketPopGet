@@ -119,11 +119,15 @@
             <script>
             	$(function(){
             		$("#likeImg").click(function(){
-            			if( $(this).attr("src") === "<%=contextPath %>/resources/img/imgForSearch/heart.png" ){
-            				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/like_heart.png");
-            			}else{
-            				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/heart.png");
-            			}
+            			<%if(loginUser!=null){%>
+	            			if( $(this).attr("src") === "<%=contextPath %>/resources/img/imgForSearch/heart.png" ){
+	            				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/like_heart.png");
+	            			}else{
+	            				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/heart.png");
+	            			}
+            			<%}else{%>
+            				alert("로그인 후 이용해주세요!");
+            			<%}%>
             		});
             	});
             </script>
@@ -199,7 +203,12 @@
             </div>
 
             <div width="100%" align="center">
-                <a class="btn btn-warning btn-lg">예매하기</a>
+            	<%if(loginUser != null){ %>
+                	<a class="btn btn-warning btn-lg">예매하기</a>
+                <%}else{ %>
+                	<a class="btn btn-warning btn-lg" onclick="call();">예매하기</a>
+                	<script>function call(){alert("로그인 후 이용해주세요!");}</script>
+                <%} %>
             </div>
 
         </div>
@@ -277,7 +286,7 @@
                               
                               $("#tbodyArea").html(reviews);
                               $("#reviewPaging").html($bottons);
-                              
+                              //리뷰번호 result.list[i].reviewNo에 있으니까 받아서 리뷰제목 클릭시에 url 넘겨주면된다!
                            },
                            error : function(){
                               console.log("ajax통신실패");
@@ -368,7 +377,7 @@
             </div>
 
             <div align="right">
-                <a href="" type="button" class="btn btn-warning">이전으로</a>
+                <!-- 목록으로 버튼 있었는데 없앴습니다. 브라우저에는 뒤로가기라는 훌륭한 기능이 있으니까...! -->
             </div>
         </div>
 

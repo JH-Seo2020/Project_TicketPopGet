@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="selectListCount">
-		  SELECT COUNT(*) exhibitionListCount
+		  SELECT COUNT(*) playListCount
 			FROM CONTENTS
 		   WHERE CONTENT_TYPE = '전시'
 			 AND CONTENT_STATUS = 'Y'
