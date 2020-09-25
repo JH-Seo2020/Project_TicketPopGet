@@ -5,14 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보변경</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
 *:focus {
 	outline: none;
@@ -66,15 +62,11 @@ body {
 	cursor: pointer;
 }
 </style>
-<script>
-	function info_change(){
-		alert('정보가 변경되었습니다');
-	}
-</script>
 </head>
 <body>
-	<!-- 메뉴바 -->
+	<!-- 메뉴바쓰추가쓰 -->
 	<%@ include file="/views/common/menubar.jsp"%>
+	
 	<h2 align="center" style="margin-top:40px;">회원정보수정</h2>
 	<div class="row justify-content-center" style="margin-top:20px;">
 		<div class="col-md-8">
@@ -83,12 +75,12 @@ body {
 					<form id="enrollForm" action="" method="POST">
 						<div class="form-group row">
 							<label for="userId" class="col-md-4 col-form-label text-md-right">아이디</label>
-							<input type="text" id="userId" readonly class="form-control" name="userId" value="아이디띄우기" style="width: 400px;">
+							<input type="text" id="userId" readonly class="form-control" name="userId" value="<%=loginUser.getUserId()%>" style="width: 400px;">
 						</div>
 
 						<div class="form-group row">
 							<label for="userName" class="col-md-4 col-form-label text-md-right">이름</label> 
-							<input type="text" id="userName" class="form-control" style="width: 400px;" value="이름띄우기">
+							<input type="text" id="userName" name="userName" class="form-control" style="width: 400px;" value="<%=loginUser.getUserName()%>">
 						</div>
 
 						<!-- 생년월일 띄워야됨 -->

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -204,6 +205,8 @@
 <body>
 	<!-- 메뉴바쓰추가쓰 -->
 	<%@ include file="/views/common/menubar.jsp"%>
+	
+	
 	<div id="mypage" align="center">
 		<!-- 왼쪽 메뉴바 -->
 		<div class="mypage_left">
@@ -211,7 +214,7 @@
 			<div id="mypage_info">
 				<h1>MYPAGE</h1>
 				<p>
-					<b>xxx</b>님 환영합니다
+					<b><%=loginUser.getUserName()%></b>님 환영합니다
 				</p>
 				<a id="mypage_info_a" href="<%=contextPath%>/info.my">회원정보관리</a>
 			</div>
@@ -231,8 +234,7 @@
 			<!-- 최근예매내역 -->
 			<div id="mypage_reservation">
 				<p>
-					<b style="font-size: 30px;">최근예매내역</b> <span>xxx님의 최근 3개월간
-						예매하신내역입니다.</span>
+					<b style="font-size: 30px;">최근예매내역</b> <span>xxx님의 최근 3개월간 예매하신내역입니다.</span>
 					<button class="more_btn">더보기</button>
 				</p>
 				<table>
