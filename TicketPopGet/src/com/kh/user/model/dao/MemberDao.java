@@ -144,5 +144,86 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	/**
+	 * 비밀번호 변경
+	 * @param conn
+	 * @param userId
+	 * @param userPwd
+	 * @param newPwd
+	 * @return
+	 * @author 이금이
+	 */
+	public int updatePwd(Connection conn, String userId, String userPwd, String newPwd) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updatePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userPwd);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	
+	/**
+	 * 갱신한 아이디 리스트 조회
+	 * @param conn
+	 * @param userId
+	 * @return
+	 * @author 이금이
+	 */
+	public Member selectMember(Connection conn, String userId) {
+		Member m = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getInt("USER_NO"),
+					       rset.getString("USER_ID"),
+					       rset.getString("USER_PWD"),
+					       rset.getString("USER_NAME"),
+					       rset.getString("EMAIL"),
+					       rset.getString("PHONE"),
+					       rset.getDate("BIRTHDATE"),
+					       rset.getString("GENDER"),
+					       rset.getDate("DELETE_DATE"),
+					       rset.getString("DELETE_STATUS"),
+					       rset.getString("BLACKLIST_STATUS"),
+					       rset.getInt("REPORT_COUNT"),
+					       rset.getString("DELETE_REASON"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+	}
 
 }

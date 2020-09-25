@@ -1,6 +1,8 @@
 package com.kh.user.model.service;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import static com.kh.common.JDBCTemplate.*;
 
@@ -62,6 +64,35 @@ public class MemberService {
 		return result;
 		
 	}
+	
+	/**
+	 * 비밀번호변경
+	 * @param userId 
+	 * @param userPwd
+	 * @param newPwd
+	 * @return 갱신한 회원객체
+	 * @author 이금이
+	 */
+	public Member updatePwd(String userId, String userPwd, String newPwd) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updatePwd(conn, userId, userPwd, newPwd);
+		
+		Member updateMember = null;
+		
+		if(result>0) {
+			commit(conn);
+			updateMember = new MemberDao().selectMember(conn, userId);
+		}
+		else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return updateMember;
+	}
+	
 	
 
 }

@@ -56,6 +56,26 @@
 	   AND DELETE_STATUS = 'N'
 	</entry>
 	
+	<entry key="selectMember">
+	SELECT 
+		   USER_NO
+		 , USER_ID
+		 , USER_PWD
+		 , USER_NAME
+		 , EMAIL
+		 , PHONE
+		 , BIRTHDATE
+		 , GENDER
+		 , DELETE_DATE
+		 , DELETE_STATUS
+		 , BLACKLIST_STATUS
+		 , REPORT_COUNT
+		 , DELETE_REASON
+	  FROM MEMBER
+	 WHERE DELETE_STATUS = 'N'
+	   AND USER_ID = ?
+	</entry>
+	
 	<entry key="idCheck">
 	SELECT 
 	       COUNT(*)

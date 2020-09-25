@@ -17,6 +17,11 @@
 <body>
 	<!-- 메뉴바 -->
 	<%@ include file="/views/common/menubar.jsp"%>
+	
+	<%
+	 	String userPwd = loginUser.getUserPwd();
+	%>
+
 	<div align="center" style="width: 800px; height:500px; margin-left: 450px; margin-top: 100px;">
 		<!-- <h1>내 정보확인</h1> -->
 		<ul class="nav nav-tabs nav-justified" style="margin-top: 60px;">
@@ -28,35 +33,50 @@
 			<h3 style="margin-top: 30px;">비밀번호 변경</h3>
 			<p style="color: red;">주기적인 변경으로 내 정보를 보호해주세요</p>
 		</div>
-		<div
-			style="width: 500px; margin-top: 30px; border-top: 1px solid orange; border-bottom: 1px solid orange;">
-			<table style="margin-top: 40px;">
-				<tr>
-					<td>현재 비밀번호</td>
-					<td><input type="password"
-						style="width: 300px; margin-left: 10px;"></td>
-				</tr>
-				<tr>
-					<td>새 비밀번호</td>
-					<td><input type="password"
-						style="width: 300px; margin-left: 10px;"
-						placeholder="영문/숫자/특수문자 조합하여 6~12자리"></td>
-				</tr>
-				<tr>
-					<td>새 비밀번호확인</td>
-					<td><input type="password"
-						style="width: 300px; margin-left: 10px;"></td>
-				</tr>
-
-			</table>
+		<div style="width: 500px; margin-top: 30px; border-top: 1px solid orange; border-bottom: 1px solid orange;">
+			<form action="<%=contextPath%>/updatePwd.my" method="post">
+			<input TYPE="hidden" name="userId" value="<%=loginUser.getUserId()%>">
+				<table style="margin-top: 40px;">
+					<tr>
+						<td>현재 비밀번호</td>
+						<td><input type="password" id="pwd" name="userPwd" style="width: 300px; margin-left: 10px;"></td>
+					</tr>
+					<tr>
+						<td>새 비밀번호</td>
+						<td><input type="password" id="newPwd" name="newPwd" style="width: 300px; margin-left: 10px;" placeholder="영문/숫자/특수문자 조합하여 6~12자리"></td>
+					</tr>
+					<tr>
+						<td>새 비밀번호확인</td>
+						<td><input type="password" id="newPwd2" name="newPwd_check" style="width: 300px; margin-left: 10px;"></td>
+					</tr>
+				</table>
+			
 
 			<br>
 			<div style="margin-bottom: 30px;">
-				<button type="button" class="btn" onclick="change_pwd();"
-					style="border: 1px solid orange; background: orange; color: white;">변경</button>
+				<button type="button" class="btn" onclick="return change_pwd();" style="border: 1px solid orange; background: orange; color: white;">변경</button>
+			</form>	
 				&nbsp;&nbsp;
 				<a href="<%=contextPath%>/mypage.my" class="btn" style="border: 1px solid orange;">이전으로</a>
 			</div>
+			
+			<script>
+				function change_pwd(){
+					
+					var pwd = document.getElementById("pwd").value;
+					var userPwd = "<%=userPwd%>";
+					
+					if(pwd != userPwd){
+						alert("현재비밀번호가 일치하지않습니다.");
+						return false;
+					}
+					
+					if ($("input[name=newPwd]").val() != $("input[name=newPwd_check]").val()) {
+						alert("새 비밀번호가 일치하지 않습니다.");
+						return false;
+					}
+				}
+			</script>
 		</div>
 	</div>
 </body>
