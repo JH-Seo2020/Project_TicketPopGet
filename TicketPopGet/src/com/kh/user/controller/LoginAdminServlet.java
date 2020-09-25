@@ -14,16 +14,16 @@ import com.kh.user.model.service.MemberService;
 import com.kh.user.model.vo.Member;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class LoginAdminServlet
  */
-@WebServlet("/login.me")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/login.ad")
+public class LoginAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public LoginAdminServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,24 +32,16 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		request.setCharacterEncoding("UTF-8");
 		
 		String userId = request.getParameter("userId");	// 입력한 아이디
 		String userPwd = request.getParameter("userPwd"); // 입력한 비밀번호
 		
-		Member loginUser = new MemberService().loginMember(userId, userPwd);
-		
 		if(userId.equals("ADMIN")) {
-			response.sendRedirect(request.getContextPath()+"/login.ad?userId="+userId+"&userPwd="+userPwd);
-		}else if(loginUser != null) {
-			
-			HttpSession session = request.getSession(); 
-			session.setAttribute("loginUser",loginUser);
-			
-			
-			response.sendRedirect(request.getContextPath());
-			
+			int loginAdmin = new MemberService().loginAdmin(userId, userPwd);
+			if(loginAdmin != 0) {
+				request.getRequestDispatcher("views/admin/adminCommon/adminMainMenu.jsp").forward(request, response);;
+			}
 		}else {
 			
 			request.setAttribute("errorMsg", "로그인에 실패하였습니다.");
@@ -57,9 +49,7 @@ public class LoginServlet extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request,  response);
 		}
-		
 	}
-			
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
