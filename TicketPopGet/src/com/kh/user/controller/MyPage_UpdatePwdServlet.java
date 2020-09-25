@@ -43,13 +43,14 @@ public class MyPage_UpdatePwdServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		if(updateMember!=null) {
-			session.setAttribute("alertMsg", "성공적으로 비밀번호 변경됐습니다");
+			session.setAttribute("alertMsg", "성공적으로 비밀번호 변경됐습니다. 로그인을 다시 해주세요");
 			session.setAttribute("loginUser", updateMember);
+			session.removeAttribute("loginUser");
 		}else {
 			session.setAttribute("alertMsg", "비밀번호 변경 실패했습니다.");
 		}
 		
-		response.sendRedirect("request.getContentType()/mypage.my");
+		response.sendRedirect("/TicketPopGet/loginview.me");
 		
 		
 	}

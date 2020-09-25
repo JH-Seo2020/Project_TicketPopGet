@@ -35,26 +35,26 @@
 		</div>
 		<div style="width: 500px; margin-top: 30px; border-top: 1px solid orange; border-bottom: 1px solid orange;">
 			<form action="<%=contextPath%>/updatePwd.my" method="post">
-			<input TYPE="hidden" name="userId" value="<%=loginUser.getUserId()%>">
-				<table style="margin-top: 40px;">
-					<tr>
-						<td>현재 비밀번호</td>
-						<td><input type="password" id="pwd" name="userPwd" style="width: 300px; margin-left: 10px;"></td>
-					</tr>
-					<tr>
-						<td>새 비밀번호</td>
-						<td><input type="password" id="newPwd" name="newPwd" style="width: 300px; margin-left: 10px;" placeholder="영문/숫자/특수문자 조합하여 6~12자리"></td>
-					</tr>
-					<tr>
-						<td>새 비밀번호확인</td>
-						<td><input type="password" id="newPwd2" name="newPwd_check" style="width: 300px; margin-left: 10px;"></td>
-					</tr>
-				</table>
-			
-
-			<br>
-			<div style="margin-bottom: 30px;">
-				<button type="button" class="btn" onclick="return change_pwd();" style="border: 1px solid orange; background: orange; color: white;">변경</button>
+				<input TYPE="hidden" name="userId" value="<%=loginUser.getUserId()%>">
+					<table style="margin-top: 40px;">
+						<tr>
+							<td>현재 비밀번호</td>
+							<td><input type="password" id="pwd" name="userPwd" style="width: 300px; margin-left: 10px;"></td>
+						</tr>
+						<tr>
+							<td>새 비밀번호</td>
+							<td><input type="password" id="newPwd" name="newPwd" style="width: 300px; margin-left: 10px;" placeholder="영문/숫자/특수문자 조합하여 6~12자리"></td>
+						</tr>
+						<tr>
+							<td>새 비밀번호확인</td>
+							<td><input type="password" id="newPwd2" name="newPwd_check" style="width: 300px; margin-left: 10px;"></td>
+						</tr>
+					</table>
+				
+	
+				<br>
+				<div style="margin-bottom: 30px;">
+				<button type="submit" class="btn" onclick="return change_pwd();" style="border: 1px solid orange; background: orange; color: white;">변경</button>
 			</form>	
 				&nbsp;&nbsp;
 				<a href="<%=contextPath%>/mypage.my" class="btn" style="border: 1px solid orange;">이전으로</a>
