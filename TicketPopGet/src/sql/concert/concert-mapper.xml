@@ -32,8 +32,8 @@
 	 WHERE RNUM BETWEEN ? AND ? 
 	</entry>
 	<entry key="concertDetailView">
-		SELECT 
-		       CONTENT_TYPE
+		SELECT CONTENT_NO
+		     , CONTENT_TYPE
 		     , CONTENT_TITLE
 		     , CONTENT_SUBJECT
 		     , PLACE

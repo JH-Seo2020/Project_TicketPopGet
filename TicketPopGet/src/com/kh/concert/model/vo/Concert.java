@@ -65,10 +65,11 @@ public class Concert {
 		this.concertDate = concertDate;
 	}
 
-	public Concert(String contentType, String contentTitle, String contentSubject, String place, String limit, String price,
+	public Concert(int contentNo, String contentType, String contentTitle, String contentSubject, String place, String limit, String price,
 			String contentKeyword, int latitude, int longitude, String region, String contentChangeImg, String imgPath,
 			Date concertDate,String concertRuntime, int concertMax, int concertSeats) {
 		super();
+		this.contentNo = contentNo;
 		this.contentType = contentType;
 		this.contentTitle = contentTitle;
 		this.contentSubject = contentSubject;

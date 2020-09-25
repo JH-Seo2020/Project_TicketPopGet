@@ -116,7 +116,8 @@ public class ConcertDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				concertObject = new Concert(rset.getString("CONTENT_TYPE"),
+				concertObject = new Concert(rset.getInt("CONTENT_NO"),
+											rset.getString("CONTENT_TYPE"),
 											rset.getString("CONTENT_TITLE"),
 											rset.getString("CONTENT_SUBJECT"),
 											rset.getString("PLACE"),
