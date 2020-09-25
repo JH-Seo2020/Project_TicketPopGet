@@ -20,6 +20,7 @@
         height: 850px;
         margin: auto;
         text-align: center;
+        right:300px;
     }
     
     .selectTable{
@@ -40,7 +41,7 @@
 <body>
 	<%@ include file="../adminCommon/adminMenubar.jsp" %>
     <div class="wrap" align="center">
-        <button class="returnMainPage" onclick="<%=request.getContextPath()%>/mian.ad">초기화면</button>
+        <button class="returnMainPage" onclick="location.href='<%=request.getContextPath()%>/main.ad'">초기화면</button>
     <div align="center">
         <h1 style="width: 500px;">블랙리스트 조회</h1>
     </div>
@@ -61,45 +62,71 @@
         <tbody>
         <%for(Member m : list) {%>
             <tr style="height: 50px;">
-                <td><%=m.getUserNo() %></td>
+                <td class="userNo"><%=m.getUserNo() %></td>
                 <td><%=m.getUserId() %></td>
                 <td><%=m.getReportCount()%></td>
                 <td>
-                    <button onclick="blacklistDetail();" type="button" class="btn btn-primary" data-toggle="modal" data-target="#reportMyModal">
+                    <button type="button" class="btn btn-primary blacklistDetail" data-toggle="modal" data-target="#reportMyModal">
                         	내용확인
                       </button>
                 </td>
                 
                 <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    <button type="button" class="btn btn-primary blacklistUnlock" data-toggle="modal" data-target="#myModal">
                         	해제
                       </button>
                 </td>
             </tr>
          <%} %>
 		<script>
-			function blacklistDetail(){
-				
-				$.ajax({
-					url:"<%=request.getContextPath()%>/blacklistDetail.adme",
-					type:"get",
-					data:{userNo:$(".selectTable>tbody>tr").children().eq(0).text()},
-					success:function(list){
-						for(var i=0; i<list.length; i++){
+			$(function(){
+				$(".blacklistDetail").click(function(){
+					$.ajax({
+						url:"<%=request.getContextPath()%>/blacklistDetail.adme",
+						type:"post",
+						data:{userNo:$(this).parents("tr").children().eq(0).text()},
+						success:function(list){
+							var result = "";
+							for(var i in list){
+								
+									result += 
+									"<tr>" +
+										"<td>" + list[i].reportType + "</td>" +
+										"<td>" + list[i].reportDate + "</td>" +
+										"<td>" + list[i].reporter + "</td>" +
+										"<td>" + list[i].reportCate + "</td>" +
+									+ "</tr>"
+								
+							}
 							$(".modal-header>table>tbody").html(
-								"<tr>" +
-									"<td>" + list[i].reportNo + "</td>" +
-									"<td>" + list[i].reporter + "</td>" +
-									"<td>" + list[i].reportDate + "</td>" +
-									"<td>" + list[i].reportCate + "</td>" +
-								+ "</tr>"
+									result
 							);
+						},error:function(){
+							console.log("블랙리스트 상세조회 모달 ajax통신 실패");
 						}
-					},error:function(){
-						console.log("블랙리스트 상세조회 모달 ajax통신 실패");
-					}
+					});
 				});
-			};
+				$(".blacklistUnlock").click(function(){
+					$.ajax({
+						url:"<%=request.getContextPath()%>/blacklistUnlock.adme",
+						data:{userNo:$(this).parents("tr").children().eq(0).text()},
+						type:"post",
+						success:function(result){
+							if(result > 0){
+								
+								if(confirm("블랙리스트를 해제하시겠습니까?") == true){
+									location.href="<%=request.getContextPath()%>/blacklist.adme?currentPage=1"
+									alert("블랙리스트가 해제되었습니다.");
+								}
+									
+							}
+								
+						},error:function(){
+							console.log("블랙리스트해제 ajax통신 실패");
+						}
+					});
+				});
+			});
 		</script>
         </tbody>
 
@@ -151,10 +178,10 @@
                 </thead>
                 <tbody align="center" id="reportCheck">
                 	 <tr style="height: 50px;" align="center">
-                        <td width="80px">신고 분류</td>
-                        <td width="100px">신고된날짜</td>
-                        <td width="80">신고자</td>
-                        <td width="200px">신고 사유</td>
+                        <td width="80px"></td>
+                        <td width="100px"></td>
+                        <td width="80"></td>
+                        <td width="200px"></td>
                     </tr>
                 </tbody>
             </table>
@@ -170,29 +197,5 @@
     </div>
   </div>
 
-<!-- 해제설정시 나타날 모달 -->
-    <!-- The Modal -->
-    <div class="modal" id="myModal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-      
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">블랙리스트를 해제 하시겠습니까?</h4>
-            </div>
-      
-            <!-- Modal body -->
-            <div class="modal-body" align="right">
-              <button class="btn btn-danger" style="width: 150px;">해제</button>
-            </div>
-    
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-dark" data-dismiss="modal">닫기</button>
-            </div>
-      
-          </div>
-        </div>
-      </div>
 </body>
 </html>
