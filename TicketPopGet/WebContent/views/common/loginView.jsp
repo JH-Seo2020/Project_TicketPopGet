@@ -82,9 +82,9 @@
         <h1>로그인</h1>
         <form id="loginForm" action="<%= request.getContextPath() %>/login.me" method="post" align="center">
             <label for="loginid" class="labelid">아이디</label>
-            <input type="text" id="loginid" required><br>
+            <input type="text" id="loginid" name="userId" required><br>
             <label for="loginpw" class="labelpw">패스워드</label>&nbsp;
-            <input type="password" id="loginpw" required>
+            <input type="password" id="loginpw" name="userPwd" required>
             <div class="chk">
                 <input type="checkbox" id="idchk">
                 <label for="idchk">비밀번호 저장</label>

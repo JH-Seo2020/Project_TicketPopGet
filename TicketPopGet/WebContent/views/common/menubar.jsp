@@ -112,8 +112,7 @@
 
 	<div id="wrap">
         <div id="header">
-        
-        	<%if(loginUser == null){ %>
+      
 	            <div id="logoSpace">
 	                <a class="menubar_a" href=""><img src="" width="90%">TicketPopGet로고</a>
 	            </div>
@@ -124,7 +123,7 @@
 	                    <button id="searchBtn">검색</button>
 	                </form>
 	            </div>
-	
+		<%if(loginUser == null){ %>
 	            <div id="loginSpace" align="right">
 	                <label><a class="menubar_a" href="<%=contextPath%>/loginview.me">로그인</a></label>
 	                <label><a class="menubar_a" href="">회원가입</a></label>

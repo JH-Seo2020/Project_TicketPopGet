@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.user.model.service.MemberService;
 import com.kh.user.model.vo.Member;
@@ -40,6 +41,11 @@ public class LoginServlet extends HttpServlet {
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		
 		if(loginUser != null) {
+			
+			HttpSession session = request.getSession(); 
+			session.setAttribute("loginUser",loginUser);
+			
+			
 			response.sendRedirect(request.getContextPath());
 			
 		}else {
@@ -47,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute("errorMsg", "로그인에 실패하였습니다.");
 			
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request,  response);;
+			view.forward(request,  response);
 		}
 	}
 			
