@@ -88,7 +88,7 @@
                     </th>
                 </tr>
                 <tr>
-                    <th><button type="button">공지사항 관리</button></th>
+                    <th><button type="button" onclick="location.href='<%=request.getContextPath()%>/list.adno?currentPage=1'">공지사항 관리</button></th>
                 </tr>
                 <tr>
                     <th><button type="button">FAQ</button></th>

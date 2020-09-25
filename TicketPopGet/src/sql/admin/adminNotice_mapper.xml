@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectNoticeListCount">
+		SELECT
+		       COUNT(*)
+		  FROM NOTICE
+		 WHERE NOTICE_STATUS = 'Y'
+	</entry>
+	<entry key="selectNoticeList">
+		 SELECT B.*
+		   FROM (SELECT ROWNUM RNUM, A.*
+		           FROM (SELECT
+		                       NOTICE_NO
+		                     , NOTICE_TYPE
+		                     , NOTICE_TITLE
+		                     , NOTICE_CONTENT
+		                     , NOTICE_DATE
+		                     , NOTICE_STATUS
+		                     , ADMIN_NAME
+		                  FROM NOTICE N
+		                  JOIN ADMIN A ON (N.ADMIN_ID = A.ADMIN_ID)
+		                 WHERE NOTICE_STATUS = 'Y'
+		                 ORDER BY NOTICE_DATE DESC)A)B
+		    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="searchNoticeListCount">
+		SELECT
+		       COUNT(*)
+		  FROM NOTICE
+		 WHERE NOTICE_STATUS = 'Y'
+		   AND NOTICE_TITLE LIKE ?
+	</entry>
+	
+	<entry key="searchNoticeList">
+		 SELECT B.*
+		   FROM (SELECT ROWNUM RNUM, A.*
+		           FROM (SELECT
+		                       NOTICE_NO
+		                     , NOTICE_TYPE
+		                     , NOTICE_TITLE
+		                     , NOTICE_CONTENT
+		                     , NOTICE_DATE
+		                     , NOTICE_STATUS
+		                     , ADMIN_NAME
+		                  FROM NOTICE N
+		                  JOIN ADMIN A ON (N.ADMIN_ID = A.ADMIN_ID)
+		                 WHERE NOTICE_STATUS = 'Y'
+		                 AND NOTICE_TITLE LIKE ?
+		                 ORDER BY NOTICE_DATE DESC)A)B
+		    WHERE RNUM BETWEEN ? AND ?
+		      
+	</entry>
+</properties>

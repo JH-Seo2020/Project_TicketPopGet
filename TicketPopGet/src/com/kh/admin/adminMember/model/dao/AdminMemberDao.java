@@ -148,7 +148,7 @@ public class AdminMemberDao {
 		}else if(selectUserType.equals("PHONE")) {
 			sql = prop.getProperty("selectMemberPhone");
 		}	
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			

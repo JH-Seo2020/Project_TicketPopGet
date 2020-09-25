@@ -107,6 +107,19 @@
 	.menubar_a{text-decoration: none !important; color: black !important;}
 	
 </style>
+<script>
+	$(function(){
+		// var msg =  "메세지" / "null" 
+		var msg = "<%= alertMsg%>"; 
+	
+		if(msg != "null"){ // 메세지가 담겨있을 경우
+			alert(msg);
+			// 알람창 띄워준 후에 session에 담긴 메세지 지워야됨
+			// 안그러면 menubar.jsp가 포함되어있는 페이지 열때마다 alert 계속 뜰거임
+			<% session.removeAttribute("alertMsg"); %> // 페이지 끄면 소멸됨
+		}
+	});
+</script>
 </head>
 <body>
 
