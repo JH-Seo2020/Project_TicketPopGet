@@ -4,9 +4,8 @@
 	<entry key="selectListCount">
 		SELECT COUNT(*) exhibitionListCount
 		  FROM CONTENTS
-		  JOIN PLAY
-		 USING (CONTENT_NO)
-		 WHERE CONTENT_TYPE = '연극'
+		 WHERE CONTENT_TYPE = '전시'
+		   AND CONTENT_STATUS = 'Y'
 	</entry>
 	<entry key="selectList">
 		 SELECT *
@@ -31,5 +30,32 @@
 		                )E
 		        )
 		  WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="exhibitionDetailView">
+	SELECT CONTENT_NO
+	     , CONTENT_TYPE
+	     , CONTENT_TITLE
+	     , CONTENT_SUBJECT
+	     , PLACE
+	     , LIMIT
+	     , PRICE
+	     , CONTENT_KEYWORD
+	     , LATITUDE
+	     , LONGITUDE
+	     , REGION
+	     , CONTENT_CHIMG
+	     , CONTENT_IMGPATH
+	     , EXHIBITION_START
+	     , EXHIBITION_END
+	  FROM CONTENTS
+	  JOIN EXHIBITON USING (CONTENT_NO)
+	 WHERE CONTENT_NO = ?
+	   AND CONTENT_STATUS = 'Y'
+	</entry>
+	<entry key="exhibitionInfo">
+		SELECT INFO
+		  FROM CONTENTS
+		 WHERE CONTENT_NO = ?
+		   AND CONTENT_STATUS = 'Y'
 	</entry>
 </properties>

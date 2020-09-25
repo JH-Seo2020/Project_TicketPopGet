@@ -44,4 +44,33 @@ public class ExhibitionService {
 		return list;
 	}
 
+	/**
+	 * 3. 각 전시 컨텐츠 상세조회 페이지 요청 
+	 * @param contentNo		컨텐츠번호
+	 * @return				관련 전시 정보 객체(1줄)
+	 * @author				서지혜
+	 */
+	public Exhibition exhibitionDetailView(int contentNo) {
+		
+		Connection conn = getConnection();
+		Exhibition exObject = new ExhibitionDao().exhibitionDetailView(conn, contentNo);
+		
+		close(conn);
+		return exObject;
+	}
+
+	/**
+	 * 4. 전시 정보 Clob to String 메소드
+	 * @param contentNo		해당 전시 컨텐츠 번호
+	 * @return				info 컬럼 내용
+	 * @author				서지혜
+	 */
+	public String exhibitionInfo(int contentNo) {
+		
+		Connection conn = getConnection();
+		String info = new ExhibitionDao().exhibitionInfo(conn,contentNo);
+		close(conn);
+		return info;
+	}
+
 }

@@ -4,7 +4,7 @@
 	<entry key="selectListCount">
 		  SELECT COUNT(*) playListCount
 			FROM CONTENTS
-		   WHERE CONTENT_TYPE = '전시'
+		   WHERE CONTENT_TYPE = '연극'
 			 AND CONTENT_STATUS = 'Y'
  
 	</entry>

@@ -96,7 +96,7 @@
 	                <%for(Exhibition e : list){ %>
 		                <li>
 		                    <span><img src="<%=contextPath %>/<%=e.getImgPath() %>/<%=e.getContentChangeImg() %>" height="200px" width="150px"></span>
-		                    <div id=exhibitionTitle><b><a href=""><%=e.getContentTitle() %></a></b></div>
+		                    <div id=exhibitionTitle><b><a href="<%=contextPath%>/exhibition.detail?contentNo=<%=e.getContentNo()%>"><%=e.getContentTitle() %></a></b></div>
 		                    <div><%=e.getExhibitionStartDate() %>~<%=e.getExhibitionEndDate() %></div>
 		                    <div><%=e.getContentKeyword() %></div>
 		                </li>

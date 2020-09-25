@@ -59,7 +59,27 @@ public class Exhibition {
 		
 	}
 
-	
+	public Exhibition(int contentNo, String contentType, String contentTitle, String contentSubject, String place,
+			String limit, String price, String contentKeyword, int latitude, int longitude, String region,
+			String contentChangeImg, String imgPath, Date exhibitionStartDate, Date exhibitionEndDate) {
+		super();
+		this.contentNo = contentNo;
+		this.contentType = contentType;
+		this.contentTitle = contentTitle;
+		this.contentSubject = contentSubject;
+		this.place = place;
+		this.limit = limit;
+		this.price = price;
+		this.contentKeyword = contentKeyword;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.region = region;
+		this.contentChangeImg = contentChangeImg;
+		this.imgPath = imgPath;
+		this.exhibitionStartDate = exhibitionStartDate;
+		this.exhibitionEndDate = exhibitionEndDate;
+	}
+
 	public int getContentNo() {
 		return contentNo;
 	}
