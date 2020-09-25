@@ -81,6 +81,12 @@ public class MemberDao {
 
 	}
 
+	/**
+	 * @param conn
+	 * @param checkId
+	 * @return
+	 * @author 김현선
+	 */
 	public int idCheck(Connection conn, String checkId) {
 		
 		int count = 0;
@@ -97,9 +103,16 @@ public class MemberDao {
 			
 			rset = pstmt.executeQuery();
 			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 	
 		return count;
