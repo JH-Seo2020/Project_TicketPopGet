@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+	<entry key="loginAdmin">
+		SELECT COUNT(*)
+		  FROM ADMIN
+		 WHERE ADMIN_ID = ?
+		   AND ADMIN_PWD = ?
+	</entry>
+	
 	<entry key="loginMember">
 		SELECT 
 			   USER_NO

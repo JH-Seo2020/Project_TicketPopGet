@@ -38,6 +38,15 @@ public class LoginServlet extends HttpServlet {
 		String userId = request.getParameter("userId");	// 입력한 아이디
 		String userPwd = request.getParameter("userPwd"); // 입력한 비밀번호
 		
+		if(userId.equals("ADMIN")) {
+			int loginAdmin = new MemberService().loginAdmin(userId, userPwd);
+			if(loginAdmin != 0) {
+				request.getRequestDispatcher("views/admin/adminCommon/adminMainMenu.jsp").forward(request, response);;
+			}
+		}
+			
+		
+		
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		
 		if(loginUser != null) {
@@ -55,6 +64,7 @@ public class LoginServlet extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request,  response);
 		}
+		
 	}
 			
 

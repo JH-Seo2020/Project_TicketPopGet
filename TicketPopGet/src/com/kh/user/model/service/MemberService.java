@@ -44,5 +44,24 @@ public class MemberService {
 		return count;
 	}
 	
+	/**
+	 * 관리자 로그인용 서비스
+	 * @param userId
+	 * @param userPwd
+	 * @return 조회된 값의 수
+	 * @author 조우현
+	 */
+	public int loginAdmin(String userId, String userPwd) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().loginAdmin(conn, userId, userPwd);
+		
+		close(conn);
+		
+		return result;
+		
+	}
+	
 
 }
