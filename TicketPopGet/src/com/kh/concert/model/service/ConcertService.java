@@ -6,6 +6,7 @@ import java.sql.Clob;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.community.review.model.vo.Review;
 import com.kh.concert.model.dao.ConcertDao;
 import com.kh.concert.model.vo.Concert;
 import com.kh.concert.model.vo.PageInfo;
@@ -72,6 +73,39 @@ public class ConcertService {
 		String info = new ConcertDao().concertInfo(conn, concertNo);
 		close(conn);
 		return info;
+	}
+
+	/**
+	 * 5. 리뷰총개수조회
+	 * @param contentNo
+	 * @return				개수
+	 * @author 				서지혜
+	 */
+	public int selectReview(int contentNo) {
+		
+		Connection conn = getConnection();
+		int result = new ConcertDao().selectReview(conn,contentNo); 
+				
+		close(conn);
+		
+		return result;
+	}
+
+	/**
+	 * 6. 리뷰전부가져와
+	 * @param pi
+	 * @param contentNo
+	 * @return				리뷰전부
+	 * @author 				서지혜
+	 */
+	public ArrayList<Review> selectReviewsAll(PageInfo pi, int contentNo) {
+		
+		Connection conn = getConnection();
+		ArrayList<Review> list = new ConcertDao().selectReviewsAll(conn,pi,contentNo);
+		
+		close(conn);
+		
+		return list;
 	}
 
 	

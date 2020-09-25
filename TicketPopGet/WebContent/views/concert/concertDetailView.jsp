@@ -212,6 +212,22 @@
             
             <script>
             	$(function(){
+            		selectReviews();
+            		
+                		function selectReviews(){
+                			$.ajax({
+                				url : "<%=contextPath%>/review.inconcert?currentPage=1",
+                				type : "get",
+                				data : {contentNo : <%=cObject.getContentNo()%>},
+                				success : function(result){
+                					console.log(result);
+                				},
+                				error : function(){
+                					console.log("ajax통신실패");
+                				}
+                			});
+                		}
+            		
             		$("#cDetail").click(function(){
             			$("#concertDetailInfoBody1").css("display","block");
             			$("#concertDetailInfoBody2").css("display","none");
@@ -223,10 +239,12 @@
             			$("#concertDetailInfoBody3").css("display","none");
             		});
             		$("#cReview").click(function(){
+            			
             			$("#concertDetailInfoBody1").css("display","none");
             			$("#concertDetailInfoBody2").css("display","none");
             			$("#concertDetailInfoBody3").css("display","block");
             		});
+            		
             	});
             </script>
 

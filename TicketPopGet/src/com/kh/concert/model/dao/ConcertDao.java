@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.community.review.model.vo.Review;
 import com.kh.concert.model.vo.Concert;
 import com.kh.concert.model.vo.PageInfo;
 
@@ -174,6 +175,66 @@ public class ConcertDao {
 		}
 		
 		return concertInfo;
+	}
+
+
+
+	public int selectReview(Connection conn, int contentNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, contentNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("selectReview");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+	public ArrayList<Review> selectReviewsAll(Connection conn, PageInfo pi, int contentNo) {
+		
+		ArrayList<Review> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReviewsAll");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, contentNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Review(rset.getInt("RNUM"),
+									rset.getString("REVIEW_TITLE"),
+									rset.getInt("REVIEW_POINT"),
+									rset.getDate("REVIEW_DATE"),
+									rset.getInt("REVIEW_COUNT")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 	

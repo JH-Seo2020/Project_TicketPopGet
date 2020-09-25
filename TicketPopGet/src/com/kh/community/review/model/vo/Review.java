@@ -5,6 +5,7 @@ import java.sql.Date;
 
 public class Review {
 	
+	private int reviewRnum;
 	private int reviewNo;
 	private int userNo;
 	private int contentNo;
@@ -33,15 +34,27 @@ public class Review {
 		this.reviewStatus = reviewStatus;
 	}
 
-	public Review(int reviewNo, String reviewTitle, int reviewPoint, Date reviewDate, int reviewCount) {
+	public Review(int reviewRnum, String reviewTitle, int reviewPoint, Date reviewDate, int reviewCount) {
 		super();
-		this.reviewNo = reviewNo;
+		this.reviewRnum = reviewRnum;
 		this.reviewTitle = reviewTitle;
 		this.reviewPoint = reviewPoint;
 		this.reviewDate = reviewDate;
 		this.reviewCount = reviewCount;
 		
 	}
+
+	
+	
+	public int getReviewRnum() {
+		return reviewRnum;
+	}
+
+	public void setReviewRnum(int reviewRnum) {
+		this.reviewRnum = reviewRnum;
+	}
+	
+	
 
 	public int getReviewNo() {
 		return reviewNo;

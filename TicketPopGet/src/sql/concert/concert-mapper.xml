@@ -60,4 +60,30 @@
 		 WHERE CONTENT_NO = ?
 		   AND CONTENT_STATUS = 'Y'
 	</entry>
+	<entry key="selectReview">
+		SELECT COUNT (*) concertReview
+		  FROM REVIEW
+		  JOIN CONTENTS USING (CONTENT_NO)
+		 WHERE REVIEW_STATUS = 'Y'
+		   AND CONTENT_NO = ?
+	</entry>
+	<entry key="selectReviewsAll">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM
+		             , CRD.*
+		          FROM (
+		                SELECT REVIEW_NO 
+		                     , REVIEW_TITLE
+		                     , REVIEW_POINT
+		                     , REVIEW_DATE
+		                     , REVIEW_COUNT
+		                  FROM REVIEW
+		                  JOIN CONTENTS USING (CONTENT_NO)
+		                 WHERE REVIEW_STATUS = 'Y'
+		                   AND CONTENT_NO = ?
+		                )CRD
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
 </properties>
