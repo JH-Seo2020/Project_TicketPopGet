@@ -55,9 +55,9 @@ public class ConcertReviewsInDetailServlet extends HttpServlet {
 		int endPage;		// 5, 10, 15, ...
 		
 		int contentNo = Integer.parseInt(request.getParameter("contentNo"));
+		System.out.println(contentNo);
 		//sql에서 개수조회
 		listCount = new ConcertService().selectReview(contentNo);
-		System.out.println(listCount);
 		//현재페이지
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		pageLimit = 5;

@@ -81,10 +81,11 @@
         }
         #reviewPaging button{
             margin-top: 20px;
+            margin-right: 10px;
             width: 40px;
             height: 40px;
             border: none;
-            color: white;
+            color: balck;
             background-color: #ffb300;
             border-radius: 5px;
         }
@@ -95,6 +96,7 @@
             width: 250px; /*what ever width you want*/
             height: 300px;
         }
+        
     </style>
 </head>
 <body>
@@ -118,7 +120,7 @@
             	$(function(){
             		$("#likeImg").click(function(){
             			if( $(this).attr("src") === "<%=contextPath %>/resources/img/imgForSearch/heart.png" ){
-            				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/like_heart.png");s
+            				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/like_heart.png");
             			}else{
             				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/heart.png");
             			}
@@ -211,55 +213,81 @@
             </div>
             
             <script>
-            	$(function(){
-            		selectReviews();
+                    $(function(){
+                        selectReviews(1);
+                        
+                        
+                        $("#cDetail").click(function(){
+                			$("#concertDetailInfoBody1").css("display","block");
+                			$("#concertDetailInfoBody2").css("display","none");
+                			$("#concertDetailInfoBody3").css("display","none");
+                		});
+                		$("#cCancel").click(function(){
+                			$("#concertDetailInfoBody1").css("display","none");
+                			$("#concertDetailInfoBody2").css("display","block");
+                			$("#concertDetailInfoBody3").css("display","none");
+                		});
+                		$("#cReview").click(function(){
+                			
+                			$("#concertDetailInfoBody1").css("display","none");
+                			$("#concertDetailInfoBody2").css("display","none");
+                			$("#concertDetailInfoBody3").css("display","block");
+                		});
+                   });
+                 
+                     function selectReviews(cPage){
+                        $.ajax({
+                           url : "<%=contextPath%>/review.inconcert",
+                           type : "get",
+                           data : {"contentNo" : <%=cObject.getContentNo()%>,
+                                   "currentPage" : cPage},
+                           success : function(result){
+                              console.log(result);
+                              
+                              var reviews = "";
+                               for (var i in result.list){
+                                  reviews += "<tr>"
+                                        + "<th>" + result.list[i].reviewRnum + "</th>"
+                                        + "<td>" + result.list[i].reviewTitle+ "</td>"
+                                        + "<td>" + result.list[i].reviewPoint+ "</td>"
+                                        + "<td>" + result.list[i].reviewDate+ "</td>"
+                                        + "<td>" + result.list[i].reviewCount+ "</td>"
+                                        + "</tr>"
+                               }
+                               
+                               var $boardLimit = result.pi.boardLimit;
+                               var $currentPage = result.pi.currentPage;
+                               var $endPage = result.pi.endPage;
+                               var $listCount = result.pi.listCount;
+                               var $maxPage = result.pi.maxPage;
+                               var $pageLimit = result.pi.pageLimit;
+                               var $startPage = result.pi.startPage;
+                               
+                               var $btns = "";
+                               for(var $p = $startPage; $p <= $endPage; $p++ ){
+                                  //$btns += "<a href="+'<%=contextPath%>/review.inconcert?currentPage='+">"+$p+"</a>"+"&nbsp;";
+                                  $btns += "<button type='button' onclick='selectReviews(" + $p + ");'>" + $p + "</button>";
+                               }
+                               var $firstBtn = "<button type='button' onclick='selectReviews(" + 1 + ");'>" + "&lt;&lt;" + "</button>";
+                               var $prevBtn = "<button type='button' onclick='selectReviews(" + ($currentPage - 1) + ");'>" + "&lt;" + "</button>";
+                               var $nextBtn = "<button type='button' onclick='selectReviews(" + ($currentPage + 1) + ");'>" + "&gt;" + "</button>";
+                               var $endBtn = "<button type='button' onclick='selectReviews(" + $maxPage + ");'>" + "&gt;&gt;" + "</button>";
+                               
+                               var $bottons = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
+                              
+                              $("#tbodyArea").html(reviews);
+                              $("#reviewPaging").html($bottons);
+                              
+                           },
+                           error : function(){
+                              console.log("ajax통신실패");
+                          }
+
+               			});
+               		}
             		
-                		function selectReviews(){
-                			$.ajax({
-                				url : "<%=contextPath%>/review.inconcert?currentPage=1",
-                				type : "get",
-                				data : {contentNo : <%=cObject.getContentNo()%>},
-                				success : function(result){
-                					console.log(result);
-                					
-                					var reviews = "";
-                    				for (var i in result.list){
-                    					reviews += "<tr>"
-                    							+ "<th>" + result.list[i].reviewRnum + "</th>"
-                    							+ "<td>" + result.list[i].reviewTitle+ "</td>"
-                    							+ "<td>" + result.list[i].reviewPoint+ "</td>"
-                    							+ "<td>" + result.list[i].reviewDate+ "</td>"
-                    							+ "<td>" + result.list[i].reviewCount+ "</td>"
-                    							+ "</tr>"
-                    				}
-                					
-                					$("#tbodyArea").html(reviews);
-                					
-                				},
-                				error : function(){
-                					console.log("ajax통신실패");
-                				}
-                			});
-                		}
+
             		
-            		$("#cDetail").click(function(){
-            			$("#concertDetailInfoBody1").css("display","block");
-            			$("#concertDetailInfoBody2").css("display","none");
-            			$("#concertDetailInfoBody3").css("display","none");
-            		});
-            		$("#cCancel").click(function(){
-            			$("#concertDetailInfoBody1").css("display","none");
-            			$("#concertDetailInfoBody2").css("display","block");
-            			$("#concertDetailInfoBody3").css("display","none");
-            		});
-            		$("#cReview").click(function(){
-            			
-            			$("#concertDetailInfoBody1").css("display","none");
-            			$("#concertDetailInfoBody2").css("display","none");
-            			$("#concertDetailInfoBody3").css("display","block");
-            		});
-            		
-            	});
             </script>
 
             <div id="concertDetailInfoBody1">
@@ -334,15 +362,7 @@
                 </table>
         
                 <div id="reviewPaging">
-                    <button>&lt;&lt;</button>
-                    <button>&lt;</button>
-                    <button>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>4</button>
-                    <button>5</button>
-                    <button>&gt;</button>
-                    <button>&gt;&gt;</button>
+                    
                 </div>
 
             </div>
