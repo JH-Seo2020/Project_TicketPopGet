@@ -1,7 +1,6 @@
 package com.kh.admin.adminMember.controller.member;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,19 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.admin.adminMember.model.service.AdminMemberService;
-import com.kh.admin.adminMember.model.vo.Report;
 
 /**
- * Servlet implementation class AdminMemberBlacklistDetailServelt
+ * Servlet implementation class AdminMemberBlacklistUnlockServlet
  */
-@WebServlet("/blacklistDetail.adme")
-public class AdminMemberBlacklistDetailServelt extends HttpServlet {
+@WebServlet("/blacklistUnlock.adme")
+public class AdminMemberBlacklistUnlockServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminMemberBlacklistDetailServelt() {
+    public AdminMemberBlacklistUnlockServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +30,17 @@ public class AdminMemberBlacklistDetailServelt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		
-		ArrayList<Report> rlist = new AdminMemberService().selectReportList(userNo);
-		
-		response.setContentType("application/json; charset=UTF-8");
+		int result = new AdminMemberService().blacklistUnlock(userNo);
 		
 		Gson gson = new Gson();
 		
-		gson.toJson(rlist, response.getWriter());
+		if(result > 0) {
+			response.setContentType("application/json; charset=UTF-8");
+			gson.toJson(result, response.getWriter());
+		}
 		
 	}
 

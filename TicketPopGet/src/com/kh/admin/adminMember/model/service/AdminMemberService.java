@@ -1,6 +1,6 @@
 package com.kh.admin.adminMember.model.service;
 
-import static com.kh.common.JDBCTemplate.close;
+import static com.kh.common.JDBCTemplate.*;
 import static com.kh.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
@@ -139,6 +139,20 @@ public class AdminMemberService {
 		
 		return list;
 		
+	}
+	
+	public int blacklistUnlock(int userNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new AdminMemberDao().blacklistUnlock(conn, userNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
 	}
 	
 }

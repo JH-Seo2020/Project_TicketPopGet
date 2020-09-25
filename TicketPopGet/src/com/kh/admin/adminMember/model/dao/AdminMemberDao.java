@@ -314,6 +314,7 @@ public class AdminMemberDao {
 				r.setReportDate(rset.getDate("report_date"));
 				r.setReporter(rset.getString("user_name"));
 				r.setReportType(rset.getString("report_type"));
+				r.setReportCate(rset.getString("report_content"));
 				list.add(r);
 			}
 		} catch (SQLException e) {
@@ -323,6 +324,28 @@ public class AdminMemberDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public int blacklistUnlock(Connection conn, int userNo) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("blacklistUnlock");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 }

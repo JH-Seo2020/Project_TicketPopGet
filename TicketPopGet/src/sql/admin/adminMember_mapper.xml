@@ -173,9 +173,16 @@
 		     , REPORT_DATE
 		     , USER_NAME
 		     , REPORT_TYPE
+		     , REPORT_CONTENT
 		  FROM REPORT
 		  JOIN MEMBER ON (REPORTER = USER_NO)
 		 WHERE TROUBLEMAKER = ?
 	</entry>
 	
+	<entry key="blacklistUnlock">
+		UPDATE MEMBER
+		   SET BLACKLIST_STATUS = 'N'
+		 WHERE USER_NO = ?
+		   AND BLACKLIST_STATUS='Y'
+	</entry>
 </properties>
