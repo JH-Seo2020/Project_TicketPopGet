@@ -29,6 +29,29 @@ public class MemberService {
 		
 		return loginMember;
 	}
+	
+	
+	/**
+	 * 회원가입 서비스
+	 * @param m
+	 * @return
+	 * @author 김현선
+	 */
+	public int insertMember(Member m) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().insertMember(conn,m);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 
 	/**
 	 * 아이디 중복확인 서비스
