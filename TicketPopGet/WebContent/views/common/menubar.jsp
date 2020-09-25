@@ -114,7 +114,7 @@
         <div id="header">
       
 	            <div id="logoSpace">
-	                <a class="menubar_a" href=""><img src="" width="90%">TicketPopGet로고</a>
+	                <a class="menubar_a" href="<%=request.getContextPath()%>"><img src="" width="90%">TicketPopGet로고</a>
 	            </div>
 	
 	            <div id="search" align="center">
@@ -132,7 +132,7 @@
             <%} else{ %>
                 <div id="loginSpace" align="right";>
                 <label>로그아웃</label>
-                <label>마이페이지</label>
+                <label><a class="menubar_a" href="<%=contextPath%>/mypage.my">마이페이지</a></label>
                 <label>고객센터</label>
                 </div>
               <%} %>
