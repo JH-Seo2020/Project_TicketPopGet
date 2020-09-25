@@ -221,6 +221,20 @@
                 				data : {contentNo : <%=cObject.getContentNo()%>},
                 				success : function(result){
                 					console.log(result);
+                					
+                					var reviews = "";
+                    				for (var i in result.list){
+                    					reviews += "<tr>"
+                    							+ "<th>" + result.list[i].reviewRnum + "</th>"
+                    							+ "<td>" + result.list[i].reviewTitle+ "</td>"
+                    							+ "<td>" + result.list[i].reviewPoint+ "</td>"
+                    							+ "<td>" + result.list[i].reviewDate+ "</td>"
+                    							+ "<td>" + result.list[i].reviewCount+ "</td>"
+                    							+ "</tr>"
+                    				}
+                					
+                					$("#tbodyArea").html(reviews);
+                					
                 				},
                 				error : function(){
                 					console.log("ajax통신실패");
@@ -308,54 +322,14 @@
                     <thead class="thead-dark" align="center">
                       <tr>
                         <th scope="col">번호</th>
-                        <th scope="col">분류</th>
                         <th scope="col" width="50%">제목</th>
                         <th scope="col">별점</th>
                         <th scope="col" width=10%>날짜</th>
                         <th scope="col">조회수</th>
                       </tr>
                     </thead>
-                    <tbody align="center">
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>연극</td>
-                        <td><a href="">'영웅 테세우스의 모험' 후기 - 결국 장비빨</a></td>
-                        <td>4.0</td>
-                        <td>2020/01/02</td>
-                        <td>30</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>연극</td>
-                        <td><a href="">'해리포터' 후기 - 다니엘 데려와라</a></td>
-                        <td>3.0</td>
-                        <td>2020/02/02</td>
-                        <td>40</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>콘서트</td>
-                        <td><a href="">제주합창회의 소규모 콘서트를 다녀왔습니다</a></td>
-                        <td>5.0</td>
-                        <td>2020/11/30</td>
-                        <td>50</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">4</th>
-                        <td>Larry</td>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">5</th>
-                        <td>Larry</td>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>@mdo</td>
-                      </tr>
+                    <tbody align="center" id="tbodyArea">
+                      
                     </tbody>
                 </table>
         
