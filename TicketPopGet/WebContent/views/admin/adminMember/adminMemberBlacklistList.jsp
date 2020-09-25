@@ -138,21 +138,21 @@
     </form>
     <br><br>
         <div align="center">
-			<%if(p.getCurrentPage() != p.getStartPage()) {%>
-            	<button><<</button>
-            	<button><</button>
-            <%} %>
-            <%for(int i=p.getStartPage(); i<=p.getEndPage(); i++) {%>
-            	<%if(p.getCurrentPage() != i) {%>
-            		<button onclick="location.href='<%=request.getContextPath()%>/blacklist.adme?currentPage=<%=i%>'"><%=i%></button>
-            	<%}else { %>
-            		<button disabled onclick="location.href='<%=request.getContextPath()%>/blacklist.adme?currentPage=<%=i%>'"><%=i%></button>
-            	<%} %>
-            <%} %>
-            <%if(p.getCurrentPage() != p.getEndPage()){ %>
-            <button>></button>
-            <button>>></button>   
-            <%} %>
+		<%if(p.getCurrentPage() != p.getStartPage()) {%>
+        	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=1'">&lt;&lt;</button>
+       	 	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=p.getCurrentPage() - 1%>'">&lt;</button>
+        <%} %>
+        <%for(int i=p.getStartPage(); i<=p.getEndPage(); i++) {%>
+        	<%if(i != p.getCurrentPage()){ %>
+        		<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=i%>'"><%=i%></button>
+        	<%}else{ %>
+        		<button disabled><%=i%></button>
+        	<%} %>
+       <%} %>
+        <%if(p.getCurrentPage() != p.getEndPage()) { %>
+        	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=p.getCurrentPage() + 1%>'">&gt;</button>
+        	<button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=<%=p.getMaxPage()%>'">&gt;&gt;</button>   
+        <%} %>
         </div>
 
     </div>

@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		
 		if(userId.equals("ADMIN")) {
-			response.sendRedirect(request.getContextPath()+"/login.ad?userId="+userId+"&userPwd="+userPwd);
+			request.getRequestDispatcher("/login.ad").forward(request, response);
 		}else if(loginUser != null) {
 			
 			HttpSession session = request.getSession(); 
