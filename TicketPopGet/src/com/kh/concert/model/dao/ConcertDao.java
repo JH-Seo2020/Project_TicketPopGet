@@ -192,7 +192,7 @@ public class ConcertDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				result = rset.getInt("selectReview");
+				result = rset.getInt("concertReview");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -223,6 +223,7 @@ public class ConcertDao {
 			
 			while(rset.next()) {
 				list.add(new Review(rset.getInt("RNUM"),
+									rset.getInt("REVIEW_NO"),
 									rset.getString("REVIEW_TITLE"),
 									rset.getInt("REVIEW_POINT"),
 									rset.getDate("REVIEW_DATE"),

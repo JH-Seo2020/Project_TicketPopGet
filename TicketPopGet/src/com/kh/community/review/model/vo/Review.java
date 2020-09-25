@@ -34,9 +34,10 @@ public class Review {
 		this.reviewStatus = reviewStatus;
 	}
 
-	public Review(int reviewRnum, String reviewTitle, int reviewPoint, Date reviewDate, int reviewCount) {
+	public Review(int reviewRnum, int reviewNo ,String reviewTitle, int reviewPoint, Date reviewDate, int reviewCount) {
 		super();
 		this.reviewRnum = reviewRnum;
+		this.reviewNo = reviewNo;
 		this.reviewTitle = reviewTitle;
 		this.reviewPoint = reviewPoint;
 		this.reviewDate = reviewDate;
