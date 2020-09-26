@@ -10,7 +10,7 @@
     .loginbox{
         width: 700px;
         height: 700px;
-        margin-left: 20%;
+        margin-left: 25%;
         margin-top: 2%;
         padding: 25px 15px;
         box-sizing: border-box;
