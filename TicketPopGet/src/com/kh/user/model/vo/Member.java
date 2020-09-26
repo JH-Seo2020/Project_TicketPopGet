@@ -38,10 +38,25 @@ public class Member {
 		this.reportCount = reportCount;
 		this.delete_reason = delete_reason;
 	}
+	
+	// 회원가입
+	public Member(String userId, String userPwd, String userName, String email, String phone, Date birthdate,
+			String gender) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.email = email;
+		this.phone = phone;
+		this.birthdate = birthdate;
+		this.gender = gender;
+	}
+
 
 	public int getUserNo() {
 		return userNo;
 	}
+
 
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
