@@ -226,6 +226,12 @@ public class MemberDao {
 		return m;
 	}
 
+	/**
+	 * @param conn
+	 * @param m
+	 * @return
+	 * @author 김현선
+	 */
 	public int insertMember(Connection conn, Member m) {
 		
 		int result = 0;
