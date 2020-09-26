@@ -120,7 +120,7 @@ public class MemberService {
     * @author 이금이
     */
    public int updateDelete(String userId, String reason) {
-      
+    
       Connection conn = getConnection();
       
       int result = new MemberDao().updateDelete(conn, userId, reason);
