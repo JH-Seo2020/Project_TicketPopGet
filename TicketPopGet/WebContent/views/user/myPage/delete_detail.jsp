@@ -95,24 +95,17 @@
 						</tr>
 						
 						<tr>
-							<!-- 기타 클릭시 text 이용할 수 있게 설정하기 -->
-							<td><input type="radio" id="reason6" name="reason" onclick="active()">
+							<!-- 현재문제가 기타랑 다른 버튼 중복체크됨 -->
+							<td><input type="radio" id="reason6" onclick="this.form.reason_text.disabled=false">
 							 <label for="reason6">기타</label></td>
 						</tr>
 						<tr>
-							<td colspan="3"><textarea name="text" disabled style="width: 700px; height: 90px; resize: none;"></textarea></td>
+							<td colspan="3"><textarea name="reason" id="reason_text" disabled style="width: 700px; height: 90px; resize: none;"></textarea></td>
 						</tr>
 						
 					</table>
-					
-					<script>
-							function active(){
-								
-							}
-					</script>
-					
 				</div>
-
+				
 				<div style="margin-top: 90px; margin-left: 250px;">
 					<input type="radio" onclick="" style="width: 20px; height: 16px;" id="delete_ok"> 
 					<label for="delete_ok" style="font-size: 20px;">위, 모든 내용을 확인했으며 동의합니다</label>

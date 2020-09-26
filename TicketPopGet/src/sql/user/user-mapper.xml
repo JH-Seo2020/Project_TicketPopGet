@@ -52,8 +52,8 @@
 	UPDATE 
 		   MEMBER
 	   SET DELETE_STATUS = 'Y'
+	     , DELETE_REASON = ?
 	 WHERE USER_ID = ?
-	   AND DELETE_REASON = ?
 	   AND DELETE_STATUS = 'N'
 	</entry>
 	

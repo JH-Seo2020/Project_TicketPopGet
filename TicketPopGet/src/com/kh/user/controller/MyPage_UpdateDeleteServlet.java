@@ -36,9 +36,7 @@ public class MyPage_UpdateDeleteServlet extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		String reason = request.getParameter("reason");
-		
-		System.out.println(userId);
-		System.out.println(reason);
+	
 		
 		int result = new MemberService().updateDelete(userId, reason);
 		
