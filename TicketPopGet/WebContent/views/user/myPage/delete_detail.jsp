@@ -95,7 +95,7 @@
 						</tr>
 						
 						<tr>
-							<!-- 기타 클릭시 text 이용할 수 있게 설정하기 -->
+							<!-- 현재문제가 기타랑 다른 버튼 중복체크됨 -->
 							<td><input type="radio" id="reason6" onclick="this.form.reason_text.disabled=false">
 							 <label for="reason6">기타</label></td>
 						</tr>
