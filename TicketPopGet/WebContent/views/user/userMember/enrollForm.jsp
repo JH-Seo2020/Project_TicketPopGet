@@ -79,7 +79,7 @@
 
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">비밀번호 확인</label>
-                                    <input type="password" id="userPawd2" class="form-control" name="userPawd2" style="width: 400px;" placeholder="비밀번호 재입력" required>
+                                    <input type="password" id="userPwd2" class="form-control" name="userPwd2" style="width: 400px;" placeholder="비밀번호 재입력" required>
                             </div>
 
                             <div class="form-group row">
