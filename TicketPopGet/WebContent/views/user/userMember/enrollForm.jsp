@@ -74,38 +74,22 @@
 
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">비밀번호</label>
-                                    <input type="password" id="password" class="form-control" name="userPwd1" style="width: 400px;" placeholder="영문/숫자/특수문자 조합하여 6~12자리" required>
+                                    <input type="password" id="userPwd1" class="form-control" name="userPwd1" style="width: 400px;" placeholder="영문/숫자/특수문자 조합하여 6~12자리" required>
                             </div>
 
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">비밀번호 확인</label>
-                                    <input type="password" id="password" class="form-control" name="userPawd2" style="width: 400px;" placeholder="비밀번호 재입력" required>
+                                    <input type="password" id="userPawd2" class="form-control" name="userPawd2" style="width: 400px;" placeholder="비밀번호 재입력" required>
                             </div>
 
                             <div class="form-group row">
                                 <label for="userName" class="col-md-4 col-form-label text-md-right">이름</label>
-                                    <input type="text" id="userName" class="form-control" style="width: 400px;" placeholder="이름" required>
+                                    <input type="text" id="userName" name="userName" class="form-control" style="width: 400px;" placeholder="이름" required>
                             </div>
 
                             <div class="form-group row">                                    
                                 <label for="birth" class="col-md-4 col-form-label text-md-right">생년월일</label>
-                                    <input type="text" name="birth_year" class="form-control" maxlength="4" style="width: 127px;" placeholder="년(4자)">
-                                    &nbsp;&nbsp;<select id="birth_mm" style="width: 127px" class="form-control">
-                                        <option>월</option>
-                                        <option value="01">1</option>
-                                        <option value="02">2</option>
-                                        <option value="03">3</option>
-                                        <option value="04">4</option>
-                                        <option value="05">5</option>
-                                        <option value="06">6</option>
-                                        <option value="07">7</option>
-                                        <option value="08">8</option>
-                                        <option value="09">9</option>                                    
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                    </select>
-                                    &nbsp;&nbsp;<input type="text" name="birth_dd" class="form-control" maxlength="2" style="width: 127px;" placeholder="일">
+                                	<input type="text" id="birth" name="birth" class="form-control" style="width: 400px;" maxlength="8" placeholder="생년월일 8자리 입력" required>
                                         
                             </div>
 
@@ -120,15 +104,8 @@
 
                             <div class="form-group row">                                    
                                 <label for="phone" class="col-md-4 col-form-label text-md-right">전화번호</label>
-                                    <select id="phone" style="width: 127px" class="form-control">
-                                        <option>010</option>
-                                        <option value="011">011</option>
-                                        <option value="016">016</option>
-                                        <option value="018">018</option>
-                                        <option value="019">019</option>
-                                    </select>
-                                    &nbsp;&nbsp;<input type="text" name="phone" class="form-control" style="width: 127px;">
-                                    &nbsp;&nbsp;<input type="text" name="phone" class="form-control" style="width: 127px;">
+                                	<input type="text" id="phone" name="phone" class="form-control" style="width: 400px;" placeholder="(-)제외한 전화번호 입력" required>
+                                    
                             </div>
 
                             <div class="form-group row">
@@ -191,8 +168,8 @@
             var userPwd1 = document.getElementById("userPwd1");
             var userPwd2 = document.getElementById("userPwd2");
             
-            // 아이디 띄어쓰기 없이 영문/숫자조합 6~12자리
-            var regExp = /^[a-z][a-z\d]{5,12}$/; 
+            // 아이디 영문/숫자조합 6~12자리
+            var regExp = /^[a-z][a-z\d]{5,11}$/; 
             
             if(!regExp.test(userId.value)){
                 alert("유효한 아이디를 입력하세요!");
@@ -204,10 +181,10 @@
             }
             
             // 패스워드 영문/숫자/특수문자 조합하여 6~12자리
-            regExp = /^[a-z\d!@#$%^&*]{5,12}$/i;
+            var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,12}$/i;
 
-            if(regExp.test(userPwd1.value)){
-                alert("유효한 비밀번호를 입력하세요!");
+            if(!reg.test(userPwd1.value)){
+                alert("비밀번호 규칙이 맞지 않습니다.");
                 userPwd1.value="";
                 userPwd1.focus();
                 return false;
@@ -215,12 +192,11 @@
             
             // 비밀번호와 비밀번호 확인이 일치하는지 확인
             if(userPwd1.value != userPwd2.value){
-                alert("동일한 비밀번호를 입력하세요!");
+                alert("동일한 비밀번호를 입력해주세요.");
                 userPwd2.value = "";
                 userPwd2.focus();
                 return false;
             }
-            
             
     	}
     </script>

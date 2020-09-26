@@ -139,7 +139,7 @@
 		<%if(loginUser == null){ %>
 	            <div id="loginSpace" align="right">
 	                <label><a class="menubar_a" href="<%=contextPath%>/loginview.me">로그인</a></label>
-	                <label><a class="menubar_a" href="">회원가입</a></label>
+	                <label><a class="menubar_a" href="<%=contextPath%>/enrollForm.me">회원가입</a></label>
 	                <label><a class="menubar_a" href="">고객센터</a></label>
 	            </div>
             <%} else{ %>
