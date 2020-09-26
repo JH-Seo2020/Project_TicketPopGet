@@ -53,6 +53,7 @@
 		   MEMBER
 	   SET DELETE_STATUS = 'Y'
 	 WHERE USER_ID = ?
+	   AND DELETE_REASON = ?
 	   AND DELETE_STATUS = 'N'
 	</entry>
 	
@@ -72,7 +73,7 @@
 		 , REPORT_COUNT
 		 , DELETE_REASON
 	  FROM MEMBER
-	 WHERE DELETE_STATUS = 'N'
+	 WHERE DELETE_STATUS = 'Y'
 	   AND USER_ID = ?
 	</entry>
 	
@@ -98,7 +99,7 @@
 			)
 			VALUES
 			(
-			    SEQ_UNO.NEXTVAL
+			    SEQ_MEMBERNO.NEXTVAL
 			    , ?
 			    , ?
 			    , ?
