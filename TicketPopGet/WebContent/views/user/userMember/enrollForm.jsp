@@ -65,7 +65,7 @@
         <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <form id="enrollForm" action="<%=request.getContextPath() %>" method="POST">
+                        <form id="enrollForm" action="<%=request.getContextPath()%>/insert.me" method="POST">
                             <div class="form-group row">
                                 <label for="userId" class="col-md-4 col-form-label text-md-right">아이디</label>
                                     <input type="text" id="userId" class="form-control" name="userId" style="width: 300px;" placeholder="띄어쓰기 없이 영문/숫자조합 6~12자리" required>
