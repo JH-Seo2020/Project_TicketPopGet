@@ -171,10 +171,14 @@
             <!--캘린더 설정-->
             <script>
                 $(function() {
+                	//조건처리! 
+                	var $currentDay = new Date();
+                	var $resultDay = ($currentDay - <%=exObject.getExhibitionStartDate()%> < 0 ? '<%=exObject.getExhibitionStartDate()%>': '0');
+                	
                     $("#exCalendar").datepicker({
-                        dateFormat: "yy-mm-dd",     //날짜형식
-                        minDate: '0',      //기간시작일
-                        maxDate: '<%=exObject.getExhibitionEndDate()%>'       //기간끝일
+                        dateFormat: "yy-mm-dd",     
+                        minDate: $resultDay,      
+                        maxDate: '<%=exObject.getExhibitionEndDate()%>'       
                         //일단 이정도만? 주말 예외처리..이런건 차차 생각해봐요..
                     });
                     $("#exCalendar").on("change",function(){
@@ -238,42 +242,47 @@
                            data : {"contentNo" : <%=exObject.getContentNo()%>,
                                    "currentPage" : cPage},
                            success : function(result){
-                              console.log(result);
-                              
-                              var reviews = "";
-                               for (var i in result.list){
-                                  reviews += "<tr>"
-                                        + "<th>" + result.list[i].reviewRnum + "</th>"
-                                        + "<td>" + result.list[i].reviewTitle+ "</td>"
-                                        + "<td>" + result.list[i].reviewPoint+ "</td>"
-                                        + "<td>" + result.list[i].reviewDate+ "</td>"
-                                        + "<td>" + result.list[i].reviewCount+ "</td>"
-                                        + "</tr>"
-                               }
-                               
-                               var $boardLimit = result.pi.boardLimit;
-                               var $currentPage = result.pi.currentPage;
-                               var $endPage = result.pi.endPage;
-                               var $listCount = result.pi.listCount;
-                               var $maxPage = result.pi.maxPage;
-                               var $pageLimit = result.pi.pageLimit;
-                               var $startPage = result.pi.startPage;
-                               
-                               var $btns = "";
-                               for(var $p = $startPage; $p <= $endPage; $p++ ){
-                                  //$btns += "<a href="+'<%=contextPath%>/review.inconcert?currentPage='+">"+$p+"</a>"+"&nbsp;";
-                                  $btns += "<button type='button' onclick='selectReviews(" + $p + ");'>" + $p + "</button>";
-                               }
-                               var $firstBtn = "<button type='button' onclick='selectReviews(" + 1 + ");'>" + "&lt;&lt;" + "</button>";
-                               var $prevBtn = "<button type='button' onclick='selectReviews(" + ($currentPage - 1) + ");'>" + "&lt;" + "</button>";
-                               var $nextBtn = "<button type='button' onclick='selectReviews(" + ($currentPage + 1) + ");'>" + "&gt;" + "</button>";
-                               var $endBtn = "<button type='button' onclick='selectReviews(" + $maxPage + ");'>" + "&gt;&gt;" + "</button>";
-                               
-                               var $bottons = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
-                              
-                              $("#tbodyArea").html(reviews);
-                              $("#reviewPaging").html($bottons);
-                              //리뷰번호 result.list[i].reviewNo에 있으니까 받아서 리뷰제목 클릭시에 url 넘겨주면된다!
+                        	   
+                        	   if(result.list.length >= '1'){	//리뷰가 1개이상 있을 때 
+	                              
+	                              var reviews = "";
+	                               for (var i in result.list){
+	                                  reviews += "<tr>"
+	                                        + "<th>" + result.list[i].reviewRnum + "</th>"
+	                                        + "<td>" + result.list[i].reviewTitle+ "</td>"
+	                                        + "<td>" + result.list[i].reviewPoint+ "</td>"
+	                                        + "<td>" + result.list[i].reviewDate+ "</td>"
+	                                        + "<td>" + result.list[i].reviewCount+ "</td>"
+	                                        + "</tr>"
+	                               }
+	                               
+	                               var $boardLimit = result.pi.boardLimit;
+	                               var $currentPage = result.pi.currentPage;
+	                               var $endPage = result.pi.endPage;
+	                               var $listCount = result.pi.listCount;
+	                               var $maxPage = result.pi.maxPage;
+	                               var $pageLimit = result.pi.pageLimit;
+	                               var $startPage = result.pi.startPage;
+	                               
+	                               var $btns = "";
+	                               for(var $p = $startPage; $p <= $endPage; $p++ ){
+	                                  //$btns += "<a href="+'<%=contextPath%>/review.inconcert?currentPage='+">"+$p+"</a>"+"&nbsp;";
+	                                  $btns += "<button type='button' onclick='selectReviews(" + $p + ");'>" + $p + "</button>";
+	                               }
+	                               var $firstBtn = "<button type='button' onclick='selectReviews(" + 1 + ");'>" + "&lt;&lt;" + "</button>";
+	                               var $prevBtn = "<button type='button' onclick='selectReviews(" + ($currentPage - 1) + ");'>" + "&lt;" + "</button>";
+	                               var $nextBtn = "<button type='button' onclick='selectReviews(" + ($currentPage + 1) + ");'>" + "&gt;" + "</button>";
+	                               var $endBtn = "<button type='button' onclick='selectReviews(" + $maxPage + ");'>" + "&gt;&gt;" + "</button>";
+	                               
+	                               var $bottons = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
+	                              
+	                              $("#tbodyArea").html(reviews);
+	                              $("#reviewPaging").html($bottons);
+	                              //리뷰번호 result.list[i].reviewNo에 있으니까 받아서 리뷰제목 클릭시에 url 넘겨주면된다!
+	                              
+                        	   }else{		//리뷰가 1개도 없을 때 
+                        		   $("#tbodyArea").html('보여드릴 리뷰가 없습니다.');
+                        	   }
                            },
                            error : function(){
                               console.log("ajax통신실패");

@@ -98,7 +98,7 @@
 	                <%for(Play p : list){ %>
 		                <li>
 		                    <span><img src="<%=contextPath %>/<%=p.getImgPath() %>/<%=p.getContentChangeImg() %>" height="200px" width="150px"></span>
-		                    <div id=playTitle><b><a href=""><%=p.getContentTitle() %></a></b></div>
+		                    <div id=playTitle><b><a href="<%=contextPath%>/play.detail?contentNo=<%=p.getContentNo()%>"><%=p.getContentTitle() %></a></b></div>
 		                    <div><%=p.getPlayStartDate() %>~<%=p.getPlayEndDate() %></div>
 		                    <div><%=p.getContentKeyword() %></div>
 		                </li>

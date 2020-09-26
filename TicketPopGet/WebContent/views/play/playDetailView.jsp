@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.play.model.vo.Play" %>
+<%
+	Play playObject = (Play)request.getAttribute("playObject");
+	String getPrice = playObject.getPrice();
+	String price = getPrice.substring(0, getPrice.length()-2);
+	String playInfo = (String)request.getAttribute("playInfo");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,7 +93,7 @@
 	/*캘린더 크기 너비 설정*/
 	.ui-datepicker {
 	    width: 250px; /*what ever width you want*/
-	    height: 300px;
+	    height: 330px;
 	}
 	</style>
 </head>
@@ -95,16 +102,32 @@
 	<div id="wrap_plDe">
 
         <div id="playDetailHead">
-            <label>연극</label>
-            <label>&lt;안티고네&gt;</;>        
+            <label><%=playObject.getContentType() %></label>
+            <label>&lt;<%=playObject.getContentTitle() %>&gt;</label>        
         </div>
 
         <div id="playDetailBody">
 
             <div id="plBody1" align="center">
-                <div><img src="../resources/연극포스터_3.jpg" width="250px" height="350px"></div>
-                <label>관심등록</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><a href=""><img src="KakaoTalk_20200922_003335970.png" height="20px" width="20px"></a></label>
+                <div><img src="<%=contextPath %>/<%=playObject.getImgPath() %>/<%=playObject.getContentChangeImg() %>" width="250px" height="350px"></div>
+                <label>관심등록</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><a href=""><img src="<%=contextPath %>/resources/img/imgForSearch/heart.png" height="20px" width="20px"></a></label>
             </div>
+            
+            <script>
+            	$(function(){
+            		$("#likeImg").click(function(){
+            			<%if(loginUser!=null){%>
+	            			if( $(this).attr("src") === "<%=contextPath %>/resources/img/imgForSearch/heart.png" ){
+	            				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/like_heart.png");
+	            			}else{
+	            				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/heart.png");
+	            			}
+            			<%}else{%>
+            				alert("로그인 후 이용해주세요!");
+            			<%}%>
+            		});
+            	});
+            </script>
 
             <div id="plBody2">
                 <table class="table table-sm">
@@ -115,29 +138,33 @@
                       </tr>
                     </thead>
                     <tbody align="center">
+                  	  <tr>
+                        <th scope="row">주최</th>
+                        <td><%=playObject.getContentSubject() %></td>
+                      </tr>
                       <tr>
                         <th scope="row">기간</th>
-                        <td>2020.02.01</td>
+                        <td><%=playObject.getPlayStartDate() %>~<%=playObject.getPlayEndDate() %></td>
                       </tr>
                       <tr>
                         <th scope="row">관람시간</th>
-                        <td>100분</td>
+                        <td><%=playObject.getPlayRuntime() %></td>
                       </tr>
                       <tr>
                         <th scope="row">관람등급</th>
-                        <td colspan="2">만 13세 이상</td>
+                        <td colspan="2"><%=playObject.getLimit() %></td>
                       </tr>
                       <tr>
                         <th scope="row">장소</th>
-                        <td colspan="2">홍대 kt 상상마당</td>
+                        <td colspan="2"><%=playObject.getPlace() %></td>
                       </tr>
                       <tr>
                         <th scope="row">가격</th>
-                        <td colspan="2">10000원</td>
+                        <td colspan="2"><%=price %>원</td>
                       </tr>
                       <tr>
                         <th scope="row">키워드</th>
-                        <td colspan="2">#봉평#강원#누구세요#나귀#문학</td>
+                        <td colspan="2"><%=playObject.getContentKeyword() %></td>
                       </tr>
                     </tbody>
                   </table>
@@ -148,10 +175,13 @@
             <!--캘린더 설정-->
             <script>
                 $(function() {
+                	//조건처리 : 시작일이 아직 안왔으면, 예매가능일이 곧 시작일. 시작일이 지났으면, 예매가능일이 오늘
+                	var $currentDay = new Date();
+                	var $resultDay = ($currentDay - <%=playObject.getPlayStartDate()%> < 0 ? '<%=playObject.getPlayStartDate()%>': '0');
                     $("#plCalendar").datepicker({
-                        dateFormat: "yy-mm-dd",     //날짜형식
-                        minDate: '2020-09-10',      //기간시작일
-                        maxDate: '2020-09-20'       //기간끝일
+                        dateFormat: "yy-mm-dd",     
+                        minDate: '<%=playObject.getPlayStartDate()%>',    //test용! 회차 처리후에 조건처리변수로 다시 담아줄 예정입니다.
+                        maxDate: '<%=playObject.getPlayEndDate()%>'       
                         //일단 이정도만? 주말 예외처리..이런건 차차 생각해봐요..
                     });
                     $("#plCalendar").on("change",function(){
@@ -178,7 +208,12 @@
             </div>
 
             <div width="100%" align="center">
-                <a class="btn btn-warning btn-lg">예매하기</a>
+                <%if(loginUser != null){ %>
+                	<a class="btn btn-warning btn-lg">예매하기</a>
+                <%}else{ %>
+                	<a class="btn btn-warning btn-lg" onclick="call();">예매하기</a>
+                	<script>function call(){alert("로그인 후 이용해주세요!");}</script>
+                <%} %>
             </div>
 
         </div>
@@ -186,29 +221,98 @@
         <div id="playDetailInfo">
 
             <div id="playDetailInfoHead">
-                <a  class="btn btn-outline-warning btn-lg">상세정보</a>
-                <a  class="btn btn-outline-warning btn-lg">환불/취소</a>
-                <a  class="btn btn-outline-warning btn-lg">리뷰</a>
+                <a id="pDetail" class="btn btn-outline-warning btn-lg">상세정보</a>
+                <a id="pCancel" class="btn btn-outline-warning btn-lg">환불/취소</a>
+                <a id="pReview" class="btn btn-outline-warning btn-lg">리뷰</a>
             </div>
+
+			<script>
+			$(function(){
+                selectReviews(1);
+                
+                
+                $("#pDetail").click(function(){
+        			$("#playDetailInfoBody1").css("display","block");
+        			$("#playDetailInfoBody2").css("display","none");
+        			$("#playDetailInfoBody3").css("display","none");
+        		});
+        		$("#pCancel").click(function(){
+        			$("#playDetailInfoBody1").css("display","none");
+        			$("#playDetailInfoBody2").css("display","block");
+        			$("#playDetailInfoBody3").css("display","none");
+        		});
+        		$("#pReview").click(function(){
+        			
+        			$("#playDetailInfoBody1").css("display","none");
+        			$("#playDetailInfoBody2").css("display","none");
+        			$("#playDetailInfoBody3").css("display","block");
+        		});
+           });
+         
+             function selectReviews(cPage){
+                $.ajax({
+                   url : "<%=contextPath%>/review.inconcert",
+                   type : "get",
+                   data : {"contentNo" : <%=playObject.getContentNo()%>,
+                           "currentPage" : cPage},
+                   success : function(result){
+                      
+	                	if(result.list.length >= '1'){	//리뷰가 1개 이상 있을 때 
+	                		   
+	                      var reviews = "";
+	                       for (var i in result.list){
+	                          reviews += "<tr>"
+	                                + "<th>" + result.list[i].reviewRnum + "</th>"
+	                                + "<td>" + result.list[i].reviewTitle+ "</td>"
+	                                + "<td>" + result.list[i].reviewPoint+ "</td>"
+	                                + "<td>" + result.list[i].reviewDate+ "</td>"
+	                                + "<td>" + result.list[i].reviewCount+ "</td>"
+	                                + "</tr>"
+	                       }
+	                       
+	                       var $boardLimit = result.pi.boardLimit;
+	                       var $currentPage = result.pi.currentPage;
+	                       var $endPage = result.pi.endPage;
+	                       var $listCount = result.pi.listCount;
+	                       var $maxPage = result.pi.maxPage;
+	                       var $pageLimit = result.pi.pageLimit;
+	                       var $startPage = result.pi.startPage;
+	                       
+	                       var $btns = "";
+	                       for(var $p = $startPage; $p <= $endPage; $p++ ){
+	                          //$btns += "<a href="+'<%=contextPath%>/review.inconcert?currentPage='+">"+$p+"</a>"+"&nbsp;";
+	                          $btns += "<button type='button' onclick='selectReviews(" + $p + ");'>" + $p + "</button>";
+	                       }
+	                       var $firstBtn = "<button type='button' onclick='selectReviews(" + 1 + ");'>" + "&lt;&lt;" + "</button>";
+	                       var $prevBtn = "<button type='button' onclick='selectReviews(" + ($currentPage - 1) + ");'>" + "&lt;" + "</button>";
+	                       var $nextBtn = "<button type='button' onclick='selectReviews(" + ($currentPage + 1) + ");'>" + "&gt;" + "</button>";
+	                       var $endBtn = "<button type='button' onclick='selectReviews(" + $maxPage + ");'>" + "&gt;&gt;" + "</button>";
+	                       
+	                       var $bottons = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
+	                      
+	                      $("#tbodyArea").html(reviews);
+	                      $("#reviewPaging").html($bottons);
+	                      //리뷰번호 result.list[i].reviewNo에 있으니까 받아서 리뷰제목 클릭시에 url 넘겨주면된다!
+	                      console.log("1이다");
+	                      
+	             	   }else{	//리뷰가 1개도 없을 때 
+	             		  $("#tbodyArea").html('보여드릴 리뷰가 없습니다.');
+	             	   }   
+                      
+                   },
+                   error : function(){
+                      console.log("ajax통신실패");
+                  }
+
+       			});
+       		}
+
+			</script>
 
             <div id="playDetailInfoBody1">
                 <p style="font-size: 35px;">&lt;상세정보&gt;</p>
                 <div>
-                    에디터 추가 예정 or 그냥 텍스트 넣기 <br>
-                    둘 아무 내린 불러 나는 까닭이요, 별 많은 오는 봅니다. 가난한 옥 내 된 듯합니다. 
-                    가슴속에 딴은 새겨지는 벌레는 것은 버리었습니다. 써 경, 나의 남은 하나의 우는 같이 아름다운 있습니다. 그러나 동경과 잠, 하나에 흙으로 봅니다. 
-                    별들을 라이너 가슴속에 별 있습니다. 
-                    내 하나에 가득 이름과 슬퍼하는 당신은 나의 계십니다. 사람들의 없이 토끼, 같이 봄이 다 까닭이요, 동경과 봅니다. 추억과 남은 것은 하나 별에도 있습니다. 
-                    사랑과 아직 다 지나고 별 버리었습니다. 내일 까닭이요, 멀리 아침이 사랑과 어머님, 별들을 없이 무엇인지 있습니다.
-                    무덤 나의 밤이 시와 가슴속에 까닭입니다. 
-                    별 하나에 언덕 어머님, 된 까닭입니다. 별에도 속의 위에 사랑과 하나에 시인의 별 있습니다. 가득 가난한 밤이 까닭입니다. 하나의 가을로 다하지 위에 잠, 헤는 위에도 듯합니다. 
-                    아름다운 피어나듯이 동경과 아침이 토끼, 옥 그러나 계십니다. 둘 까닭이요, 별 같이 사랑과 별 이름자 비둘기, 다하지 까닭입니다. 이름과 계집애들의 하나의 별 버리었습니다. 
-                    벌레는 멀리 하나에 무엇인지 이름자 별 잠, 사랑과 이름과, 듯합니다. 
-                    자랑처럼 잠, 북간도에 이름과, 헤는 위에 책상을 까닭입니다.
-                    멀리 덮어 노루, 이름을 한 버리었습니다. 이런 밤이 무덤 토끼, 다하지 하나 하늘에는 사람들의 가슴속에 까닭입니다. 무엇인지 별 속의 했던 겨울이 묻힌 이국 어머니, 무성할 계십니다. 
-                    아름다운 때 마리아 가을로 하나 별 프랑시스 언덕 멀리 계십니다. 딴은 둘 별 새워 헤는 거외다. 별 풀이 청춘이 그러나 새워 헤일 까닭이요, 이런 북간도에 거외다. 가득 추억과 어머님, 시인의 멀리 봅니다. 
-                    북간도에 이름과, 패, 둘 보고, 잔디가 봅니다. 헤일 둘 말 하나의 하나에 동경과 봅니다. 
-                    이름을 이네들은 하나에 나는 듯합니다. 별 추억과 어머님, 피어나듯이 까닭입니다.
+                    <%=playInfo %>
                     
                     <div id="kakaoAPI">
                         <div>
@@ -272,66 +376,17 @@
                         <th scope="col">조회수</th>
                       </tr>
                     </thead>
-                    <tbody align="center">
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>연극</td>
-                        <td><a href="">'영웅 테세우스의 모험' 후기 - 결국 장비빨</a></td>
-                        <td>4.0</td>
-                        <td>2020/01/02</td>
-                        <td>30</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>연극</td>
-                        <td><a href="">'해리포터' 후기 - 다니엘 데려와라</a></td>
-                        <td>3.0</td>
-                        <td>2020/02/02</td>
-                        <td>40</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>콘서트</td>
-                        <td><a href="">제주합창회의 소규모 콘서트를 다녀왔습니다</a></td>
-                        <td>5.0</td>
-                        <td>2020/11/30</td>
-                        <td>50</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">4</th>
-                        <td>Larry</td>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">5</th>
-                        <td>Larry</td>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>@mdo</td>
-                      </tr>
+                    <tbody id="tbodyArea" align="center">
+                      
                     </tbody>
                 </table>
         
                 <div id="reviewPaging">
-                    <button>&lt;&lt;</button>
-                    <button>&lt;</button>
-                    <button>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>4</button>
-                    <button>5</button>
-                    <button>&gt;</button>
-                    <button>&gt;&gt;</button>
                 </div>
 
             </div>
 
             <div align="right">
-                <a href="" type="button" class="btn btn-warning">이전으로</a>
             </div>
         </div>
 

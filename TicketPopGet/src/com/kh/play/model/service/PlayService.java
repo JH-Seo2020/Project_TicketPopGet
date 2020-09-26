@@ -42,4 +42,18 @@ public class PlayService {
 		return list;
 	}
 
+	/**
+	 * 3. 연극 세부조회용 서비스
+	 * @param contentNo		컨텐츠번호
+	 * @return				해당 컨텐츠 상세정보 
+	 * @author				서지혜
+	 */
+	public Play playDetailView(int contentNo) {
+		
+		Connection conn = getConnection();
+		Play playObject = new PlayDao().playDetailView(conn, contentNo);
+		close(conn);
+		return playObject;
+	}
+
 }

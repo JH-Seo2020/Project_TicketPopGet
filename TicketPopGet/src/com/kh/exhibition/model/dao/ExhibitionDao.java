@@ -140,34 +140,7 @@ public class ExhibitionDao {
 		return exObject;
 	}
 
-	public String exhibitionInfo(Connection conn, int contentNo) {
-		
-		String exInfo = "";
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("exhibitionInfo");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, contentNo);
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Clob information = rset.getClob("INFO");
-				if(information != null) {
-					exInfo = information.getSubString(1, (int)information.length());
-				}
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return exInfo;
-	}
+	
 	
 	
 	

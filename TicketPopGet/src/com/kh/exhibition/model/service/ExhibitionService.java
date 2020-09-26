@@ -59,18 +59,6 @@ public class ExhibitionService {
 		return exObject;
 	}
 
-	/**
-	 * 4. 전시 정보 Clob to String 메소드
-	 * @param contentNo		해당 전시 컨텐츠 번호
-	 * @return				info 컬럼 내용
-	 * @author				서지혜
-	 */
-	public String exhibitionInfo(int contentNo) {
-		
-		Connection conn = getConnection();
-		String info = new ExhibitionDao().exhibitionInfo(conn,contentNo);
-		close(conn);
-		return info;
-	}
+	
 
 }

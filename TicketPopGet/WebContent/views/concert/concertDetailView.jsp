@@ -252,51 +252,52 @@
                                    "currentPage" : cPage},
                            success : function(result){
                               
-                              
-                              var reviews = "";
-                               for (var i in result.list){
-                                  reviews += "<tr>"
-                                        + "<th>" + result.list[i].reviewRnum + "</th>"
-                                        + "<td>" + result.list[i].reviewTitle+ "</td>"
-                                        + "<td>" + result.list[i].reviewPoint+ "</td>"
-                                        + "<td>" + result.list[i].reviewDate+ "</td>"
-                                        + "<td>" + result.list[i].reviewCount+ "</td>"
-                                        + "</tr>"
-                               }
-                               
-                               var $boardLimit = result.pi.boardLimit;
-                               var $currentPage = result.pi.currentPage;
-                               var $endPage = result.pi.endPage;
-                               var $listCount = result.pi.listCount;
-                               var $maxPage = result.pi.maxPage;
-                               var $pageLimit = result.pi.pageLimit;
-                               var $startPage = result.pi.startPage;
-                               
-                               var $btns = "";
-                               for(var $p = $startPage; $p <= $endPage; $p++ ){
-                                 
-                                  $btns += "<button type='button' class='cp' onclick='selectReviews(" + $p + ");'>" + $p + "</button>";
-                               }
-                               var $firstBtn = "<button type='button'id='startBtn' onclick='selectReviews(" + 1 + ");'>" + "&lt;&lt;" + "</button>";
-                               var $prevBtn = "<button type='button' id='prevBtn' onclick='selectReviews(" + ($currentPage - 1) + ");'>" + "&lt;" + "</button>";
-                               var $nextBtn = "<button type='button' onclick='selectReviews(" + ($currentPage + 1) + ");'>" + "&gt;" + "</button>";
-                               var $endBtn = "<button type='button' onclick='selectReviews(" + $maxPage + ");'>" + "&gt;&gt;" + "</button>";
-                               
-                               var $bottons = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
-                               
-                              $("#tbodyArea").html(reviews);
-                              
-                              /*다 하고 남는 시간에 다시 도전
-                              1. 1페이지, 마지막페이지일때 버튼 두개 안보이게
-                              2. result.list length가 0일때 다른 내용 실행하도록 조건문 추가*/
-                              $("#reviewPaging").html($bottons);
-                              $(".cp").click(function(){
-                            	  $(this).css("color","white");  
-                              });
-                              
-          
-                              
-                              //리뷰번호 result.list[i].reviewNo에 있으니까 받아서 리뷰제목 클릭시에 url 넘겨주면된다!
+                              if(result.list.length >= 1){
+	                              var reviews = "";
+	                               for (var i in result.list){
+	                                  reviews += "<tr>"
+	                                        + "<th>" + result.list[i].reviewRnum + "</th>"
+	                                        + "<td>" + result.list[i].reviewTitle+ "</td>"
+	                                        + "<td>" + result.list[i].reviewPoint+ "</td>"
+	                                        + "<td>" + result.list[i].reviewDate+ "</td>"
+	                                        + "<td>" + result.list[i].reviewCount+ "</td>"
+	                                        + "</tr>"
+	                               }
+	                               
+	                               var $boardLimit = result.pi.boardLimit;
+	                               var $currentPage = result.pi.currentPage;
+	                               var $endPage = result.pi.endPage;
+	                               var $listCount = result.pi.listCount;
+	                               var $maxPage = result.pi.maxPage;
+	                               var $pageLimit = result.pi.pageLimit;
+	                               var $startPage = result.pi.startPage;
+	                               
+	                               var $btns = "";
+	                               for(var $p = $startPage; $p <= $endPage; $p++ ){
+	                                 
+	                                  $btns += "<button type='button' class='cp' onclick='selectReviews(" + $p + ");'>" + $p + "</button>";
+	                               }
+	                               var $firstBtn = "<button type='button'id='startBtn' onclick='selectReviews(" + 1 + ");'>" + "&lt;&lt;" + "</button>";
+	                               var $prevBtn = "<button type='button' id='prevBtn' onclick='selectReviews(" + ($currentPage - 1) + ");'>" + "&lt;" + "</button>";
+	                               var $nextBtn = "<button type='button' onclick='selectReviews(" + ($currentPage + 1) + ");'>" + "&gt;" + "</button>";
+	                               var $endBtn = "<button type='button' onclick='selectReviews(" + $maxPage + ");'>" + "&gt;&gt;" + "</button>";
+	                               
+	                               var $bottons = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
+	                               
+	                              $("#tbodyArea").html(reviews);
+	                              
+	                              /*다 하고 남는 시간에 다시 도전
+	                              1. 1페이지, 마지막페이지일때 버튼 두개 안보이게
+	                              2. result.list length가 0일때 다른 내용 실행하도록 조건문 추가*/
+	                              $("#reviewPaging").html($bottons);
+	                              $(".cp").click(function(){
+	                            	  $(this).css("color","white");  
+	                              });
+                              		//리뷰번호 result.list[i].reviewNo에 있으니까 받아서 리뷰제목 클릭시에 url 넘겨주면된다!
+                              }else{
+                            	  $("#tbodyArea").html('보여드릴 리뷰가 없습니다.');
+                              }
+                              	
                            },
                            error : function(){
                               console.log("ajax통신실패");

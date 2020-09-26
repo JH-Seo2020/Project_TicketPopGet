@@ -32,4 +32,26 @@
 		        )
 		 WHERE RNUM BETWEEN ? AND ? 
 	</entry>
+	<entry key="playDetailView">
+		SELECT CONTENT_NO
+		     , CONTENT_TYPE
+		     , CONTENT_TITLE
+		     , CONTENT_SUBJECT
+		     , PLACE
+		     , LIMIT
+		     , PRICE
+		     , CONTENT_KEYWORD
+		     , LATITUDE
+		     , LONGITUDE
+		     , REGION
+		     , CONTENT_CHIMG
+		     , CONTENT_IMGPATH
+		     , PLAY_START
+		     , PLAY_END
+		     , PLAY_RUNTIME
+		  FROM CONTENTS
+		  JOIN PLAY USING (CONTENT_NO)
+		 WHERE CONTENT_NO = ?
+		   AND CONTENT_STATUS = 'Y'
+	</entry>
 </properties>
