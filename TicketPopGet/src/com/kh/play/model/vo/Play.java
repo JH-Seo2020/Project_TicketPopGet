@@ -23,6 +23,7 @@ public class Play {
 	private Date playStartDate;
 	private Date playEndDate;
 	private String playRuntime;
+	private String playRoundCount;
 	
 	public Play() {
 		// TODO Auto-generated constructor stub
@@ -85,6 +86,11 @@ public class Play {
 		this.playStartDate = playStartDate;
 		this.playEndDate = playEndDate;
 		this.playRuntime = playRuntime;
+	}
+
+	public Play(String playRoundCount) {
+		super();
+		this.playRoundCount = playRoundCount;
 	}
 
 	public int getContentNo() {
@@ -241,6 +247,16 @@ public class Play {
 
 	public void setPlayRuntime(String playRuntime) {
 		this.playRuntime = playRuntime;
+	}
+	
+	
+
+	public String getPlayRoundCount() {
+		return playRoundCount;
+	}
+
+	public void setPlayRoundCount(String playRoundCount) {
+		this.playRoundCount = playRoundCount;
 	}
 
 	@Override

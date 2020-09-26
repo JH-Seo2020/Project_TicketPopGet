@@ -54,4 +54,11 @@
 		 WHERE CONTENT_NO = ?
 		   AND CONTENT_STATUS = 'Y'
 	</entry>
+	<entry key="selectRound">
+		select round_count
+		  from round
+		  join contents using (content_no)
+		 where content_no = ?
+		   and round_date = ?
+	</entry>
 </properties>

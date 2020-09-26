@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
+import java.sql.Date;
 
 import com.kh.concert.model.vo.PageInfo;
 import com.kh.play.model.vo.Play;
@@ -137,6 +138,33 @@ public class PlayDao {
 			close(pstmt);
 		}
 		return playObject;
+	}
+
+	public ArrayList<Play> playDetailView(Connection conn, int contentNo, Date playDay) {
+		
+		ArrayList<Play> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectRound");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, contentNo);
+			pstmt.setDate(2, playDay);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Play (rset.getString("ROUND_COUNT")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
 	}
 
 }

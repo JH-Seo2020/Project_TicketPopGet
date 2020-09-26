@@ -95,6 +95,11 @@
 	    width: 250px; /*what ever width you want*/
 	    height: 330px;
 	}
+	
+	#roundSelect,#playStartEnd, #seatInfo{
+		display:none;
+	}
+                        			
 	</style>
 </head>
 <body>
@@ -110,7 +115,7 @@
 
             <div id="plBody1" align="center">
                 <div><img src="<%=contextPath %>/<%=playObject.getImgPath() %>/<%=playObject.getContentChangeImg() %>" width="250px" height="350px"></div>
-                <label>관심등록</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><a href=""><img src="<%=contextPath %>/resources/img/imgForSearch/heart.png" height="20px" width="20px"></a></label>
+                <label>관심등록</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><a href=""><img id="likeImg" src="<%=contextPath %>/resources/img/imgForSearch/heart.png" height="20px" width="20px"></a></label>
             </div>
             
             <script>
@@ -184,26 +189,62 @@
                         maxDate: '<%=playObject.getPlayEndDate()%>'       
                         //일단 이정도만? 주말 예외처리..이런건 차차 생각해봐요..
                     });
+                   
                     $("#plCalendar").on("change",function(){
-                        var concertDay = $(this).val();         //회원이 고른 날짜 변수에담음
-                        $("#plSeatNo>span").text(concertDay);   //고른 날짜 표기 (필요없으시면 지워도됩니다)
+                        var playDay = $(this).val();         //회원이 고른 날짜 변수에담음
+                        $("#plSeatNo>span").text(playDay);   //고른 날짜 표기 (필요없으시면 지워도됩니다)
+                        
+                        //회차정보 조회용 ajax 호출..
+                        $.ajax({
+                        	url:"<%=contextPath%>/round.inplay",
+                        	type:"get",
+                        	data:{
+                        		"contentNo" : <%=playObject.getContentNo()%>,
+                        		"playDay" : playDay
+                        	},
+                        	success:function(round){
+                        		
+                        		if(round.length >= '1'){
+                        			console.log(round[0].playRoundCount);
+                        			var options = "";
+                        			for(var i in round){
+	                        			options += "<option value='"+round[i].playRoundCount+"'>" + round[i].playRoundCount +'회'+ "</option>"
+                        			}
+                        			console.log(options);
+                        			$("#roundSelect").css("display","block");
+                        			$("#roundSelect").html(options);
+                        			$("#playStartEnd").css("display","block");
+                        			$("#seatInfo").css("display","block");
+                        			
+                        			
+                        			//여기서 회차정보로 시간, 좌석 가져오는 ajax 한번 더 호출해야하나 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ와..진짜..
+                        			
+                        		}else{
+                        			$("#roundSelect").css("display","none");
+                        			$("#playStartEnd").css("display","none");
+                        			$("#seatInfo").css("display","none");
+                        		}
+                        		
+                        	},error : function(){
+                        		console.log('ajax통신실패');
+                        	}
+                        });
                     });
                 });
             </script>
 
                 <div id="plSeatNo">
                     날짜 : <span></span> <br>
-                    <select name="playRound" required>
-                        <!--날짜 조회 결과 따라서 반복문 돌려줘야 할지 모르는 부분-->
-                        <option value="">선택</option>
-                        <option value="1회">1회</option>
-                        <option value="2회">2회</option>
+                    <select name="playRound" id="roundSelect" required>
+                        
                     </select>
                     <label id="playStartEnd">시작시간 ~ 끝나는시간</label>
-                    <br>
+                    
+                    <div id="seatInfo">
                     <!--회차 선택 따라서 다르게 보여져야 할 부분-->
-                    남은 좌석 : <lable>18</lable>&nbsp;/
-                    <label>전체 35</label>
+	                    남은 좌석 : <lable>18</lable>&nbsp;/
+	                    <label>전체 35</label>
+                    </div>
                 </div>
             </div>
 

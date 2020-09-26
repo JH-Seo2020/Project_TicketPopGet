@@ -3,6 +3,7 @@ import static com.kh.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.sql.Date;
 
 import com.kh.concert.model.vo.PageInfo;
 import com.kh.play.model.dao.PlayDao;
@@ -54,6 +55,20 @@ public class PlayService {
 		Play playObject = new PlayDao().playDetailView(conn, contentNo);
 		close(conn);
 		return playObject;
+	}
+
+	/**
+	 * 4. 연극 회차정보 조회용 서비스 
+	 * @param contentNo		
+	 * @param playDay
+	 * @return
+	 */
+	public ArrayList<Play> selectRound(int contentNo, Date playDay) {
+		
+		Connection conn = getConnection();
+		ArrayList<Play> list = new PlayDao().playDetailView(conn, contentNo, playDay);
+		close(conn);
+		return list;
 	}
 
 }
