@@ -74,12 +74,12 @@
 
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">비밀번호</label>
-                                    <input type="password" id="userPwd1" class="form-control" name="userPwd1" style="width: 400px;" placeholder="영문/숫자/특수문자 조합하여 6~12자리" required>
+                                    <input type="password" id="userPwd1" class="form-control" name="userPwd" style="width: 400px;" placeholder="영문/숫자/특수문자 조합하여 6~12자리" required>
                             </div>
 
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">비밀번호 확인</label>
-                                    <input type="password" id="userPwd2" class="form-control" name="userPwd2" style="width: 400px;" placeholder="비밀번호 재입력" required>
+                                    <input type="password" id="userPwd2" class="form-control" style="width: 400px;" placeholder="비밀번호 재입력" required>
                             </div>
 
                             <div class="form-group row">
@@ -89,7 +89,7 @@
 
                             <div class="form-group row">                                    
                                 <label for="birth" class="col-md-4 col-form-label text-md-right">생년월일</label>
-                                	<input type="text" id="birth" name="birth" class="form-control" style="width: 400px;" maxlength="8" placeholder="생년월일 8자리 입력" required>
+                                	<input type="text" id="birth" name="birth" class="form-control" style="width: 400px;" maxlength="10" placeholder="생년월일 8자리 입력" required>
                                         
                             </div>
 
