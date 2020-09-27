@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="eventResultListCount">
+		SELECT COUNT(*) resultCount
+		  FROM EVENT_RAFFLE
+		 WHERE RAFFLE_STATUS = 'Y'
+	</entry>
+	<entry key="selectResultList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM
+		             , A.*
+		          FROM (
+		                SELECT R.RAFFLE_NO
+		                     , EVENT_NO
+		                     , R.RAFFLE_TITLE
+		                     , R.RAFFLE_CONTENT
+		                     , R.RAFFLE_DATE
+		                     , R.RAFFLE_COUNT
+		                     , R.RAFFLE_STATUS
+		                     , R.ADMIN_ID
+		                     , E.EVENT_TYPE
+		                  FROM EVENT_RAFFLE R
+		                  JOIN EVENT E USING(EVENT_NO)
+		                 WHERE RAFFLE_STATUS = 'Y'
+		                 ORDER 
+		                    BY RAFFLE_NO DESC
+		                 )A
+		      )
+		 WHERE RNUM BETWEEN ? AND ?
+
+	</entry>
+	
+</properties>

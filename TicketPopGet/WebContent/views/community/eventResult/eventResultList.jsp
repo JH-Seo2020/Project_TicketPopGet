@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.community.eventResult.model.vo.EventRaffle, com.kh.concert.model.vo.*" %>
+<%
+	ArrayList<EventRaffle> list =(ArrayList<EventRaffle>) request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,9 +59,9 @@
             <b>이벤트 결과 발표</b>
         </div>
         <div id="eventResultBtn">
-            <a type="button" class="btn btn-outline-warning btn-lg">콘서트</a>
-            <a type="button" class="btn btn-outline-warning btn-lg">연극</a>
-            <a type="button" class="btn btn-outline-warning btn-lg">전시</a>
+            <a href="" type="button" class="btn btn-outline-warning btn-lg">콘서트</a>
+            <a href="" type="button" class="btn btn-outline-warning btn-lg">연극</a>
+            <a href="" type="button" class="btn btn-outline-warning btn-lg">전시</a>
         </div>
         <table id="eventResultList" class="table table-hover">
             <thead class="thead-dark" align="center">
@@ -63,89 +74,40 @@
               </tr>
             </thead>
             <tbody align="center">
-              <tr>
-                <th scope="row">1</th>
-                <td>연극</td>
-                <td> <a href="">연극 "황금사과이야기" 응모 이벤트 결과 발표</a></td>
-                <td>2020/01/02</td>
-                <td>30</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>콘서트</td>
-                <td><a href="">고릴라즈 내한 기념 무료 티켓 이벤트 결과 발표</a></td>
-                <td>2020/02/02</td>
-                <td>40</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">7</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">9</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">10</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
+            <%if(list.isEmpty()){ %>
+            	<tr><td colspan=5>보여드릴 리뷰가 없습니다.</td></tr>
+            <%}else{ %>
+            	<%for(EventRaffle r : list){ %>
+	              <tr>
+	                <th scope="row"><%=r.getRaffleNo() %></th>
+	                <td><%=r.getEventType() %></td>
+	                <td> <a href=""><%=r.getRaffleTitle() %></a></td>
+	                <td><%=r.getRaffleDate() %></td>
+	                <td><%=r.getRaffleCount() %></td>
+	              </tr>
+              	<%} %>
+              <%} %>
             </tbody>
         </table>
 
         <div id="eventResultPaging">
-            <button>&lt;&lt;</button>
-            <button>&lt;</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>&gt;</button>
-            <button>&gt;&gt;</button>
+            <button onclick="location.href='<%=contextPath%>/event.result?currentPage=1';">&lt;&lt;</button>
+            <%if(currentPage != 1) { %>
+            <button onclick="location.href='<%=contextPath%>/event.result?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            <%} %>
+            
+            <%for(int i = startPage; i <=endPage; i++){ %>
+            	<% if(currentPage != i) {%>
+            		<button onclick="location.href='<%=contextPath%>/event.result?currentPage=<%=i%>';"><%=i%></button>
+            	<%}else{ %>
+            		<button disabled style="color:black;"><%=i %></button>
+            	<%} %>
+            <%} %>
+            
+            <%if(currentPage != maxPage){ %>
+            <button onclick="location.href='<%=contextPath%>/event.result?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <% } %>
+            <button onclick="location.href='<%=contextPath%>/event.result?currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
         </div>
 
     </div>
