@@ -85,53 +85,12 @@
             <div class="wishlist" align="center"> 
                 <img src="image/연극1.PNG" width="200" height="250"><br>
                 <div class="wishlist_btn"><button type="button" class="like_btn"><img src="image/like_heart.png" width="30" height="30"></button></div>
-                <p>
-                    공연제목 <br>
-                    예매상황
-                </p>
-            </div>
-            <div class="wishlist" align="center"> 
-                <img src="image/연극1.PNG" width="200" height="250"><br>
-                <div class="wishlist_btn"><button type="button"><img src="image/like_heart.png" width="30" height="30"></button></div>
-                <p>
-                    공연제목 <br>
-                    예매상황
-                </p>
-            </div>
-            <div class="wishlist" align="center"> 
-                <img src="image/연극1.PNG" width="200" height="250"><br>
-                <div class="wishlist_btn"><button type="button"><img src="image/like_heart.png" width="30" height="30"></button></div>
-                <p>
-                    공연제목 <br>
-                    예매상황
-                </p>
-            </div>
-            <br>
-            <div class="wishlist" align="center" style="margin-top: 50px;"> 
-                <img src="image/연극1.PNG" width="200" height="250"><br>
-                <div class="wishlist_btn"><button type="button"><img src="image/like_heart.png" width="30" height="30"></button></div>
-                <p>
-                    공연제목 <br>
-                    예매상황
-                </p>
-            </div>
-            <div class="wishlist" align="center"> 
-                <img src="image/연극1.PNG" width="200" height="250"><br>
-                <div class="wishlist_btn"><button type="button"><img src="image/like_heart.png" width="30" height="30"></button></div>
-                <p>
-                    공연제목 <br>
-                    예매상황
-                </p>
-            </div>
-            <div class="wishlist" align="center"> 
-                <img src="image/연극1.PNG" width="200" height="250"><br>
-                <div class="wishlist_btn"><button type="button"><img src="image/like_heart.png" width="30" height="30"></button></div>
-                <p>
-                    공연제목 <br>
-                    예매상황
+                <p>공연제목 <br>
+                                           예매상황
                 </p>
             </div>
         </div>
+        
      <!-- 페이징바 -->
           <div class="pagination" style="margin-top: 60px; margin-left: 30%;">
             <a href="" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>
@@ -147,6 +106,7 @@
             <a href=""><span>10</span></a>
             <a href="" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
           </div>
+          
 </div>
 </body>
 </html>
