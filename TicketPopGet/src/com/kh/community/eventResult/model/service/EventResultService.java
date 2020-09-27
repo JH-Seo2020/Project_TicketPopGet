@@ -38,4 +38,36 @@ public class EventResultService {
 		return list;
 	}
 
+	/**
+	 * 3. 이벤트 결과 게시물 조회수 올리기
+	 * @param raffleNo
+	 * @return
+	 */
+	public int plusCount(int raffleNo) {
+		
+		Connection conn = getConnection();
+		int result = new EventResultDao().plusCount(conn, raffleNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	/**
+	 * 4. 이벤트 내용 조회
+	 * @param raffleNo		결과게시물번호
+	 * @return				내용
+	 * @author				서지혜
+	 */
+	public EventRaffle raffleDetail(int raffleNo) {
+		Connection conn = getConnection();
+		EventRaffle raffle = new EventResultDao().raffleDetail(conn,raffleNo);
+		close(conn);
+		return raffle;
+	}
+
+
 }

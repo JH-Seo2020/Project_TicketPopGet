@@ -29,7 +29,25 @@
 		                 )A
 		      )
 		 WHERE RNUM BETWEEN ? AND ?
-
+	</entry>
+	<entry key="plusCount">
+		UPDATE 
+		       EVENT_RAFFLE
+		   SET RAFFLE_COUNT = RAFFLE_COUNT + 1
+		 WHERE RAFFLE_NO = ?
+		   AND RAFFLE_STATUS = 'Y'
+	</entry>
+	<entry key="raffleDetail">
+			SELECT 
+                   R.RAFFLE_TITLE
+                 , R.RAFFLE_CONTENT
+                 , R.RAFFLE_DATE
+                 , R.RAFFLE_COUNT
+                 , E.EVENT_TYPE
+              FROM EVENT_RAFFLE R
+              JOIN EVENT E USING(EVENT_NO)
+             WHERE RAFFLE_STATUS = 'Y'
+               AND RAFFLE_NO = ?
 	</entry>
 	
 </properties>

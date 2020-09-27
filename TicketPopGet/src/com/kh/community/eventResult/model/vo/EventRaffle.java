@@ -48,6 +48,17 @@ public class EventRaffle {
 		this.adminId = adminId;
 		this.eventType = eventType;
 	}
+	
+	
+
+	public EventRaffle(String raffleTitle, String raffleContent, Date raffleDate, int raffleCount, String eventType) {
+		super();
+		this.raffleTitle = raffleTitle;
+		this.raffleContent = raffleContent;
+		this.raffleDate = raffleDate;
+		this.raffleCount = raffleCount;
+		this.eventType = eventType;
+	}
 
 	public int getRaffleNo() {
 		return raffleNo;

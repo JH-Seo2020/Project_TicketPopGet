@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.community.eventResult.model.vo.EventRaffle" %>
+<%
+	EventRaffle raffle = (EventRaffle)request.getAttribute("raffle");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,29 +64,14 @@
         </div>
         <div id="adBoardBody">
             <div id="adBoardBodyTitle">
-                <span>연극</span>
-                <span>'사이클롭스' 이벤트 결과 발표</span>
+                <span><%=raffle.getEventType() %></span>
+                <span><%=raffle.getRaffleTitle() %></span>
             </div>
             <div id="adBoardBodySub">
-                작성일 : 2020-02-02 조회수 : 100 
+                작성일 : <%=raffle.getRaffleDate() %> 조회수 : <%=raffle.getRaffleCount() %>
             </div>
             <div id="adBoardBodyContent">
-                안녕하세요<br>
-                관리자입니다. <br>
-                지난번 시행했던 연극 '사이클롭스'의 이벤트 결과를 발표합니다. <br>
-                ------------------------------------------------ <br>
-                윤xx : 010-2000-**** <br>
-                윤xx : 010-2000-**** <br>
-                윤xx : 010-2000-**** <br>
-                ------------------------------------------------ <br>
-                당첨되신분은 공연일인 10월 3일날 매표소 데스크에서 성명과 전화번호를 말씀하시고 표를 받아가세요. <br>
-                감사합니다. <br>
-                <br>
-                <br>
-                <br>
-                에디터 어느 세월에 넣지 
-                <br>
-                내용 보여주는 부분은 height 지정 안했습니다 크기따라 보이게.. 해놨어요
+                <%=raffle.getRaffleContent() %>
             </div>
             <div id="adBoardBodyBtns">
                 <a class="btn btn-secondary" href="">목록으로</a>

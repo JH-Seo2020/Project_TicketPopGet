@@ -75,13 +75,13 @@
             </thead>
             <tbody align="center">
             <%if(list.isEmpty()){ %>
-            	<tr><td colspan=5>보여드릴 리뷰가 없습니다.</td></tr>
+            	<tr><td colspan=5>보여드릴 게시물이 없습니다.</td></tr>
             <%}else{ %>
             	<%for(EventRaffle r : list){ %>
 	              <tr>
 	                <th scope="row"><%=r.getRaffleNo() %></th>
 	                <td><%=r.getEventType() %></td>
-	                <td> <a href=""><%=r.getRaffleTitle() %></a></td>
+	                <td> <a href="<%=contextPath%>/eventresult.detail?raffleNo=<%=r.getRaffleNo()%>"><%=r.getRaffleTitle() %></a></td>
 	                <td><%=r.getRaffleDate() %></td>
 	                <td><%=r.getRaffleCount() %></td>
 	              </tr>

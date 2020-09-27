@@ -86,4 +86,51 @@ public class EventResultDao {
 		return list;
 	}
 
+	public int plusCount(Connection conn, int raffleNo) {
+		
+		int result=0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("plusCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, raffleNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public EventRaffle raffleDetail(Connection conn, int raffleNo) {
+		
+		EventRaffle raffle = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("raffleDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, raffleNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				raffle = new EventRaffle(rset.getString("RAFFLE_TITLE"),
+										rset.getString("RAFFLE_CONTENT"),
+										rset.getDate("RAFFLE_DATE"),
+										rset.getInt("RAFFLE_COUNT"),
+										rset.getString("EVENT_TYPE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return raffle;
+	}
+
+
 }
