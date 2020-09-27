@@ -74,10 +74,20 @@
                 <%=raffle.getRaffleContent() %>
             </div>
             <div id="adBoardBodyBtns">
-                <a class="btn btn-secondary" href="">목록으로</a>
+                <a class="btn btn-secondary" id="back">목록으로</a>
             </div>
         </div>
-    
+    <script>
+    	$(function(){
+    		$("#back").click(function(){
+    			if(document.referrer){
+    	    		history.back();
+    	    	}else{
+    	    		location.href="<%=contextPath%>/event.result?currentPage=1";
+    	    	}
+    		});
+    	});
+    </script>
     </div>
 </body>
 </html>
