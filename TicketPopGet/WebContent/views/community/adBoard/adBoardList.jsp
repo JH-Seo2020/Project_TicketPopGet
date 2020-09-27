@@ -93,7 +93,7 @@
         </table>
         <div align="right">
         <%if (loginUser != null){ %>
-          <a href="" class="btn btn-warning btn-lg">글쓰기</a>
+          <a href="<%=contextPath %>/adboard.write" class="btn btn-warning btn-lg">글쓰기</a>
          <%}else{ %>
          	<a class="btn btn-warning btn-lg" onclick="message();">글쓰기</a>
          <%} %>

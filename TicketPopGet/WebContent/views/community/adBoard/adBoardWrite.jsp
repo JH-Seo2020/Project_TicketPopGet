@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%@ include file="/views/common/menubar.jsp" %>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <style>
         #wrap_adWr{
             width: 1200px;
@@ -22,15 +25,15 @@
         table{width: 100%; height: 100%;}
         select{width: 100%; height: 50%;}
         input{width: 100%; height: 50%;}
-        textarea{width: 100%; height: 100%; resize: none;}
+        textarea{width: 100%; height: 100%; }
         #adWriteBtns{height: 20%; }
         #adWriteBtns>.btn{
             margin-right: 20px;
         }
+        
 </style>
 </head>
 <body>
-	<%@ include file="/views/common/menubar.jsp" %>
 
 	<div id="wrap_adWr">
         <div id="adBoardHead">
@@ -62,12 +65,20 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <!--textarea 일단 넣고 추후 에디터 추가 -->
-                        <textarea style="border: 1px solid lightgray;" name="" required>
-                        </textarea>
+                        <textarea id="summernote" name="editordata" required>내용을 입력해주세요!</textarea>
                     </td>
                 </tr>
             </table>
+            
+            <script>
+            $(document).ready(function() {
+            	  $('#summernote').summernote({
+            		  height : 700,
+            		  focus : true
+            	  });
+            	});
+            </script>
+            
             <div id="adWriteBtns" align="right">
                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#adBoardEnroll">이전으로</button>
                 <button type="submit" class="btn btn-warning" onclick="">등록하기</button>
