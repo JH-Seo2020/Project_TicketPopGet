@@ -35,9 +35,21 @@ public class AdminNoticeSelectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		String key = request.getParameter("selectKeyword");
+		String key = "";
+		key = request.getParameter("selectKeyword");
+		String type= request.getParameter("type");
 		
 		int listCount = new AdminNoticeService().searchNoticeListCount(key);
+		
+		if(!type.equals("전체")) {
+			if(!key.equals("")) {
+				listCount = new AdminNoticeService().searchNoticeListKeyTypeCount(key, type);
+			}else {
+				listCount = new AdminNoticeService().searchNoticeListTypeCount(type);
+			}
+		}else {
+			
+		}
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int pageLimit = 10;
 		int boardLimit = 10;
@@ -50,14 +62,16 @@ public class AdminNoticeSelectServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		Page p = new Page(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-
 		
-		ArrayList<Notice> list = new AdminNoticeService().searchNoticeList(p, key);
+		Page p = new Page(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		
+
+		ArrayList<Notice> list = new AdminNoticeService().searchNoticeList(p, key, type);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("p", p);
 		request.setAttribute("key", key);
+		request.setAttribute("type", type);
 		
 		request.getRequestDispatcher("views/admin/adminNotice/adminNoticeSearch.jsp").forward(request, response);
 		

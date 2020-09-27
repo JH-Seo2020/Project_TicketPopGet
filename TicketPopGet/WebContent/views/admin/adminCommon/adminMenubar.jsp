@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+
+<%
+
+String alertMsg = (String)session.getAttribute("alertMsg");
+// > 서비스요청전 : null
+// > 서비스요청성공후 : alert띄워줄 메세지 문구
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,8 +69,17 @@
     </style>
 </head>
 <body>
+<script type="text/javascript">
+	$(function(){
+		var alertMsg = "<%=alertMsg%>"
+		if(alertMsg != null && alertMsg != "null"){
+			alert(alertMsg);
+			<%session.removeAttribute("alertMsg");%>
+		}
+	});
+</script>
 <div id="menubar">
-
+		
         <button align="center" onclick="location.href='<%=request.getContextPath()%>/main.ad'" style="padding-bottom: 60px; padding-top: 30px; width: 100% ; cursor: pointer; font-size: 25px;">메인으로</button>
         
         <div class="menuTitle">회원관리</div>

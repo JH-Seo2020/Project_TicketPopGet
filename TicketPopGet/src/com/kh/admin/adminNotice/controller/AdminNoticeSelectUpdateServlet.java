@@ -1,7 +1,6 @@
 package com.kh.admin.adminNotice.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +8,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.admin.adminMember.model.vo.Page;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.admin.adminNotice.model.service.AdminNoticeService;
 import com.kh.admin.adminNotice.model.vo.Notice;
 
 /**
- * Servlet implementation class AdminNoticeListServlet
+ * Servlet implementation class AdminNoticeSelectUpdateServlet
  */
-@WebServlet("/list.adno")
-public class AdminNoticeListServlet extends HttpServlet {
+@WebServlet("/selectUpdate.adno")
+public class AdminNoticeSelectUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminNoticeListServlet() {
+    public AdminNoticeSelectUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,29 +32,16 @@ public class AdminNoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		int listCount = new AdminNoticeService().selectNoticeListCount();
-		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		int pageLimit = 10;
-		int boardLimit = 10;
+
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 		
-		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
-		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
-		int endPage = startPage + pageLimit-1;
+		Notice n = new AdminNoticeService().selectUpdateNotice(noticeNo);
 		
-		if(maxPage < endPage) {
-			endPage = maxPage;
-		}
+		response.setContentType("application/json; charset=utf-8");
 		
-		Page p = new Page(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		
-		ArrayList<Notice> list = new AdminNoticeService().selectNoticeList(p);
-		
-		request.setAttribute("p", p);
-		request.setAttribute("list", list);
-		
-		request.getRequestDispatcher("views/admin/adminNotice/adminNotice.jsp").forward(request, response);
-		
+		gson.toJson(n, response.getWriter());
 	}
 
 	/**

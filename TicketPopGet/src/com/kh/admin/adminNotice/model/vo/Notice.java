@@ -2,6 +2,7 @@ package com.kh.admin.adminNotice.model.vo;
 
 import java.sql.Date;
 
+
 public class Notice {
 	private int noticeNo;
 	private String noticeType;
@@ -10,7 +11,7 @@ public class Notice {
 	private Date noticeDate;
 	private String noticeStatus;
 	private String adminId;
-	
+
 	public Notice() {}
 	
 	public Notice(int noticeNo, String noticeType, String noticeTitle, String noticeContent, Date noticeDate,
