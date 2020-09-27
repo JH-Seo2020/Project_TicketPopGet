@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="adBoardListCount">
+		SELECT COUNT(*) adCount
+		  FROM BOARD
+		 WHERE BOARD_STATUS = 'Y'
+	</entry>
+	<entry key="selectBoardList">
+		SELECT *
+	      FROM (
+	            SELECT ROWNUM RNUM
+	                 , A.*
+	              FROM (
+	                    SELECT BOARD_NO
+	                         , BOARD_TYPE
+	                         , LOCATION
+	                         , BOARD_TITLE
+	                         , BOARD_DATE
+	                         , BOARD_COUNT
+	                      FROM BOARD
+	                     WHERE BOARD_STATUS = 'Y'
+	                     ORDER 
+	                        BY BOARD_NO DESC
+	                     )A
+	          )
+	     WHERE RNUM BETWEEN ? AND ? 
+	</entry>
+	<entry key="plusCount">
+		UPDATE 
+		       EVENT_RAFFLE
+		   SET RAFFLE_COUNT = RAFFLE_COUNT + 1
+		 WHERE RAFFLE_NO = ?
+		   AND RAFFLE_STATUS = 'Y'
+	</entry>
+	<entry key="raffleDetail">
+			SELECT 
+                   R.RAFFLE_TITLE
+                 , R.RAFFLE_CONTENT
+                 , R.RAFFLE_DATE
+                 , R.RAFFLE_COUNT
+                 , E.EVENT_TYPE
+              FROM EVENT_RAFFLE R
+              JOIN EVENT E USING(EVENT_NO)
+             WHERE RAFFLE_STATUS = 'Y'
+               AND RAFFLE_NO = ?
+	</entry>
+	<entry key="eventResultCountByGenre">
+		SELECT COUNT(*) countByGenre
+		  FROM EVENT_RAFFLE
+		  JOIN EVENT USING(EVENT_NO)
+		 WHERE RAFFLE_STATUS = 'Y'
+		   AND EVENT_TYPE = ?
+	</entry>
+	<entry key="selectListByGenre">
+	SELECT *
+	  FROM (
+	        SELECT ROWNUM RNUM
+	             , A.*
+	          FROM (
+	                SELECT R.RAFFLE_NO
+	                     , EVENT_NO
+	                     , R.RAFFLE_TITLE
+	                     , R.RAFFLE_CONTENT
+	                     , R.RAFFLE_DATE
+	                     , R.RAFFLE_COUNT
+	                     , R.RAFFLE_STATUS
+	                     , R.ADMIN_ID
+	                     , E.EVENT_TYPE
+	                  FROM EVENT_RAFFLE R
+	                  JOIN EVENT E USING(EVENT_NO)
+	                 WHERE RAFFLE_STATUS = 'Y'
+	                   AND EVENT_TYPE = ?
+	                 ORDER 
+	                    BY RAFFLE_NO DESC
+	                 )A
+	      )
+	 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+</properties>

@@ -162,7 +162,7 @@
                 <ul id="innerList">
                     <li><a class="menubar_a" href="">후기</a></li>
                     <li><a class="menubar_a" href="">댓글이벤트</a></li>
-                    <li><a class="menubar_a" href="">홍보게시판</a></li>
+                    <li><a class="menubar_a" href="<%=contextPath%>/adboard.co?currentPage=1">홍보게시판</a></li>
                     <li><a class="menubar_a" href="<%=contextPath%>/event.result?currentPage=1">이벤트결과발표</a></li> 
                 </ul>
 

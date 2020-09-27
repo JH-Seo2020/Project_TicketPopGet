@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.community.adBoard.model.vo.AdBoard, com.kh.concert.model.vo.*" %>
+<%
+	ArrayList<AdBoard> list =(ArrayList<AdBoard>) request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,102 +76,53 @@
               </tr>
             </thead>
             <tbody align="center">
-              <tr>
-                <th scope="row">1</th>
-                <td>연극</td>
-                <td>서울/경기권</td>
-                <td><a href="">이화동 연극회의 "테세우스 이야기"에 여러분을 초대합니다</a></td>
-                <td>2020/01/02</td>
-                <td>30</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>연극</td>
-                <td>서울/경기권</td>
-                <td><a href="">한국대학교 연극동아리 '거지들'이 2월에 공연하는데 오실래요?</a></td>
-                <td>2020/02/02</td>
-                <td>40</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>콘서트</td>
-                <td>경상/제주권</td>
-                <td><a href="">제주합창회의 크리스마스 합창공연 'Silent Night'</a></td>
-                <td>2020/11/30</td>
-                <td>50</td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>Larry</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>Larry</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td>Larry</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">7</th>
-                <td>Larry</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-                <td>Larry</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">9</th>
-                <td>Larry</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">10</th>
-                <td>Larry</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-            </tbody>
+            <%if(list.isEmpty()){ %>
+            	<tr><td colspan=5>보여드릴 게시물이 없습니다.</td></tr>
+            <%}else{ %>
+            	<%for(AdBoard a : list){ %>
+	              <tr>
+	                <th scope="row"><%=a.getBoardNo() %></th>
+	                <td><%=a.getBoardType() %></td>
+	                <td><%=a.getBoardLocation() %></td>
+	                <td><a href=""><%=a.getBoardTitle() %></a></td>
+	                <td><%=a.getBoardDate() %></td>
+	                <td><%=a.getBoardCount() %></td>
+	              </tr>
+	             <%} %>
+              <%} %>
         </table>
         <div align="right">
-          <a class="btn btn-warning btn-lg">글쓰기</a>
+        <%if (loginUser != null){ %>
+          <a href="" class="btn btn-warning btn-lg">글쓰기</a>
+         <%}else{ %>
+         	<a class="btn btn-warning btn-lg" onclick="message();">글쓰기</a>
+         <%} %>
         </div>
+        
+        <script>
+        	function message(){
+        		alert('로그인 후 이용가능');
+        	}
+        </script>
 
         <div id="adBoardPaging">
-            <button>&lt;&lt;</button>
-            <button>&lt;</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>&gt;</button>
-            <button>&gt;&gt;</button>
+            <button onclick="location.href='<%=contextPath%>/adboard.co?currentPage=1';">&lt;&lt;</button>
+            <%if(currentPage != 1) { %>
+            <button onclick="location.href='<%=contextPath%>/adboard.co?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            <%} %>
+            
+            <%for(int i = startPage; i <=endPage; i++){ %>
+            	<% if(currentPage != i) {%>
+            		<button onclick="location.href='<%=contextPath%>/adboard.co?currentPage=<%=i%>';"><%=i%></button>
+            	<%}else{ %>
+            		<button disabled style="color:black;"><%=i %></button>
+            	<%} %>
+            <%} %>
+            
+            <%if(currentPage != maxPage){ %>
+            <button onclick="location.href='<%=contextPath%>/adboard.co?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <% } %>
+            <button onclick="location.href='<%=contextPath%>/eadboard.co?currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
         </div>
 
     </div>
