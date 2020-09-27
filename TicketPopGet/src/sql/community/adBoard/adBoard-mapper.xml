@@ -26,6 +26,26 @@
 	          )
 	     WHERE RNUM BETWEEN ? AND ? 
 	</entry>
+	<entry key="insertAdBoard">
+		  INSERT 
+			into BOARD
+			(
+			      BOARD_NO
+			    , BOARD_TYPE
+			    , LOCATION
+			    , BOARD_TITLE
+			    , BOARD_CONTNET
+			    , USER_NO
+			) values(
+			    SEQ_BOARDNO.NEXTVAL
+			    , 
+			    ?, 
+			    ?, 
+			    ?, 
+			    ?,
+			    ?
+			)
+	</entry>
 	<entry key="plusCount">
 		UPDATE 
 		       EVENT_RAFFLE

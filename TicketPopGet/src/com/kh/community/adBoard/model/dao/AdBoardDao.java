@@ -4,6 +4,7 @@ import static com.kh.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -79,6 +80,34 @@ public class AdBoardDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int insertAdBoard(Connection conn, AdBoard board, String content) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAdBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			Clob clob = conn.createClob();
+			clob.setString(1, content);
+			
+			pstmt.setString(1, board.getBoardType());
+			pstmt.setString(2, board.getBoardLocation());
+			pstmt.setString(3, board.getBoardTitle());
+			pstmt.setClob(4, clob);
+			pstmt.setInt(5, board.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

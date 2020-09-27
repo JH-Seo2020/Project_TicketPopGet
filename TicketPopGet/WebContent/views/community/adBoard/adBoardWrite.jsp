@@ -39,11 +39,11 @@
         <div id="adBoardHead">
             <b>홍보 게시판 작성</b>
         </div>
-        <form action="" method="POST">
+        <form action="<%=contextPath%>/adboard.insert" method="POST" id="adBoardEnroll">
             <table class="table table-borderless">
                 <tr style="height: 10%;">
                     <td style="width: 15%;">
-                        <select name="" required class="form-control">
+                        <select name="genre" required class="form-control">
                             <option value="">분류</option>
                             <option value="콘서트">콘서트</option>
                             <option value="연극">연극</option>
@@ -51,7 +51,7 @@
                         </select>
                     </td>
                     <td style="width: 15%;">
-                        <select name="" required class="form-control">
+                        <select name="location" required class="form-control">
                             <option value="">지역</option>
                             <option value="서울경기권">서울경기권</option>
                             <option value="강원충청권">강원충청권</option>
@@ -60,7 +60,7 @@
                         </select>
                     </td>
                     <td style="width: 70%;">
-                        <input class="form-control" type="text" name="" placeholder="제목을입력하세요" required>
+                        <input class="form-control" type="text" name="title" placeholder="제목을입력하세요" required>
                     </td>
                 </tr>
                 <tr>
@@ -81,7 +81,7 @@
             
             <div id="adWriteBtns" align="right">
                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#adBoardEnroll">이전으로</button>
-                <button type="submit" class="btn btn-warning" onclick="">등록하기</button>
+                <button type="submit" class="btn btn-warning">등록하기</button>
             </div>
         </form>
         

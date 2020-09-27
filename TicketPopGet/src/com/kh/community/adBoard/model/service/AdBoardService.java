@@ -1,6 +1,8 @@
 package com.kh.community.adBoard.model.service;
 
+import java.sql.Clob;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.kh.community.adBoard.model.dao.AdBoardDao;
@@ -34,6 +36,26 @@ public class AdBoardService {
 		ArrayList<AdBoard> list = new AdBoardDao().selectList(conn,pi);
 		close(conn);
 		return list;
+	}
+
+	/**
+	 * 4. 홍보게시글 insert 
+	 * @param board
+	 * @return
+	 * @author sjhie
+	 */
+	public int insertAdBoard(AdBoard board, String content) {
+		
+		Connection conn = getConnection();
+		int result = new AdBoardDao().insertAdBoard(conn,board, content);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 }

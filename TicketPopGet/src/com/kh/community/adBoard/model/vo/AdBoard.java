@@ -13,14 +13,14 @@ public class AdBoard {
 	private Date boardDate;
 	private int boardCount;
 	private String boardStatus;
-	private String userNO;
+	private int userNo;
 	
 	public AdBoard() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public AdBoard(int boardNo, String boardType, String boardLocation, String boardTitle, Clob boardContent,
-			Date boardDate, int boardCount, String boardStatus, String userNO) {
+			Date boardDate, int boardCount, String boardStatus, int userNo) {
 		super();
 		this.boardNo = boardNo;
 		this.boardType = boardType;
@@ -30,7 +30,7 @@ public class AdBoard {
 		this.boardDate = boardDate;
 		this.boardCount = boardCount;
 		this.boardStatus = boardStatus;
-		this.userNO = userNO;
+		this.userNo = userNo;
 	}
 	
 	
@@ -110,19 +110,19 @@ public class AdBoard {
 		this.boardStatus = boardStatus;
 	}
 
-	public String getUserNO() {
-		return userNO;
+	public int getUserNo() {
+		return userNo;
 	}
 
-	public void setUserNO(String userNO) {
-		this.userNO = userNO;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
 	@Override
 	public String toString() {
 		return "AdBoard [boardNo=" + boardNo + ", boardType=" + boardType + ", boardLocation=" + boardLocation
 				+ ", boardTitle=" + boardTitle + ", boardContent=" + boardContent + ", boardDate=" + boardDate
-				+ ", boardCount=" + boardCount + ", boardStatus=" + boardStatus + ", userNO=" + userNO + "]";
+				+ ", boardCount=" + boardCount + ", boardStatus=" + boardStatus + ", userNo=" + userNo + "]";
 	}
 	
 	
