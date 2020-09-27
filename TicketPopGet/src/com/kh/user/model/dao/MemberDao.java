@@ -287,9 +287,39 @@ public class MemberDao {
       }
       
       return result;
-      
-      
-      
+   }
+   
+   /**
+ * @param conn
+ * @param m
+ * @return
+ * @author 이금이
+ */
+public int updateMember(Connection conn, Member m) {
+	   int result = 0;
+	   
+	   PreparedStatement pstmt = null;
+	   String sql = prop.getProperty("updateInfo");
+	   
+	   try {
+		pstmt=conn.prepareStatement(sql);
+		
+		pstmt.setString(1, m.getUserName());
+		pstmt.setDate(2, m.getBirthdate());
+		pstmt.setString(3, m.getGender());
+		pstmt.setString(4, m.getPhone());
+		pstmt.setString(5, m.getEmail());
+		pstmt.setString(6, m.getUserId());
+		
+		result = pstmt.executeUpdate();
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	} 
+	   
+	   return result;
    }
 
 }

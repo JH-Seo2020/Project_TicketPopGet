@@ -19,6 +19,7 @@
 	%>
 	
 	<div align="center" style="width: 800px; height:500px; margin-left: 450px; margin-top: 100px;">
+	<form action="<%=contextPath%>/info_de.my" method="post">
 		<!-- <h1>내 정보확인</h1> -->
 		<ul class="nav nav-tabs nav-justified" style="margin-top: 60px;">
 		
@@ -46,7 +47,7 @@
 			
 			<div style="margin-bottom: 30px;">
 					
-				<button onclick="pwd_check();" id="pwd_check" class="btn" style="border: 1px solid orange; background: orange; color: white;">확인</button>
+				<input type="submit" value="확인" onclick="pwd_check();" id="pwd_check" class="btn" style="border: 1px solid orange; background: orange; color: white;">
 				&nbsp;&nbsp;
 				<a href="<%=contextPath%>/mypage.my" class="btn" style="border: 1px solid orange;">이전으로</a>
 				
@@ -67,6 +68,7 @@
 		
 			</div>
 		</div>
+		</form>
 	</div>
 
 </body>
