@@ -69,5 +69,29 @@ public class EventResultService {
 		return raffle;
 	}
 
+	/**
+	 * 5. 장르별 이벤트결과 게시글 개수 조회
+	 * @param genre			장르
+	 * @return				게시글 개수
+	 */
+	public int eventResultCountByGenre(String genre) {
+		Connection conn = getConnection();
+		int result = new EventResultDao().eventResultCountByGenre(conn,genre);
+		close(conn);
+		return result;
+	}
+
+	/**
+	 * 6. 장르별 이벤트결과 리스트조회
+	 * @param pi			페이지네이션정보
+	 * @return				리스트
+	 */
+	public ArrayList<EventRaffle> selectListByGenre(PageInfo pi, String genre) {
+		Connection conn = getConnection();
+		ArrayList<EventRaffle> list = new EventResultDao().selectListByGenre(conn,pi,genre);
+		close(conn);
+		return list;
+	}
+
 
 }

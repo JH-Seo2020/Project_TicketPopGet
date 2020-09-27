@@ -132,5 +132,65 @@ public class EventResultDao {
 		return raffle;
 	}
 
+	public int eventResultCountByGenre(Connection conn, String genre) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("eventResultCountByGenre");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, genre);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("countByGenre");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<EventRaffle> selectListByGenre(Connection conn, PageInfo pi, String genre) {
+		
+		ArrayList<EventRaffle> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListByGenre");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setString(1, genre);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new EventRaffle(rset.getInt("RNUM"),
+										rset.getInt("RAFFLE_NO"),
+										rset.getInt("EVENT_NO"),
+										rset.getString("RAFFLE_TITLE"),
+										rset.getString("RAFFLE_CONTENT"),
+										rset.getDate("RAFFLE_DATE"),
+										rset.getInt("RAFFLE_COUNT"),
+										rset.getString("RAFFLE_STATUS"),
+										rset.getString("ADMIN_ID"),
+										rset.getString("EVENT_TYPE")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
 
 }

@@ -49,5 +49,37 @@
              WHERE RAFFLE_STATUS = 'Y'
                AND RAFFLE_NO = ?
 	</entry>
+	<entry key="eventResultCountByGenre">
+		SELECT COUNT(*) countByGenre
+		  FROM EVENT_RAFFLE
+		  JOIN EVENT USING(EVENT_NO)
+		 WHERE RAFFLE_STATUS = 'Y'
+		   AND EVENT_TYPE = ?
+	</entry>
+	<entry key="selectListByGenre">
+	SELECT *
+	  FROM (
+	        SELECT ROWNUM RNUM
+	             , A.*
+	          FROM (
+	                SELECT R.RAFFLE_NO
+	                     , EVENT_NO
+	                     , R.RAFFLE_TITLE
+	                     , R.RAFFLE_CONTENT
+	                     , R.RAFFLE_DATE
+	                     , R.RAFFLE_COUNT
+	                     , R.RAFFLE_STATUS
+	                     , R.ADMIN_ID
+	                     , E.EVENT_TYPE
+	                  FROM EVENT_RAFFLE R
+	                  JOIN EVENT E USING(EVENT_NO)
+	                 WHERE RAFFLE_STATUS = 'Y'
+	                   AND EVENT_TYPE = ?
+	                 ORDER 
+	                    BY RAFFLE_NO DESC
+	                 )A
+	      )
+	 WHERE RNUM BETWEEN ? AND ?
+	</entry>
 	
 </properties>
