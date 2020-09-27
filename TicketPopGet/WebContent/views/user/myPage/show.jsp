@@ -1,11 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList, com.kh.user.model.vo.*" %>
+<%
+	ArrayList<MyPageShow> list = (ArrayList<MyPageShow>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>나의 관람 공연</title>
-    <style>
+<style>
         #show{
             width: 1200px;
             height: 1200px;
@@ -142,61 +153,63 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>콘서트</td>
-                  <td>2020-12-11</td>
-                  <td>xxx</td>
-                  <td><button onclick="location.href='<%=contextPath%>/view_write.my'">후기작성</button></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>콘서트</td>
-                    <td>2020-12-11</td>
-                    <td>xxx</td>
-                    <td><button>후기작성</button></td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>콘서트</td>
-                    <td>2020-12-11</td>
-                    <td>xxx</td>
-                    <td><button>후기작성</button></td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>콘서트</td>
-                    <td>2020-12-11</td>
-                    <td>xxx</td>
-                    <td><button>후기작성</button></td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>콘서트</td>
-                    <td>2020-12-11</td>
-                    <td>xxx</td>
-                    <td><button>후기작성</button></td>
-                  </tr>
-              
+              <% if(list.isEmpty()){ %>
+				<tr>
+					<td colspan="4">조회된 리스트가 없습니다.</td>
+				</tr>
+				<% }else { %>
+					<%for(MyPageShow showlist : list) { %>
+	                <tr>
+	                  <td><%=showlist.getUserId() %>
+	                  <td><%=showlist.getTicketNo() %></td>
+	                  <td><%=showlist.getContentType() %></td>
+	                  <td><%=showlist.getViewDate() %></td>
+	                  <td><%=showlist.getContentTitle() %>></td>
+	                  <td><button onclick="location.href='<%=contextPath%>/view_write.my'">후기작성</button></td>
+	                </tr>
+	                <%} %>
+               <% } %>
               </tbody>
             </table>
           </div>
         
-        <!-- 페이징바 -->
-        <div class="pagination" style="margin-top: 60px; margin-left: 30%;">
-            <a href="" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>
-            <a href=""><span>1</span></a>
-            <a href=""><span>2</span></a>
-            <a href=""><span>3</span></a>
-            <a href=""><span>4</span></a>
-            <a href=""><span>5</span></a>
-            <a href=""><span>6</span></a>
-            <a href=""><span>7</span></a>
-            <a href=""><span>8</span></a>
-            <a href=""><span>9</span></a>
-            <a href=""><span>10</span></a>
-            <a href="" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
-        </div>
+        <script>
+			$(function(){
+				$(".listArea>tbody>tr").click(function(){
+					location.href="<%=contextPath%>/detail.bo?bno="+$(this).children().eq(0).text(); 
+				});
+			});
+		</script>
+
+		<br> <br>
+		<!-- .pagingArea[align] -->
+		<div class="pagingArea" align="center">
+		
+			<%if(currentPage != 1){ %>
+			
+				<!-- 맨 처음으로(<<) -->
+				<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=1';">&lt;&lt;</button>
+				
+				<!-- 이전 페이지로(<) -->
+				<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage-1%>';">&lt;</button>
+			<% } %>
+			
+			<%for(int p=startPage; p<=endPage; p++){ %>
+				<% if(p!=currentPage){ %>
+				<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=p%>';"><%= p %></button>
+				<%}else{ %>
+				<button disabled><%=p %></button>
+				<%} %>
+			<%} %>
+			
+			<%if(currentPage != maxPage){ %>
+				<!-- 다음페이지로 (>) -->
+				<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage-1%>';">&gt;</button>
+				<!-- 맨 끝으로(>>) -->
+				<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=maxPage%>';">&gt;&gt;</button>
+			<%} %>
+
+		</div>
     
     </div>
 

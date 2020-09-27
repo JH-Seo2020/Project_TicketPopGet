@@ -292,12 +292,10 @@
 				</p>
 				<div class="wishlist_area">
 					<div class="wishlist">
-						<img src="/TicketPopGet/resources/post_upfiles/111111111126.PNG" width="200"
-							height="250" align="center"><br>
+						<img src="/TicketPopGet/resources/post_upfiles/111111111126.PNG" width="200" height="250" align="center"><br>
 						<div class="wishlist_btn">
 							<button type="button" class="like_btn">
-								<img src="/TicketPopGet/resources/img/imgForSearch/like_heart.png" width="30"
-									height="30">
+								<img src="/TicketPopGet/resources/img/imgForSearch/like_heart.png" width="30" height="30">
 							</button>
 						</div>
 						<p>
