@@ -32,6 +32,18 @@
 	margin-top: 30px;
 }
 </style>
+<script>
+$(document).on("click", "input[name='reason']", function(){
+    reason = $(this);
+    if (reason.hasClass("imChecked")) {
+        reason.removeClass("imChecked");
+        reason.prop('checked', false);
+    } else { 
+        reason.prop('checked', true);
+        reason.addClass("imChecked");
+    };
+});
+</script>
 </head>
 <body>
 	<!-- 메뉴바 -->
@@ -80,27 +92,30 @@
 					<p>탈퇴하시는 사유를 알려주시면 보다 나은 서비스제공을 위해 노력하겠습니다.</p>
 					<table id="delete_reason">
 						<tr>
-							<td><input type="radio" id="reason1" name="reason" value="개인정보유출 우려"> 
+							<td><input type="radio" id="reason1" class="delete_reason" name="reason" value="개인정보유출 우려"> 
 							<label for="reason1">개인정보유출 우려</label></td>
-							<td><input type="radio" id="reason2" name="reason" value="탈퇴 후 재가입"> 
+							
+							<td><input type="radio" id="reason2" class="delete_reason" name="reason" value="탈퇴 후 재가입"> 
 							<label for="reason2">탈퇴 후 재가입</label></td>
-							<td><input type="radio" id="reason3" name="reason" value="서비스 기능 불편"> 
+							
+							<td><input type="radio" id="reason3" class="delete_reason" name="reason" value="서비스 기능 불편"> 
 							<label for="reason3">서비스 기능 불편</label></td>
 						</tr>
 						<tr>
-							<td><input type="radio" id="reason4" name="reason" value="시스템 오류"> 
+							<td><input type="radio" id="reason4" class="delete_reason" name="reason" value="시스템 오류"> 
 							<label for="reason4">시스템 오류</label></td>
-							<td><input type="radio" id="reason5" name="reason" value="사이트 이용안함"> 
+							
+							<td><input type="radio" id="reason5" class="delete_reason" name="reason" value="사이트 이용안함"> 
 							<label for="reason5">사이트 이용안함</label></td>
 						</tr>
 						
 						<tr>
-							<!-- 현재문제가 기타랑 다른 버튼 중복체크됨 -->
-							<td><input type="radio" id="reason6" onclick="this.form.reason_text.disabled=false">
+							<!-- 클릭기능메모.. this.form.reason_text.disabled=false -->
+							<td><input type="radio" id="reason6" name="reason">
 							 <label for="reason6">기타</label></td>
 						</tr>
 						<tr>
-							<td colspan="3"><textarea name="reason" id="reason_text" disabled style="width: 700px; height: 90px; resize: none;"></textarea></td>
+							<td colspan="3"><textarea name="reason" id="reason_text"  style="width: 700px; height: 90px; resize: none;"></textarea></td>
 						</tr>
 						
 					</table>
@@ -112,8 +127,7 @@
 				</div>
 			</div>
 
-			<div
-				style="margin-top: 70px; margin-left: 450px; padding-bottom: 70px">
+			<div style="margin-top: 70px; margin-left: 450px; padding-bottom: 70px">
 				<button type="submit" class="btn" style="border: 1px solid orange; background: orange; color: white;">탈퇴하기</button>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<button type="button" class="btn" style="border: 1px solid orange;">이전으로</button>

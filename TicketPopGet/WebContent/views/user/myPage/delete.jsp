@@ -23,6 +23,7 @@
 	%>
 	
 	<div align="center" style="width: 800px; height:500px; margin-left: 450px; margin-top: 100px;">
+	<form action="<%=contextPath%>/delete_de.my" method="post">
 		<!-- <h1>내 정보확인</h1> -->
 		<ul class="nav nav-tabs nav-justified" style="margin-top: 60px;">
 		
@@ -60,10 +61,8 @@
 				var pwd = document.getElementById("pwd").value;
 				var userPwd = "<%=userPwd%>";
 				
-				if(pwd==userPwd){
-					location.href="<%=contextPath%>/delete_de.my";
-				}else{
-					alert("비밀번호를 다시 입력해주세요")
+				if(pwd!=userPwd){
+					alert("비밀번호를 다시 입력해주세요");
 				}
 			}
 			</script>
@@ -71,6 +70,7 @@
 		
 			</div>
 		</div>
+		</form>
 	</div>
 
 </body>

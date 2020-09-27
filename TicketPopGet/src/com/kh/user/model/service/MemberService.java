@@ -114,6 +114,7 @@ public class MemberService {
    }
    
    /**
+    * 탈퇴회원조회
     * @param userId
     * @param reason
     * @return
@@ -134,6 +135,33 @@ public class MemberService {
       close(conn);
       
       return result;
+   }
+   
+   /**
+    *  정보변경
+ * @param m
+ * @return
+ * @author 이금이
+ */
+public Member updateMember(Member m) {
+	
+	Connection conn = getConnection();
+	
+	int result = new MemberDao().updateMember(conn, m);
+	
+	Member updateMember = null;
+	
+	if(result>0) {
+		commit(conn);
+		
+		updateMember = new MemberDao().selectMember(conn, m.getUserId());
+	}else {
+		rollback(conn);
+	}
+	close(conn);
+	
+	return updateMember;
+	   
    }
    
    

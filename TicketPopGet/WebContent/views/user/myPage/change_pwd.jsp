@@ -78,7 +78,7 @@
 						
 					}
 					if ($("input[name=newPwd]").val() != $("input[name=newPwd_check]").val()) {
-						alert("새 비밀번호가 일치하지 않습니다.");
+						alert("비밀번호가 일치하지않습니다.");
 						return false;
 					}
 				}

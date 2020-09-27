@@ -51,12 +51,22 @@ public class Member {
 		this.birthdate = birthdate;
 		this.gender = gender;
 	}
+	
+	// 정보수정
+	public Member(String userId, String userName, Date birthdate, String gender, String phone, String email) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.birthdate = birthdate;
+		this.gender = gender;
+		this.phone = phone;
+		this.email = email;
+	}
 
 
 	public int getUserNo() {
 		return userNo;
 	}
-
 
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
