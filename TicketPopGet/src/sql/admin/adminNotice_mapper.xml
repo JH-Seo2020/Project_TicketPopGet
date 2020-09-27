@@ -33,6 +33,23 @@
 		   AND NOTICE_TITLE LIKE ?
 	</entry>
 	
+	<entry key="searchNoticeListKeyTypeCount">
+		SELECT
+		       COUNT(*)
+		  FROM NOTICE
+		 WHERE NOTICE_STATUS = 'Y'
+		   AND NOTICE_TITLE LIKE ?
+		   AND NOTICE_TYPE = ?
+	</entry>
+	
+	<entry key="searchNoticeListTypeCount">
+		SELECT
+		       COUNT(*)
+		  FROM NOTICE
+		 WHERE NOTICE_STATUS = 'Y'
+		   AND NOTICE_TYPE = ?
+	</entry>
+	
 	<entry key="searchNoticeList">
 		 SELECT B.*
 		   FROM (SELECT ROWNUM RNUM, A.*
@@ -49,7 +66,95 @@
 		                 WHERE NOTICE_STATUS = 'Y'
 		                 AND NOTICE_TITLE LIKE ?
 		                 ORDER BY NOTICE_DATE DESC)A)B
-		    WHERE RNUM BETWEEN ? AND ?
-		      
+		    WHERE RNUM BETWEEN ? AND ?		
 	</entry>
+		
+	<entry key="searchNoticeListKeyType">
+		 SELECT B.*
+		   FROM (SELECT ROWNUM RNUM, A.*
+		           FROM (SELECT
+		                       NOTICE_NO
+		                     , NOTICE_TYPE
+		                     , NOTICE_TITLE
+		                     , NOTICE_CONTENT
+		                     , NOTICE_DATE
+		                     , NOTICE_STATUS
+		                     , ADMIN_NAME
+		                  FROM NOTICE N
+		                  JOIN ADMIN A ON (N.ADMIN_ID = A.ADMIN_ID)
+		                 WHERE NOTICE_STATUS = 'Y'
+		                 AND NOTICE_TITLE LIKE ?
+		                 AND NOTICE_TYPE = ?
+		                 ORDER BY NOTICE_DATE DESC)A)B
+		    WHERE RNUM BETWEEN ? AND ?  
+	</entry>
+	
+	<entry key="searchNoticeListType">
+		 SELECT B.*
+		   FROM (SELECT ROWNUM RNUM, A.*
+		           FROM (SELECT
+		                       NOTICE_NO
+		                     , NOTICE_TYPE
+		                     , NOTICE_TITLE
+		                     , NOTICE_CONTENT
+		                     , NOTICE_DATE
+		                     , NOTICE_STATUS
+		                     , ADMIN_NAME
+		                  FROM NOTICE N
+		                  JOIN ADMIN A ON (N.ADMIN_ID = A.ADMIN_ID)
+		                 WHERE NOTICE_STATUS = 'Y'
+		                 AND NOTICE_TYPE = ?
+		                 ORDER BY NOTICE_DATE DESC)A)B
+		    WHERE RNUM BETWEEN ? AND ?  
+	</entry>
+	
+	<entry key="insertNotice">
+	INSERT
+	  INTO NOTICE
+	      (
+	        NOTICE_NO
+	      , NOTICE_TYPE
+	      , NOTICE_TITLE
+	      , NOTICE_CONTENT
+	      , ADMIN_ID
+	        )
+	  VALUES
+	       (
+	       SEQ_NOTICENO.NEXTVAL
+	       , ?
+	       , ?
+	       , ?
+	       , 'ADMIN'
+	       )
+	</entry>
+	
+	<entry key="selectUpdateNotice">
+	SELECT
+	        NOTICE_NO
+	      , NOTICE_TYPE
+	      , NOTICE_TITLE
+	      , NOTICE_CONTENT
+	      , NOTICE_DATE
+	      , NOTICE_STATUS
+	      , ADMIN_NAME
+	  FROM NOTICE N
+	  JOIN ADMIN A ON (N.ADMIN_ID=A.ADMIN_ID)
+	 WHERE NOTICE_STATUS = 'Y'
+	   AND NOTICE_NO = ?
+	</entry>
+	
+	<entry key="updateNotice">
+		UPDATE NOTICE
+		   SET NOTICE_TYPE = ?
+		     , NOTICE_TITLE = ?
+		     , NOTICE_CONTENT = ?
+		 WHERE NOTICE_NO = ?
+	</entry>
+	
+	<entry key="deleteNotice">
+		UPDATE NOTICE
+		   SET NOTICE_STATUS = 'N'
+		 WHERE NOTICE_NO = ?
+	</entry>
+	
 </properties>
