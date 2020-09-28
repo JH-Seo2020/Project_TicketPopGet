@@ -12,26 +12,22 @@ import com.kh.user.model.vo.MyPageShow;
 
 public class MyPageService {
 	
-	public int selectShowListCount(String userId) {
-		
-		Connection conn = getConnection();
-		
-		int listCount = new MyPageDao().selectShowListCount(conn, userId);
-		
-		close(conn);
-		return listCount;
-		
-	}
 	
-	public ArrayList<MyPageShow> selectShowList(PageInfo pi){
+	/**
+	 * 나의관람공연 리스트 조회
+	 * @param pi
+	 * @return
+	 * @author 이금이
+	 */
+	public MyPageShow selectShowList(String userId){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<MyPageShow> list = new MyPageDao().selectShowList(conn, pi);
+		MyPageShow mps = new MyPageDao().selectShowList(conn, userId);
 		
 		close(conn);
 		
-		return list;
+		return mps;
 		
 	}
 

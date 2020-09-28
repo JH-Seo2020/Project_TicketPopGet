@@ -29,34 +29,10 @@ public class MyPageDao {
 	      }
 	   }
 	
-	public int selectShowListCount(Connection conn, String userId) {
-		int listCount = 0;
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectShowListCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, userId);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				listCount = rset.getInt("LISTVIEW");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return listCount;
-	}
+	public MyPageShow selectShowList(Connection conn, String userId) {
 
-	public ArrayList<MyPageShow> selectShowList(Connection conn, PageInfo pi) {
-		ArrayList<MyPageShow> list = new ArrayList<>();
+
+		MyPageShow mps = null;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -65,23 +41,16 @@ public class MyPageDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() - 1;
-			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setString(1, userId);
 			
 			rset = pstmt.executeQuery();
 			
-			while(rset.next()) {
-				list.add(new MyPageShow(rset.getString("userId"),
-						                rset.getInt("ticketNo"),
-						                rset.getString("contentType"),
-						                rset.getDate("viewDate"),
-						                rset.getString("contentTitle"))
-						);
-				
+			if(rset.next()) {
+				mps=new MyPageShow(rset.getString("USER_ID"),
+						           rset.getInt("TICKET_NO"),
+						           rset.getString("CONTENT_TYPE"),
+						           rset.getDate("VIEW_DATE"),
+						           rset.getString("CONTENT_TITLE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -90,7 +59,7 @@ public class MyPageDao {
 			close(pstmt);
 		}
 		
-		return list;
+		return mps;
 		
 	}
 	
