@@ -89,7 +89,7 @@
 
                             <div class="form-group row">                                    
                                 <label for="birth" class="col-md-4 col-form-label text-md-right">생년월일</label>
-                                	<input type="text" id="birth" name="birth" class="form-control" style="width: 400px;" maxlength="10" placeholder="생년월일 8자리 입력" required>
+                                	<input type="date" id="birth" name="birth" class="form-control" style="width: 400px;" maxlength="10" placeholder="생년월일 8자리 입력" required>
                                         
                             </div>
 

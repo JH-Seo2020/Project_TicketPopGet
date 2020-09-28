@@ -27,7 +27,8 @@ public class NoticeService {
 		return listCount;
 	}
 
-	/**
+	/** 
+	 * 공지사항 리스트 조회용 서비스
 	 * @param pi
 	 * @return
 	 * @author 김현선
