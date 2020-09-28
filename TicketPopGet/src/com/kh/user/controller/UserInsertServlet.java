@@ -35,14 +35,16 @@ public class UserInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
-		
+
 		String userId = request.getParameter("userId");		// 아이디
 		String userPwd = request.getParameter("userPwd");	// 비밀번호
 		String userName = request.getParameter("userName");	// 이름
 		String email = request.getParameter("email");		// 이메일
 		String phone = request.getParameter("phone");		// 전화번호
-		Date birthdate = java.sql.Date.valueOf(request.getParameter("birthdate"));	//생년월일
+		Date birthdate = Date.valueOf(request.getParameter("birth"));	//생년월일
 		String gender = request.getParameter("gender");		//성별
+		System.out.println(gender);
+	
 		
 		Member m = new Member(userId, userPwd, userName, email, phone, birthdate, gender);
 		

@@ -4,7 +4,6 @@
 <%
 	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -115,16 +114,16 @@
                     <tr>
                         <td colspan="4">조회된 리스트가 없습니다.</td>
                     </tr>
-                    <% }else { %>
-                    	<% for(Notice n : list) { %>
+                    <% }else { 
+                    	 for(Notice n : list) { %>
                     <tr>
                     	<td><%= n.getNoticeNo() %></td>
                         <td><%= n.getNoticeType() %></td>
                         <td><%= n.getNoticeTitle() %></td>
                         <td><%= n.getNoticeDate() %></td>
                     </tr>
-                    <% } %>
-                  <% } %>
+                    <% } 
+                   } %>
                 </tbody>
             </table>
         </div>
