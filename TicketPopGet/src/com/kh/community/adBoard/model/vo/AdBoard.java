@@ -45,6 +45,18 @@ public class AdBoard {
 		this.boardDate = boardDate;
 		this.boardCount = boardCount;
 	}
+	
+	
+
+	public AdBoard(int boardNo, String boardType, String boardTitle, Date boardDate, int boardCount, int userNo) {
+		super();
+		this.boardNo = boardNo;
+		this.boardType = boardType;
+		this.boardTitle = boardTitle;
+		this.boardDate = boardDate;
+		this.boardCount = boardCount;
+		this.userNo = userNo;
+	}
 
 	public int getBoardNo() {
 		return boardNo;

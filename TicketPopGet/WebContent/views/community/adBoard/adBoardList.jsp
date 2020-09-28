@@ -84,7 +84,7 @@
 	                <th scope="row"><%=a.getBoardNo() %></th>
 	                <td><%=a.getBoardType() %></td>
 	                <td><%=a.getBoardLocation() %></td>
-	                <td><a href=""><%=a.getBoardTitle() %></a></td>
+	                <td><a href="<%=contextPath%>/adboard.detail?boardNo=<%=a.getBoardNo()%>"><%=a.getBoardTitle() %></a></td>
 	                <td><%=a.getBoardDate() %></td>
 	                <td><%=a.getBoardCount() %></td>
 	              </tr>

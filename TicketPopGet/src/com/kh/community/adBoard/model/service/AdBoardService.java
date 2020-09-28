@@ -39,7 +39,7 @@ public class AdBoardService {
 	}
 
 	/**
-	 * 4. 홍보게시글 insert 
+	 * 3. 홍보게시글 insert 
 	 * @param board
 	 * @return
 	 * @author sjhie
@@ -56,6 +56,51 @@ public class AdBoardService {
 		}
 		close(conn);
 		return result;
+	}
+
+	/**
+	 * 4. 홍보게시글 조회수 증가 
+	 * @param boardNo
+	 * @return
+	 * @author sjhie
+	 */
+	public int plusCount(int boardNo) {
+		
+		Connection conn = getConnection();
+		int result = new AdBoardDao().plusCount(conn, boardNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	/**
+	 * 5. 홍보게시글 세부조회(내용빼고다)
+	 * @param boardNo
+	 * @return
+	 * @author sjhie
+	 */
+	public AdBoard boardDetail(int boardNo) {
+		Connection conn = getConnection();
+		AdBoard board = new AdBoardDao().boardDetail(conn, boardNo);
+		close(conn);
+		return board;
+	}
+
+	/**
+	 * 6. 홍보게시글 내용조회(clob to string)
+	 * @param boardNo
+	 * @return
+	 */
+	public String boardContent(int boardNo) {
+		
+		Connection conn = getConnection();
+		String boardContent = new AdBoardDao().boardContent(conn,boardNo);
+		close(conn);
+		return boardContent;
 	}
 
 }

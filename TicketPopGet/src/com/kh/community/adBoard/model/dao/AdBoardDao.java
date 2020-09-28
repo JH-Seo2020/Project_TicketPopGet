@@ -110,4 +110,80 @@ public class AdBoardDao {
 		return result;
 	}
 
+	public int plusCount(Connection conn, int boardNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("plusCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public AdBoard boardDetail(Connection conn, int boardNo) {
+		
+		AdBoard board = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("boardDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				board = new AdBoard(rset.getInt("BOARD_NO"),
+									rset.getString("BOARD_TYPE"),
+									rset.getString("BOARD_TITLE"),
+									rset.getDate("BOARD_DATE"),
+									rset.getInt("BOARD_COUNT"),
+									rset.getInt("USER_NO")
+									);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return board;
+	}
+
+	public String boardContent(Connection conn, int boardNo) {
+		String boardContent = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("boardDetail");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Clob information = rset.getClob("BOARD_CONTNET");
+				if(information != null) {
+					boardContent = information.getSubString(1, (int)information.length());
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(conn);
+		}
+		
+		return boardContent;
+	}
+
 }
