@@ -103,4 +103,32 @@ public class AdBoardService {
 		return boardContent;
 	}
 
+	/**
+	 * 7. 콘서트 홍보게시글 총 개수 조회 
+	 * @param genre
+	 * @return
+	 * @author sjhie
+	 */
+	public int adBoardCountByGenre(String genre) {
+		Connection conn = getConnection();
+		int result = new AdBoardDao().adBoardCountByGenre(conn, genre);
+		close(conn);
+		return result;
+	}
+
+	/**
+	 * 8. 장르별 홍보게시글 리스트 조회
+	 * @param pi
+	 * @param genre
+	 * @return
+	 * @author sjhie
+	 */
+	public ArrayList<AdBoard> selectListByGenre(PageInfo pi, String genre) {
+		
+		Connection conn = getConnection();
+		ArrayList<AdBoard> list = new AdBoardDao().selectListByGenre(conn,pi,genre);
+		close(conn);
+		return list;
+	}
+
 }

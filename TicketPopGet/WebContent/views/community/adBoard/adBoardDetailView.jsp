@@ -80,9 +80,21 @@
 	                <a class="btn btn-warning" href="">수정하기</a>
 	                <a class="btn btn-warning" href="" data-toggle="modal" data-target="#deleteAdBoard">삭제하기</a>
 				<%} %>
-                <a class="btn btn-secondary" href="">목록으로</a>
+                <a class="btn btn-secondary" id="back">목록으로</a>
             </div>
         </div>
+        
+         <script>
+	    	$(function(){
+	    		$("#back").click(function(){
+	    			if(document.referrer){
+	    	    		history.back();
+	    	    	}else{
+	    	    		location.href="<%=contextPath%>/adboard.detail?currentPage=1";
+	    	    	}
+	    		});
+	    	});
+    	</script>
         
 
         <!--글 삭제 모달-->

@@ -65,12 +65,11 @@
 		 WHERE BOARD_STATUS = 'Y'
 		   AND BOARD_NO = ?
 	</entry>
-	<entry key="eventResultCountByGenre">
-		SELECT COUNT(*) countByGenre
-		  FROM EVENT_RAFFLE
-		  JOIN EVENT USING(EVENT_NO)
-		 WHERE RAFFLE_STATUS = 'Y'
-		   AND EVENT_TYPE = ?
+	<entry key="adBoardCountByGenre">
+	SELECT COUNT(*) countByGenre
+	  FROM BOARD
+	 WHERE BOARD_STATUS = 'Y'
+	   AND BOARD_TYPE = ?
 	</entry>
 	<entry key="selectListByGenre">
 	SELECT *
@@ -78,24 +77,21 @@
 	        SELECT ROWNUM RNUM
 	             , A.*
 	          FROM (
-	                SELECT R.RAFFLE_NO
-	                     , EVENT_NO
-	                     , R.RAFFLE_TITLE
-	                     , R.RAFFLE_CONTENT
-	                     , R.RAFFLE_DATE
-	                     , R.RAFFLE_COUNT
-	                     , R.RAFFLE_STATUS
-	                     , R.ADMIN_ID
-	                     , E.EVENT_TYPE
-	                  FROM EVENT_RAFFLE R
-	                  JOIN EVENT E USING(EVENT_NO)
-	                 WHERE RAFFLE_STATUS = 'Y'
-	                   AND EVENT_TYPE = ?
+	                SELECT BOARD_NO
+                         , BOARD_TYPE
+                         , LOCATION
+                         , BOARD_TITLE
+                         , BOARD_DATE
+                         , BOARD_COUNT
+                         , USER_NO
+                      FROM BOARD
+	                 WHERE BOARD_STATUS = 'Y'
+	                   AND BOARD_TYPE = ?
 	                 ORDER 
-	                    BY RAFFLE_NO DESC
+	                    BY BOARD_NO DESC
 	                 )A
 	      )
-	 WHERE RNUM BETWEEN ? AND ?
+	 WHERE RNUM BETWEEN ? AND ? 
 	</entry>
 	
 </properties>
