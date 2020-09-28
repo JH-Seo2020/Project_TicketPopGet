@@ -49,7 +49,7 @@ $(document).on("click", "input[name='reason']", function(){
 	<!-- 메뉴바 -->
 	<%@ include file="/views/common/menubar.jsp"%>
 	<div id="delete_detail">
-		<!-- 라디오버튼 해제 기능 넣어야됨 -->
+		
 		<form action="<%=contextPath%>/updateDelete.my" method="post">
 			<input type="hidden" id="userId" name="userId" value="<%=loginUser.getUserId()%>">
 			

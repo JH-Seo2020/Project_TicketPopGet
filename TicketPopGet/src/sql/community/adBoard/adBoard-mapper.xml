@@ -56,6 +56,7 @@
 	<entry key="boardDetail">
 		SELECT BOARD_NO
 		     , BOARD_TYPE
+		     , LOCATION
 		     , BOARD_TITLE
 		     , BOARD_CONTNET
 		     , BOARD_DATE
@@ -93,5 +94,14 @@
 	      )
 	 WHERE RNUM BETWEEN ? AND ? 
 	</entry>
-	
+	<entry key="updateBoard">
+		UPDATE 
+		       BOARD
+		   SET BOARD_TYPE = ?,
+		       LOCATION = ?,
+		       BOARD_TITLE = ?,
+		       BOARD_CONTNET =?
+		 WHERE BOARD_NO = ?
+		   AND BOARD_STATUS = 'Y'
+	</entry>
 </properties>

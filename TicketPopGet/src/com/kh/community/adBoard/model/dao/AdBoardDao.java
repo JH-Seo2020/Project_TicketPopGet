@@ -143,6 +143,7 @@ public class AdBoardDao {
 			while(rset.next()) {
 				board = new AdBoard(rset.getInt("BOARD_NO"),
 									rset.getString("BOARD_TYPE"),
+									rset.getString("LOCATION"),
 									rset.getString("BOARD_TITLE"),
 									rset.getDate("BOARD_DATE"),
 									rset.getInt("BOARD_COUNT"),
@@ -243,6 +244,34 @@ public class AdBoardDao {
 		}
 		
 		return list;
+	}
+
+	public int updateBoard(Connection conn, AdBoard board, String editordata) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			Clob clob = conn.createClob();
+			clob.setString(1, editordata);
+			
+			pstmt.setString(1, board.getBoardType());
+			pstmt.setString(2, board.getBoardLocation());
+			pstmt.setString(3, board.getBoardTitle());
+			pstmt.setClob(4, clob);
+			pstmt.setInt(5, board.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }
