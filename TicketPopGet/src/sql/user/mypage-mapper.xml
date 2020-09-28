@@ -5,7 +5,7 @@
 SELECT COUNT(*) LISTVIEW 
  FROM(
         SELECT 
-                M.USER_NO
+                M.USER_ID
              ,  R.TICKET_NO
              ,  R.CONTENT_TYPE
              ,  R.VIEW_DATE
@@ -21,10 +21,9 @@ SELECT COUNT(*) LISTVIEW
     )
 </entry>
 
-
 <entry key="selectShowList">
 SELECT 
-        M.USER_NO
+        M.USER_ID
      ,  R.TICKET_NO
      ,  R.CONTENT_TYPE
      ,  R.VIEW_DATE

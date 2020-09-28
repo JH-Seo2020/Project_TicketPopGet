@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class MyPageShow {
 	
-	private String userId;
+	private String userId; //로그인한 회원
 	private int ticketNo;
 	private String contentType;
 	private Date viewDate;
@@ -65,8 +65,8 @@ public class MyPageShow {
 	public String toString() {
 		return "MyPageShow [userId=" + userId + ", ticketNo=" + ticketNo + ", contentType=" + contentType
 				+ ", viewDate=" + viewDate + ", contentTitle=" + contentTitle + "]";
-	};
-	
+	}
+
 	
 
 }
