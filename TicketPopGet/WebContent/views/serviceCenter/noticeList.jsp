@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.serviceCenter.model.vo.*" %>
+<%
+	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,42 +104,27 @@
             <table class="table table-striped" id="listArea">
                 <thead>
                     <tr>
+                    	<th>글번호</th>
                         <th>분류</th>
                         <th>제목</th>
                         <th>등록일</th>
                     </tr>
                 </thead>
                 <tbody>
+                	<% if(list.isEmpty()){ %>
                     <tr>
-                        <td>변경/취소</td>
-                        <td>2020 양지원 미니콘서트 오픈취소 안내</td>
-                        <td>2020-02-21</td>
+                        <td colspan="4">조회된 리스트가 없습니다.</td>
                     </tr>
+                    <% }else { %>
+                    	<% for(Notice n : list) { %>
                     <tr>
-                        <td>시스템</td>
-                        <td>시스템 임시점검 1/22(00-00~03:00)</td>
-                        <td>2020-01-20</td>
+                    	<td><%= n.getNoticeNo() %></td>
+                        <td><%= n.getNoticeType() %></td>
+                        <td><%= n.getNoticeTitle() %></td>
+                        <td><%= n.getNoticeDate() %></td>
                     </tr>
-                    <tr>
-                        <td>기타</td>
-                        <td>뮤직어워드 온라인 티켓 공지사항</td>
-                        <td>2019-12-11</td>
-                    </tr>
-                    <tr>
-                        <td>변경/취소</td>
-                        <td>2020 양지원 미니콘서트 오픈취소 안내</td>
-                        <td>2020-02-21</td>
-                    </tr>
-                    <tr>
-                        <td>시스템</td>
-                        <td>시스템 임시점검 1/22(00-00~03:00)</td>
-                        <td>2020-01-20</td>
-                    </tr>
-                    <tr>
-                        <td>기타</td>
-                        <td>뮤직어워드 온라인 티켓 공지사항</td>
-                        <td>2019-12-11</td>
-                    </tr>
+                    <% } %>
+                  <% } %>
                 </tbody>
             </table>
         </div>

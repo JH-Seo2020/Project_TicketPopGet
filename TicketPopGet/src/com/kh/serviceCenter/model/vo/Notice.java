@@ -26,6 +26,14 @@ public class Notice {
 		this.adminId = adminId;
 	}
 
+	public Notice(int noticeNo, String noticeType, String noticeTitle, Date noticeDate) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeType = noticeType;
+		this.noticeTitle = noticeTitle;
+		this.noticeDate = noticeDate;
+	}
+
 	public int getNoticeNo() {
 		return noticeNo;
 	}

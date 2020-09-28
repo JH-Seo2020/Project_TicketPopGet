@@ -5,6 +5,27 @@
 	SELECT 
 	       COUNT(*) NOTICELISTCOUNT
 	  FROM NOTICE
-	 WHERE NOTICE_STATUS = 'Y';
+	 WHERE NOTICE_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectList">
+	SELECT *
+	  FROM (
+	        SELECT
+	                ROWNUM RNUM
+	              , A.*
+	          FROM (
+	                SELECT
+	                       NOTICE_NO
+	                     , NOTICE_TYPE
+	                     , NOTICE_TITLE
+	                     , NOTICE_DATE
+	                  FROM NOTICE N
+	                 WHERE N.NOTICE_STATUS = 'Y'
+	                 ORDER 
+	                    BY NOTICE_NO DESC
+	               ) A
+	        )
+	  WHERE RNUM BETWEEN ? AND ?
 	</entry>
 </properties>
