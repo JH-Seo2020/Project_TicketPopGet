@@ -69,7 +69,7 @@
                     <select name="type">
                         <option value="전체">전체</option>
                         <option value="시스템">시스템</option>
-                        <option value="변경취소">변경/취소</option>
+                        <option value="변경및취소">변경/취소</option>
                         <option value="기타">기타</option>
                     </select>
                 </th>
@@ -174,7 +174,7 @@
                             <td width="250">
                                 <select name="type">
                                     <option value="시스템">시스템</option>
-                                    <option value="변경취소">변경/취소</option>
+                                    <option value="변경및취소">변경/취소</option>
                                     <option value="기타">기타</option>
                                 </select>
                             </td>
@@ -249,7 +249,7 @@
                             <td width="250">
                                 <select id="updateType" name="type" disabled>
                                     <option value="시스템">시스템</option>
-                                    <option value="변경취소">변경/취소</option>
+                                    <option value="변경및취소">변경/취소</option>
                                     <option value="기타">기타</option>
                                 </select>
                             </td>
@@ -267,7 +267,7 @@
             </div>
             <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                    <button type="button" onclick="lock();" class="btn btn-danger" data-dismiss="modal">취소</button>
                 </div>
       </div>
     </div>
@@ -300,6 +300,14 @@
   		$("#updateNoticeBtn").css("display","none");
   		$("#insertNoticeBtn").css("display","");
   	};
+  	
+	function lock(){
+		$("#faqTitle2").attr("disabled","true");
+		$("#faqType2").attr("disabled","true");
+		$("#faqContent2").attr("disabled","true");
+		$("#insertFaqBtn").css("display", "none");
+		$("#updateFaqBtn").css("display","");
+};
   </script>
 </body>
 </html>

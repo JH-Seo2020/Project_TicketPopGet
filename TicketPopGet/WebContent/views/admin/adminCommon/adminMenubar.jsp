@@ -86,13 +86,13 @@ String alertMsg = (String)session.getAttribute("alertMsg");
         <div class="menuWrap">
         <button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=1'">회원전체 조회</button>
         <button>탈퇴회원 조회</button>
-        <button>블랙리스트 조회</button>
+        <button type="button" onclick="location.href='<%=request.getContextPath()%>/blacklist.adme?currentPage=1'">블랙리스트 조회</button>
         </div>
 
         <div class="menuTitle">고객센터</div>
         <div class="menuWrap">
-        <button>공지사항관리</button>
-        <button>FAQ 관리</button>
+        <button type="button" onclick="location.href='<%=request.getContextPath()%>/list.adno?currentPage=1'">공지사항 관리</button>
+        <button type="button" onclick="location.href='<%=request.getContextPath()%>/list.adfa?currentPage=1'">FAQ</button>
         <button>1대1문의 관리</button>
         <button>신고관리</button>
         </div>

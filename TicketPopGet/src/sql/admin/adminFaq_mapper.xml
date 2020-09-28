@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="faqListCount">
+		SELECT COUNT(*)
+		  FROM FAQ
+		 WHERE FAQ_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectFaqList">
+		SELECT B.* 
+		  FROM (SELECT ROWNUM RNUM, A.*
+		          FROM (SELECT 
+		                FAQ_NO
+		              , FAQ_TYPE
+		              , FAQ_TITLE
+		              , FAQ_CONTENT
+		              , FAQ_STATUS
+		              , ADMIN_NAME
+		          FROM FAQ F
+		          JOIN ADMIN A ON(F.ADMIN_ID=A.ADMIN_ID)
+		         WHERE FAQ_STATUS = 'Y'
+		         ORDER BY FAQ_NO DESC)A)B
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="insertFaq">
+		INSERT
+		  INTO FAQ
+		      (
+		         FAQ_NO
+		       , FAQ_TYPE
+		       , FAQ_TITLE
+		       , FAQ_CONTENT
+		       , ADMIN_ID
+		      )
+		 VALUES
+		     (
+		       SEQ_FAQNO.NEXTVAL
+		     , ?
+		     , ?
+		     , ?
+		     , 'ADMIN'
+		     )
+	</entry>
+	
+	<entry key="selectUpdate">
+		SELECT 
+				FAQ_NO
+		      , FAQ_TYPE
+		      , FAQ_TITLE
+		      , FAQ_CONTENT
+		  FROM FAQ
+		 WHERE FAQ_STATUS = 'Y'
+		   AND FAQ_NO = ?
+	</entry>
+	
+	<entry key="updateFaq">
+		UPDATE FAQ
+		   SET 
+		        FAQ_TYPE = ?
+		      , FAQ_TITLE = ?
+		      , FAQ_CONTENT = ?
+		 WHERE FAQ_NO = ?
+	</entry>
+	
+	<entry key="searchKeyListCount">
+		SELECT COUNT(*)
+		  FROM FAQ F
+		  JOIN ADMIN A ON(F.ADMIN_ID=A.ADMIN_ID)
+		 WHERE FAQ_STATUS = 'Y'
+		   AND FAQ_TITLE LIKE ?
+	</entry>
+	
+	<entry key="searchKeyTypeListCount">
+				SELECT COUNT(*)
+		  FROM FAQ F
+		  JOIN ADMIN A ON(F.ADMIN_ID=A.ADMIN_ID)
+		 WHERE FAQ_STATUS = 'Y'
+		   AND FAQ_TITLE LIKE ?
+		   AND FAQ_TYPE = ?
+	</entry>
+	
+	<entry key="searchTypeListCount">
+				SELECT COUNT(*)
+		  FROM FAQ F
+		  JOIN ADMIN A ON(F.ADMIN_ID=A.ADMIN_ID)
+		 WHERE FAQ_STATUS = 'Y'
+		   AND FAQ_TYPE = ?
+	</entry>
+	
+	<entry key="searchKey">
+		SELECT B.* 
+		  FROM (SELECT ROWNUM RNUM, A.*
+		          FROM (SELECT 
+				                FAQ_NO
+				              , FAQ_TYPE
+				              , FAQ_TITLE
+				              , FAQ_CONTENT
+				              , FAQ_STATUS
+				              , ADMIN_NAME
+				          FROM FAQ F
+				          JOIN ADMIN A ON(F.ADMIN_ID=A.ADMIN_ID)
+				         WHERE FAQ_STATUS = 'Y'
+				           AND FAQ_TITLE LIKE ?
+		         		 ORDER BY FAQ_NO DESC)A)B
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="searchKeyType">
+		SELECT B.* 
+		  FROM (SELECT ROWNUM RNUM, A.*
+		          FROM (SELECT 
+				                FAQ_NO
+				              , FAQ_TYPE
+				              , FAQ_TITLE
+				              , FAQ_CONTENT
+				              , FAQ_STATUS
+				              , ADMIN_NAME
+				          FROM FAQ F
+				          JOIN ADMIN A ON(F.ADMIN_ID=A.ADMIN_ID)
+				         WHERE FAQ_STATUS = 'Y'
+				           AND FAQ_TITLE LIKE ?
+				           AND FAQ_TYPE = ?
+		         		 ORDER BY FAQ_NO DESC)A)B
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="searchType">
+		SELECT B.* 
+		  FROM (SELECT ROWNUM RNUM, A.*
+		          FROM (SELECT 
+				                FAQ_NO
+				              , FAQ_TYPE
+				              , FAQ_TITLE
+				              , FAQ_CONTENT
+				              , FAQ_STATUS
+				              , ADMIN_NAME
+				          FROM FAQ F
+				          JOIN ADMIN A ON(F.ADMIN_ID=A.ADMIN_ID)
+				         WHERE FAQ_STATUS = 'Y'
+				           AND FAQ_TYPE = ?
+		         		 ORDER BY FAQ_NO DESC)A)B
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="deleteFaq">
+		UPDATE FAQ
+		   SET FAQ_STATUS = 'N'
+		 WHERE FAQ_NO = ?
+	</entry>
+</properties>

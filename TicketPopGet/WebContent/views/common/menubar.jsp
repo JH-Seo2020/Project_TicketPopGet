@@ -144,7 +144,7 @@
 	            </div>
             <%} else{ %>
                 <div id="loginSpace" align="right";>
-                <label>로그아웃</label>
+                <label><a class="menubar_a" href="<%=request.getContextPath()%>/logout.me">로그아웃</a></label>
                 <label><a class="menubar_a" href="<%=contextPath%>/mypage.my">마이페이지</a></label>
                 <label>고객센터</label>
                 </div>
