@@ -70,7 +70,9 @@
             </div>
             <div id="adBoardBodySub">
                 작성일 : <%=board.getBoardDate() %> 조회수 : <%=board.getBoardCount() %> 
-                <div><a href="" style="color: black !important; margin-left: 10px;" data-toggle="modal" data-target="#eventReport">신고</a></div>
+                <%if(loginUser != null & loginUser.getUserNo() != board.getUserNo()) {%>
+                	<div><a href="" style="color: black !important; margin-left: 10px;" data-toggle="modal" data-target="#eventReport">신고</a></div>
+            	<%} %>
             </div>
             <div id="adBoardBodyContent">
                 <%=boardContent %>
@@ -78,7 +80,7 @@
             <div id="adBoardBodyBtns">
                 <%if (loginUser != null && loginUser.getUserNo() == board.getUserNo()){ %>
 	                <a class="btn btn-warning" href="<%=contextPath%>/adboard.recall?boardNo=<%=board.getBoardNo()%>">수정하기</a>
-	                <a class="btn btn-warning" href="" data-toggle="modal" data-target="#deleteAdBoard">삭제하기</a>
+	                <a class="btn btn-warning" data-toggle="modal" data-target="#deleteAdBoard">삭제하기</a>
 				<%} %>
                 <a class="btn btn-secondary" id="back">목록으로</a>
             </div>
@@ -114,7 +116,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                        <a type="button" class="btn btn-primary" href="">확인</a>
+                        <a type="button" class="btn btn-primary" href="<%=contextPath %>/adboard.delete?boardNo=<%=board.getBoardNo() %>">확인</a>
                     </div>
                 </div>
             </div>
