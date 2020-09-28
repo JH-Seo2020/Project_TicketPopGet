@@ -38,8 +38,6 @@ public class AdminFaqUpdateServlet extends HttpServlet {
 		String faqType = request.getParameter("faqType");
 		String faqContent = request.getParameter("faqContent");
 		
-		System.out.println(faqNo+faqTitle+faqType+faqContent);
-		
 		Faq f = new Faq();
 		f.setFaqNo(faqNo);
 		f.setFaqTitle(faqTitle);
