@@ -150,6 +150,7 @@
                 </div>
               <%} %>
         </div>
+        
 
         <div id="navigator">
             <div class="menubar"> 

@@ -1,8 +1,8 @@
 package com.kh.user.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,30 +33,18 @@ public class MyPage_UpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
-
-		String birthdate = request.getParameter("birthdate");
-		java.util.Date birth = new java.util.Date();
 		
-		try {
-			birth = new SimpleDateFormat("yyyy-MM-dd").parse(birthdate);
 			String userId = request.getParameter("userId");
 			String userName = request.getParameter("userName");
+			Date birthdate = java.sql.Date.valueOf(request.getParameter("birthdate"));
 			String gender = request.getParameter("gender");
 			String phone = request.getParameter("phone");
 			String email = request.getParameter("email");
 
-			System.out.println(userId);
-			System.out.println(userName);
-			System.out.println(birth);
-			System.out.println(gender);
-			System.out.println(phone);
-			System.out.println(email);
-
-			Member m = new Member(userId, userName, (java.sql.Date) birth, gender, phone, email);
+			Member m = new Member(userId, userName, (java.sql.Date)birthdate, gender, phone, email);
 
 			Member updateMember = new MemberService().updateMember(m);
 
@@ -73,11 +61,8 @@ public class MyPage_UpdateServlet extends HttpServlet {
 				RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 				view.forward(request, response);
 			}
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}  
-
-	}
+	
+		}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

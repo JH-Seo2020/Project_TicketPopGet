@@ -73,9 +73,7 @@ body {
 	<%@ include file="/views/common/menubar.jsp"%>
 	
 	<%  
-	
 		java.util.Date birthdate = new java.util.Date();
-		
 	
 		String userId = loginUser.getUserId();
 		String userName = loginUser.getUserName();
@@ -104,7 +102,7 @@ body {
 						<!-- 생년월일 띄워야됨 -->
 						<div class="form-group row">                                    
                                 <label for="birth" class="col-md-4 col-form-label text-md-right">생년월일</label>
-                                	<input type="text" id="birthdate" name="birthdate" class="form-control" value="<%=birthdate %>" style="width: 400px;" placeholder="생년월일 8자리 입력" required>               
+                                	<input type="date" id="birthdate" name="birthdate" class="form-control" value="<%=birthdate %>" style="width: 400px;" placeholder="생년월일 8자리 입력" required>               
                          </div>
 
 						<!-- 성별도 띄워야됨 -->
