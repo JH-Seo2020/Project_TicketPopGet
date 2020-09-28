@@ -77,7 +77,7 @@
             </div>
             <div id="adBoardBodyBtns">
                 <%if (loginUser != null && loginUser.getUserNo() == board.getUserNo()){ %>
-	                <a class="btn btn-warning" href="">수정하기</a>
+	                <a class="btn btn-warning" href="<%=contextPath%>/adboard.recall?boardNo=<%=board.getBoardNo()%>">수정하기</a>
 	                <a class="btn btn-warning" href="" data-toggle="modal" data-target="#deleteAdBoard">삭제하기</a>
 				<%} %>
                 <a class="btn btn-secondary" id="back">목록으로</a>

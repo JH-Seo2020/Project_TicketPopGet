@@ -104,7 +104,7 @@ public class AdBoardService {
 	}
 
 	/**
-	 * 7. 콘서트 홍보게시글 총 개수 조회 
+	 * 7. 장르별 홍보게시글 총 개수 조회 
 	 * @param genre
 	 * @return
 	 * @author sjhie
@@ -129,6 +129,25 @@ public class AdBoardService {
 		ArrayList<AdBoard> list = new AdBoardDao().selectListByGenre(conn,pi,genre);
 		close(conn);
 		return list;
+	}
+
+	/**
+	 * 9. 홍보게시글 수정 insert
+	 * @param boardNo
+	 * @return
+	 * @author sjhie
+	 */
+	public int updateBoard(AdBoard board, String editordata) {
+		
+		Connection conn = getConnection();
+		int result = new AdBoardDao().updateBoard(conn, board, editordata);
+		if (result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 }
