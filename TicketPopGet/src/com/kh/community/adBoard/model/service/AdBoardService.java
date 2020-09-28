@@ -150,4 +150,21 @@ public class AdBoardService {
 		return result;
 	}
 
+	/**
+	 * 10. 홍보게시글 삭제
+	 * @param boardNo
+	 * @return
+	 * @author sjhie
+	 */
+	public int deleteBoard(int boardNo) {
+		Connection conn = getConnection();
+		int result = new AdBoardDao().deleteBoard(conn,boardNo);
+		if (result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
 }
