@@ -268,7 +268,7 @@
             </div>
             <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                    <button type="button" onclick="lock();" class="btn btn-danger" data-dismiss="modal">취소</button>
                 </div>
       </div>
     </div>
@@ -301,6 +301,14 @@
   		$("#updateNoticeBtn").css("display","none");
   		$("#insertNoticeBtn").css("display","");
   	};
+  	
+	function lock(){
+		$("#faqTitle2").attr("disabled","true");
+		$("#faqType2").attr("disabled","true");
+		$("#faqContent2").attr("disabled","true");
+		$("#insertFaqBtn").css("display", "none");
+		$("#updateFaqBtn").css("display","");
+};
   </script>
 </body>
 </html>

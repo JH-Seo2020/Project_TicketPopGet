@@ -91,7 +91,7 @@
                     <th><button type="button" onclick="location.href='<%=request.getContextPath()%>/list.adno?currentPage=1'">공지사항 관리</button></th>
                 </tr>
                 <tr>
-                    <th><button type="button">FAQ</button></th>
+                    <th><button type="button" onclick="location.href='<%=request.getContextPath()%>/list.adfa?currentPage=1'">FAQ</button></th>
                 </tr>
                 <tr>
                     <th><button type="button">1대1문의 관리</button></th>
