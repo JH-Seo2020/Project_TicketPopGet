@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.community.event.model.vo.Event, com.kh.concert.model.vo.*" %>
+<%
+	ArrayList<Event> list =(ArrayList<Event>) request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,89 +75,40 @@
               </tr>
             </thead>
             <tbody align="center">
-              <tr>
-                <th scope="row">1</th>
-                <td>연극</td>
-                <td> <a href="">연극 "황금사과이야기" 응모 이벤트 - 공짜표 드립니다</a></td>
-                <td>2020/01/02</td>
-                <td>30</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>콘서트</td>
-                <td><a href="">고릴라즈 내한 기념 무료 티켓 이벤트!!</a></td>
-                <td>2020/02/02</td>
-                <td>40</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">7</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">9</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">10</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
+            <%if(list.isEmpty()){ %>
+            	<tr><td colspan=5>보여드릴 게시물이 없습니다.</td></tr>
+            <%}else{ %>
+            	<%for(Event e : list){ %>
+		              <tr>
+		                <th scope="row"><%=e.getEventNo() %></th>
+		                <td><%=e.getEventType() %></td>
+		                <td> <a href=""><%=e.getEventTitle() %></a></td>
+		                <td><%=e.getEventDate() %></td>
+		                <td><%=e.getEventCount() %></td>
+		              </tr>
+		         <%} %>
+		    <%} %>
             </tbody>
         </table>
 
         <div id="replyEventPaging">
-            <button>&lt;&lt;</button>
-            <button>&lt;</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>&gt;</button>
-            <button>&gt;&gt;</button>
+            <button onclick="location.href='<%=contextPath%>/event.co?currentPage=1';">&lt;&lt;</button>
+            <%if(currentPage != 1) { %>
+            <button onclick="location.href='<%=contextPath%>/event.co?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            <%} %>
+            
+            <%for(int i = startPage; i <=endPage; i++){ %>
+            	<% if(currentPage != i) {%>
+            		<button onclick="location.href='<%=contextPath%>/event.co?currentPage=<%=i%>';"><%=i%></button>
+            	<%}else{ %>
+            		<button disabled style="color:black;"><%=i %></button>
+            	<%} %>
+            <%} %>
+            
+            <%if(currentPage != maxPage){ %>
+            <button onclick="location.href='<%=contextPath%>/event.co?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <% } %>
+            <button onclick="location.href='<%=contextPath%>/event.co?currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
         </div>
 
     </div>

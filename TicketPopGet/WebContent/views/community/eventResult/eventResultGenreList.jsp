@@ -4,6 +4,7 @@
 <%
 	ArrayList<EventRaffle> list =(ArrayList<EventRaffle>) request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	String genre = (String) request.getAttribute("genre");
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -91,23 +92,23 @@
         </table>
 
         <div id="eventResultPaging">
-            <button onclick="location.href='<%=contextPath%>/event.result?currentPage=1';">&lt;&lt;</button>
+            <button onclick="location.href='<%=contextPath%>/eventresult.genre?genre=<%=genre %>&currentPage=1';">&lt;&lt;</button>
             <%if(currentPage != 1) { %>
-            <button onclick="location.href='<%=contextPath%>/event.result?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            <button onclick="location.href='<%=contextPath%>/eventresult.genre?genre=<%=genre %>&currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
             <%} %>
             
             <%for(int i = startPage; i <=endPage; i++){ %>
             	<% if(currentPage != i) {%>
-            		<button onclick="location.href='<%=contextPath%>/event.result?currentPage=<%=i%>';"><%=i%></button>
+            		<button onclick="location.href='<%=contextPath%>/eventresult.genre?genre=<%=genre %>&currentPage=<%=i%>';"><%=i%></button>
             	<%}else{ %>
             		<button disabled style="color:black;"><%=i %></button>
             	<%} %>
             <%} %>
             
             <%if(currentPage != maxPage){ %>
-            <button onclick="location.href='<%=contextPath%>/event.result?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <button onclick="location.href='<%=contextPath%>/eventresult.genre?genre=<%=genre %>&currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
             <% } %>
-            <button onclick="location.href='<%=contextPath%>/event.result?currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
+            <button onclick="location.href='<%=contextPath%>/eventresult.genre?genre=<%=genre %>&currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
         </div>
 
     </div>

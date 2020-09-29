@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="eventCount">
+		SELECT COUNT(*) eventListCount
+		  FROM EVENT 
+		 WHERE EVENT_STATUS = 'Y'
+	</entry>
+	<entry key="selectEventList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM
+		             , E.*
+		          FROM (
+		                SELECT EVENT_NO
+		                     , CONTENT_NO
+		                     , EVENT_TYPE
+		                     , EVENT_TITLE
+		                     , EVENT_CONTENT
+		                     , EVENT_DATE
+		                     , EVENT_COUNT
+		                  FROM EVENT
+		                 WHERE EVENT_STATUS = 'Y'
+		                 ORDER 
+		                    BY EVENT_NO DESC
+		                 )E
+		      )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="insertAdBoard">
+		  INSERT 
+			into BOARD
+			(
+			      BOARD_NO
+			    , BOARD_TYPE
+			    , LOCATION
+			    , BOARD_TITLE
+			    , BOARD_CONTNET
+			    , USER_NO
+			) values(
+			    SEQ_BOARDNO.NEXTVAL
+			    , 
+			    ?, 
+			    ?, 
+			    ?, 
+			    ?,
+			    ?
+			)
+	</entry>
+	<entry key="plusCount">
+		UPDATE 
+		       BOARD
+		   SET BOARD_COUNT = BOARD_COUNT + 1
+		 WHERE BOARD_NO = ?
+		   AND BOARD_STATUS = 'Y'
+	</entry>
+	<entry key="boardDetail">
+		SELECT BOARD_NO
+		     , BOARD_TYPE
+		     , BOARD_TITLE
+		     , BOARD_CONTNET
+		     , BOARD_DATE
+		     , BOARD_COUNT
+		     , USER_NO
+		     , USER_ID
+		  FROM BOARD
+		  JOIN MEMBER USING (USER_NO)
+		 WHERE BOARD_STATUS = 'Y'
+		   AND BOARD_NO = ?
+	</entry>
+	<entry key="adBoardCountByGenre">
+	SELECT COUNT(*) countByGenre
+	  FROM BOARD
+	 WHERE BOARD_STATUS = 'Y'
+	   AND BOARD_TYPE = ?
+	</entry>
+	<entry key="selectListByGenre">
+	SELECT *
+	  FROM (
+	        SELECT ROWNUM RNUM
+	             , A.*
+	          FROM (
+	                SELECT BOARD_NO
+                         , BOARD_TYPE
+                         , LOCATION
+                         , BOARD_TITLE
+                         , BOARD_DATE
+                         , BOARD_COUNT
+                         , USER_NO
+                      FROM BOARD
+	                 WHERE BOARD_STATUS = 'Y'
+	                   AND BOARD_TYPE = ?
+	                 ORDER 
+	                    BY BOARD_NO DESC
+	                 )A
+	      )
+	 WHERE RNUM BETWEEN ? AND ? 
+	</entry>
+	<entry key="updateBoard">
+		UPDATE 
+		       BOARD
+		   SET BOARD_TYPE = ?,
+		       LOCATION = ?,
+		       BOARD_TITLE = ?,
+		       BOARD_CONTNET =?
+		 WHERE BOARD_NO = ?
+		   AND BOARD_STATUS = 'Y'
+	</entry>
+	<entry key="deleteBoard">
+		UPDATE
+		       BOARD
+		   SET BOARD_STATUS = 'N'
+		 WHERE BOARD_NO = ?
+	</entry>
+	<entry key="boardReport">
+	INSERT 
+	  INTO REPORT
+	     (
+	      REPORT_NO
+	    , REPORTER
+	    , TROUBLEMAKER
+	    , REPORT_TYPE
+	    , REPORT_CATE
+	    , REPORT_CONTENT
+	    , CONTENT_NO
+	) values(
+	    SEQ_REPORTNO.nextval
+	    , ?
+	    , ?
+	    , ?
+	    , ?
+	    , ?
+	    , ?
+	)
+	</entry>
+</properties>

@@ -20,7 +20,7 @@ public class EventResultDao {
 	private Properties prop = new Properties();
 	
 	public EventResultDao() {
-		String fileName = ConcertDao.class.getResource("/sql/community/eventResult/eventResult-mapper.xml").getPath();
+		String fileName = EventResultDao.class.getResource("/sql/community/eventResult/eventResult-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(fileName));

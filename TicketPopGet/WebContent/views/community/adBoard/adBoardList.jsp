@@ -122,7 +122,7 @@
             <%if(currentPage != maxPage){ %>
             <button onclick="location.href='<%=contextPath%>/adboard.co?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
             <% } %>
-            <button onclick="location.href='<%=contextPath%>/eadboard.co?currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
+            <button onclick="location.href='<%=contextPath%>/adboard.co?currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
         </div>
 
     </div>

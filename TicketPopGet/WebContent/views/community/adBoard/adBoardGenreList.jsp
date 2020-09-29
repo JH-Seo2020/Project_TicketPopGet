@@ -4,6 +4,7 @@
 <%
 	ArrayList<AdBoard> list =(ArrayList<AdBoard>) request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	String genre = (String)request.getAttribute("genre");
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -106,23 +107,23 @@
         </script>
 
         <div id="adBoardPaging">
-            <button onclick="location.href='<%=contextPath%>/adboard.co?currentPage=1';">&lt;&lt;</button>
+            <button onclick="location.href='<%=contextPath%>/adboard.genre?genre=<%=genre%>&currentPage=1';">&lt;&lt;</button>
             <%if(currentPage != 1) { %>
-            <button onclick="location.href='<%=contextPath%>/adboard.co?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            <button onclick="location.href='<%=contextPath%>/adboard.genre?genre=<%=genre%>&currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
             <%} %>
             
             <%for(int i = startPage; i <=endPage; i++){ %>
             	<% if(currentPage != i) {%>
-            		<button onclick="location.href='<%=contextPath%>/adboard.co?currentPage=<%=i%>';"><%=i%></button>
+            		<button onclick="location.href='<%=contextPath%>/adboard.genre?genre=<%=genre%>&currentPage=<%=i%>';"><%=i%></button>
             	<%}else{ %>
             		<button disabled style="color:black;"><%=i %></button>
             	<%} %>
             <%} %>
             
             <%if(currentPage != maxPage){ %>
-            <button onclick="location.href='<%=contextPath%>/adboard.co?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <button onclick="location.href='<%=contextPath%>/adboard.genre?genre=<%=genre%>&currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
             <% } %>
-            <button onclick="location.href='<%=contextPath%>/eadboard.co?currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
+            <button onclick="location.href='<%=contextPath%>/eadboard.genre?genre=<%=genre%>&currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
         </div>
 
     </div>

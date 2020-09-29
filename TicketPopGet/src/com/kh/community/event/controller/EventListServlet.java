@@ -1,4 +1,4 @@
-package com.kh.community.eventResult.controller;
+package com.kh.community.event.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,21 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.community.eventResult.model.service.EventResultService;
-import com.kh.community.eventResult.model.vo.EventRaffle;
+import com.kh.community.adBoard.model.service.AdBoardService;
+import com.kh.community.adBoard.model.vo.AdBoard;
+import com.kh.community.event.model.service.EventService;
+import com.kh.community.event.model.vo.Event;
 import com.kh.concert.model.vo.PageInfo;
 
 /**
- * Servlet implementation class EventResultLocationServlet
+ * Servlet implementation class EventListServlet
  */
-@WebServlet("/eventresult.genre")
-public class EventResultGenreServlet extends HttpServlet {
+@WebServlet("/event.co")
+public class EventListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EventResultGenreServlet() {
+    public EventListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +36,18 @@ public class EventResultGenreServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//장르
-		String genre = request.getParameter("genre");
-		
 		//페이징처리
 		int listCount;		// 총 게시글 개수 
 		int currentPage;	// 내가 요청한 페이지
-		int pageLimit;		// 페이지개수
-		int boardLimit;		// 컨텐츠 개수 
+		int pageLimit;		// 10개까지 보여질 페이지개수
+		int boardLimit;		// 10개까지 보여질 컨텐츠 개수 
 		
 		int maxPage;		// 전체 페이지들 중에서의 가장 마지막 페이지
 		int startPage;		
 		int endPage;		
 		
-		//이벤트 결과물 게시글 개수 조회 
-		listCount = new EventResultService().eventResultCountByGenre(genre);
+		//이벤트 게시글 개수 조회 
+		listCount = new EventService().eventCount();
 		//현재페이지
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		pageLimit = 5;
@@ -68,13 +67,12 @@ public class EventResultGenreServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		//페이징 정보를 통해서 해당되는 게시글 리스트를 받아올 수 있음 
-		ArrayList<EventRaffle> list = new EventResultService().selectListByGenre(pi,genre);
+		ArrayList<Event> list = new EventService().selectList(pi);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
-		request.setAttribute("genre", genre);
 		
-		RequestDispatcher view = request.getRequestDispatcher("views/community/eventResult/eventResultGenreList.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("views/community/event/eventList.jsp");
 		view.forward(request, response);
 
 		

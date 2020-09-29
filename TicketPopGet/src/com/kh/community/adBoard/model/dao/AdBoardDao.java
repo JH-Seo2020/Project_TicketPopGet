@@ -23,7 +23,7 @@ public class AdBoardDao {
 	
 	private Properties prop = new Properties();
 	public AdBoardDao() {
-		String fileName = ConcertDao.class.getResource("/sql/community/adBoard/adBoard-mapper.xml").getPath();
+		String fileName = AdBoardDao.class.getResource("/sql/community/adBoard/adBoard-mapper.xml").getPath();
 		try {
 			prop.loadFromXML(new FileInputStream(fileName));
 		} catch (IOException e) {

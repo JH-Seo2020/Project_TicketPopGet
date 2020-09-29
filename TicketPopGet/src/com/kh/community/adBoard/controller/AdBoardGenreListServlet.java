@@ -74,6 +74,7 @@ public class AdBoardGenreListServlet extends HttpServlet {
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
+		request.setAttribute("genre", genre);
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/community/adBoard/adBoardGenreList.jsp");
 		view.forward(request, response);
