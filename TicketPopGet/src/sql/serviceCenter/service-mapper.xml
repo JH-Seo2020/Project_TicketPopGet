@@ -25,6 +25,7 @@
 	  FROM FAQ
 	 WHERE FAQ_STATUS = 'Y'
 	</entry>
+	
 	<entry key="faqSelectList">
 	SELECT ROWNUM
          , FAQ_TYPE
@@ -34,5 +35,26 @@
      WHERE F.FAQ_STATUS = 'Y'
        AND ROWNUM BETWEEN ? AND ?
      ORDER BY FAQ_NO DESC
+	</entry>
+	
+	<entry key="noticeTypeListCount">
+	SELECT 
+	       COUNT(*) countTypeNotice
+	  FROM NOTICE
+	 WHERE NOTICE_STATUS = 'Y'
+	   AND NOTICE_TYPE = ?
+	</entry>
+	
+	<entry key="noticeTypeSelectList">
+	SELECT ROWNUM
+         , NOTICE_NO
+         , NOTICE_TYPE
+         , NOTICE_TITLE
+         , NOTICE_DATE
+      FROM NOTICE N
+     WHERE N.NOTICE_STATUS = 'Y'
+       AND N.NOTICE_TYPE = ?
+       AND ROWNUM BETWEEN ? AND ?
+     ORDER BY NOTICE_NO DESC
 	</entry>
 </properties>

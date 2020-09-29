@@ -103,10 +103,9 @@
             <table class="table table-striped" id="listArea">
                 <thead>
                     <tr>
-                    	<th>글번호</th>
-                        <th>분류</th>
-                        <th>제목</th>
-                        <th>등록일</th>
+                        <th style="width: 20%;">분류</th>
+                        <th style="width: 60%;">제목</th>
+                        <th style="width: 20%;">등록일</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -117,7 +116,6 @@
                     <% }else { %>
                     	<% for(Notice n : list) { %>
                     <tr>
-                    	<td><%= n.getNoticeNo() %></td>
                         <td><%= n.getNoticeType() %></td>
                         <td><%= n.getNoticeTitle() %></td>
                         <td><%= n.getNoticeDate() %></td>

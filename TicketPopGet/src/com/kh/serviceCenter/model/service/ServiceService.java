@@ -75,5 +75,40 @@ public class ServiceService {
 		
 		return list;
 	}
+	
+	/**
+	 * 공지사항 타입별 조회 서비스
+	 * @param type
+	 * @return
+	 */
+	public int noticeTypeListCount(String type) {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new ServiceDao().noticeTypeListCount(conn, type);
+		
+		close(conn);
+		
+		return listCount;		
+		
+	}
+	
+	/**
+	 * 공지사항 타입별 리스트
+	 * @param pi
+	 * @param type
+	 * @return
+	 */
+	public ArrayList<Notice> noticeTypeSelectList(PageInfo pi, String type) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Notice> list = new ServiceDao().noticeTypeSelectList(conn,pi,type);
+		
+		close(conn);
+		
+		return list;
+	}
+	
 
 }
