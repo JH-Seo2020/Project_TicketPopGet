@@ -63,7 +63,7 @@ public class NoticeDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectList");
+		String sql = prop.getProperty("noticeSelectList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

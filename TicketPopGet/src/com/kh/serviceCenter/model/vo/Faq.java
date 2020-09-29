@@ -19,6 +19,14 @@ public class Faq {
 		this.faqStatus = faqStatus;
 		this.adminId = adminId;
 	}
+	
+
+	public Faq(String faqType, String faqTitle, String faqContent) {
+		super();
+		this.faqType = faqType;
+		this.faqTitle = faqTitle;
+		this.faqContent = faqContent;
+	}
 
 	public int getFaqNo() {
 		return faqNo;
