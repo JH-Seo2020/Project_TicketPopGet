@@ -5,6 +5,7 @@ import java.sql.Date;
 
 public class AdBoard {
 
+	private String userId;
 	private int boardNo;
 	private String boardType;
 	private String boardLocation;
@@ -14,12 +15,26 @@ public class AdBoard {
 	private int boardCount;
 	private String boardStatus;
 	private int userNo;
-	private String userId;
 	
 	public AdBoard() {
 		// TODO Auto-generated constructor stub
 	}
 
+	public AdBoard(String userId, int boardNo, String boardType, String boardLocation, String boardTitle,
+			Clob boardContent, Date boardDate, int boardCount, String boardStatus, int userNo) {
+		super();
+		this.userId = userId;
+		this.boardNo = boardNo;
+		this.boardType = boardType;
+		this.boardLocation = boardLocation;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardDate = boardDate;
+		this.boardCount = boardCount;
+		this.boardStatus = boardStatus;
+		this.userNo = userNo;
+	}
+	
 	public AdBoard(int boardNo, String boardType, String boardLocation, String boardTitle, Clob boardContent,
 			Date boardDate, int boardCount, String boardStatus, int userNo) {
 		super();
@@ -33,8 +48,6 @@ public class AdBoard {
 		this.boardStatus = boardStatus;
 		this.userNo = userNo;
 	}
-	
-	
 
 	public AdBoard(int boardNo, String boardType, String boardLocation, String boardTitle, Date boardDate,
 			int boardCount) {
@@ -49,7 +62,7 @@ public class AdBoard {
 	
 	
 
-	public AdBoard(int boardNo, String boardType, String boardTitle, Date boardDate, int boardCount, int userNo, String userId) {
+	public AdBoard(int boardNo, String boardType, String boardTitle, Date boardDate, int boardCount, int userNo) {
 		super();
 		this.boardNo = boardNo;
 		this.boardType = boardType;
@@ -57,7 +70,6 @@ public class AdBoard {
 		this.boardDate = boardDate;
 		this.boardCount = boardCount;
 		this.userNo = userNo;
-		this.userId = userId;
 	}
 
 	
@@ -72,6 +84,24 @@ public class AdBoard {
 		this.boardDate = boardDate;
 		this.boardCount = boardCount;
 		this.userNo = userNo;
+	}
+	
+	
+
+	public AdBoard(String userId, int boardNo, String boardTitle, Date boardDate) {
+		super();
+		this.userId = userId;
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardDate = boardDate;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public int getBoardNo() {
@@ -144,16 +174,6 @@ public class AdBoard {
 
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
-	}
-	
-	
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 
 	@Override
