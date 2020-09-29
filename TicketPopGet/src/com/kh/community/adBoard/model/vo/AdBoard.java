@@ -14,6 +14,7 @@ public class AdBoard {
 	private int boardCount;
 	private String boardStatus;
 	private int userNo;
+	private String userId;
 	
 	public AdBoard() {
 		// TODO Auto-generated constructor stub
@@ -48,7 +49,7 @@ public class AdBoard {
 	
 	
 
-	public AdBoard(int boardNo, String boardType, String boardTitle, Date boardDate, int boardCount, int userNo) {
+	public AdBoard(int boardNo, String boardType, String boardTitle, Date boardDate, int boardCount, int userNo, String userId) {
 		super();
 		this.boardNo = boardNo;
 		this.boardType = boardType;
@@ -56,6 +57,7 @@ public class AdBoard {
 		this.boardDate = boardDate;
 		this.boardCount = boardCount;
 		this.userNo = userNo;
+		this.userId = userId;
 	}
 
 	
@@ -142,6 +144,16 @@ public class AdBoard {
 
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
+	}
+	
+	
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	@Override

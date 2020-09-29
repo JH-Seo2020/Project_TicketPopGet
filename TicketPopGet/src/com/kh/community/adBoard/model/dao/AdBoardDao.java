@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.community.adBoard.model.vo.AdBoard;
+import com.kh.community.adBoard.model.vo.Report;
 import com.kh.community.eventResult.model.vo.EventRaffle;
 import com.kh.concert.model.dao.ConcertDao;
 import com.kh.concert.model.vo.PageInfo;
@@ -143,11 +144,11 @@ public class AdBoardDao {
 			while(rset.next()) {
 				board = new AdBoard(rset.getInt("BOARD_NO"),
 									rset.getString("BOARD_TYPE"),
-									rset.getString("LOCATION"),
 									rset.getString("BOARD_TITLE"),
 									rset.getDate("BOARD_DATE"),
 									rset.getInt("BOARD_COUNT"),
-									rset.getInt("USER_NO")
+									rset.getInt("USER_NO"),
+									rset.getString("USER_ID")
 									);
 			}
 		} catch (SQLException e) {
@@ -289,6 +290,32 @@ public class AdBoardDao {
 		}finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public int boardReport(Connection conn, Report boardReport) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("boardReport");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, boardReport.getReporter());
+			pstmt.setInt(2, boardReport.getTroubleMaker());
+			pstmt.setString(3, boardReport.getReportType());
+			pstmt.setString(4, boardReport.getReportCate());
+			pstmt.setString(5, boardReport.getReportContent());
+			pstmt.setInt(6, boardReport.getAdContentNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}	
 		return result;
 	}
 

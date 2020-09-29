@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.kh.community.adBoard.model.dao.AdBoardDao;
 import com.kh.community.adBoard.model.vo.AdBoard;
+import com.kh.community.adBoard.model.vo.Report;
 import com.kh.concert.model.vo.PageInfo;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -164,6 +165,25 @@ public class AdBoardService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
+		return result;
+	}
+
+	/**
+	 * 11. 게시글 신고
+	 * @param boardReport
+	 * @return
+	 * @author sjhie
+	 */
+	public int boardReport(Report boardReport) {
+		Connection conn = getConnection();
+		int result = new AdBoardDao().boardReport(conn, boardReport);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
 		return result;
 	}
 

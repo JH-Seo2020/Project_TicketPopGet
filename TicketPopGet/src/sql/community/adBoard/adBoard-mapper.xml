@@ -56,13 +56,14 @@
 	<entry key="boardDetail">
 		SELECT BOARD_NO
 		     , BOARD_TYPE
-		     , LOCATION
 		     , BOARD_TITLE
 		     , BOARD_CONTNET
 		     , BOARD_DATE
 		     , BOARD_COUNT
 		     , USER_NO
+		     , USER_ID
 		  FROM BOARD
+		  JOIN MEMBER USING (USER_NO)
 		 WHERE BOARD_STATUS = 'Y'
 		   AND BOARD_NO = ?
 	</entry>
@@ -109,5 +110,26 @@
 		       BOARD
 		   SET BOARD_STATUS = 'N'
 		 WHERE BOARD_NO = ?
+	</entry>
+	<entry key="boardReport">
+	INSERT 
+	  INTO REPORT
+	     (
+	      REPORT_NO
+	    , REPORTER
+	    , TROUBLEMAKER
+	    , REPORT_TYPE
+	    , REPORT_CATE
+	    , REPORT_CONTENT
+	    , CONTENT_NO
+	) values(
+	    SEQ_REPORTNO.nextval
+	    , ?
+	    , ?
+	    , ?
+	    , ?
+	    , ?
+	    , ?
+	)
 	</entry>
 </properties>

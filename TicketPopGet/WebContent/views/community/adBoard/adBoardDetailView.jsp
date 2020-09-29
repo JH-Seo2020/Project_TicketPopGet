@@ -67,24 +67,25 @@
             <div id="adBoardBodyTitle">
                 <span><%=board.getBoardType() %></span>
                 <span><%=board.getBoardTitle() %></span>
-            </div>
-            <div id="adBoardBodySub">
-                작성일 : <%=board.getBoardDate() %> 조회수 : <%=board.getBoardCount() %> 
-                <%if(loginUser != null && loginUser.getUserNo() != board.getUserNo()) {%>
-                	<div><a href="" style="color: black !important; margin-left: 10px;" data-toggle="modal" data-target="#eventReport">신고</a></div>
-            	<%} %>
-            </div>
-            <div id="adBoardBodyContent">
-                <%=boardContent %>
-            </div>
-            <div id="adBoardBodyBtns">
-                <%if (loginUser != null && loginUser.getUserNo() == board.getUserNo()){ %>
-	                <a class="btn btn-warning" href="<%=contextPath%>/adboard.recall?boardNo=<%=board.getBoardNo()%>">수정하기</a>
-	                <a class="btn btn-warning" data-toggle="modal" data-target="#deleteAdBoard">삭제하기</a>
-				<%} %>
-                <a class="btn btn-secondary" id="back">목록으로</a>
-            </div>
+             </div>
         </div>
+        <div id="adBoardBodySub">
+            작성일 : <%=board.getBoardDate() %> 조회수 : <%=board.getBoardCount() %> 
+            <%if(loginUser != null && loginUser.getUserNo() != board.getUserNo()) {%>
+            	<div><a href="" style="color: black !important; margin-left: 10px;" data-toggle="modal" data-target="#eventReport">신고</a></div>
+        	<%} %>
+        </div>
+        <div id="adBoardBodyContent">
+            <%=boardContent %>
+        </div>
+        <div id="adBoardBodyBtns">
+            <%if (loginUser != null && loginUser.getUserNo() == board.getUserNo()){ %>
+	             <a class="btn btn-warning" href="<%=contextPath%>/adboard.recall?boardNo=<%=board.getBoardNo()%>">수정하기</a>
+	             <a class="btn btn-warning" data-toggle="modal" data-target="#deleteAdBoard">삭제하기</a>
+			<%} %>
+            	<a class="btn btn-secondary" id="back">목록으로</a>
+        </div>
+      </div>
         
          <script>
 	    	$(function(){
@@ -132,45 +133,47 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                        <form method="POST" action="">
-                            <div class="modal-body">
-                                <p>
-                                    <b>신고 사유</b>
-                                </p>
-                                <select required name="" class="form-control">
-                                    <option value="">선택</option>
-                                    <option value="블라블라">블라블라</option>
-                                    <option value="블라블라">블라블라</option>
-                                    <option value="블라블라">블라블라</option>
-                                    <option value="블라블라">블라블라</option>
-                                </select>
-                            </div>
-                            <div class="modal-body">
-                                <p>
-                                    <b>신고 대상 아이디 </b>
-                                </p>
-                                <p>grekk***</p>
-                            </div>
-                            <div class="modal-body">
-                                <p>
-                                    <b>구체적인 신고 사유 </b>
-                                </p>
-                                <input type="text" name="" class="form-control" placeholder="이유를입력하세요" required>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                                <button type="submit" class="btn btn-primary" onclick="">확인</button>
-                            </div>
-
-                        </form>
+		                <form method="POST" action="<%=contextPath%>/community.report">
+		                <%if(loginUser != null){ %>
+		                <input name="reporter" type="hidden" value="<%=loginUser.getUserNo()%>">
+		                <%} %>
+		                <input name="troubleMaker" type="hidden" value="<%=board.getUserNo()%>">
+		                <input name="reportCate" type="hidden" value="홍보게시판">
+		                <input name="adContentNo" type="hidden" value="<%=board.getBoardNo()%>">
+		                    <div class="modal-body">
+		                        <p>
+		                            <b>신고 사유</b>
+		                        </p>
+		                        <select required name="reportType" class="form-control">
+		                            <option value="">선택</option>
+		                            <option value="욕설">욕설</option>
+		                            <option value="음란">음란</option>
+		                            <option value="광고">광고</option>
+		                            <option value="비하">비하</option>
+		                            <option value="기타">기타</option>
+		                        </select>
+		                    </div>
+		                    <div class="modal-body">
+		                        <p>
+		                            <b>신고 대상 아이디 </b>
+		                        </p>
+		                        <input type="text" name="" class="form-control" value="<%=board.getUserId() %>">
+		                    </div>
+		                    <div class="modal-body">
+		                        <p>
+		                            <b>구체적인 신고 사유 </b>
+		                        </p>
+		                        <input type="text" name="reportContent" class="form-control" placeholder="이유를입력하세요" required>
+		                    </div>
+		                    <div class="modal-footer">
+		                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+		                        <button type="submit" class="btn btn-primary">확인</button>
+		                    </div>
+		
+		                </form>
 	                </div>
-	            </div>
-	        </div>
-	    </div>
-
-
-
-    </div>
+	           </div>
+	       </div>
 
 </body>
 </html>
