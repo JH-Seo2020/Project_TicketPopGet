@@ -223,7 +223,7 @@
 				<ul>
 					<li><a class="mypage_menu_a" href="<%=contextPath%>/reservation.my">예매내역조회/취소</a></li>
 					<li><a class="mypage_menu_a" href="<%=contextPath%>/wishlist.my">찜 리스트</a></li>
-					<li><a class="mypage_menu_a" href="<%=contextPath%>/show.my?userId=<%=loginUser.getUserId()%>">나의 관람공연</a></li>
+					<li><a class="mypage_menu_a" href="<%=contextPath%>/show.my?currentPage=1&userId=<%=loginUser.getUserId()%>">나의 관람공연</a></li>
 					<li><a class="mypage_menu_a" href="<%=contextPath%>/review.my">나의 관람후기</a></li>
 					<li><a class="mypage_menu_a" href="<%=contextPath%>/promote.my">나의 홍보 글</a></li>
 				</ul>

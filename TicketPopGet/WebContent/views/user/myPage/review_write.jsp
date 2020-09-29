@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"  import="com.kh.user.model.vo.MyPageShow"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,9 +82,7 @@
          <div class="reservation_check2">
             <select name="category" style="width: 300px; height: 50px;">
                 <option value="">분류</option>
-                <option value="콘서트">콘서트</option>
-                <option value="연극">연극</option>
-                <option value="전시">전시</option>
+                
             </select>
         </div>
 

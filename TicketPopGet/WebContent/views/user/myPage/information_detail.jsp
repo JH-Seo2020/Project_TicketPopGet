@@ -109,7 +109,7 @@ body {
 						<div class="form-group row">
 							<label for="permanent_address" class="col-md-4 col-form-label text-md-right">성별</label> 
 							<select id="gender" name="gender" class="form-control" required  style="width: 400px;">
-								<option><%=gender%></option>
+								<option >선택</option>
 								<option value="M">남</option>
 								<option value="F">여</option>
 							</select>

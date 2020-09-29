@@ -5,10 +5,10 @@ import java.sql.Date;
 public class MyPageShow {
 	
 	private String userId; //로그인한 회원
-	private int ticketNo;
-	private String contentType;
-	private Date viewDate;
-	private String contentTitle;
+	private int ticketNo; // 번호
+	private String contentType; //분류
+	private Date viewDate; //관람일
+	private String contentTitle; //공연/전시명
 	
 	public MyPageShow() {}
 

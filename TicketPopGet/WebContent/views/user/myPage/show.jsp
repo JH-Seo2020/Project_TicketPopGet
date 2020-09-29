@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.user.model.vo.MyPageShow"%>
-
-<% MyPageShow mps = (MyPageShow)request.getAttribute("mps"); %>
+    pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.user.model.vo.*" %>
+<%
+	ArrayList<MyPageShow> mps = (ArrayList<MyPageShow>)request.getAttribute("mps");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 
 <!DOCTYPE html>
 <html>
@@ -94,7 +102,6 @@
 	
         <!--  헤더부분 -->
         <div class="reservation_check1">
-       	<input type="hidden" name="userId" value="<%=mps.getUserId()%>">
             <div style="font-size: 25px; width: 1000px; margin-left: 90px; border-bottom: 1px solid rosybrown;">
                 <h3 style="margin-bottom: 20px;"><b>나의 관람 공연</b></h3>
             </div>
@@ -146,19 +153,55 @@
               </thead>
               
               <tbody>
+              		<%if(mps.isEmpty()){ %>
+              		<tr>
+              			<td colspan="4">조회되는 리스트가 없슴니당</td>
+              		</tr>
+              		<%}else{ 
+              		   for(MyPageShow ps : mps) {%>
 	                <tr>
-	                  <td><%=mps.getTicketNo() %></td>
-	                  <td><%=mps.getContentType() %></td>
-	                  <td><%=mps.getViewDate() %></td>
-	                  <td><%=mps.getContentTitle() %></td>
-	                  <td><button onclick="location.href='<%=contextPath%>/veiw_write.my'">후기작성</button>
+	                  <td><input type="hidden" name="userId" value="<%=ps.getUserId()%>"></td>
+	                  <td><%=ps.getTicketNo() %></td>
+	                  <td><%=ps.getContentType() %></td>
+	                  <td><%=ps.getViewDate() %></td>
+	                  <td><%=ps.getContentTitle() %></td>
+	                  <td><button onclick="location.href='<%=contextPath%>/view_write.my'">후기작성</button>
 	                </tr>
+	                <%} %>
+	                <%} %>
               </tbody>
             </table>
           </div>
 
 		<br> <br>
+
+		<div class="pagingArea" align="center">
 		
+			<%if(currentPage != 1){ %>
+			
+				<!-- 맨 처음으로(<<) -->
+				<button onclick="location.href='<%=contextPath%>/show.my?currentPage=1';">&lt;&lt;</button>
+				
+				<!-- 이전 페이지로(<) -->
+				<button onclick="location.href='<%=contextPath%>/show.my?currentPage=<%=currentPage-1%>';">&lt;</button>
+			<% } %>
+			
+			<%for(int p=startPage; p<=endPage; p++){ %>
+				<% if(p!=currentPage){ %>
+				<button onclick="location.href='<%=contextPath%>/show.my?currentPage=<%=p%>';"><%= p %></button>
+				<%}else{ %>
+				<button disabled><%=p %></button>
+				<%} %>
+			<%} %>
+			
+			<%if(currentPage != maxPage){ %>
+				<!-- 다음페이지로 (>) -->
+				<button onclick="location.href='<%=contextPath%>/show.my?currentPage=<%=currentPage-1%>';">&gt;</button>
+				<!-- 맨 끝으로(>>) -->
+				<button onclick="location.href='<%=contextPath%>/show.my?currentPage=<%=maxPage%>';">&gt;&gt;</button>
+			<%} %>
+
+		</div>
     
     </div>
 
