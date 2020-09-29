@@ -70,7 +70,7 @@
             </div>
             <div id="adBoardBodySub">
                 작성일 : <%=board.getBoardDate() %> 조회수 : <%=board.getBoardCount() %> 
-                <%if(loginUser != null & loginUser.getUserNo() != board.getUserNo()) {%>
+                <%if(loginUser != null && loginUser.getUserNo() != board.getUserNo()) {%>
                 	<div><a href="" style="color: black !important; margin-left: 10px;" data-toggle="modal" data-target="#eventReport">신고</a></div>
             	<%} %>
             </div>
