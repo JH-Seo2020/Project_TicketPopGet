@@ -1,0 +1,79 @@
+package com.kh.serviceCenter.model.service;
+
+import static com.kh.common.JDBCTemplate.*;
+
+import java.sql.Connection;
+import java.util.ArrayList;
+
+import com.kh.serviceCenter.model.dao.ServiceDao;
+import com.kh.serviceCenter.model.vo.Faq;
+import com.kh.serviceCenter.model.vo.Notice;
+import com.kh.serviceCenter.model.vo.PageInfo;
+
+public class ServiceService {
+
+	/**
+	 * 총 공지사항 갯수 조회용 서비스
+	 * @return		총 갯수
+	 * @author 김현선
+	 */
+	public int noticeSelectListCount() {
+
+		Connection conn = getConnection();
+
+		int listCount = new ServiceDao().noticeSelectListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	/** 
+	 * 공지사항 리스트 조회용 서비스
+	 * @param pi
+	 * @return
+	 * @author 김현선
+	 */
+	public ArrayList<Notice> noticeSelectList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Notice> list = new ServiceDao().noticeSelectList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	/** 총 faq 갯수 조회용 서비스
+	 * @return
+	 * @author 김현선
+	 */
+	public int faqSelectListCount() {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new ServiceDao().faqSelectListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+		
+	}
+
+	/** faq 리스트 조회용 서비스
+	 * @param pi
+	 * @return
+	 * @author 김현선
+	 */
+	public ArrayList<Faq> faqSelectList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		
+		ArrayList<Faq> list = new ServiceDao().faqSelectList(conn,pi);
+		
+		close(conn);
+		
+		return list;
+	}
+
+}

@@ -1,7 +1,5 @@
 package com.kh.serviceCenter.model.dao;
 
-import static com.kh.common.JDBCTemplate.*;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,14 +11,17 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.serviceCenter.model.vo.Faq;
+import com.kh.serviceCenter.model.vo.Notice;
 import com.kh.serviceCenter.model.vo.PageInfo;
 
-public class FaqDao {
+import static com.kh.common.JDBCTemplate.*;
+
+public class ServiceDao {
 	
 	private Properties prop = new Properties();
 	
-	public FaqDao() {
-		String fileName = FaqDao.class.getResource("/sql/serviceCenter/service-mapper.xml").getPath();
+	public ServiceDao() {
+		String fileName = ServiceDao.class.getResource("/sql/serviceCenter/service-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(fileName));
@@ -28,8 +29,71 @@ public class FaqDao {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
-	public int selectListCount(Connection conn) {
+	public int noticeSelectListCount(Connection conn) {
+		
+		int listCount = 0;
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("noticeSelectListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt("NOTICELISTCOUNT");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<Notice> noticeSelectList(Connection conn, PageInfo pi) {
+
+		ArrayList<Notice> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("noticeSelectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Notice(rset.getInt("NOTICE_NO"),
+									rset.getString("NOTICE_TYPE"),
+									rset.getString("NOTICE_TITLE"),
+									rset.getDate("NOTICE_DATE")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public int faqSelectListCount(Connection conn) {
 		
 		int listCount = 0;
 		
@@ -53,7 +117,7 @@ public class FaqDao {
 		
 	}
 
-	public ArrayList<Faq> selectList(Connection conn, PageInfo pi) {
+	public ArrayList<Faq> faqSelectList(Connection conn, PageInfo pi) {
 		
 		ArrayList<Faq> list = new ArrayList<>();
 		

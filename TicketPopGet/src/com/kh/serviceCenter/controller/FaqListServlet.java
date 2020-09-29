@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.serviceCenter.model.service.FaqService;
+import com.kh.serviceCenter.model.service.ServiceService;
 import com.kh.serviceCenter.model.vo.Faq;
 import com.kh.serviceCenter.model.vo.Notice;
 import com.kh.serviceCenter.model.vo.PageInfo;
@@ -43,7 +43,7 @@ public class FaqListServlet extends HttpServlet {
 		   int startPage;		// 현재 페이지에 하단에 보여질 페이징 바의 시작 수
 		   int endPage;			// 현재 페이지에 하단에 보여질 페이징 바의 끝 수
 		   
-		   listCount = new FaqService().selectListCount();
+		   listCount = new ServiceService().noticeSelectListCount();
 		   
 		   currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		   
@@ -63,7 +63,7 @@ public class FaqListServlet extends HttpServlet {
 		   
 		   PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		   
-		   ArrayList<Faq> list = new FaqService().selectList(pi);
+		   ArrayList<Faq> list = new ServiceService().faqSelectList(pi);
 		   
 		   
 		   request.setAttribute("pi", pi);
