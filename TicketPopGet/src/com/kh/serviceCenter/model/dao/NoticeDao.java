@@ -38,7 +38,7 @@ public class NoticeDao {
 		Statement stmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectListCount");
+		String sql = prop.getProperty("noticeSelectListCount");
 		
 		try {
 			stmt = conn.createStatement();
