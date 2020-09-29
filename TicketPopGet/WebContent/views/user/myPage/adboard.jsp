@@ -9,7 +9,10 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
+	
 %>
+
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,10 +125,10 @@ input[type=checkbox] {
 
 		<!-- 컨텐츠분류 -->
 		<div class="contents_btn" align="right">
-			<button class="btn btn-outline-warning">전체</button>
-			<button class="btn btn-outline-warning">콘서트</button>
-			<button class="btn btn-outline-warning">연극</button>
-			<button class="btn btn-outline-warning">전시</button>
+			<a href="<%=contextPath%>/adboard.my?currentPage=1&userId=<%=loginUser.getUserId()%>" class="btn btn-outline-warning">전체</a>
+			<a href="<%=contextPath%>/ad_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=콘서트" class="btn btn-outline-warning">콘서트</a>
+			<a href="<%=contextPath%>/ad_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=연극" class="btn btn-outline-warning">연극</a>
+			<a href="<%=contextPath%>/ad_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=전시" class="btn btn-outline-warning">전시</a>
 		</div>
 
 		<!-- 관람후기테이블 -->
@@ -139,6 +142,7 @@ input[type=checkbox] {
 						<th></th>
 						<th>번호</th>
 						<th>제목</th>
+						<th>분류</th>
 						<th>작성일</th>
 					</tr>
 				</thead>
@@ -157,6 +161,7 @@ input[type=checkbox] {
 	                  <td><input type="checkbox" name="delete_review"></td>
 	                  <td><%=a.getBoardNo() %></td>
 	                  <td><%=a.getBoardTitle() %></td>
+	                  <td><%=a.getBoardType() %>
 	                  <td><%=a.getBoardDate()%></td>
 	                </tr>
 	                <%} %>

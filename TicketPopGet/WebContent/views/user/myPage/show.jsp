@@ -46,19 +46,14 @@
         }
 
         /* 몸통영역 */
-        .reservation_check2{
-            margin-top: 150px;
-            margin-left: 100px;
-        }
-        .reservation_state ul li{
-            list-style: none;
-            float: left;
-        }
+        .contents_btn {
+			margin-top: 150px;
+			margin-right: 150px;
+		}
     
 
         /* 테이블 */
         .reservation_check3{
-            margin-top: 200px;
             margin-left: 115px;
         }
         .reservation_check3 table{
@@ -122,24 +117,18 @@
         <!-- 몸통부분  -->
         <div class="reservation_check2">
             <div class="reservation_state">
-                <ul>
-                    <li>
-                        <h5>관람공연</h5>
-                    </li>
-                    <li style="margin-left: 5px;">
-                        <select>
-                            <option>전체</option>
-                            <option>콘서트</option>
-                            <option>연극</option>
-                            <option>전시</option>
-                        </select>
-                    </li>
-                </ul>
+               <!-- 컨텐츠분류 -->
+				<div class="contents_btn" align="right">
+					<a href="<%=contextPath%>/show.my?currentPage=1&userId=<%=loginUser.getUserId()%>" class="btn btn-outline-warning">전체</a>
+					<a href="<%=contextPath%>/show_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=콘서트" class="btn btn-outline-warning">콘서트</a>
+					<a href="<%=contextPath%>/show_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=연극" class="btn btn-outline-warning">연극</a>
+					<a href="<%=contextPath%>/show_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=전시" class="btn btn-outline-warning">전시</a>
+				</div>
             </div>
         </div>
 
         <!--  테이블부분 -->
-        <div class="container reservation_check3" style="margin-left: 100px; margin-top:200px;">          
+        <div class="container reservation_check3" style="margin-left: 100px; margin-top:70px;">          
             <table class="table table-hover" style="width: 950px; height: 70px; margin-left: 30px; text-align: center;">
               <thead>
                 <tr>
@@ -156,7 +145,7 @@
               			if(mps.isEmpty()){
               		%>
               		<tr>
-              			<td colspan="4">조회되는 리스트가 없슴니당</td>
+              			<td  colspan="4">조회되는 리스트가 없슴니당</td>
               		</tr>
               		<%
               			}else{ 

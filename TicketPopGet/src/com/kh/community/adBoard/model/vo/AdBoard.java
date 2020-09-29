@@ -89,11 +89,14 @@ public class AdBoard {
 	
 	
 
-	public AdBoard(String userId, int boardNo, String boardTitle, Date boardDate) {
+
+
+	public AdBoard(String userId, int boardNo, String boardTitle, String boardType, Date boardDate) {
 		super();
 		this.userId = userId;
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
+		this.boardType = boardType;
 		this.boardDate = boardDate;
 	}
 

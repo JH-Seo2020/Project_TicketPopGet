@@ -10,21 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.community.adBoard.model.vo.AdBoard;
 import com.kh.user.model.service.MyPageService;
+import com.kh.user.model.vo.MyPage;
 import com.kh.user.model.vo.PageInfo;
 
 /**
- * Servlet implementation class MyPage_promote
+ * Servlet implementation class MyPage_show_content
  */
-@WebServlet("/adboard.my")
-public class MyPage_adboard extends HttpServlet {
+@WebServlet("/show_content.my")
+public class MyPage_show_content extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPage_adboard() {
+    public MyPage_show_content() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +33,9 @@ public class MyPage_adboard extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String userId = request.getParameter("userId");
+		String content = request.getParameter("content");
 		
 		if(userId!=null) {
 			// ---------------- 페이징처리 ----------------
@@ -46,7 +48,7 @@ public class MyPage_adboard extends HttpServlet {
 			int startPage; // 현재 페이지에 하단에 보여질 페이징 바의 시작 수
 			int endPage; // 현재 페이지에 하단에 보여질 페이징 바의 끝 수
 
-			listCount = new MyPageService().selectAdboardListCount(userId);
+			listCount = new MyPageService().selectShowContnetCount(content,userId);
 
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			
@@ -66,19 +68,18 @@ public class MyPage_adboard extends HttpServlet {
 
 			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 
-			ArrayList<AdBoard> ad = new MyPageService().selectAdboardList(userId, pi);
-			
-			ArrayList<AdBoard> ad2 = new MyPageService().selectAdboardList(userId, pi);
+			ArrayList<MyPage> mps = new MyPageService().selectShowContnetList(userId, pi, content);
  			
-			request.setAttribute("ad", ad);
-			request.setAttribute("ad2", ad2);
+			request.setAttribute("mps", mps);
 			request.setAttribute("pi", pi);
-		
-			RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/adboard.jsp");
+			
+			RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/show.jsp");
 			view.forward(request, response);
+			
 		}else {
 			
 		}
+		
 	}
 
 	/**
