@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,10 +95,10 @@
 
                             <div class="form-group row">
                                 <label for="permanent_address" class="col-md-4 col-form-label text-md-right">성별</label>
-                                    <select id="gender" class="form-control" style="width: 400px;">
+                                    <select id="gender" name="gender" class="form-control" style="width: 400px;">
                                         <option>성별</option>
-                                        <option value="남">남</option>
-                                        <option value="여">여</option>
+                                        <option value="M">남</option>
+                                        <option value="F">여</option>
                                     </select>
                             </div>
 
@@ -110,7 +110,7 @@
 
                             <div class="form-group row">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">이메일</label>
-                                    <input type="text" id="email" class="form-control" style="width: 400px;" placeholder="이메일 입력">
+                                    <input type="text" id="email" name="email" class="form-control" style="width: 400px;" placeholder="이메일 입력">
                             </div>
 
                             <br>

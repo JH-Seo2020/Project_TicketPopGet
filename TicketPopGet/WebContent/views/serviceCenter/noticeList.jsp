@@ -4,7 +4,6 @@
 <%
 	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -124,23 +123,38 @@
                         <td><%= n.getNoticeDate() %></td>
                     </tr>
                     <% } %>
-                  <% } %>
+                 <%  } %>
                 </tbody>
             </table>
+            
+            <script>
+        	$(function(){
+        		$(".listArea>tbody>tr").click(function(){
+        			location.href = "<%=contextPath%>/detail.no?bno=" + $(this).children().eq(0).text();
+        		});
+        	});
+        </script>
+        
         </div>
-        <div class="pagination">
-            <a href="" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>
-            <a href=""><span>1</span></a>
-            <a href=""><span>2</span></a>
-            <a href=""><span>3</span></a>
-            <a href=""><span>4</span></a>
-            <a href=""><span>5</span></a>
-            <a href=""><span>6</span></a>
-            <a href=""><span>7</span></a>
-            <a href=""><span>8</span></a>
-            <a href=""><span>9</span></a>
-            <a href=""><span>10</span></a>
-            <a href="" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+        <div class="pagination" align="center">
+        	<% if(currentPage != 1) { %>
+        	
+        	<!-- 이전페이지로 -->
+			    <a href="<%=contextPath%>/list.no?currentPage=<%=currentPage-1%>" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>
+		     <% } %>
+		            
+		            <% for(int p=startPage; p<=endPage; p++){ %>
+		            	<%if(p != currentPage) {%>
+			            <a href="<%=contextPath%>/list.no?currentPage=<%=p%>"><span><%= p %></span></a>
+						<% }else{ %>
+						<a disalbed><span><%= p %></span></a>
+						<% } %>
+					<% } %>
+					
+			<% if(currentPage != maxPage) {%>	
+				<!-- 다음페이지로 -->	
+		    	<a href="<%=contextPath%>/list.no?currentPage=<%=currentPage+1%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+		    <% } %>
         </div>
     </div>
 </body>

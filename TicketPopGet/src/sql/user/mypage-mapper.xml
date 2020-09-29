@@ -22,19 +22,28 @@ SELECT COUNT(*) LISTVIEW
 </entry>
 
 <entry key="selectShowList">
-SELECT 
-        M.USER_ID
-     ,  R.TICKET_NO
-     ,  R.CONTENT_TYPE
-     ,  R.VIEW_DATE
-     ,  C.CONTENT_TITLE
-  FROM  MEMBER M
- INNER  JOIN RESERVATION_PAYMENT R
-    ON  M.USER_NO = R.TICKET_NO
- INNER  JOIN CONTENTS C
-    ON  R.CONTENT_NO = C.CONTENT_NO
- WHERE  M.USER_ID = ?
-   AND  R.PAYMENT_STATUS = 'Y'
-   AND  R.PAYMENT_CANCEL = 'N'
+SELECT *
+ FROM(
+ 	SELECT
+ 			ROWNUM RNUM
+ 		  , A.*
+ 	  FROM  (	  
+		        SELECT 
+		                M.USER_ID
+		             ,  R.TICKET_NO
+		             ,  R.CONTENT_TYPE
+		             ,  R.VIEW_DATE
+		             ,  C.CONTENT_TITLE
+		          FROM  MEMBER M
+		         INNER  JOIN RESERVATION_PAYMENT R
+		            ON  M.USER_NO = R.TICKET_NO
+		         INNER  JOIN CONTENTS C
+		            ON  R.CONTENT_NO = C.CONTENT_NO
+		         WHERE  M.USER_ID = ?
+		           AND  R.PAYMENT_STATUS = 'Y'
+		           AND  R.PAYMENT_CANCEL = 'N'
+		     )A
+    	)
+    WHERE RNUM BETWEEN ? AND ?
 </entry>
 </properties>

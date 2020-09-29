@@ -140,13 +140,13 @@
 	            <div id="loginSpace" align="right">
 	                <label><a class="menubar_a" href="<%=contextPath%>/loginview.me">로그인</a></label>
 	                <label><a class="menubar_a" href="<%=contextPath%>/enrollForm.me">회원가입</a></label>
-	                <label><a class="menubar_a" href="">고객센터</a></label>
+	                <label><a class="menubar_a" href="<%= contextPath %>/list.no?currentPage=1">고객센터</a></label>
 	            </div>
             <%} else{ %>
                 <div id="loginSpace" align="right";>
                 <label><a class="menubar_a" href="<%=request.getContextPath()%>/logout.me">로그아웃</a></label>
                 <label><a class="menubar_a" href="<%=contextPath%>/mypage.my">마이페이지</a></label>
-                <label>고객센터</label>
+                <label><a class="menubar_a" href="<%= contextPath %>/list.no?currentPage=1">고객센터</a></label>
                 </div>
               <%} %>
         </div>

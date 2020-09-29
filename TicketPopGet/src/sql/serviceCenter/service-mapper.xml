@@ -9,23 +9,14 @@
 	</entry>
 	
 	<entry key="selectList">
-	SELECT *
-	  FROM (
-	        SELECT
-	                ROWNUM RNUM
-	              , A.*
-	          FROM (
-	                SELECT
-	                       NOTICE_NO
-	                     , NOTICE_TYPE
-	                     , NOTICE_TITLE
-	                     , NOTICE_DATE
-	                  FROM NOTICE N
-	                 WHERE N.NOTICE_STATUS = 'Y'
-	                 ORDER 
-	                    BY NOTICE_NO DESC
-	               ) A
-	        )
-	  WHERE RNUM BETWEEN ? AND ?
+     SELECT ROWNUM
+           , NOTICE_NO
+           , NOTICE_TYPE
+           , NOTICE_TITLE
+           , NOTICE_DATE
+        FROM NOTICE N
+       WHERE N.NOTICE_STATUS = 'Y'
+         AND ROWNUM BETWEEN ? AND ?
+       ORDER BY NOTICE_NO DESC
 	</entry>
 </properties>

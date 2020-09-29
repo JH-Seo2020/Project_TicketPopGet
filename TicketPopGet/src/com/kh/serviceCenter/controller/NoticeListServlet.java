@@ -17,7 +17,7 @@ import com.kh.serviceCenter.model.vo.PageInfo;
 /**
  * Servlet implementation class NoticeListServlet
  */
-@WebServlet("/list.bo")
+@WebServlet("/list.no")
 public class NoticeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,6 +33,7 @@ public class NoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		
 		   int listCount;		// 현재 총 게시글 갯수
 		   int currentPage;		// 현재 페이지 (즉, 요청한 페이지)
@@ -64,6 +65,7 @@ public class NoticeListServlet extends HttpServlet {
 		   PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		   
 		   ArrayList<Notice> list = new NoticeService().selectList(pi);
+		   
 		   
 		   request.setAttribute("pi", pi);
 		   request.setAttribute("list", list);
