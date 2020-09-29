@@ -167,4 +167,45 @@ public class PlayDao {
 		return list;
 	}
 
+	public ArrayList<Play> selectLocalList(Connection conn, PageInfo pi, String local) {
+		
+		ArrayList<Play> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLocalList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, local);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Play(rset.getInt("CONTENT_NO"),
+										rset.getString("CONTENT_TITLE"),
+										rset.getString("CONTENT_KEYWORD"),
+										rset.getString("REGION"),
+										rset.getString("CONTENT_CHIMG"),
+										rset.getString("CONTENT_IMGPATH"),
+										rset.getDate("PLAY_START"),
+										rset.getDate("PLAY_END")
+										));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
 }

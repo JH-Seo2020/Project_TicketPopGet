@@ -4,6 +4,7 @@
 <% 
 	ArrayList<Play> list = (ArrayList<Play>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	String region = (String)request.getAttribute("region");
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -90,6 +91,7 @@
         
         <script>
         	$(function(){	
+        		$("#local").val('<%=region%>').attr("selected",true);
         		$("#local").on('change',function(){
         			var local = $("#local").val();
 	        		if(local !== '전체'){
@@ -106,7 +108,7 @@
             
             <ul id="posterBody">
             	<%if(list.isEmpty()){ %>
-                	<li>조회된 컨텐츠가 없습니다.(그럴리가..?)</li>
+                	<li>해당 지역에서 예매가능한 연극이 없습니다.</li>
                 <%}else{ %>
 	                <%for(Play p : list){ %>
 		                <li>
@@ -122,23 +124,25 @@
         </div>
 
         <div id="playPaging">
-        	<button onclick="location.href='<%=contextPath%>/play.co?currentPage=1';">&lt;&lt;</button>
-            <%if(currentPage != 1) { %>
-            <button onclick="location.href='<%=contextPath%>/play.co?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
-            <%} %>
-            
-            <%for(int i = startPage; i <=endPage; i++){ %>
-            	<% if(currentPage != i) {%>
-            		<button onclick="location.href='<%=contextPath%>/play.co?currentPage=<%=i%>';"><%=i%></button>
-            	<%}else{ %>
-            		<button disabled style="color:black;"><%=i %></button>
-            	<%} %>
-            <%} %>
-            
-            <%if(currentPage != maxPage){ %>
-            	<button onclick="location.href='<%=contextPath%>/play.co?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
-            <% } %>
-            <button onclick="location.href='<%=contextPath%>/play.co?currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
+        	<%if(!list.isEmpty()){ %>
+	        	<button onclick="location.href='<%=contextPath%>/play.local?currentPage=1&content=연극&local=<%=region%>';">&lt;&lt;</button>
+	            <%if(currentPage != 1) { %>
+	            <button onclick="location.href='<%=contextPath%>/play.local?currentPage=<%=pi.getCurrentPage()-1%>&content=연극&local=<%=region%>';">&lt;</button>
+	            <%} %>
+	            
+	            <%for(int i = startPage; i <=endPage; i++){ %>
+	            	<% if(currentPage != i) {%>
+	            		<button onclick="location.href='<%=contextPath%>/play.local?currentPage=<%=i%>&content=연극&local=<%=region%>';"><%=i%></button>
+	            	<%}else{ %>
+	            		<button disabled style="color:black;"><%=i %></button>
+	            	<%} %>
+	            <%} %>
+	            
+	            <%if(currentPage != maxPage){ %>
+	            	<button onclick="location.href='<%=contextPath%>/play.local?currentPage=<%=pi.getCurrentPage()+1%>&content=연극&local=<%=region%>';">&gt;</button>
+	            <% } %>
+	            <button onclick="location.href='<%=contextPath%>/play.local?currentPage=<%=pi.getMaxPage()%>&content=연극&local=<%=region%>';">&gt;&gt;</button>
+	         <%} %>
         </div>
 
     </div>

@@ -71,4 +71,18 @@ public class PlayService {
 		return list;
 	}
 
+	/**
+	 * 5. 해당 지역 연극 컨텐츠 조회 서비스
+	 * @param pi
+	 * @param local
+	 * @return
+	 */
+	public ArrayList<Play> selectLocalList(PageInfo pi, String local) {
+		
+		Connection conn = getConnection();
+		ArrayList<Play> list = new PlayDao().selectLocalList(conn, pi, local);
+		close(conn);
+		return list;
+	}
+
 }

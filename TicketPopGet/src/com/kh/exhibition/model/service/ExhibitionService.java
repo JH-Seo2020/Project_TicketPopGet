@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.kh.concert.model.vo.PageInfo;
 import com.kh.exhibition.model.dao.ExhibitionDao;
 import com.kh.exhibition.model.vo.Exhibition;
+import com.kh.play.model.dao.PlayDao;
 import com.kh.play.model.vo.Play;
 
 public class ExhibitionService {
@@ -57,6 +58,20 @@ public class ExhibitionService {
 		
 		close(conn);
 		return exObject;
+	}
+
+	/**
+	 * 4. 해당 지역 별 전시 컨텐츠 리스트 조회 서비스
+	 * @param pi
+	 * @param local
+	 * @return
+	 */
+	public ArrayList<Exhibition> selectLocalList(PageInfo pi, String local) {
+		
+		Connection conn = getConnection();
+		ArrayList<Exhibition> list = new ExhibitionDao().selectLocalList(conn, pi, local);
+		close(conn);
+		return list;
 	}
 
 	

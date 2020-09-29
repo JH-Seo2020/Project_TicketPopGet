@@ -58,4 +58,30 @@
 		 WHERE CONTENT_NO = ?
 		   AND CONTENT_STATUS = 'Y'
 	</entry>
+	<entry key="selectLocalList">
+SELECT *
+       FROM (
+             SELECT ROWNUM RNUM
+                  , E.*
+               FROM (
+                     SELECT
+                           CONTENT_NO  			--등록번호
+                         , CONTENT_TITLE 		--작품제목
+                         , CONTENT_KEYWORD 		--키워드
+                         , REGION 				--지역
+                         , CONTENT_CHIMG 		--이미지수정
+                         , CONTENT_IMGPATH 		--파일경로
+                         , EXHIBITION_START
+                         , EXHIBITION_END
+                      FROM CONTENTS
+                      JOIN EXHIBITON USING (CONTENT_NO)
+                     WHERE CONTENT_STATUS = 'Y'
+                       AND CONTENT_TYPE = '전시'
+                       AND REGION = ?
+                     ORDER
+                        BY CONTENT_NO DESC
+                    )E
+            )
+      WHERE RNUM BETWEEN ? AND ?
+	</entry>
 </properties>

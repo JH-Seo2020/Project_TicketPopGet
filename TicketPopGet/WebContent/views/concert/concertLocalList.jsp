@@ -4,6 +4,7 @@
 <%	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Concert> list = (ArrayList<Concert>)request.getAttribute("list");
+	String region = (String)request.getAttribute("region");
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -87,7 +88,8 @@
         </div>
         
         <script>
-        	$(function(){	
+        	$(function(){
+        		$("#local").val('<%=region%>').attr("selected",true);
         		$("#local").on('change',function(){
         			var local = $("#local").val();
 	        		if(local !== '전체'){
@@ -104,7 +106,7 @@
             
             <ul id="posterBody">
             <% if(list.isEmpty()){ %>
-            	<li>보여질 포스터가 없습니다..(그럴리가없는데..)</li>
+            	<li>해당 지역에서 진행되는 콘서트가 없습니다. </li>
             <%}else{ %>
             	<%for(Concert c : list){ %>
 	                <li>
@@ -120,23 +122,25 @@
         </div>
 
         <div id="concertPaging">
-            <button onclick="location.href='<%=contextPath%>/concert.co?currentPage=1';">&lt;&lt;</button>
-            <%if(currentPage != 1) { %>
-            <button onclick="location.href='<%=contextPath%>/concert.co?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
-            <%} %>
-            
-            <%for(int i = startPage; i <=endPage; i++){ %>
-            	<% if(currentPage != i) {%>
-            		<button onclick="location.href='<%=contextPath%>/concert.co?currentPage=<%=i%>';"><%=i%></button>
-            	<%}else{ %>
-            		<button disabled style="color:black;"><%=i %></button>
-            	<%} %>
-            <%} %>
-            
-            <%if(currentPage != maxPage){ %>
-            <button onclick="location.href='<%=contextPath%>/concert.co?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
-            <% } %>
-            <button onclick="location.href='<%=contextPath%>/concert.co?currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
+        	<%if(!list.isEmpty()){ %>
+	            <button onclick="location.href='<%=contextPath%>/concert.local?currentPage=1&content=콘서트&local=<%=region%>';">&lt;&lt;</button>
+	            <%if(currentPage != 1) { %>
+	            <button onclick="location.href='<%=contextPath%>/concert.local?currentPage=<%=pi.getCurrentPage()-1%>&content=콘서트&local=<%=region%>';">&lt;</button>
+	            <%} %>
+	            
+	            <%for(int i = startPage; i <=endPage; i++){ %>
+	            	<% if(currentPage != i) {%>
+	            		<button onclick="location.href='<%=contextPath%>/concert.local?currentPage=<%=i%>&content=콘서트&local=<%=region%>';"><%=i%></button>
+	            	<%}else{ %>
+	            		<button disabled style="color:black;"><%=i %></button>
+	            	<%} %>
+	            <%} %>
+	            
+	            <%if(currentPage != maxPage){ %>
+	            <button onclick="location.href='<%=contextPath%>/concert.local?currentPage=<%=pi.getCurrentPage()+1%>&content=콘서트&local=<%=region%>';">&gt;</button>
+	            <% } %>
+	            <button onclick="location.href='<%=contextPath%>/concert.local?currentPage=<%=pi.getMaxPage()%>&content=콘서트&local=<%=region%>';">&gt;&gt;</button>
+        	<%} %>
         </div>
 
     </div>

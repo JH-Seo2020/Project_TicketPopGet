@@ -4,6 +4,7 @@
 <% 
 	ArrayList<Exhibition> list = (ArrayList<Exhibition>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	String region = (String)request.getAttribute("region");
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -88,6 +89,7 @@
 		
 		<script>
         	$(function(){	
+        		$("#local").val('<%=region%>').attr("selected",true);
         		$("#local").on('change',function(){
         			var local = $("#local").val();
 	        		if(local !== '전체'){
@@ -104,7 +106,7 @@
             
             <ul id="posterBody">
                 <%if(list.isEmpty()){ %>
-                	<li>조회된 컨텐츠가 없습니다.(그럴리가..?)</li>
+                	<li>해당 지역에서 진행되는 전시가 없습니다.</li>
                 <%}else{ %>
 	                <%for(Exhibition e : list){ %>
 		                <li>
@@ -120,23 +122,25 @@
         </div>
 
         <div id="exhibitionPaging">
-            <button onclick="location.href='<%=contextPath%>/exhibition.co?currentPage=1';">&lt;&lt;</button>
-            <%if(currentPage != 1) { %>
-            <button onclick="location.href='<%=contextPath%>/exhibition.co?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
-            <%} %>
-            
-            <%for(int i = startPage; i <=endPage; i++){ %>
-            	<% if(currentPage != i) {%>
-            		<button onclick="location.href='<%=contextPath%>/exhibition.co?currentPage=<%=i%>';"><%=i%></button>
-            	<%}else{ %>
-            		<button disabled style="color:black;"><%=i %></button>
-            	<%} %>
-            <%} %>
-            
-            <%if(currentPage != maxPage){ %>
-            	<button onclick="location.href='<%=contextPath%>/exhibition.co?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
-            <% } %>
-            <button onclick="location.href='<%=contextPath%>/exhibition.co?currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
+        	<%if(!list.isEmpty()) {%>
+	            <button onclick="location.href='<%=contextPath%>/exhibition.local?currentPage=1&content=전시&local=<%=region%>';">&lt;&lt;</button>
+	            <%if(currentPage != 1) { %>
+	            <button onclick="location.href='<%=contextPath%>/exhibition.local?currentPage=<%=pi.getCurrentPage()-1%>&content=전시&local=<%=region%>';">&lt;</button>
+	            <%} %>
+	            
+	            <%for(int i = startPage; i <=endPage; i++){ %>
+	            	<% if(currentPage != i) {%>
+	            		<button onclick="location.href='<%=contextPath%>/exhibition.local?currentPage=<%=i%>&content=전시&local=<%=region%>';"><%=i%></button>
+	            	<%}else{ %>
+	            		<button disabled style="color:black;"><%=i %></button>
+	            	<%} %>
+	            <%} %>
+	            
+	            <%if(currentPage != maxPage){ %>
+	            	<button onclick="location.href='<%=contextPath%>/exhibition.local?currentPage=<%=pi.getCurrentPage()+1%>&content=전시&local=<%=region%>';">&gt;</button>
+	            <% } %>
+	            <button onclick="location.href='<%=contextPath%>/exhibition.local?currentPage=<%=pi.getMaxPage()%>&content=전시&local=<%=region%>';">&gt;&gt;</button>
+	        <%} %>
         </div>
 
     </div>

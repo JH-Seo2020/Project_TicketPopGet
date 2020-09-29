@@ -1,9 +1,8 @@
-package com.kh.concert.controller;
+package com.kh.play.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,22 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.concert.model.service.ConcertService;
 import com.kh.concert.model.vo.Concert;
 import com.kh.concert.model.vo.PageInfo;
-import com.kh.exhibition.model.service.ExhibitionService;
-import com.kh.exhibition.model.vo.Exhibition;
 import com.kh.play.model.service.PlayService;
 import com.kh.play.model.vo.Play;
 
 /**
- * Servlet implementation class ConcertLocalListServlet
+ * Servlet implementation class PlayLocalListServlet
  */
-@WebServlet("/concert.local")
-public class ConcertLocalListServlet extends HttpServlet {
+@WebServlet("/play.local")
+public class PlayLocalListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConcertLocalListServlet() {
+    public PlayLocalListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,7 +34,6 @@ public class ConcertLocalListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String content = request.getParameter("content");
 		String local = request.getParameter("local");
 		
@@ -70,15 +66,14 @@ public class ConcertLocalListServlet extends HttpServlet {
 		
 		//페이징 관련 정보를 담아줄 pageInfo vo객체 생성하고 담아서 전달
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		ArrayList<Concert> list = new ConcertService().selectLocalList(pi,local);
+		ArrayList<Play> list = new PlayService().selectLocalList(pi,local);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		request.setAttribute("region", local);
 		
-		request.getRequestDispatcher("views/concert/concertLocalList.jsp").forward(request, response);
+		request.getRequestDispatcher("views/play/playLocalList.jsp").forward(request, response);
 
-		
 	}
 
 	/**

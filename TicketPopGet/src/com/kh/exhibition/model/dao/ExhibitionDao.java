@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import com.kh.concert.model.vo.PageInfo;
 import com.kh.exhibition.model.vo.Exhibition;
+import com.kh.play.model.vo.Play;
 
 import static com.kh.common.JDBCTemplate.*;
 
@@ -138,6 +139,45 @@ public class ExhibitionDao {
 			close(pstmt);
 		}
 		return exObject;
+	}
+
+	public ArrayList<Exhibition> selectLocalList(Connection conn, PageInfo pi, String local) {
+		
+		ArrayList<Exhibition> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLocalList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, local);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Exhibition(rset.getInt("CONTENT_NO"),
+										rset.getString("CONTENT_TITLE"),
+										rset.getString("CONTENT_KEYWORD"),
+										rset.getString("REGION"),
+										rset.getString("CONTENT_CHIMG"),
+										rset.getString("CONTENT_IMGPATH"),
+										rset.getDate("EXHIBITION_START"),
+										rset.getDate("EXHIBITION_END")
+										));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 	
