@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,7 +55,7 @@
         <li class="serviceMenu"><a href="">기타</a></li>
       </ul>
       <ul class="serviceTopMenu">
-        <li class="serviceMenu"><a class="help_meu" href="">FAQ</a></li>
+        <li class="serviceMenu"><a class="help_meu" href="<%=contextPath%>/list.fo?currentPage=1">FAQ</a></li>
         <li class="serviceMenu"><a href="">회원</a></li>
         <li class="serviceMenu"><a href="">결제</a></li>
         <li class="serviceMenu"><a href="">예매/취소</a></li>
