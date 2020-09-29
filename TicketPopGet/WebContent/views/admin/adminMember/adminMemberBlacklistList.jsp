@@ -107,26 +107,24 @@
 					});
 				});
 				$(".blacklistUnlock").click(function(){
-					$.ajax({
-						url:"<%=request.getContextPath()%>/blacklistUnlock.adme",
-						data:{userNo:$(this).parents("tr").children().eq(0).text()},
-						type:"post",
-						success:function(result){
-							if(result > 0){
-								
-								if(confirm("블랙리스트를 해제하시겠습니까?") == true){
-									location.href="<%=request.getContextPath()%>/blacklist.adme?currentPage=1"
-									alert("블랙리스트가 해제되었습니다.");
+					if(confirm("블랙리스트를 해제하시겠습니까?") == true){
+						$.ajax({
+							url:"<%=request.getContextPath()%>/blacklistUnlock.adme",
+							data:{userNo:$(this).parents("tr").children().eq(0).text()},
+							type:"post",
+							success:function(result){
+								if(result > 0){
+										location.href="<%=request.getContextPath()%>/blacklist.adme?currentPage=1"
+										alert("블랙리스트가 해제되었습니다.");
 								}
 									
+							},error:function(){
+								//console.log("블랙리스트해제 ajax통신 실패");
 							}
-								
-						},error:function(){
-							console.log("블랙리스트해제 ajax통신 실패");
+ 							});
 						}
 					});
 				});
-			});
 		</script>
         </tbody>
 

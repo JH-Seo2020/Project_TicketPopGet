@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	
+	<entry key="reportListCount">
+		SELECT COUNT(*)
+ 		 FROM REPORT
+ 		 WHERE REPORT_STATUS = 'N'
+	</entry>
+	
+	<entry key="reportListT">
+		SELECT B.*
+		  FROM (SELECT ROWNUM RNUM, A.*
+		          FROM (SELECT
+		                        REPORT_NO
+		                      , USER_ID
+		                      , REPORT_TYPE
+		                      , REPORT_CATE
+		                      , REPORT_CONTENT
+		                      , REPORT_DATE
+		                      , REPORT_STATUS
+		                      , CONTENT_NO
+		                  FROM REPORT R
+		                  JOIN MEMBER M ON (TROUBLEMAKER = USER_NO)
+		                  WHERE REPORT_STATUS = 'N'
+		                  ORDER BY REPORT_NO DESC)A)B
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="reportListR">
+		SELECT B.*
+		  FROM (SELECT ROWNUM RNUM, A.*
+		          FROM (SELECT
+		                       REPORT_NO
+		                     , USER_ID
+		                  FROM REPORT
+		                  JOIN MEMBER ON(REPORTER = USER_NO)
+		                  WHERE REPORT_STATUS = 'N'
+		                  ORDER BY REPORT_NO DESC)A)B
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="reportInfoBoard">
+		SELECT BOARD_TITLE, BOARD_CONTNET
+		  FROM BOARD B
+		  JOIN REPORT R ON(CONTENT_NO=BOARD_NO)
+		  JOIN MEMBER M ON (R.TROUBLEMAKER=M.USER_NO)
+		 WHERE CONTENT_NO = ?
+		   AND USER_ID = ?
+		   AND R.REPORT_NO = ?
+	</entry>
+	
+	<entry key="reportInfoEventComment">
+		SELECT EVENT_TITLE, COMMENT_NO, EVENT_CONTENT
+		  FROM EVENT E
+		  JOIN REPORT R ON(E.EVENT_NO=R.CONTENT_NO)
+		  JOIN EVENT_COMMENT EC ON(E.EVENT_NO=EC.EVENT_NO)
+		  JOIN MEMBER M ON (R.TROUBLEMAKER=M.USER_NO)
+		 WHERE R.CONTENT_NO=?
+		   AND USER_ID = ?
+		   AND R.REPORT_NO = ?
+	</entry>
+	
+	<entry key="reportInfoReview">
+		SELECT REVIEW_TITLE, REVIEW_CONTENT
+		  FROM REVIEW REV
+		  JOIN REPORT REP ON (REV.REVIEW_NO=REP.CONTENT_NO)
+		  JOIN MEMBER M ON (REP.TROUBLEMAKER=M.USER_NO)
+		 WHERE REP.CONTENT_NO = ?
+		   AND USER_ID = ?
+		   AND REP.REPORT_NO = ?
+	</entry>
+	
+	<entry key="reportInfoReviewReply">
+		SELECT REVIEW_TITLE, REPLY_NO, REPLY_CONTENT
+		  FROM REVIEW REV
+		  JOIN REPORT REP ON (REV.REVIEW_NO=REP.CONTENT_NO)
+		  JOIN REVIEW_REPLY RR ON (REV.REVIEW_NO=RR.REVIEW_NO)
+		  JOIN MEMBER M ON (REP.TROUBLEMAKER=M.USER_NO)
+		 WHERE REP.CONTENT_NO = ?
+		   AND USER_ID = ?
+		   AND REP.REPORT_NO = ?
+	</entry>
+	
+	<entry key="checkReport">
+		UPDATE REPORT
+		   SET REPORT_STATUS = 'Y'
+		 WHERE REPORT_NO = ?
+	</entry>
+	
+	<entry key="deleteReport">
+		
+	</entry>
+	
+</properties>
