@@ -108,6 +108,36 @@ public class ConcertService {
 		return list;
 	}
 
+	/**
+	 * 7. 해당 지역의 해당 컨텐츠 개수 구하기
+	 * @param content		컨텐츠 종류(콘서트, 연극, 전시 중 하나)
+	 * @param local			지역 (5곳 중 하나)
+	 * @return
+	 * @author sjhie
+	 */
+	public int selectLocalListCount(String content, String local) {
+		
+		Connection conn = getConnection();
+		int result = new ConcertDao().selectLocalListCount(conn, content, local);
+		close(conn);
+		return result;
+	}
+
+	/**
+	 * 8. 해당 지역 콘서트 컨텐츠 리스트 전부 조회
+	 * @param pi
+	 * @param local
+	 * @return
+	 * @author sjhie
+	 */
+	public ArrayList<Concert> selectLocalList(PageInfo pi, String local) {
+		
+		Connection conn = getConnection();
+		ArrayList<Concert> list = new ConcertDao().selectLocalList(conn, pi, local);
+		close(conn);
+		return list;
+	}
+
 	
 	
 	

@@ -77,14 +77,27 @@
 
         <div id="concertLocal">
             <label>콘서트 &lt; </label>
-            <select>
+            <select id="local">
                 <option>전체</option>
-                <option>서울경기권</option>
-                <option>강원충청권</option>
-                <option>전라권</option>
-                <option>경상제주권</option>
+                <option value="서울경기권">서울경기권</option>
+                <option value="강원충청권">강원충청권</option>
+                <option value="전라권">전라권</option>
+                <option value="경상제주권">경상제주권</option>
             </select>
         </div>
+        
+        <script>
+        	$(function(){	
+        		$("#local").on('change',function(){
+        			var local = $("#local").val();
+	        		if(local !== '전체'){
+	        			location.href="<%=contextPath%>/contents.local?content=콘서트&local="+local;
+	        		}else{
+	        			location.href="<%=contextPath%>/concert.co?currentPage=1";
+	        		}
+        		});
+        	});
+        </script>
 
         <div id="concertList" align="center">
             

@@ -237,6 +237,69 @@ public class ConcertDao {
 		}
 		return list;
 	}
+
+
+
+	public int selectLocalListCount(Connection conn, String content, String local) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLocalListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, content);
+			pstmt.setString(2, local);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("LocalListCount");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+	public ArrayList<Concert> selectLocalList(Connection conn, PageInfo pi, String local) {
+		
+		ArrayList<Concert> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLocalList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, local);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Concert(rset.getInt("CONTENT_NO"),
+									rset.getString("CONTENT_TITLE"),
+									rset.getString("CONTENT_KEYWORD"),
+									rset.getString("REGION"),
+									rset.getString("CONTENT_CHIMG"),
+									rset.getString("CONTENT_IMGPATH"),
+									rset.getDate("CONCERT_DATE")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 	
 	
