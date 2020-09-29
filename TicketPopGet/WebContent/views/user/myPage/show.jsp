@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, com.kh.user.model.vo.*" %>
 <%
-	ArrayList<MyPageShow> mps = (ArrayList<MyPageShow>)request.getAttribute("mps");
+	ArrayList<MyPage> mps = (ArrayList<MyPage>)request.getAttribute("mps");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -91,7 +91,6 @@
         .pagination a .selected {color:#ff8149; border:1px solid #ff8149}
         .pagination .no-more-prev, .pagination .no-more-next {display:none}
 
-       
     </style>
 </head>
 <body>   
@@ -99,7 +98,7 @@
 
 	<!-- 메뉴바쓰추가쓰 -->
 	<%@ include file="/views/common/menubar.jsp"%>
-	
+		
         <!--  헤더부분 -->
         <div class="reservation_check1">
             <div style="font-size: 25px; width: 1000px; margin-left: 90px; border-bottom: 1px solid rosybrown;">
@@ -153,14 +152,17 @@
               </thead>
               
               <tbody>
-              		<%if(mps.isEmpty()){ %>
+              		<%
+              			if(mps.isEmpty()){
+              		%>
               		<tr>
               			<td colspan="4">조회되는 리스트가 없슴니당</td>
               		</tr>
-              		<%}else{ 
-              		   for(MyPageShow ps : mps) {%>
+              		<%
+              			}else{ 
+              		              		   for(MyPage ps : mps) {
+              		%>
 	                <tr>
-	                  <td><input type="hidden" name="userId" value="<%=ps.getUserId()%>"></td>
 	                  <td><%=ps.getTicketNo() %></td>
 	                  <td><%=ps.getContentType() %></td>
 	                  <td><%=ps.getViewDate() %></td>
@@ -174,35 +176,24 @@
           </div>
 
 		<br> <br>
-
-		<div class="pagingArea" align="center">
 		
-			<%if(currentPage != 1){ %>
-			
-				<!-- 맨 처음으로(<<) -->
-				<button onclick="location.href='<%=contextPath%>/show.my?currentPage=1';">&lt;&lt;</button>
-				
-				<!-- 이전 페이지로(<) -->
-				<button onclick="location.href='<%=contextPath%>/show.my?currentPage=<%=currentPage-1%>';">&lt;</button>
-			<% } %>
-			
-			<%for(int p=startPage; p<=endPage; p++){ %>
-				<% if(p!=currentPage){ %>
-				<button onclick="location.href='<%=contextPath%>/show.my?currentPage=<%=p%>';"><%= p %></button>
-				<%}else{ %>
-				<button disabled><%=p %></button>
-				<%} %>
-			<%} %>
-			
-			<%if(currentPage != maxPage){ %>
-				<!-- 다음페이지로 (>) -->
-				<button onclick="location.href='<%=contextPath%>/show.my?currentPage=<%=currentPage-1%>';">&gt;</button>
-				<!-- 맨 끝으로(>>) -->
-				<button onclick="location.href='<%=contextPath%>/show.my?currentPage=<%=maxPage%>';">&gt;&gt;</button>
-			<%} %>
-
-		</div>
-    
+     <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
+     		<%if(currentPage != 1){ %>
+            	<a href="<%=contextPath%>/show.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
+            <%} %>
+            
+            <%for(int p=startPage; p<=endPage; p++){ %>
+            	<%if(p!=currentPage){ %>
+	           		<a href="<%=contextPath%>/show.my?currentPage=<%=p%>"><span><%=p %></span></a>
+	            <%}else { %>
+	            	<a href="javascript:void(0);"><span><%=p %></span></a>
+	            <%} %>
+            <%} %>
+            
+            <%if(currentPage != maxPage){ %>
+            	<a href="<%=contextPath%>/show.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+            <%} %>
+        </div>
     </div>
 
 </body>

@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.user.model.vo.*" %>
+<%
+	ArrayList<MyPage> mps = (ArrayList<MyPage>)request.getAttribute("mps");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,64 +113,52 @@
                   <th>작성일</th>
                 </tr>
               </thead>
+              
               <tbody>
-                <tr>
-                  <td><input type="checkbox" name="delete_review"></td>
-                        <td>1</td>
-                        <td>어떤공연일까</td>
-                        <td>어떤제목</td>
-                        <td>2020-09-28</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="delete_review"></td>
-                    <td>1</td>
-                    <td>어떤공연일까</td>
-                    <td>어떤제목</td>
-                    <td>2020-09-28</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" name="delete_review"></td>
-                    <td>1</td>
-                    <td>어떤공연일까</td>
-                    <td>어떤제목</td>
-                    <td>2020-09-28</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" name="delete_review"></td>
-                    <td>1</td>
-                    <td>어떤공연일까</td>
-                    <td>어떤제목</td>
-                    <td>2020-09-28</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" name="delete_review"></td>
-                    <td>1</td>
-                    <td>어떤공연일까</td>
-                    <td>어떤제목</td>
-                    <td>2020-09-28</td>
-                  </tr>
+              		<%
+              			if(mps.isEmpty()){
+              		%>
+              		<tr>
+              			<td colspan="5">조회되는 리스트가 없슴니당</td>
+              		</tr>
+              		<%
+              			}else{ 
+              		           for(MyPage ps : mps) {
+              		%>
+	                <tr>
+	                  <td><input type="checkbox" name="delete_review"></td>
+	                  <td><%=ps.getReviewNo()%></td>
+	                  <td><%=ps.getContentTitle()%></td>
+	                  <td><%=ps.getReviewTitle()%></td>
+	                  <td><%=ps.getReviewDate() %></td>
+	                </tr>
+	                <%} %>
+	                <%} %>
               </tbody>
             </table>
           </div>
-
+          
           <div id="delete_review_btn" align="right">
               <button>삭제</button>
           </div>
-           <!-- 페이징바 -->
-          <div class="pagination" style="margin-top: 60px; margin-left: 30%;">
-            <a href="" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>
-            <a href=""><span>1</span></a>
-            <a href=""><span>2</span></a>
-            <a href=""><span>3</span></a>
-            <a href=""><span>4</span></a>
-            <a href=""><span>5</span></a>
-            <a href=""><span>6</span></a>
-            <a href=""><span>7</span></a>
-            <a href=""><span>8</span></a>
-            <a href=""><span>9</span></a>
-            <a href=""><span>10</span></a>
-            <a href="" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
-          </div>
+
+          <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
+     		<%if(currentPage != 1){ %>
+            	<a href="<%=contextPath%>/show.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
+            <%} %>
+            
+            <%for(int p=startPage; p<=endPage; p++){ %>
+            	<%if(p!=currentPage){ %>
+	           		<a href="<%=contextPath%>/show.my?currentPage=<%=p%>"><span><%=p %></span></a>
+	            <%}else { %>
+	            	<a href="javascript:void(0);"><span><%=p %></span></a>
+	            <%} %>
+            <%} %>
+            
+            <%if(currentPage != maxPage){ %>
+            	<a href="<%=contextPath%>/show.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+            <%} %>
+        </div>
     </div>
 
 </body>

@@ -10,21 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.community.adBoard.model.vo.AdBoard;
 import com.kh.user.model.service.MyPageService;
-import com.kh.user.model.vo.MyPage;
 import com.kh.user.model.vo.PageInfo;
 
 /**
- * Servlet implementation class MyPage_review
+ * Servlet implementation class MyPage_promote
  */
-@WebServlet("/review.my")
-public class MyPage_review extends HttpServlet {
+@WebServlet("/adboard.my")
+public class MyPage_adboard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPage_review() {
+    public MyPage_adboard() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +33,6 @@ public class MyPage_review extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String userId = request.getParameter("userId");
 		
 		if(userId!=null) {
@@ -47,7 +46,7 @@ public class MyPage_review extends HttpServlet {
 			int startPage; // 현재 페이지에 하단에 보여질 페이징 바의 시작 수
 			int endPage; // 현재 페이지에 하단에 보여질 페이징 바의 끝 수
 
-			listCount = new MyPageService().selectReviewListCount(userId);
+			listCount = new MyPageService().selectAdboardListCount(userId);
 
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			
@@ -67,12 +66,12 @@ public class MyPage_review extends HttpServlet {
 
 			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 
-			ArrayList<MyPage> mps = new MyPageService().selectReviewList(userId, pi);
+			ArrayList<AdBoard> ad = new MyPageService().selectAdboardList(userId, pi);
 			
-			request.setAttribute("mps", mps);
+			request.setAttribute("ad", ad);
 			request.setAttribute("pi", pi);
 		
-			RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/review.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/adboard.jsp");
 			view.forward(request, response);
 		}else {
 			

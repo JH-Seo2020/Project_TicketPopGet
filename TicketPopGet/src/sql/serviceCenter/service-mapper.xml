@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="selectListCount">
+	<entry key="noticeSelectListCount">
 	SELECT 
 	       COUNT(*) NOTICELISTCOUNT
 	  FROM NOTICE
 	 WHERE NOTICE_STATUS = 'Y'
 	</entry>
 	
-	<entry key="selectList">
+	<entry key="noticeSelectList">
      SELECT ROWNUM
            , NOTICE_NO
            , NOTICE_TYPE
@@ -18,5 +18,21 @@
        WHERE N.NOTICE_STATUS = 'Y'
          AND ROWNUM BETWEEN ? AND ?
        ORDER BY NOTICE_NO DESC
+	</entry>
+	<entry key="faqSelectListCount">
+	SELECT 
+	       COUNT(*) FAQLISTCOUNT
+	  FROM FAQ
+	 WHERE FAQ_STATUS = 'Y'
+	</entry>
+	<entry key="faqSelectList">
+	SELECT ROWNUM
+         , FAQ_TYPE
+         , FAQ_TITLE
+         , FAQ_CONTENT
+      FROM FAQ F
+     WHERE F.FAQ_STATUS = 'Y'
+       AND ROWNUM BETWEEN 1 AND 3
+     ORDER BY FAQ_NO DESC
 	</entry>
 </properties>
