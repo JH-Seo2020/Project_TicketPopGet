@@ -32,7 +32,7 @@
          , FAQ_CONTENT
       FROM FAQ F
      WHERE F.FAQ_STATUS = 'Y'
-       AND ROWNUM BETWEEN 1 AND 3
+       AND ROWNUM BETWEEN ? AND ?
      ORDER BY FAQ_NO DESC
 	</entry>
 </properties>

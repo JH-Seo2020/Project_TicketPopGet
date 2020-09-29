@@ -1,5 +1,7 @@
 package com.kh.serviceCenter.model.dao;
 
+import static com.kh.common.JDBCTemplate.*;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -59,6 +61,30 @@ public class FaqDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("faqSelectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Faq(rset.getString("FAQ_TYPE"),
+								 rset.getString("FAQ_TITLE"),
+								 rset.getString("FAQ_CONTENT")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 		
 	}
 
