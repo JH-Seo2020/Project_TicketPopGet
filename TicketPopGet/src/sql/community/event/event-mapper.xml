@@ -7,7 +7,7 @@
 		 WHERE EVENT_STATUS = 'Y'
 	</entry>
 	<entry key="selectEventList">
-		SELECT *
+	SELECT *
 		  FROM (
 		        SELECT ROWNUM RNUM
 		             , E.*
@@ -27,46 +27,24 @@
 		      )
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
-	<entry key="insertAdBoard">
-		  INSERT 
-			into BOARD
-			(
-			      BOARD_NO
-			    , BOARD_TYPE
-			    , LOCATION
-			    , BOARD_TITLE
-			    , BOARD_CONTNET
-			    , USER_NO
-			) values(
-			    SEQ_BOARDNO.NEXTVAL
-			    , 
-			    ?, 
-			    ?, 
-			    ?, 
-			    ?,
-			    ?
-			)
-	</entry>
 	<entry key="plusCount">
 		UPDATE 
-		       BOARD
-		   SET BOARD_COUNT = BOARD_COUNT + 1
-		 WHERE BOARD_NO = ?
-		   AND BOARD_STATUS = 'Y'
+		       EVENT
+		   SET EVENT_COUNT = EVENT_COUNT + 1
+		 WHERE EVENT_NO = ?
+		   AND EVENT_STATUS = 'Y'
 	</entry>
-	<entry key="boardDetail">
-		SELECT BOARD_NO
-		     , BOARD_TYPE
-		     , BOARD_TITLE
-		     , BOARD_CONTNET
-		     , BOARD_DATE
-		     , BOARD_COUNT
-		     , USER_NO
-		     , USER_ID
-		  FROM BOARD
-		  JOIN MEMBER USING (USER_NO)
-		 WHERE BOARD_STATUS = 'Y'
-		   AND BOARD_NO = ?
+	<entry key="selectDetail">
+		SELECT EVENT_NO
+		     , CONTENT_NO
+		     , EVENT_TYPE
+		     , EVENT_TITLE
+		     , EVENT_CONTENT
+		     , EVENT_DATE
+		     , EVENT_COUNT
+		  FROM EVENT
+		 WHERE EVENT_STATUS = 'Y'
+		   AND EVENT_NO = ?
 	</entry>
 	<entry key="adBoardCountByGenre">
 	SELECT COUNT(*) countByGenre

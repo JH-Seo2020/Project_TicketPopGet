@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.community.event.model.vo.Event" %>
+<%
+	Event evObject = (Event)request.getAttribute("evObject");
+	String eventContent = (String)request.getAttribute("eventContent");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,28 +110,33 @@
         </div>
         <div id="eventBody">
             <div id="eventBodyTitle">
-                <span>연극</span>
-                <span>테세우스의 모험 무료 티켓 이벤트</span>
+                <span><%=evObject.getEventType() %></span>
+                <span><%=evObject.getEventTitle() %></span>
             </div>
             <div id="eventBodySub">
-                작성일 : 2020-02-02 조회수 : 100 
-                <div><a href="" style="color: black !important; margin-left: 10px;" data-toggle="modal" data-target="#eventReport">신고</a></div>
+                작성일 : <%=evObject.getEventDate() %> 조회수 : <%=evObject.getEventCount() %>
             </div>
             <div id="eventBodyContent">
-                2020년 11월 오픈 예정인 연극 '테세우스의 모험' 무료 티켓 이벤트를 진행합니다.<br>
-                자세한 사항은 위의 포스터를 참고해주세요 <br>
-                감사합니다<br>
-                2020년 11월 오픈 예정인 연극 '테세우스의 모험' 무료 티켓 이벤트를 진행합니다.<br>
-                자세한 사항은 위의 포스터를 참고해주세요 <br>
-                감사합니다<br>
-                2020년 11월 오픈 예정인 연극 '테세우스의 모험' 무료 티켓 이벤트를 진행합니다.<br>
-                자세한 사항은 위의 포스터를 참고해주세요 <br>
-                감사합니다<br>
+                <%=eventContent %>
             </div>
             <div id="eventBodyBtns">
-                <a class="btn btn-secondary" href="">목록으로</a>
+                <a class="btn btn-secondary" id="back">목록으로</a>
             </div>
         </div>
+        
+        <script>
+	    	$(function(){
+	    		$("#back").click(function(){
+	    			if(document.referrer){
+	    	    		history.back();
+	    	    	}else{
+	    	    		location.href="<%=contextPath%>/event.detail?currentPage=1";
+	    	    	}
+	    		});
+	    	});
+    	</script>
+        
+        
         <div id="eventReplyArea">
             <div><b>n개의 이벤트 댓글</b></div>
             <form class="input-group mb-3" action="" method="POST">

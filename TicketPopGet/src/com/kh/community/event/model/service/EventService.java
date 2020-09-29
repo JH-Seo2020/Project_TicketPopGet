@@ -34,4 +34,48 @@ public class EventService {
 		return list;
 	}
 
+	/**
+	 * 3. 이벤트 게시글 조회수 올리기
+	 * @param eventNo
+	 * @return
+	 */
+	public int plusCount(int eventNo) {
+		
+		Connection conn = getConnection();
+		int result = new EventDao().plusCount(conn,eventNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	/**
+	 * 4. 이벤트 게시글 상세조회 (내용물 제외)
+	 * @param eventNo
+	 * @return
+	 */
+	public Event selectDetail(int eventNo) {
+		
+		Connection conn = getConnection();
+		Event evObject = new EventDao().selectDetail(conn, eventNo);
+		close(conn);
+		return evObject;
+	}
+
+	/**
+	 * 5. 이벤트 내용 조회
+	 * @param eventNo
+	 * @return
+	 */
+	public String selectEventContent(int eventNo) {
+		
+		Connection conn = getConnection();
+		String eventContent = new EventDao().selectEventContent(conn, eventNo);
+		close(conn);
+		return eventContent;
+	}
+
 }

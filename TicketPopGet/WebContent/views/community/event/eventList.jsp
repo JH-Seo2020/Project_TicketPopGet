@@ -82,7 +82,7 @@
 		              <tr>
 		                <th scope="row"><%=e.getEventNo() %></th>
 		                <td><%=e.getEventType() %></td>
-		                <td> <a href=""><%=e.getEventTitle() %></a></td>
+		                <td><a href="<%=contextPath%>/event.detail?eventNo=<%=e.getEventNo()%>"><%=e.getEventTitle() %></a></td>
 		                <td><%=e.getEventDate() %></td>
 		                <td><%=e.getEventCount() %></td>
 		              </tr>
