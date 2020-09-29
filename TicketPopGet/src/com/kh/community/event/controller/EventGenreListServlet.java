@@ -1,4 +1,4 @@
-package com.kh.community.adBoard.controller;
+package com.kh.community.event.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,21 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.community.adBoard.model.service.AdBoardService;
 import com.kh.community.adBoard.model.vo.AdBoard;
-import com.kh.community.eventResult.model.service.EventResultService;
-import com.kh.community.eventResult.model.vo.EventRaffle;
+import com.kh.community.event.model.service.EventService;
+import com.kh.community.event.model.vo.Event;
 import com.kh.concert.model.vo.PageInfo;
 
 /**
- * Servlet implementation class AdBoardGenreListServlet
+ * Servlet implementation class EventGenreListServlet
  */
-@WebServlet("/adboard.genre")
-public class AdBoardGenreListServlet extends HttpServlet {
+@WebServlet("/event.genre")
+public class EventGenreListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdBoardGenreListServlet() {
+    public EventGenreListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,8 +49,8 @@ public class AdBoardGenreListServlet extends HttpServlet {
 		int startPage;		
 		int endPage;		
 		
-		//게시물 개수 조회 
-		listCount = new AdBoardService().adBoardCountByGenre(genre);
+		//게시글 개수 조회 
+		listCount = new EventService().eventCountByGenre(genre);
 		//현재페이지
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		pageLimit = 5;
@@ -70,16 +70,15 @@ public class AdBoardGenreListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		//페이징 정보를 통해서 해당되는 게시글 리스트를 받아올 수 있음 
-		ArrayList<AdBoard> list = new AdBoardService().selectListByGenre(pi,genre);
+		ArrayList<Event> list = new EventService().selectListByGenre(pi,genre);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		request.setAttribute("genre", genre);
 		
-		RequestDispatcher view = request.getRequestDispatcher("views/community/adBoard/adBoardGenreList.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("views/community/event/eventGenreList.jsp");
 		view.forward(request, response);
 
-		
 	}
 
 	/**

@@ -46,33 +46,33 @@
 		 WHERE EVENT_STATUS = 'Y'
 		   AND EVENT_NO = ?
 	</entry>
-	<entry key="adBoardCountByGenre">
-	SELECT COUNT(*) countByGenre
-	  FROM BOARD
-	 WHERE BOARD_STATUS = 'Y'
-	   AND BOARD_TYPE = ?
+	<entry key="eventCountByGenre">
+		SELECT COUNT(*) eventByGenre
+		  FROM EVENT 
+		 WHERE EVENT_STATUS = 'Y'
+		   AND EVENT_TYPE = ?
 	</entry>
 	<entry key="selectListByGenre">
 	SELECT *
-	  FROM (
-	        SELECT ROWNUM RNUM
-	             , A.*
-	          FROM (
-	                SELECT BOARD_NO
-                         , BOARD_TYPE
-                         , LOCATION
-                         , BOARD_TITLE
-                         , BOARD_DATE
-                         , BOARD_COUNT
-                         , USER_NO
-                      FROM BOARD
-	                 WHERE BOARD_STATUS = 'Y'
-	                   AND BOARD_TYPE = ?
-	                 ORDER 
-	                    BY BOARD_NO DESC
-	                 )A
-	      )
-	 WHERE RNUM BETWEEN ? AND ? 
+		  FROM (
+		        SELECT ROWNUM RNUM
+		             , E.*
+		          FROM (
+		                SELECT EVENT_NO
+		                     , CONTENT_NO
+		                     , EVENT_TYPE
+		                     , EVENT_TITLE
+		                     , EVENT_CONTENT
+		                     , EVENT_DATE
+		                     , EVENT_COUNT
+		                  FROM EVENT
+		                 WHERE EVENT_STATUS = 'Y'
+		                   AND EVENT_TYPE = ?
+		                 ORDER 
+		                    BY EVENT_NO DESC
+		                 )E
+		      )
+		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	<entry key="updateBoard">
 		UPDATE 

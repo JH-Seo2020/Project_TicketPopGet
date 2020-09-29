@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.community.adBoard.model.vo.AdBoard;
 import com.kh.community.event.model.vo.Event;
 import com.kh.concert.model.vo.PageInfo;
 
@@ -162,6 +163,66 @@ public class EventDao {
 		}
 		
 		return eventContent;
+	}
+
+	public int eventCountByGenre(Connection conn, String genre) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("eventCountByGenre");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, genre);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("eventByGenre");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<Event> selectListByGenre(Connection conn, PageInfo pi, String genre) {
+		ArrayList<Event> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListByGenre");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setString(1, genre);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Event(
+									rset.getInt("EVENT_NO"),
+									rset.getInt("CONTENT_NO"),
+									rset.getString("EVENT_TYPE"),
+									rset.getString("EVENT_TITLE"),
+									rset.getDate("EVENT_DATE"),
+									rset.getInt("EVENT_COUNT")
+						));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+
 	}
 	
 	
