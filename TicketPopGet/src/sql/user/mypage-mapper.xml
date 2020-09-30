@@ -139,6 +139,52 @@ SELECT COUNT(*) LISTVIEW
     WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<entry key="selectReviewContnetCount">
+SELECT COUNT(*) LISTVIEW 
+ FROM(
+        SELECT 
+                M.USER_ID 
+             ,  R.REVIEW_NO
+             ,  C.CONTENT_TITLE
+             ,  R.REVIEW_TITLE
+             ,  R.REVIEW_DATE
+          FROM  MEMBER M
+         INNER  JOIN REVIEW R
+            ON  M.USER_NO = R.REVIEW_NO
+         INNER  JOIN CONTENTS C
+            ON  R.CONTENT_NO = C.CONTENT_NO
+         WHERE  M.USER_ID = ?
+           AND  C.CONTENT_TYPE = ?
+           AND  R.REVIEW_STATUS = 'Y'
+    )
+</entry>
+
+<entry key="selectReviewContnetList">
+SELECT *
+ FROM(
+ 	SELECT
+ 			ROWNUM RNUM
+ 		  , A.*
+ 	  FROM  (	  
+	           SELECT 
+                        M.USER_ID 
+                     ,  R.REVIEW_NO
+                     ,  C.CONTENT_TITLE
+                     ,  R.REVIEW_TITLE
+                     ,  R.REVIEW_DATE
+                  FROM  MEMBER M
+                 INNER  JOIN REVIEW R
+                    ON  M.USER_NO = R.REVIEW_NO
+                 INNER  JOIN CONTENTS C
+                    ON  R.CONTENT_NO = C.CONTENT_NO
+                 WHERE  M.USER_ID = ?
+                   AND  C.CONTENT_TYPE = ?
+                   AND  R.REVIEW_STATUS = 'Y'
+		     )A
+    	)
+    WHERE RNUM BETWEEN ? AND ?
+</entry>
+
 <entry key="selectAdboardListCount">
 SELECT COUNT(*) LISTVIEW 
  FROM(

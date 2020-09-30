@@ -115,6 +115,43 @@ public class MyPageService {
 		return mps;
 		
 	}
+	
+	/**
+	 * 나의후기 컨텐츠분류 개수 조회
+	 * @param content
+	 * @param userId
+	 * @return
+	 */
+	public int selectReviewContnetCount(String content, String userId) {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new MyPageDao().selectReviewContnetCount(conn, content, userId);
+		close(conn);
+		return listCount;
+		
+	}
+	
+	/**
+	 * 나의 후기 컨텐츠분류 리스트
+	 * @param userId
+	 * @param pi
+	 * @param content
+	 * @return
+	 */
+	public ArrayList<MyPage> selectReviewContnetList(String userId, PageInfo pi, String content){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<MyPage> mp = new MyPageDao().selectReviewContnetList(conn, userId, content, pi);
+		
+		close(conn);
+		
+		return mp;
+	}
+	
+	
+	
 		
 	/**
 	 * 나의홍보글 개수조회

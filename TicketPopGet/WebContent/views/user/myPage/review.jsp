@@ -94,10 +94,10 @@
 
         <!-- 컨텐츠분류 -->
         <div class="contents_btn" align="right">
-            <button class="btn btn-outline-warning">전체</button> 
-            <button class="btn btn-outline-warning">콘서트</button>
-            <button class="btn btn-outline-warning">연극</button>
-            <button class="btn btn-outline-warning">전시</button>
+            <a href="<%=contextPath%>/review.my?currentPage=1&userId=<%=loginUser.getUserId()%>" class="btn btn-outline-warning">전체</a> 
+            <a href="<%=contextPath%>//review_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=콘서트" class="btn btn-outline-warning">콘서트</a>
+            <a href="<%=contextPath%>//review_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=연극" class="btn btn-outline-warning">연극</a>
+            <a href="<%=contextPath%>//review_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=전시" class="btn btn-outline-warning">전시</a>
         </div>
 
         <!-- 관람후기테이블 -->
