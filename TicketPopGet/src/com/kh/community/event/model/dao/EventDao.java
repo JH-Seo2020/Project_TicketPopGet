@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.community.adBoard.model.vo.AdBoard;
+import com.kh.community.event.model.vo.Comment;
 import com.kh.community.event.model.vo.Event;
+import com.kh.community.review.model.vo.Review;
 import com.kh.concert.model.vo.PageInfo;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -223,6 +225,62 @@ public class EventDao {
 		
 		return list;
 
+	}
+
+	public int eventCommentCount(Connection conn, int eventNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("eventCommentCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, eventNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("COMMENTCOUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<Comment> selectComment(Connection conn, PageInfo pi, int eventNo) {
+		ArrayList<Comment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectComment");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, eventNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Comment(rset.getInt("COMMENT_NO"),
+									rset.getInt("EVENT_NO"),
+									rset.getString("USER_ID"),
+									rset.getString("COMMENT_CONTNET"),
+									rset.getDate("COMMENT_DATE")
+									));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 	

@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import com.kh.community.adBoard.model.dao.AdBoardDao;
 import com.kh.community.adBoard.model.vo.AdBoard;
 import com.kh.community.event.model.dao.EventDao;
+import com.kh.community.event.model.vo.Comment;
 import com.kh.community.event.model.vo.Event;
+import com.kh.community.review.model.vo.Review;
+import com.kh.concert.model.dao.ConcertDao;
 import com.kh.concert.model.vo.PageInfo;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -101,6 +104,31 @@ public class EventService {
 	public ArrayList<Event> selectListByGenre(PageInfo pi, String genre) {
 		Connection conn = getConnection();
 		ArrayList<Event> list = new EventDao().selectListByGenre(conn,pi,genre);
+		close(conn);
+		return list;
+	}
+
+	/**
+	 * 8. 이벤트 게시글에 달린 댓글 총 개수 조회 
+	 * @param eventNo
+	 * @return
+	 */
+	public int selectCommentCount(int eventNo) {
+		Connection conn = getConnection();
+		int result = new EventDao().eventCommentCount(conn, eventNo);
+		close(conn);
+		return result;
+	}
+
+	/**
+	 * 9. 이벤트 게시글 댓글 조회 
+	 * @param pi
+	 * @param eventNo
+	 * @return
+	 */
+	public ArrayList<Comment> selectComment(PageInfo pi, int eventNo) {
+		Connection conn = getConnection();
+		ArrayList<Comment> list = new EventDao().selectComment(conn,pi,eventNo);
 		close(conn);
 		return list;
 	}

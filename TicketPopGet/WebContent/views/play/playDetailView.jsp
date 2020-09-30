@@ -334,7 +334,7 @@
 	                      $("#tbodyArea").html(reviews);
 	                      $("#reviewPaging").html($bottons);
 	                      //리뷰번호 result.list[i].reviewNo에 있으니까 받아서 리뷰제목 클릭시에 url 넘겨주면된다!
-	                      console.log("1이다");
+	                      
 	                      
 	             	   }else{	//리뷰가 1개도 없을 때 
 	             		  $("#tbodyArea").html('보여드릴 리뷰가 없습니다.');

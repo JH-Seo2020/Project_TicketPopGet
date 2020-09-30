@@ -138,7 +138,7 @@
         
         
         <div id="eventReplyArea">
-            <div><b>n개의 이벤트 댓글</b></div>
+            <div><b>댓글 작성에 참여해보세요!🖋</b></div>
             <form class="input-group mb-3" action="" method="POST">
                 <input name="" class="form-control" type="text" placeholder="댓글을 입력해주세요" required>
                 <div class="input-group-append">
@@ -146,55 +146,11 @@
                 </div>
             </form>
             <table class="table table-striped">
-                <tbody>
-                  <tr>
-                    <td id="eventReplyHead">
-                        <p><b>greek***</b></p>
-                        <p style="font-size: 13px;">2020-09-02</p>
-                    </td>
-                    <td id="eventReplyContent">참여합니다</td>
-                    <td id="eventReplyBtns">
-                        <!--본인일 경우만 보임-->
-                        <a href="">수정</a>
-                        <a href="" data-toggle="modal" data-target="#deleteReviewReply">삭제</a>
-
-                        <a href="" data-toggle="modal" data-target="#eventReport">신고</a>
-                        <a href="" >추천</a><lable>7</lable>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="eventReplyHead">
-                        <p><b>greek***</b></p>
-                        <p style="font-size: 13px;">2020-09-02</p>
-                    </td>
-                    <td id="eventReplyContent">기대되네요. 댓글 하나 달아봅니다.</td>
-                    <td id="eventReplyBtns">
-                        <!--본인일 경우만 보임-->
-                        <a href="">수정</a>
-                        <a href="" data-toggle="modal" data-target="#deleteReviewReply">삭제</a>
-
-                        <a href="" data-toggle="modal" data-target="#eventReport">신고</a>
-                        <a href="" >추천</a><lable>7</lable>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="eventReplyHead">
-                        <p><b>greek***</b></p>
-                        <p style="font-size: 13px;">2020-09-02</p>
-                    </td>
-                    <td id="eventReplyContent">몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중</td>
-                    <td id="eventReplyBtns">
-                        <!--본인일 경우만 보임-->
-                        <a href="">수정</a>
-                        <a href="" data-toggle="modal" data-target="#deleteReviewReply">삭제</a>
-
-                        <a href="" data-toggle="modal" data-target="#eventReport">신고</a>
-                        <a href="" >추천</a><lable>7</lable>
-                    </td>
-                  </tr>
-                  
+                <tbody id='tbodyArea'>
+                
                 </tbody>
               </table>
+              
               <div id="eventReplyPaging">
                 <button>&lt;&lt;</button>
                 <button>&lt;</button>
@@ -207,6 +163,75 @@
                 <button>&gt;&gt;</button>
             </div>
         </div>
+
+		<script>
+			$(function(){
+				selectCommentList(1);
+			});
+			
+			//댓글 리스트 조회용 ajax 
+			function selectCommentList(cPage){
+				$.ajax({
+					url : "<%=contextPath%>/comment.co",
+					type : "get",
+					data : {"eventNo" : <%=evObject.getEventNo()%>,
+						"currentPage" : cPage},
+					success : function(result){
+						
+						if(result.list.length >= '1'){	//댓글이 1개 이상 있을 때
+							
+							var comments = "";
+							for(var i in result.list){
+								comments += "<tr>"
+										 + "<td id='eventReplyHead'><p><b>" + result.list[i].userNo + "</b></p>"
+										 + "<p style='font-size: 13px;'>" + result.list[i].commentDate + "</p></td>"
+										 + "<td id='eventReplyContent'>" + result.list[i].commentCont + "</td>"
+										 + "<td id='eventReplyBtns'></td></tr>"
+							}
+							
+						   var $boardLimit = result.pi.boardLimit;
+	                       var $currentPage = result.pi.currentPage;
+	                       var $endPage = result.pi.endPage;
+	                       var $listCount = result.pi.listCount;
+	                       var $maxPage = result.pi.maxPage;
+	                       var $pageLimit = result.pi.pageLimit;
+	                       var $startPage = result.pi.startPage;
+	                       
+	                       var $btns = "";
+	                       for(var $p = $startPage; $p <= $endPage; $p++ ){
+	                          //$btns += "<a href="+'<%=contextPath%>/comment.co?currentPage='+">"+$p+"</a>"+"&nbsp;";
+	                          $btns += "<button type='button' onclick='selectCommentList(" + $p + ");'>" + $p + "</button>";
+	                       }
+							
+	                       //버튼조건처리덜됨!
+							var $firstBtn = "<button type='button' onclick='selectCommentList(" + 1 + ");'>" + "&lt;&lt;" + "</button>";
+		                    var $prevBtn = "<button type='button' onclick='selectCommentList(" + ($currentPage - 1) + ");'>" + "&lt;" + "</button>";
+		                    var $nextBtn = "<button type='button' onclick='selectCommentList(" + ($currentPage + 1) + ");'>" + "&gt;" + "</button>";
+		                    var $endBtn = "<button type='button' onclick='selectCommentList(" + $maxPage + ");'>" + "&gt;&gt;" + "</button>";
+		                       
+		                    var $bottons = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
+		                      
+		                    $("#tbodyArea").html(comments);
+		                    $("#eventReplyPaging").html($bottons);
+							
+		                    
+		                    
+		                    
+						}else{	//리뷰가 1개도 없을 때
+							$("#tbodyArea").html('보여드릴 댓글이 없습니다.');
+						}
+						
+					},
+					error : function(){
+						console.log("ajax 통신실패");
+					}
+				});
+			}
+		</script>
+
+
+
+
 
         <!--댓글 삭제 모달-->
         <div class="modal" tabindex="-1" id="deleteReviewReply">

@@ -74,6 +74,31 @@
 		      )
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	<entry key="eventCommentCount">
+		SELECT COUNT(*) COMMENTCOUNT
+		  FROM EVENT_COMMENT
+		 WHERE EVENT_NO = ?
+	</entry>
+	<entry key="selectComment">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM
+		             , E.*
+		          FROM (
+		                SELECT COMMENT_NO
+		                     , EVENT_NO
+		                     , USER_ID		--userNo에 번호대신 받을예정
+		                     , COMMENT_CONTNET
+		                     , COMMENT_DATE
+		                  FROM EVENT_COMMENT
+		                  JOIN MEMBER USING(USER_NO)
+		                 WHERE EVENT_NO = ?
+		                 ORDER 
+		                    BY EVENT_NO DESC
+		                 )E
+		      )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
 	<entry key="updateBoard">
 		UPDATE 
 		       BOARD
