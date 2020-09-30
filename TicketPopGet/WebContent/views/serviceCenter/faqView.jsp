@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.serviceCenter.model.vo.*" %>
+<%
+	ArrayList<Faq> list = (ArrayList<Faq>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,38 +98,23 @@
                     </tr>
                 </thead>
                 <tbody>
+                	<% if(list.isEmpty()){ %>
+                	<tr>
+                        <td colspan="2">조회된 리스트가 없습니다.</td>
+                    </tr>
+                    <% }else { %>
+                    	<% for(Faq f : list) { %>
                     <tr>
-                        <td>회원</td>
-                        <td><a class="faqTitle">[아이디찾기]와 [비밀번호찾기]는 어떻게 하나요?</a></td>
+                        <td><%=f.getFaqType() %></td>
+                        <td><a class="faqTitle"><%=f.getFaqTitle() %></a></td>
                     </tr>
                     <tr class="content">
                         <td></td>
-                        <td>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</td>
+                        <td><%=f.getFaqContent() %></td>
                     </tr>
-                    <tr>
-                        <td>결제</td>
-                        <td><a class="faqTitle">현금영수증받으려면 어떻게 해야하나요?</a></td>
-                    </tr>
-                    <tr class="content">
-                        <td></td>
-                        <td>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</td>
-                    </tr>
-                    <tr>
-                        <td>예매/취소</td>
-                        <td><a class="faqTitle">티켓 환불은 어디서 받나요?</a></td>
-                    </tr>
-                    <tr class="content">
-                        <td></td>
-                        <td>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</td>
-                    </tr>
-                    <tr>
-                        <td>기타</td>
-                        <td><a class="faqTitle">이벤트 티켓 양도가 가능한가요?</a></td>
-                    </tr>
-                    <tr class="content">
-                        <td></td>
-                        <td>초대 이벤트는 양도가 불가능합니다. <br> 취소 후 다시 예약해주세요.</td>
-                    </tr>
+                    <% } %>
+                 <%  } %>
+                    
                 </tbody>
             </table>
             <script>
