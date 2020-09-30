@@ -78,6 +78,7 @@
 		SELECT COUNT(*) COMMENTCOUNT
 		  FROM EVENT_COMMENT
 		 WHERE EVENT_NO = ?
+		   AND COMMENT_STATUS = 'Y'
 	</entry>
 	<entry key="selectComment">
 		SELECT *
@@ -93,11 +94,27 @@
 		                  FROM EVENT_COMMENT
 		                  JOIN MEMBER USING(USER_NO)
 		                 WHERE EVENT_NO = ?
+		                   AND COMMENT_STATUS = 'Y'
 		                 ORDER 
-		                    BY EVENT_NO DESC
+		                    BY COMMENT_NO DESC
 		                 )E
 		      )
 		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="insertComment">
+		INSERT 
+		  INTO EVENT_COMMENT
+		     (
+		      COMMENT_NO
+		    , EVENT_NO
+		    , USER_NO
+		    , COMMENT_CONTNET
+		) values(
+		    SEQ_EVENT_CNO.nextval
+		    , ?
+		    , ?
+		    , ?
+		)
 	</entry>
 	<entry key="updateBoard">
 		UPDATE 

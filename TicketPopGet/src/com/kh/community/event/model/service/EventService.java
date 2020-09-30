@@ -133,4 +133,23 @@ public class EventService {
 		return list;
 	}
 
+	/**
+	 * 10. 이벤트게시글 댓글등록
+	 * @param comm
+	 * @return
+	 */
+	public int insertComment(Comment comm) {
+		Connection conn = getConnection();
+		int result = new EventDao().insertComment(conn, comm);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
 }

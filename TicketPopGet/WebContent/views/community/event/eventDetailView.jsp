@@ -142,7 +142,7 @@
             <form class="input-group mb-3" >
                 <input id="commentContent" class="form-control" type="text" placeholder="댓글을 입력해주세요" required>
                 <div class="input-group-append">
-                    <button type="submit" class="btn btn-secondary" onclick="addComment();">등록하기</button>
+                    <button type="button" class="btn btn-secondary" onclick="addComment();">등록하기</button>
                 </div>
             </form>
             <table class="table table-striped">
@@ -188,10 +188,12 @@
 									
 									if(result.list[i].userNo == '<%=loginUser.getUserId()%>'){
 			                    		commentBtns = $update + "&nbsp;&nbsp;"+$delete;
+									}else{
+										commentBtns = $report +"&nbsp;&nbsp;"+ $like;
 									}
 									
 			                    <%}else{%>
-			                    	commentBtns = $report +"&nbsp;&nbsp;"+ $like;
+			                    	commentBtns = "";
 			                    <%}%>
 								
 								comments += "<tr>"
@@ -212,8 +214,8 @@
 	                       
 	                       var $btns = "";
 	                       for(var $p = $startPage; $p <= $endPage; $p++ ){
-	                          //$btns += "<a href="+'<%=contextPath%>/comment.co?currentPage='+">"+$p+"</a>"+"&nbsp;";
-	                          $btns += "<button type='button' onclick='selectCommentList(" + $p + ");'>" + $p + "</button>";
+	                          //$btns += "&nbsp;"+<a href="+'<%=contextPath%>/comment.co?currentPage='+">"+$p+"</a>"+"&nbsp;";
+	                          $btns += "<button type='button' onclick='selectCommentList(" + $p + ");'>" + $p + "</button>"+"&nbsp;";
 	                       }
 							
 	                     
@@ -264,11 +266,13 @@
 						url : "<%=contextPath%>/comment.insert",
 						type : "post",
 						data : {"commentContent" : $('#commentContent').val(),
-							"eventNo" : <%=evObject.getEventNo()%>},	//회원번호는 서블릿에서 넘긴다
+							"eno" : <%=evObject.getEventNo()%>},	//회원번호는 서블릿에서 넘긴다
 						success : function(result){
 							
 							if(result>0){
 								console.log('댓글작성성공');
+								selectCommentList(1);
+								$('#commentContent').val("");
 							}else{
 								console.log('댓글작성실패');
 							}
