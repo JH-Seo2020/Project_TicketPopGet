@@ -139,10 +139,10 @@
         
         <div id="eventReplyArea">
             <div><b>댓글 작성에 참여해보세요!🖋</b></div>
-            <form class="input-group mb-3" action="" method="POST">
-                <input name="" class="form-control" type="text" placeholder="댓글을 입력해주세요" required>
+            <form class="input-group mb-3" >
+                <input id="commentContent" class="form-control" type="text" placeholder="댓글을 입력해주세요" required>
                 <div class="input-group-append">
-                    <button type="submit" class="btn btn-secondary" >등록하기</button>
+                    <button type="submit" class="btn btn-secondary" onclick="addComment();">등록하기</button>
                 </div>
             </form>
             <table class="table table-striped">
@@ -152,15 +152,7 @@
               </table>
               
               <div id="eventReplyPaging">
-                <button>&lt;&lt;</button>
-                <button>&lt;</button>
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>4</button>
-                <button>5</button>
-                <button>&gt;</button>
-                <button>&gt;&gt;</button>
+                
             </div>
         </div>
 
@@ -181,25 +173,33 @@
 						if(result.list.length >= '1'){	//댓글이 1개 이상 있을 때
 							
 							var comments = "";
+							var commentBtns = "";
+							var user="";
+							
+							//수정,삭제,신고, 추천버튼 조건처리 (내 댓글이면 수정삭제, 남의 댓글이면 신고 추천)
+		                    var $update = "<a href=''>수정</a>";
+		                    var $delete = "<a href='' data-toggle='modal' data-target='#deleteReviewReply'>삭제</a>";
+		                    var $report = "<a href='' data-toggle='modal' data-target='#eventReport'>신고</a>";
+		                    var $like = "<a href='' >추천</a><lable>7</lable>";	
+		                    
 							for(var i in result.list){
+								
+								<%if(loginUser != null){%>
+									
+									if(result.list[i].userNo == '<%=loginUser.getUserId()%>'){
+			                    		commentBtns = $update + "&nbsp;&nbsp;"+$delete;
+									}
+									
+			                    <%}else{%>
+			                    	commentBtns = $report +"&nbsp;&nbsp;"+ $like;
+			                    <%}%>
+								
 								comments += "<tr>"
 										 + "<td id='eventReplyHead'><p><b>" + result.list[i].userNo + "</b></p>"
 										 + "<p style='font-size: 13px;'>" + result.list[i].commentDate + "</p></td>"
 										 + "<td id='eventReplyContent'>" + result.list[i].commentCont + "</td>"
-										 + "<td id='eventReplyBtns'></td></tr>";
-										 
-										 
-								//수정,삭제,신고버튼 조건처리! 댓글등록하고 확인다시하기.
-			                    var $update = "<a href=''>수정</a>";
-			                    var $delete = "<a href='' data-toggle='modal' data-target='#deleteReviewReply'>삭제</a>";
-			                    var $report = "<a href='' data-toggle='modal' data-target='#eventReport'>신고</a>";
-			                    var $like = "<a href='' >추천</a><lable>7</lable>";	
-			                
-			                    if(result.list[i].userNo == '<%loginUser.getUserId()%>'){
-			                    	$('#eventReplyBtns').html($update + $delete);
-			                    }else{
-			                    	$('#eventReplyBtns').html($report + $like);
-			                    }
+										 + "<td id='eventReplyBtns'>"+commentBtns+"</td></tr>";
+										
 							}
 							
 						   var $boardLimit = result.pi.boardLimit;
@@ -241,7 +241,7 @@
                             }
                             
 		                    
-						}else{	//리뷰가 1개도 없을 때
+						}else{	//댓글이 1개도 없을 때
 							$("#tbodyArea").html('보여드릴 댓글이 없습니다.');
 						}
 						
@@ -250,6 +250,39 @@
 						console.log("ajax 통신실패");
 					}
 				});
+			}
+			
+			
+			//댓글 작성용 ajax
+			function addComment(){
+				
+				var user;
+                <%if(loginUser != null){%>
+                	user = "<%=loginUser.getUserId()%>";
+				
+					$.ajax({
+						url : "<%=contextPath%>/comment.insert",
+						type : "post",
+						data : {"commentContent" : $('#commentContent').val(),
+							"eventNo" : <%=evObject.getEventNo()%>},	//회원번호는 서블릿에서 넘긴다
+						success : function(result){
+							
+							if(result>0){
+								console.log('댓글작성성공');
+							}else{
+								console.log('댓글작성실패');
+							}
+							
+						}, 
+						error : function(){
+							console.log('통신실패');
+						}
+					});
+				
+				<%}else{%>
+            		alert("로그인 후 이용해주세요!");
+            	<%}%>
+				
 			}
 		</script>
 
