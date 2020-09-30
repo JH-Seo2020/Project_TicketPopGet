@@ -170,10 +170,10 @@ public class MyPageDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				mps.add(new MyPage(rset.getString("USER_ID"),
-										rset.getInt("TICKET_NO"),
-										rset.getString("CONTENT_TYPE"),
-										rset.getDate("VIEW_DATE"),
-										rset.getString("CONTENT_TITLE")));
+								   rset.getInt("TICKET_NO"),
+								   rset.getString("CONTENT_TYPE"),
+								   rset.getDate("VIEW_DATE"),
+								   rset.getString("CONTENT_TITLE")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -184,9 +184,7 @@ public class MyPageDao {
 		
 		return mps;
 		
-	}
-
-	
+	}	
 	
 	/**
 	 * 나의 후기개수
@@ -265,6 +263,84 @@ public class MyPageDao {
 		
 	}
 	
+	/** 나의 후기컨텐츠 개수
+	 * @param conn
+	 * @param userId
+	 * @param content
+	 * @return
+	 */
+	public int selectReviewContnetCount(Connection conn, String content, String userId) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReviewContnetCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, content);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("LISTVIEW");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	/**
+	 * 나의 후기컨텐츠 리스트
+	 * @param conn
+	 * @param userId
+	 * @param content
+	 * @param pi
+	 * @return
+	 */
+	public ArrayList<MyPage> selectReviewContnetList(Connection conn, String userId, String content, PageInfo pi){
+		ArrayList<MyPage> mps = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReviewContnetList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				mps.add(new MyPage(rset.getString("USER_ID"),
+						           rset.getInt("REVIEW_NO"),
+						           rset.getString("CONTENT_TITLE"),
+						           rset.getString("REVIEW_TITLE"),
+						           rset.getDate("REVIEW_DATE")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return mps;
+		
+	}
 
 	
 	
