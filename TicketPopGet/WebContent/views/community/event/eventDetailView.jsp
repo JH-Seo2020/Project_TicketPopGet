@@ -186,7 +186,20 @@
 										 + "<td id='eventReplyHead'><p><b>" + result.list[i].userNo + "</b></p>"
 										 + "<p style='font-size: 13px;'>" + result.list[i].commentDate + "</p></td>"
 										 + "<td id='eventReplyContent'>" + result.list[i].commentCont + "</td>"
-										 + "<td id='eventReplyBtns'></td></tr>"
+										 + "<td id='eventReplyBtns'></td></tr>";
+										 
+										 
+								//수정,삭제,신고버튼 조건처리! 댓글등록하고 확인다시하기.
+			                    var $update = "<a href=''>수정</a>";
+			                    var $delete = "<a href='' data-toggle='modal' data-target='#deleteReviewReply'>삭제</a>";
+			                    var $report = "<a href='' data-toggle='modal' data-target='#eventReport'>신고</a>";
+			                    var $like = "<a href='' >추천</a><lable>7</lable>";	
+			                
+			                    if(result.list[i].userNo == '<%loginUser.getUserId()%>'){
+			                    	$('#eventReplyBtns').html($update + $delete);
+			                    }else{
+			                    	$('#eventReplyBtns').html($report + $like);
+			                    }
 							}
 							
 						   var $boardLimit = result.pi.boardLimit;
@@ -203,19 +216,30 @@
 	                          $btns += "<button type='button' onclick='selectCommentList(" + $p + ");'>" + $p + "</button>";
 	                       }
 							
-	                       //버튼조건처리덜됨!
+	                     
 							var $firstBtn = "<button type='button' onclick='selectCommentList(" + 1 + ");'>" + "&lt;&lt;" + "</button>";
 		                    var $prevBtn = "<button type='button' onclick='selectCommentList(" + ($currentPage - 1) + ");'>" + "&lt;" + "</button>";
 		                    var $nextBtn = "<button type='button' onclick='selectCommentList(" + ($currentPage + 1) + ");'>" + "&gt;" + "</button>";
 		                    var $endBtn = "<button type='button' onclick='selectCommentList(" + $maxPage + ");'>" + "&gt;&gt;" + "</button>";
 		                       
-		                    var $bottons = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
-		                      
+		                    var $buttons = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
+		                    var $buttons0 = $firstBtn +"&nbsp;"+ $btns +"&nbsp;"+ $endBtn ;
+		                    var $buttons1 = $firstBtn + "&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
+		                    var $buttons2 = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;" + $endBtn ;
+		                    
 		                    $("#tbodyArea").html(comments);
-		                    $("#eventReplyPaging").html($bottons);
-							
 		                    
-		                    
+		                    //버튼조건처리.. 댓글 등록 후 기능 다시 확인해볼것 
+		                    if(cPage == "1" && cPage == $maxPage){
+		                    	$("#eventReplyPaging").html($buttons0);
+		                    }else if(cPage == "1" && cPage != $maxPage) {
+		                    	$("#eventReplyPaging").html($buttons1);
+                            }else if(cPage != "1" && cPage != $maxPage){
+                            	$("#eventReplyPaging").html($buttons);
+                            }else if (cPage != "1" && cPage == $maxPage){
+                            	$("#eventReplyPaging").html($buttons2);
+                            }
+                            
 		                    
 						}else{	//리뷰가 1개도 없을 때
 							$("#tbodyArea").html('보여드릴 댓글이 없습니다.');
