@@ -159,6 +159,7 @@
 		<script>
 			$(function(){
 				selectCommentList(1);
+				var commentNo="";
 			});
 			
 			//댓글 리스트 조회용 ajax 
@@ -215,10 +216,16 @@
 	                       var $btns = "";
 	                       for(var $p = $startPage; $p <= $endPage; $p++ ){
 	                          //$btns += "&nbsp;"+<a href="+'<%=contextPath%>/comment.co?currentPage='+">"+$p+"</a>"+"&nbsp;";
-	                          $btns += "<button type='button' onclick='selectCommentList(" + $p + ");'>" + $p + "</button>"+"&nbsp;";
+	                       	  if($p != $currentPage){
+	                          	$btns += "<button class='cc' type='button' onclick='selectCommentList(" + $p + ");'>" + $p + "</button>"+"&nbsp;";	                       		  
+	                       	  }else{
+	                       		$btns += "<button disabled style='color:black'>" + $p + "</button>"+"&nbsp;";
+	                       	  }   
+	                       
 	                       }
 							
-	                     
+	                       
+	                       
 							var $firstBtn = "<button type='button' onclick='selectCommentList(" + 1 + ");'>" + "&lt;&lt;" + "</button>";
 		                    var $prevBtn = "<button type='button' onclick='selectCommentList(" + ($currentPage - 1) + ");'>" + "&lt;" + "</button>";
 		                    var $nextBtn = "<button type='button' onclick='selectCommentList(" + ($currentPage + 1) + ");'>" + "&gt;" + "</button>";
@@ -241,7 +248,6 @@
                             }else if (cPage != "1" && cPage == $maxPage){
                             	$("#eventReplyPaging").html($buttons2);
                             }
-                            
 		                    
 						}else{	//댓글이 1개도 없을 때
 							$("#tbodyArea").html('보여드릴 댓글이 없습니다.');
@@ -288,6 +294,7 @@
             	<%}%>
 				
 			}
+			
 		</script>
 
 
@@ -311,11 +318,42 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                        <a type="button" class="btn btn-primary" href="">확인</a>
+                        <button type="button" class="btn btn-primary" onclick="deleteComment();">확인</button>
                     </div>
                 </div>
             </div>
         </div>
+
+		<script>
+
+		//댓글 삭제용 ajax
+		function deleteComment(){
+			
+            	user = "<%=loginUser.getUserId()%>";
+				$.ajax({
+					url : "<%=contextPath%>/comment.delete",
+					type : "get",
+					data : {"commentContent" : $('#commentContent').val(),
+						"eno" : <%=evObject.getEventNo()%>},	//회원번호는 서블릿에서 넘긴다
+					success : function(result){
+						
+						if(result>0){
+							console.log('댓글삭제성공');
+							selectCommentList(1);
+						}else{
+							console.log('댓글삭제실패');
+						}
+						
+					}, 
+					error : function(){
+						console.log('통신실패');
+					}
+				});
+			
+		}
+		
+		</script>
+
 
         <!--신고 등록 모달-->
         <div class="modal" tabindex="-1" id="eventReport">

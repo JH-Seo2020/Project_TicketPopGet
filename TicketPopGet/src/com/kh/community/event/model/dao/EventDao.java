@@ -305,6 +305,29 @@ public class EventDao {
 		
 		return result;
 	}
+
+	public int deleteComment(Connection conn, Comment comm) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteComment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, comm.getEventNo());
+			pstmt.setInt(2, Integer.parseInt(comm.getUserNo()));
+			pstmt.setString(3, comm.getCommentCont());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	
 	

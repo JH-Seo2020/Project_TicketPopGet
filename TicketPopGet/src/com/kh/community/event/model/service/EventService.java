@@ -152,4 +152,23 @@ public class EventService {
 		return result;
 	}
 
+	/**
+	 * 11. 이벤트게시글 삭제
+	 * @param comm
+	 * @return
+	 */
+	public int deleteComment(Comment comm) {
+		Connection conn = getConnection();
+		int result = new EventDao().deleteComment(conn, comm);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
 }
