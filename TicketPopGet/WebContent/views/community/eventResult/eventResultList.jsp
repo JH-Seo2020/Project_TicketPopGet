@@ -59,7 +59,7 @@
             <b>이벤트 결과 발표</b>
         </div>
         <div id="eventResultBtn">
-            <a href="<%=contextPath %>/eventresult.genre?genre=콘서트&currentPage=1" type="button" class="btn btn-outline-warning btn-lg">콘서트</a>
+            <a  type="button" class="btn btn-outline-warning btn-lg">콘서트</a>
             <a href="<%=contextPath %>/eventresult.genre?genre=연극&currentPage=1" type="button" class="btn btn-outline-warning btn-lg">연극</a>
             <a href="<%=contextPath %>/eventresult.genre?genre=전시&currentPage=1" type="button" class="btn btn-outline-warning btn-lg">전시</a>
         </div>

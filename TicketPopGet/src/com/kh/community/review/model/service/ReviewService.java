@@ -39,4 +39,29 @@ public class ReviewService {
 		return list;
 	}
 
+	/**
+	 * 3. 장르별 리뷰게시글 개수 조회
+	 * @param genre
+	 * @return
+	 */
+	public int reviewCountByGenre(String genre) {
+		Connection conn = getConnection();
+		int result = new ReviewDao().reviewCountByGenre(conn,genre);
+		close(conn);
+		return result;
+	}
+
+	/**
+	 * 4. 장르별 리뷰게시글 전부 조회
+	 * @param pi
+	 * @param genre
+	 * @return
+	 */
+	public ArrayList<Review> selectListByGenre(PageInfo pi, String genre) {
+		Connection conn = getConnection();
+		ArrayList<Review> list = new ReviewDao().selectListByGenre(conn,pi,genre);
+		close(conn);
+		return list;
+	}
+
 }

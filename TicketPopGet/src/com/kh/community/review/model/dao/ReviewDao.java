@@ -84,4 +84,60 @@ private Properties prop = new Properties();
 		return list;
 	}
 
+	public int reviewCountByGenre(Connection conn, String genre) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("reviewCountByGenre");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, genre);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("countByGenre");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Review> selectListByGenre(Connection conn, PageInfo pi, String genre) {
+		ArrayList<Review> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListByGenre");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setString(1, genre);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Review(rset.getInt("REVIEW_NO"),
+									rset.getInt("USER_NO"),
+									rset.getInt("CONTENT_NO"),
+									rset.getString("CONTENT_TYPE"),
+									rset.getString("REVIEW_TITLE"),
+									rset.getInt("REVIEW_POINT"),
+									rset.getDate("REVIEW_DATE"),
+									rset.getInt("REVIEW_COUNT")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
 }

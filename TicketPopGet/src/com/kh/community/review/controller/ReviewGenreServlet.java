@@ -10,21 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.community.eventResult.model.service.EventResultService;
+import com.kh.community.eventResult.model.vo.EventRaffle;
 import com.kh.community.review.model.service.ReviewService;
 import com.kh.community.review.model.vo.Review;
 import com.kh.concert.model.vo.PageInfo;
 
 /**
- * Servlet implementation class ReviewListServlet
+ * Servlet implementation class ReviewGenreServlet
  */
-@WebServlet("/review.co")
-public class ReviewListServlet extends HttpServlet {
+@WebServlet("/review.genre")
+public class ReviewGenreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewListServlet() {
+    public ReviewGenreServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,21 +35,24 @@ public class ReviewListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//장르
+		String genre = request.getParameter("genre");
+		
 		//페이징처리
 		int listCount;		// 총 게시글 개수 
 		int currentPage;	// 내가 요청한 페이지
-		int pageLimit;		// 10개까지 보여질 페이지개수
-		int boardLimit;		// 10개까지 보여질 컨텐츠 개수 
+		int pageLimit;		// 페이지개수
+		int boardLimit;		// 컨텐츠 개수 
 		
 		int maxPage;		// 전체 페이지들 중에서의 가장 마지막 페이지
 		int startPage;		
 		int endPage;		
 		
 		//이벤트 결과물 게시글 개수 조회 
-		listCount = new ReviewService().reviewListCount();
+		listCount = new ReviewService().reviewCountByGenre(genre);
 		//현재페이지
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		pageLimit = 10;
+		pageLimit = 5;
 		boardLimit = 10;
 		
 		//위의 4개로 아래 3개 도출하기.
@@ -64,14 +69,14 @@ public class ReviewListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		//페이징 정보를 통해서 해당되는 게시글 리스트를 받아올 수 있음 
-		ArrayList<Review> list = new ReviewService().selectList(pi);
+		ArrayList<Review> list = new ReviewService().selectListByGenre(pi,genre);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
+		request.setAttribute("genre", genre);
 		
-		RequestDispatcher view = request.getRequestDispatcher("views/community/review/reviewList.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("views/community/review/reviewGenreList.jsp");
 		view.forward(request, response);
-
 	}
 
 	/**
