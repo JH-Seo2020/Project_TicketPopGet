@@ -15,16 +15,16 @@ import com.kh.user.model.service.MyPageService;
 import com.kh.user.model.vo.PageInfo;
 
 /**
- * Servlet implementation class MyPage_promote
+ * Servlet implementation class MyPage_adboard_contesnt
  */
-@WebServlet("/adboard.my")
-public class MyPage_adboard extends HttpServlet {
+@WebServlet("/ad_content.my")
+public class MyPageAdboardContent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPage_adboard() {
+    public MyPageAdboardContent() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,9 +33,11 @@ public class MyPage_adboard extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
 		
-		if(userId!=null) {
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		String content = request.getParameter("content");
+		
+		if(userNo>0) {
 			// ---------------- 페이징처리 ----------------
 			int listCount; // 현재 총 게시글 개수
 			int currentPage; // 현재 페이지 (즉, 요청한 페이지)
@@ -46,7 +48,7 @@ public class MyPage_adboard extends HttpServlet {
 			int startPage; // 현재 페이지에 하단에 보여질 페이징 바의 시작 수
 			int endPage; // 현재 페이지에 하단에 보여질 페이징 바의 끝 수
 
-			listCount = new MyPageService().selectAdboardListCount(userId);
+			listCount = new MyPageService().selectAdboardContnetCount(content,userNo);
 
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			
@@ -66,19 +68,20 @@ public class MyPage_adboard extends HttpServlet {
 
 			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 
-			ArrayList<AdBoard> ad = new MyPageService().selectAdboardList(userId, pi);
-			
-			ArrayList<AdBoard> ad2 = new MyPageService().selectAdboardList(userId, pi);
+			ArrayList<AdBoard> ad = new MyPageService().selectAdboardContentList(userNo, pi, content);
  			
 			request.setAttribute("ad", ad);
-			request.setAttribute("ad2", ad2);
 			request.setAttribute("pi", pi);
-		
+			
 			RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/adboard.jsp");
 			view.forward(request, response);
+			
 		}else {
 			
 		}
+		
+		
+		
 	}
 
 	/**

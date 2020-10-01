@@ -213,14 +213,12 @@ SELECT
 SELECT COUNT(*) LISTVIEW 
  FROM(
         SELECT 
-		         M.USER_ID
-		       , B.BOARD_NO
-		       , B.BOARD_TITLE
-		       , B.BOARD_TYPE
-		       , B.BOARD_DATE
+		        B.BOARD_NO
+		      , B.BOARD_TITLE
+		      , B.BOARD_TYPE
+		      , B.BOARD_DATE
 		  FROM  BOARD B 
-		  JOIN  MEMBER M USING (USER_NO)
-		 WHERE  M.USER_ID = ?
+		 WHERE  B.USER_NO = ?
 		   AND  B.BOARD_STATUS = 'Y'
     )
 </entry>
@@ -232,16 +230,14 @@ SELECT COUNT(*) LISTVIEW
  			ROWNUM RNUM
  		  , A.*
  	  FROM  (	  
-	          SELECT 
-			         M.USER_ID
-			       , B.BOARD_NO
-			       , B.BOARD_TITLE
-			       , B.BOARD_TYPE
-			       , B.BOARD_DATE
-			   FROM  BOARD B 
-			   JOIN  MEMBER M USING (USER_NO)
-			   WHERE  M.USER_ID = ?
-			    AND  B.BOARD_STATUS = 'Y'
+		        SELECT 
+				        B.BOARD_NO
+				      , B.BOARD_TITLE
+				      , B.BOARD_TYPE
+				      , B.BOARD_DATE
+				  FROM  BOARD B 
+				 WHERE  B.USER_NO = ?
+				   AND  B.BOARD_STATUS = 'Y'
 			 )A
     	)
     WHERE RNUM BETWEEN ? AND ?
@@ -251,14 +247,12 @@ SELECT COUNT(*) LISTVIEW
 SELECT COUNT(*) LISTVIEW 
  FROM(
         SELECT
-		        M.USER_ID
-		      , B.BOARD_NO
+		        B.BOARD_NO
 		      , B.BOARD_TITLE
 		      , B.BOARD_TYPE
 		      , B.BOARD_DATE
 		  FROM  BOARD B
-		  JOIN  MEMBER M USING (USER_NO)
-		 WHERE  M.USER_ID = ?
+		 WHERE  B.USER_NO = ?
 		   AND  B.BOARD_TYPE = ?
     )
 </entry>
@@ -270,16 +264,14 @@ SELECT COUNT(*) LISTVIEW
  			ROWNUM RNUM
  		  , A.*
  	  FROM  (	  
-        SELECT
-		        M.USER_ID
-		      , B.BOARD_NO
-		      , B.BOARD_TITLE
-		      , B.BOARD_TYPE
-		      , B.BOARD_DATE
-		  FROM  BOARD B
-		  JOIN  MEMBER M USING (USER_NO)
-		 WHERE  M.USER_ID = ?
-		   AND  B.BOARD_TYPE = ?
+		        SELECT
+				        B.BOARD_NO
+				      , B.BOARD_TITLE
+				      , B.BOARD_TYPE
+				      , B.BOARD_DATE
+				  FROM  BOARD B
+				 WHERE  B.USER_NO = ?
+				   AND  B.BOARD_TYPE = ?
 			 )A
     	)
     WHERE RNUM BETWEEN ? AND ?

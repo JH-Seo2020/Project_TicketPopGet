@@ -189,11 +189,11 @@ public class MyPageService {
 	 * @param userId
 	 * @return
 	 */
-	public int selectAdboardListCount(String userId) {
+	public int selectAdboardListCount(int userNo) {
 		
 		Connection conn = getConnection();
 		
-		int listCount = new MyPageDao().selectAdboardListCount(conn, userId);
+		int listCount = new MyPageDao().selectAdboardListCount(conn, userNo);
 		
 		close(conn);
 		return listCount;
@@ -206,11 +206,11 @@ public class MyPageService {
 	 * @param pi
 	 * @return
 	 */
-	public ArrayList<AdBoard> selectAdboardList(String userId, PageInfo pi){
+	public ArrayList<AdBoard> selectAdboardList(int userNo, PageInfo pi){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<AdBoard> ad = new MyPageDao().selectAdboardList(conn, userId, pi);
+		ArrayList<AdBoard> ad = new MyPageDao().selectAdboardList(conn, userNo, pi);
 		
 		close(conn);
 		
@@ -224,11 +224,11 @@ public class MyPageService {
 	 * @param userId
 	 * @return
 	 */
-	public int selectAdboardContnetCount(String content, String userId) {
+	public int selectAdboardContnetCount(String content, int userNo) {
 		
 		Connection conn = getConnection();
 		
-		int listCount = new MyPageDao().selectAdboardContnetCount(conn, content, userId);
+		int listCount = new MyPageDao().selectAdboardContnetCount(conn, content, userNo);
 		close(conn);
 		return listCount;
 		
@@ -241,11 +241,11 @@ public class MyPageService {
 	 * @param content
 	 * @return
 	 */
-	public ArrayList<AdBoard> selectAdboardContentList(String userId, PageInfo pi, String content){
+	public ArrayList<AdBoard> selectAdboardContentList(int userNo, PageInfo pi, String content){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<AdBoard> ad = new MyPageDao().selectAdboardContentList(conn, userId, content, pi);
+		ArrayList<AdBoard> ad = new MyPageDao().selectAdboardContentList(conn, userNo, content, pi);
 		
 		close(conn);
 		
