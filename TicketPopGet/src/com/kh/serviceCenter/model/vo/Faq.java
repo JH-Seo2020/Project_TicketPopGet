@@ -21,8 +21,9 @@ public class Faq {
 	}
 	
 
-	public Faq(String faqType, String faqTitle, String faqContent) {
+	public Faq(int faqNo,String faqType, String faqTitle, String faqContent) {
 		super();
+		this.faqNo = faqNo;
 		this.faqType = faqType;
 		this.faqTitle = faqTitle;
 		this.faqContent = faqContent;

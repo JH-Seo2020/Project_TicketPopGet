@@ -9,15 +9,22 @@
 	</entry>
 	
 	<entry key="noticeSelectList">
-     SELECT ROWNUM
-           , NOTICE_NO
-           , NOTICE_TYPE
-           , NOTICE_TITLE
-           , NOTICE_DATE
-        FROM NOTICE N
-       WHERE N.NOTICE_STATUS = 'Y'
-         AND ROWNUM BETWEEN ? AND ?
-       ORDER BY NOTICE_NO DESC
+SELECT * 
+  FROM (
+        SELECT 
+                ROWNUM RNUM
+              , A.* 
+          FROM (
+                SELECT NOTICE_NO
+                     , NOTICE_TYPE
+                     , NOTICE_TITLE
+                     , NOTICE_DATE
+                  FROM NOTICE N
+                 WHERE N.NOTICE_STATUS = 'Y'
+                 ORDER BY NOTICE_NO DESC
+                ) A
+        )
+    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	<entry key="faqSelectListCount">
 	SELECT 
@@ -28,6 +35,7 @@
 	
 	<entry key="faqSelectList">
 	SELECT ROWNUM
+         , FAQ_NO
          , FAQ_TYPE
          , FAQ_TITLE
          , FAQ_CONTENT
@@ -46,7 +54,7 @@
 	</entry>
 	
 	<entry key="noticeTypeSelectList">
-	SELECT ROWNUM
+<!-- 	SELECT ROWNUM
          , NOTICE_NO
          , NOTICE_TYPE
          , NOTICE_TITLE
@@ -55,6 +63,23 @@
      WHERE N.NOTICE_STATUS = 'Y'
        AND N.NOTICE_TYPE = ?
        AND ROWNUM BETWEEN ? AND ?
-     ORDER BY NOTICE_NO DESC
+     ORDER BY NOTICE_NO DESC -->
+     SELECT * 
+  FROM (
+        SELECT 
+                ROWNUM RNUM
+              , A.* 
+          FROM (
+             SELECT NOTICE_NO
+                     , NOTICE_TYPE
+                     , NOTICE_TITLE
+                     , NOTICE_DATE
+                  FROM NOTICE N
+                 WHERE N.NOTICE_STATUS = 'Y'
+                   AND N.NOTICE_TYPE = ?
+                 ORDER BY NOTICE_NO DESC
+                ) A
+        )
+    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 </properties>

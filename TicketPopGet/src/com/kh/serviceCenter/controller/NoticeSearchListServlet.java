@@ -44,7 +44,7 @@ public class NoticeSearchListServlet extends HttpServlet {
 	    int startPage;		// 현재 페이지에 하단에 보여질 페이징 바의 시작 수
 	    int endPage;			// 현재 페이지에 하단에 보여질 페이징 바의 끝 수
 	   
-	    listCount = new ServiceService().noticeSelectListCount();
+	    listCount = new ServiceService().noticeTypeListCount(type);
 	   
 	    currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	   
@@ -64,7 +64,7 @@ public class NoticeSearchListServlet extends HttpServlet {
 	   
 	    PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 	   
-	    ArrayList<Notice> list = new ServiceService().noticeSelectList(pi);
+	    ArrayList<Notice> list = new ServiceService().noticeTypeSelectList(pi, type);
 	   
 	   
 	    request.setAttribute("pi", pi);

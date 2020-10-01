@@ -65,7 +65,8 @@ public class FaqListServlet extends HttpServlet {
 		   
 		   ArrayList<Faq> list = new ServiceService().faqSelectList(pi);
 		   
-		   
+		   System.out.println("CHECK NO");
+		   System.out.println(list);
 		   request.setAttribute("pi", pi);
 		   request.setAttribute("list", list);
 		   

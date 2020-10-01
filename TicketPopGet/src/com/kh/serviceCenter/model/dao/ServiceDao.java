@@ -139,7 +139,9 @@ public class ServiceDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Faq(rset.getString("FAQ_TYPE"),
+				list.add(new Faq(
+								rset.getInt("FAQ_NO"),
+								rset.getString("FAQ_TYPE"),
 								 rset.getString("FAQ_TITLE"),
 								 rset.getString("FAQ_CONTENT")));
 			}
