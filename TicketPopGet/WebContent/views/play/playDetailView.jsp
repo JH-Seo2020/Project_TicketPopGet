@@ -304,7 +304,7 @@
 	                       for (var i in result.list){
 	                          reviews += "<tr>"
 	                                + "<th>" + result.list[i].reviewRnum + "</th>"
-	                                + "<td>" + result.list[i].reviewTitle+ "</td>"
+	                                + "<td><a onclick='callReview("+result.list[i].reviewNo+");' style='cursor:pointer;'>" + result.list[i].reviewTitle+ "</a></td>"
 	                                + "<td>" + result.list[i].reviewPoint+ "</td>"
 	                                + "<td>" + result.list[i].reviewDate+ "</td>"
 	                                + "<td>" + result.list[i].reviewCount+ "</td>"
@@ -321,19 +321,35 @@
 	                       
 	                       var $btns = "";
 	                       for(var $p = $startPage; $p <= $endPage; $p++ ){
-	                          //$btns += "<a href="+'<%=contextPath%>/review.inconcert?currentPage='+">"+$p+"</a>"+"&nbsp;";
-	                          $btns += "<button type='button' onclick='selectReviews(" + $p + ");'>" + $p + "</button>";
+	                    	   if($p != $currentPage){
+      	                          	$btns += "<button class='cc' type='button' onclick='selectReviews(" + $p + ");'>" + $p + "</button>"+"&nbsp;";	                       		  
+      	                       	}else{
+      	                       		$btns += "<button disabled style='color:black'>" + $p + "</button>"+"&nbsp;";
+      	                       	}  
 	                       }
+	                       
 	                       var $firstBtn = "<button type='button' onclick='selectReviews(" + 1 + ");'>" + "&lt;&lt;" + "</button>";
 	                       var $prevBtn = "<button type='button' onclick='selectReviews(" + ($currentPage - 1) + ");'>" + "&lt;" + "</button>";
 	                       var $nextBtn = "<button type='button' onclick='selectReviews(" + ($currentPage + 1) + ");'>" + "&gt;" + "</button>";
 	                       var $endBtn = "<button type='button' onclick='selectReviews(" + $maxPage + ");'>" + "&gt;&gt;" + "</button>";
 	                       
-	                       var $bottons = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
-	                      
-	                      $("#tbodyArea").html(reviews);
-	                      $("#reviewPaging").html($bottons);
-	                      //리뷰번호 result.list[i].reviewNo에 있으니까 받아서 리뷰제목 클릭시에 url 넘겨주면된다!
+	                       var $buttons = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
+		                    	var $buttons0 = $firstBtn +"&nbsp;"+ $btns +"&nbsp;"+ $endBtn ;
+		                    	var $buttons1 = $firstBtn + "&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
+		                    	var $buttons2 = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;" + $endBtn ;
+		                    
+		                    	$("#tbodyArea").html(reviews);
+		                    
+  		                    
+  		                    if(cPage == "1" && cPage == $maxPage){
+  		                    	$("#reviewPaging").html($buttons0);
+  		                    }else if(cPage == "1" && cPage != $maxPage) {
+  		                    	$("#reviewPaging").html($buttons1);
+                           }else if(cPage != "1" && cPage != $maxPage){
+                              	$("#reviewPaging").html($buttons);
+                           }else if (cPage != "1" && cPage == $maxPage){
+                              	$("#reviewPaging").html($buttons2);
+                           }
 	                      
 	                      
 	             	   }else{	//리뷰가 1개도 없을 때 
@@ -347,6 +363,10 @@
 
        			});
        		}
+             
+             function callReview(reviewNo){
+            	   location.href = '<%=contextPath%>/review.detail?reviewNo='+reviewNo;
+               }
 
 			</script>
 
@@ -410,7 +430,6 @@
                     <thead class="thead-dark" align="center">
                       <tr>
                         <th scope="col">번호</th>
-                        <th scope="col">분류</th>
                         <th scope="col" width="50%">제목</th>
                         <th scope="col">별점</th>
                         <th scope="col" width=10%>날짜</th>
