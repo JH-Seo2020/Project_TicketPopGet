@@ -1,6 +1,8 @@
 package com.kh.community.event.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,19 +34,26 @@ public class EventCommentDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//요청시 전달값 2개 + 회원번호 넘기기
-		String commentContent = request.getParameter("commentContent");
-		int eno = Integer.parseInt(request.getParameter("eno"));
+		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
+		System.out.println(commentNo);
+		int eventNo = Integer.parseInt(request.getParameter("eventNo"));
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
 		Comment comm = new Comment();
-		comm.setCommentCont(commentContent);
-		comm.setEventNo(eno);
+		comm.setCommentNo(commentNo);
+		comm.setEventNo(eventNo);
 		comm.setUserNo(String.valueOf(userNo));
 		
 		int result = new EventService().deleteComment(comm);
 		
-		//비동기식, 바로전달
-		response.getWriter().print(result);
+		if(result>0) {
+			request.getSession().setAttribute("alertMsg", "댓글이 성공적으로 삭제되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/event.detail?eventNo="+eventNo);
+		}else {
+			request.setAttribute("errorMsg", "댓글 삭제 실패");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response);
+		}
 		
 	}
 

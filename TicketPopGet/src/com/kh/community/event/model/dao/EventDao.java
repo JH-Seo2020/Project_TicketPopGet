@@ -314,9 +314,7 @@ public class EventDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, comm.getEventNo());
-			pstmt.setInt(2, Integer.parseInt(comm.getUserNo()));
-			pstmt.setString(3, comm.getCommentCont());
+			pstmt.setInt(1, comm.getCommentNo());
 			
 			result = pstmt.executeUpdate();
 			

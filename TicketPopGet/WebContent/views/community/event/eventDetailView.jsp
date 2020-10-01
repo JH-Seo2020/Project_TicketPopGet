@@ -159,7 +159,6 @@
 		<script>
 			$(function(){
 				selectCommentList(1);
-				var commentNo="";
 			});
 			
 			//댓글 리스트 조회용 ajax 
@@ -175,16 +174,17 @@
 							
 							var comments = "";
 							var commentBtns = "";
-							var user="";
-							
-							//수정,삭제,신고, 추천버튼 조건처리 (내 댓글이면 수정삭제, 남의 댓글이면 신고 추천)
-		                    var $update = "<a href=''>수정</a>";
-		                    var $delete = "<a href='' data-toggle='modal' data-target='#deleteReviewReply'>삭제</a>";
-		                    var $report = "<a href='' data-toggle='modal' data-target='#eventReport'>신고</a>";
-		                    var $like = "<a href='' >추천</a><lable>7</lable>";	
 		                    
 							for(var i in result.list){
+									
+								//수정,삭제,신고, 추천버튼 조건처리 (내 댓글이면 수정삭제, 남의 댓글이면 신고 추천)
+								$commentNo = result.list[i].commentNo;
 								
+			                    $update = "<a onclick='callComment("+$commentNo+");'>수정</a>";
+			                    $delete = "<a onclick='callForDelete("+$commentNo+");' data-toggle='modal' data-target='#deleteReviewReply'>삭제</a>";
+			                    $report = "<a onclick='call("+$commentNo+");' data-toggle='modal' data-target='#eventReport'>신고</a>";
+			                    $like = "<a onclick='call("+$commentNo+");'>추천</a><lable>7</lable>";	
+			                    
 								<%if(loginUser != null){%>
 									
 									if(result.list[i].userNo == '<%=loginUser.getUserId()%>'){
@@ -201,8 +201,10 @@
 										 + "<td id='eventReplyHead'><p><b>" + result.list[i].userNo + "</b></p>"
 										 + "<p style='font-size: 13px;'>" + result.list[i].commentDate + "</p></td>"
 										 + "<td id='eventReplyContent'>" + result.list[i].commentCont + "</td>"
+										 + "<td><input type='hidden' value="+result.list[i].commentNo +"></td>" 
 										 + "<td id='eventReplyBtns'>"+commentBtns+"</td></tr>";
-										
+								
+										 
 							}
 							
 						   var $boardLimit = result.pi.boardLimit;
@@ -248,6 +250,7 @@
                             }else if (cPage != "1" && cPage == $maxPage){
                             	$("#eventReplyPaging").html($buttons2);
                             }
+		                    
 		                    
 						}else{	//댓글이 1개도 없을 때
 							$("#tbodyArea").html('보여드릴 댓글이 없습니다.');
@@ -295,6 +298,13 @@
 				
 			}
 			
+			function callForDelete(commentNo){	//댓글삭제 시 댓글번호 전달용 함수, 동기식
+				console.log(commentNo);
+				$("#deleteCheck").click(function(){
+					location.href="<%=contextPath%>/comment.delete?commentNo="+commentNo+"&eventNo=<%=evObject.getEventNo()%>";
+				});
+			}
+			
 		</script>
 
 
@@ -318,41 +328,14 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                        <button type="button" class="btn btn-primary" onclick="deleteComment();">확인</button>
+                        <button id="deleteCheck" type="button" class="btn btn-primary" class='deleteCheck'>확인</button>
                     </div>
                 </div>
             </div>
         </div>
 
-		<script>
 
-		//댓글 삭제용 ajax
-		function deleteComment(){
-			
-            	user = "<%=loginUser.getUserId()%>";
-				$.ajax({
-					url : "<%=contextPath%>/comment.delete",
-					type : "get",
-					data : {"commentContent" : $('#commentContent').val(),
-						"eno" : <%=evObject.getEventNo()%>},	//회원번호는 서블릿에서 넘긴다
-					success : function(result){
-						
-						if(result>0){
-							console.log('댓글삭제성공');
-							selectCommentList(1);
-						}else{
-							console.log('댓글삭제실패');
-						}
-						
-					}, 
-					error : function(){
-						console.log('통신실패');
-					}
-				});
-			
-		}
-		
-		</script>
+
 
 
         <!--신고 등록 모달-->
@@ -392,7 +375,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                                <button type="submit" class="btn btn-primary" onclick="">확인</button>
+                                <button type="submit" class="btn btn-primary" class='reportCheck'>확인</button>
                             </div>
 
                         </form>

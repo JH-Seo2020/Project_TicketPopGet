@@ -120,9 +120,7 @@
 	UPDATE 
 	       EVENT_COMMENT
 	   SET COMMENT_STATUS = 'N'
-	 WHERE EVENT_NO = ?
-	   AND USER_NO = ?
-	   AND COMMENT_CONTNET = ?
+	 WHERE COMMENT_NO = ?
 	</entry>
 	<entry key="updateBoard">
 		UPDATE 
