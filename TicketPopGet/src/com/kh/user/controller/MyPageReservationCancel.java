@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MyPage_information_detail
+ * Servlet implementation class MyPage_reservation_cancel
  */
-@WebServlet("/info_de.my")
-public class MyPage_information_detail extends HttpServlet {
+@WebServlet("/re_cancel.my")
+public class MyPageReservationCancel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPage_information_detail() {
+    public MyPageReservationCancel() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +28,7 @@ public class MyPage_information_detail extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/information_detail.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/reservation_cancel.jsp");
 		view.forward(request, response);
 	}
 

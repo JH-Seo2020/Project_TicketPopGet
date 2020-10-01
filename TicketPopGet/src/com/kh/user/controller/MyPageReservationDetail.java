@@ -8,19 +8,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class MyPage_main
+ * Servlet implementation class MyPage_reservation_detail
  */
-@WebServlet("/mypage.my")
-public class MyPage_main extends HttpServlet {
+@WebServlet("/re_detail.my")
+public class MyPageReservationDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPage_main() {
+    public MyPageReservationDetail() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,18 +28,8 @@ public class MyPage_main extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("loginUser")== null) {
-			RequestDispatcher view = request.getRequestDispatcher("views/common/loginView.jsp");
-			view.forward(request, response);
-			
-		}else {
-			RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/myPage_main.jsp");
-			view.forward(request, response);
-		}
-		
+		RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/reservation_detail.jsp");
+		view.forward(request, response);
 	}
 
 	/**

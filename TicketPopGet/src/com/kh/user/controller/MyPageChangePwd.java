@@ -8,21 +8,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.kh.user.model.service.MemberService;
 
 /**
- * Servlet implementation class MyPage_UpdateDeleteServlet
+ * Servlet implementation class MyPage_change_pwd
  */
-@WebServlet("/updateDelete.my")
-public class MyPage_UpdateDeleteServlet extends HttpServlet {
+@WebServlet("/change_pwd.my")
+public class MyPageChangePwd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPage_UpdateDeleteServlet() {
+    public MyPageChangePwd() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,30 +28,8 @@ public class MyPage_UpdateDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("UTF-8");
-		
-		String userId = request.getParameter("userId");
-		String reason = request.getParameter("reason");
-	
-		
-		int result = new MemberService().updateDelete(userId, reason);
-		
-		if(result>0) {
-			
-			HttpSession session = request.getSession();
-			
-			session.removeAttribute("loginUser");
-			session.setAttribute("alertMsg", "성공적으로 탈퇴하셨습니다. 안녕히가세요.");
-			
-			response.sendRedirect(request.getContextPath());
-		}else {
-			
-			request.setAttribute("errorMsg", "회원탈퇴실패");
-			
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
-		}
+		RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/change_pwd.jsp");
+		view.forward(request, response);
 	}
 
 	/**

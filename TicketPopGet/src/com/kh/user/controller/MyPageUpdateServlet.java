@@ -18,13 +18,13 @@ import com.kh.user.model.vo.Member;
  * Servlet implementation class MyPage_UpdateServlet
  */
 @WebServlet("/update.my")
-public class MyPage_UpdateServlet extends HttpServlet {
+public class MyPageUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public MyPage_UpdateServlet() {
+	public MyPageUpdateServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

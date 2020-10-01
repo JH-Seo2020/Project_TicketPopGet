@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MyPage_wishlist
+ * Servlet implementation class MyPage_information_detail
  */
-@WebServlet("/wishlist.my")
-public class MyPage_wishlist extends HttpServlet {
+@WebServlet("/info_de.my")
+public class MyPageInformationDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPage_wishlist() {
+    public MyPageInformationDetail() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +28,7 @@ public class MyPage_wishlist extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/wishlist.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/information_detail.jsp");
 		view.forward(request, response);
 	}
 

@@ -77,46 +77,47 @@
 	<%@ include file="/views/common/menubar.jsp"%>
 	
    <div id="wrap">
-
-        <!-- 헤더부분 -->
-        <div class="reservation_check1">
-            <h3 style="margin-bottom: 20px;"><b>후기작성</b></h3>
-        </div>
-
-         <!-- 몸통부분  -->
-         <div class="reservation_check2">
-            <select name="category" style="width: 300px; height: 50px;">
-                <option><%=mp.getContentType()%></option>
-            </select>
-        </div>
-
-        <!-- 테이블 -->
-        <div class="review_write" >
-            <table border="1">  
-                <tr>
-                    <th>공연명</th>
-                    <td><%=mp.getContentTitle() %></td>
-                    <th>관람일</th>
-                    <td><%=mp.getViewDate() %></td>
-                </tr>
-                <tr>
-                    <th>작성일</th>
-                    <td><%=mp.getReviewDate() %></td>
-                    <th>평점</th>
-                    <td><%=mp.getReviewPoint() %></td>
-                </tr>
-                <tr>
-                    <th>제목</th>
-                    <td colspan="3"><%=mp.getReviewTitle() %></td>
-                </tr>
-            </table>
-            <textarea><%=mp.getReviewContent() %></textarea>
-            
-             <div class=review_write_btn>
-	            <button>수정</button>
-	            <button>취소</button>
-        	</div>
-        </div>
+		<form>
+	        <!-- 헤더부분 -->
+	        <div class="reservation_check1">
+	            <h3 style="margin-bottom: 20px;"><b>후기작성</b></h3>
+	        </div>
+	
+	         <!-- 몸통부분  -->
+	         <div class="reservation_check2">
+	            <select name="category" style="width: 300px; height: 50px;">
+	                <option><%=mp.getContentType()%></option>
+	            </select>
+	        </div>
+	
+	        <!-- 테이블 -->
+	        <div class="review_write" >
+	            <table border="1">  
+	                <tr>
+	                    <th>공연명</th>
+	                    <td><%=mp.getContentTitle() %></td>
+	                    <th>관람일</th>
+	                    <td><%=mp.getViewDate() %></td>
+	                </tr>
+	                <tr>
+	                    <th>작성일</th>
+	                    <td><input type="text" name="reviewdate" style="border:none;"></td>
+	                    <th>평점</th>
+	                    <td><input type="text" name="reviewpoint" style="border:none;"></td>
+	                </tr>
+	                <tr>
+	                    <th>제목</th>
+	                    <td colspan="3"><input type="text" name="reviewtitle" style="border:none; width:700px;"></td>
+	                </tr>
+	            </table>
+	            <textarea name="reviewcontent"></textarea>
+	            
+	             <div class=review_write_btn>
+		            <button type="submit">확인</button>
+		            <button type="reset">취소</button>
+	        	</div>
+	        </div>
+	    </form>
     </div>
 </body>
 </html>
