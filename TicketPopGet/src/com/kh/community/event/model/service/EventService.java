@@ -171,4 +171,17 @@ public class EventService {
 		return result;
 	}
 
+	/**
+	 * 12. 수정을 위한 이벤트댓글 내용 재호출
+	 * @param commentNo
+	 * @return
+	 */
+	public Comment recallForUpdate(int commentNo) {
+		
+		Connection conn = getConnection();
+		Comment eComment = new EventDao().recallForUpdate(conn, commentNo);
+		close(conn);
+		return eComment;
+	}
+
 }

@@ -326,6 +326,39 @@ public class EventDao {
 		
 		return result;
 	}
+
+	public Comment recallForUpdate(Connection conn, int commentNo) {
+		
+		Comment eComment = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("recallForUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, commentNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				eComment = new Comment(rset.getInt("COMMENT_NO"),
+									  rset.getInt("EVENT_NO"),
+									  rset.getString("USER_NO"),
+									  rset.getString("USER_ID"),
+									  rset.getString("COMMENT_CONTNET"),
+									  rset.getDate("COMMENT_DATE"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return eComment;
+	}
 	
 	
 	

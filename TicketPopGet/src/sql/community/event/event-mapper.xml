@@ -122,21 +122,16 @@
 	   SET COMMENT_STATUS = 'N'
 	 WHERE COMMENT_NO = ?
 	</entry>
-	<entry key="updateBoard">
-		UPDATE 
-		       BOARD
-		   SET BOARD_TYPE = ?,
-		       LOCATION = ?,
-		       BOARD_TITLE = ?,
-		       BOARD_CONTNET =?
-		 WHERE BOARD_NO = ?
-		   AND BOARD_STATUS = 'Y'
-	</entry>
-	<entry key="deleteBoard">
-		UPDATE
-		       BOARD
-		   SET BOARD_STATUS = 'N'
-		 WHERE BOARD_NO = ?
+	<entry key="recallForUpdate">
+		SELECT COMMENT_NO
+		     , EVENT_NO
+		     , USER_NO
+		     , USER_ID
+		     , COMMENT_CONTNET
+		     , COMMENT_DATE
+		  FROM EVENT_COMMENT
+		  JOIN MEMBER USING(USER_NO)
+		 WHERE COMMENT_NO = ?
 	</entry>
 	<entry key="boardReport">
 	INSERT 

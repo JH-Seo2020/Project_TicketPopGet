@@ -56,7 +56,8 @@
                         </select>
                         <script>
                         	$(function(){
-                        		$('#genre').val('<%=board.getBoardType()%>').attr('selected',true);
+                        		$('#genre').val('<%=board.getBoardType()%>');
+                        		$('#location').val('<%=board.getBoardLocation()%>');
                         	});
                         </script>
                     </td>
@@ -68,11 +69,6 @@
                             <option value="전라권">전라권</option>
                             <option value="경상제주권">경상제주권</option>
                         </select>
-                        <script>
-                        	$(function(){
-                        		$('#location').val('<%=board.getBoardLocation()%>').attr('selected',true);
-                        	});
-                        </script>
                     </td>
                     <td style="width: 70%;">
                         <input value="<%=board.getBoardTitle() %>" class="form-control" type="text" name="title" placeholder="제목을입력하세요" required>
@@ -99,6 +95,10 @@
                 <button type="submit" class="btn btn-warning" >등록하기</button>
             </div>
         </form>
+     </div>
+        
+        
+        
         
         <!--모달-->
         <div class="modal" tabindex="-1" id="whyrano">

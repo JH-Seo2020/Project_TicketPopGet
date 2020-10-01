@@ -161,7 +161,7 @@
 				selectCommentList(1);
 			});
 			
-			//댓글 리스트 조회용 ajax 
+			//1. 댓글 리스트 조회용 ajax 
 			function selectCommentList(cPage){
 				$.ajax({
 					url : "<%=contextPath%>/comment.co",
@@ -180,10 +180,10 @@
 								//수정,삭제,신고, 추천버튼 조건처리 (내 댓글이면 수정삭제, 남의 댓글이면 신고 추천)
 								$commentNo = result.list[i].commentNo;
 								
-			                    $update = "<a onclick='callComment("+$commentNo+");'>수정</a>";
-			                    $delete = "<a onclick='callForDelete("+$commentNo+");' data-toggle='modal' data-target='#deleteReviewReply'>삭제</a>";
-			                    $report = "<a onclick='call("+$commentNo+");' data-toggle='modal' data-target='#eventReport'>신고</a>";
-			                    $like = "<a onclick='call("+$commentNo+");'>추천</a><lable>7</lable>";	
+			                    $update = "<a class='btn' onclick='callForUpdate("+$commentNo+");'>수정</a>";
+			                    $delete = "<a class='btn' onclick='callForDelete("+$commentNo+");' data-toggle='modal' data-target='#deleteReviewReply'>삭제</a>";
+			                    $report = "<a class='btn' onclick='callForReport("+$commentNo+");' data-toggle='modal' data-target='#eventReport'>신고</a>";
+			                    $like = "<a class='btn' onclick='call("+$commentNo+");'>추천</a><lable>7</lable>";	
 			                    
 								<%if(loginUser != null){%>
 									
@@ -264,7 +264,7 @@
 			}
 			
 			
-			//댓글 작성용 ajax
+			//2. 댓글 작성용 ajax
 			function addComment(){
 				
 				var user;
@@ -298,10 +298,58 @@
 				
 			}
 			
-			function callForDelete(commentNo){	//댓글삭제 시 댓글번호 전달용 함수, 동기식
-				console.log(commentNo);
+			//3. 댓글 수정 시 댓글내용 불러올 ajax, 업데이트는 동기식
+			function callForUpdate(commentNo){	
+				var cno = commentNo;
+				$.ajax({
+					url : "<%=contextPath%>/comment.forUpdate",
+					type: "get",
+					data : {"commentNo" : cno},
+					success : function(result){
+						console.log('통신성공');
+						console.log(result);
+					},error : function(){
+						console.log('통신실패');
+					}
+				});
+				
+			}
+			
+			//4. 댓글삭제 시 댓글번호 전달용 함수, 동기식
+			function callForDelete(commentNo){	
 				$("#deleteCheck").click(function(){
 					location.href="<%=contextPath%>/comment.delete?commentNo="+commentNo+"&eventNo=<%=evObject.getEventNo()%>";
+				});
+			}
+			
+			//5. 댓글신고 시 신고내용 불러올 ajax, 신고등록은 동기식
+			function callForReport(commentNo){	
+				
+				$("#tbmakers").html(commentNo);
+				
+				//5-1. 신고내용 호출용 ajax
+				$.ajax({
+						url : "<%=contextPath%>/comment.recall",
+						type : "post",
+						data : {"commentContent" : $('#commentContent').val(),
+							"eno" : <%=evObject.getEventNo()%>},	//회원번호는 서블릿에서 넘긴다
+						success : function(result){
+							
+							if(result>0){
+								console.log('불러왔으니까 이제 신고칸에 내용 하나씩 넣어줍시다.. 그리고 동기식으로 신고 업뎃 ㄱㄱ')
+							}else{
+								console.log('댓글작성실패');
+							}
+							
+						}, 
+						error : function(){
+							console.log('통신실패');
+						}
+					});
+				
+			
+				$("#reportCheck").click(function(){
+					$("#reportForm").attr('action','<%=contextPath%>/commentReport');
 				});
 			}
 			
@@ -311,7 +359,7 @@
 
 
 
-        <!--댓글 삭제 모달-->
+        <!--댓글 삭제 모달, 일단 접어놓음-->
         <div class="modal" tabindex="-1" id="deleteReviewReply">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -338,7 +386,7 @@
 
 
 
-        <!--신고 등록 모달-->
+        <!--신고 등록 모달, 이것도 접어놓겟음-->
         <div class="modal" tabindex="-1" id="eventReport">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -348,24 +396,25 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                        <form method="POST" action="">
+                        <form id='reportForm' method="POST" action="">
                             <div class="modal-body">
                                 <p>
                                     <b>신고 사유</b>
                                 </p>
-                                <select required name="" class="form-control">
+                                <select required name="reportType" class="form-control">
                                     <option value="">선택</option>
-                                    <option value="블라블라">블라블라</option>
-                                    <option value="블라블라">블라블라</option>
-                                    <option value="블라블라">블라블라</option>
-                                    <option value="블라블라">블라블라</option>
+		                            <option value="욕설">욕설</option>
+		                            <option value="음란">음란</option>
+		                            <option value="광고">광고</option>
+		                            <option value="비하">비하</option>
+		                            <option value="기타">기타</option>
                                 </select>
                             </div>
                             <div class="modal-body">
                                 <p>
                                     <b>신고 대상 아이디 </b>
                                 </p>
-                                <p>grekk***</p>
+                                <p id="tbmakers">grekk***</p>
                             </div>
                             <div class="modal-body">
                                 <p>
@@ -375,7 +424,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                                <button type="submit" class="btn btn-primary" class='reportCheck'>확인</button>
+                                <button type="submit" class="btn btn-primary" id='reportCheck'>확인</button>
                             </div>
 
                         </form>
@@ -385,8 +434,6 @@
 	    </div>
 
 
-
-    </div>
 
 </body>
 </html>
