@@ -106,9 +106,9 @@
                     	<% for(Faq f : list) { %>
                     <tr>
                         <td><%=f.getFaqType() %></td>
-                        <td><a class="faqTitle"><%=f.getFaqTitle() %></a></td>
+                        <td><a class="faqTitle" id="title<%=f.getFaqNo() %>" onclick="showContent(<%=f.getFaqNo() %>)"><%=f.getFaqTitle() %></a></td>
                     </tr>
-                    <tr class="content">
+                    <tr class="content<%=f.getFaqNo() %>" id="content<%=f.getFaqNo() %>" style="display: none;">
                         <td></td>
                         <td><%=f.getFaqContent() %></td>
                     </tr>
@@ -118,17 +118,15 @@
                 </tbody>
             </table>
             <script>
-                $(function () {
-                    var shown = false;
-                    $('.faqTitle').click(function (ev) {
-                        if (!shown) {
-                                $('.content td').slideDown();
-                        }else{
-                            $('.content td').slideUp();
-                        }
-                        shown = !shown;
-                    });
-                })
+                function showContent(no){
+					var contentClass = ".content"+no;
+					var shown = $(contentClass).is(':visible');
+					if (!shown) {
+						$(contentClass).slideDown();
+					}else{
+						$(contentClass).hide();
+					}
+                }
             </script>
             <div class="pagination">
                 <a href="" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>

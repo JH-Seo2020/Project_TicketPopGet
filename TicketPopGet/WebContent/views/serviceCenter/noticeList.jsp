@@ -3,7 +3,7 @@
 <%@ page import="java.util.ArrayList, com.kh.serviceCenter.model.vo.*" %>
 <%
 	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
-	String searchType = (String)request.getAttribute("searchType");
+	String searchType = (String)request.getAttribute("type");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -81,11 +81,13 @@
 <body>
 <!-- 상단 메뉴바  -->
 <%@ include file="/views/common/menubar.jsp"%>
-
     <div class="area">
 	<!-- 왼쪽 메뉴바 -->
 	<%@ include file="/views/serviceCenter/serviceMenubar.jsp"%>
     </div>
+    <form action="<%=request.getContextPath()%>/list.no" method="GET">
+    	<input type="hidden" id="type" name="type" value="<%=searchType%>"></input>
+    
     <div class="area" id="noticeDiv">
         <div>
         	<br>
@@ -156,5 +158,6 @@
 		    <% } %>
         </div>
     </div>
+    </form>
 </body>
 </html>

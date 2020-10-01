@@ -9,10 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 import com.kh.serviceCenter.model.service.ServiceService;
 import com.kh.serviceCenter.model.vo.Notice;
 import com.kh.serviceCenter.model.vo.PageInfo;
+
+import jdk.nashorn.internal.ir.SetSplitState;
 
 /**
  * Servlet implementation class NoticeListServlet
@@ -44,9 +47,7 @@ public class NoticeListServlet extends HttpServlet {
 		   
 		   listCount = new ServiceService().noticeSelectListCount();
 		   String searchType =  (String)request.getAttribute("type");
-		   System.out.println("페이징 클릭"+searchType);
 		   currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		   
 		   pageLimit = 10;
 		   
 		   boardLimit = 10;
@@ -68,6 +69,8 @@ public class NoticeListServlet extends HttpServlet {
 		   
 		   request.setAttribute("pi", pi);
 		   request.setAttribute("list", list);
+		   request.setAttribute("type", searchType);
+		   
 		   
 		   RequestDispatcher view = request.getRequestDispatcher("views/serviceCenter/noticeList.jsp");
 		   view.forward(request, response);

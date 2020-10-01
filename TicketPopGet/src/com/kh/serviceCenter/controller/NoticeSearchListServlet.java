@@ -69,6 +69,7 @@ public class NoticeSearchListServlet extends HttpServlet {
 	   
 	    request.setAttribute("pi", pi);
 	    request.setAttribute("list", list);
+	    request.setAttribute("type", type);
 	   
 	    RequestDispatcher view = request.getRequestDispatcher("views/serviceCenter/noticeList.jsp");
 	    view.forward(request, response);

@@ -35,6 +35,7 @@ SELECT *
 	
 	<entry key="faqSelectList">
 	SELECT ROWNUM
+         , FAQ_NO
          , FAQ_TYPE
          , FAQ_TITLE
          , FAQ_CONTENT
