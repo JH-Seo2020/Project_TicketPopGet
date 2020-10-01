@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.user.model.service.MyPageService;
+import com.kh.user.model.vo.MyPage;
+
 /**
  * Servlet implementation class MyPage_review_write
  */
@@ -28,8 +31,17 @@ public class MyPageReviewWrite extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/review_write.jsp");
-		view.forward(request, response);
+		
+		int tno = Integer.parseInt(request.getParameter("tno"));
+		
+		if(tno>0) {
+			MyPage mp = new MyPageService().selectReviewWrite(tno);
+			request.setAttribute("tno", tno);
+			request.setAttribute("mp", mp);
+			
+			request.getRequestDispatcher("views/user/myPage/review_write.jsp").forward(request, response);
+		}
+		
 	}
 
 	/**

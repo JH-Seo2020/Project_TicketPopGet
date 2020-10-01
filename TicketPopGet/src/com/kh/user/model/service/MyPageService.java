@@ -83,6 +83,21 @@ public class MyPageService {
 	}
 	
 	/**
+	 * 후기작성시 가져올 값 [컨텐츠분류, 공연명, 관람일]
+	 * @param tno
+	 * @return
+	 */
+	public MyPage selectReviewWrite(int tno) {
+		Connection conn = getConnection();
+		
+		MyPage mp = new MyPageDao().selectReviewWrite(conn, tno);
+		
+		close(conn);
+		
+		return mp;
+	}
+	
+	/**
 	 * 후기 개수조회
 	 * @param userId
 	 * @return

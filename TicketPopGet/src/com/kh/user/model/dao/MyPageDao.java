@@ -182,7 +182,41 @@ public class MyPageDao {
 		
 		return mps;
 		
-	}	
+	}
+	
+	/**
+	 * 후기작성시 가져올 값 [컨텐츠분류, 공연명, 관람일]
+	 * @param conn
+	 * @param tno
+	 * @return
+	 */
+	public MyPage selectReviewWrite(Connection conn, int tno) {
+		MyPage mp = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReviewWrite");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, tno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mp = new MyPage(rset.getString("CONTENT_TYPE"),
+						        rset.getString("CONTENT_TITLE"),
+						        rset.getDate("VIEW_DATE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return mp;
+	}
 	
 	/**
 	 * 나의 후기개수

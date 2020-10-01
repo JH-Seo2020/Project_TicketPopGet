@@ -65,6 +65,15 @@ public class MyPage {
 		this.contentTitle = contentTitle;
 		this.reviewContent = reviewContent;
 	}
+	
+	
+
+	public MyPage(String contentType, String contentTitle, Date reviewDate) {
+		super();
+		this.contentType = contentType;
+		this.contentTitle = contentTitle;
+		this.reviewDate = reviewDate;
+	}
 
 	public String getUserId() {
 		return userId;

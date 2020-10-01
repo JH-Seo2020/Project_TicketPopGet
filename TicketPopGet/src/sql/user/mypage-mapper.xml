@@ -91,6 +91,16 @@ SELECT *
     WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<entry key="selectReviewWrite">
+SELECT 
+       C.CONTENT_TYPE
+     , C.CONTENT_TITLE
+     , RP.VIEW_DATE
+  FROM CONTENTS C
+  JOIN RESERVATION_PAYMENT RP USING (CONTENT_NO)
+ WHERE RP.TICKET_NO = ?
+</entry>
+
 <entry key="selectReviewListCount">
 SELECT COUNT(*) LISTVIEW 
  FROM(
