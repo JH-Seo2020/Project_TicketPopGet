@@ -47,7 +47,7 @@
     <br>
     <ul class="serviceTopMenu">
         <li class="serviceMenu"><a class="help_meu" href="<%= request.getContextPath() %>/list.no?currentPage=1">공지사항</a></li>
-        <li class="serviceMenu"><a href="<%= request.getContextPath() %>/list.no?currentPage=1">전체</a></li>
+        <li class="serviceMenu"><a href="<%= request.getContextPath() %>/list.no?currentPage=1&type=">전체</a></li>
         <li class="serviceMenu"><a href="<%= request.getContextPath() %>/search.no?currentPage=1&type=변경/취소">변경/취소</a></li>
         <li class="serviceMenu"><a href="">시스템</a></li>
         <li class="serviceMenu"><a href="">기타</a></li>

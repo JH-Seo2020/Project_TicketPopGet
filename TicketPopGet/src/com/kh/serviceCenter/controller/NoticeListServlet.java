@@ -33,8 +33,6 @@ public class NoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
 		   int listCount;		// 현재 총 게시글 갯수
 		   int currentPage;		// 현재 페이지 (즉, 요청한 페이지)
 		   int pageLimit;		// 한 페이지 하단에 보여질 페이지 최대갯수
@@ -45,7 +43,8 @@ public class NoticeListServlet extends HttpServlet {
 		   int endPage;			// 현재 페이지에 하단에 보여질 페이징 바의 끝 수
 		   
 		   listCount = new ServiceService().noticeSelectListCount();
-		   
+		   String searchType =  (String)request.getAttribute("type");
+		   System.out.println("페이징 클릭"+searchType);
 		   currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		   
 		   pageLimit = 10;

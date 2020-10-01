@@ -76,6 +76,8 @@ public class ServiceDao {
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			
+			System.out.println(startRow);
+			System.out.println(endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
