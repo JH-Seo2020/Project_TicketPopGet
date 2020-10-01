@@ -86,6 +86,7 @@
 
 	<!-- 메뉴바쓰추가쓰 -->
 	<%@ include file="/views/common/menubar.jsp"%>
+	
     <div id="review">
         <!-- 헤더부분 -->
         <div class="reservation_check1">
@@ -94,16 +95,15 @@
 
         <!-- 컨텐츠분류 -->
         <div class="contents_btn" align="right">
-            <a href="<%=contextPath%>/review.my?currentPage=1&userId=<%=loginUser.getUserId()%>" class="btn btn-outline-warning">전체</a> 
-            <a href="<%=contextPath%>//review_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=콘서트" class="btn btn-outline-warning">콘서트</a>
-            <a href="<%=contextPath%>//review_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=연극" class="btn btn-outline-warning">연극</a>
-            <a href="<%=contextPath%>//review_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=전시" class="btn btn-outline-warning">전시</a>
+            <a href="<%=contextPath%>/review.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>" class="btn btn-outline-warning">전체</a> 
+            <a href="<%=contextPath%>//review_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=콘서트" class="btn btn-outline-warning">콘서트</a>
+            <a href="<%=contextPath%>//review_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=연극" class="btn btn-outline-warning">연극</a>
+            <a href="<%=contextPath%>//review_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=전시" class="btn btn-outline-warning">전시</a>
         </div>
 
         <!-- 관람후기테이블 -->
-
         <div class="container reservation_check3" style="margin-left: 70px; margin-top:50px;">          
-            <table class="table table-hover" style="width: 950px; height: 70px; margin-left: 30px; text-align: center;">
+            <table class="table table-hover listArea" style="width: 950px; height: 70px; margin-left: 30px; text-align: center;">
               <thead>
                 <tr>
                   <th></th>
@@ -128,7 +128,7 @@
 	                <tr>
 	                  <td><input type="checkbox" name="delete_review"></td>
 	                  <td><%=ps.getReviewNo()%></td>
-	                  <td><%=ps.getContentTitle()%></td>
+	                  <td onclick="fnClickDetail();"><%=ps.getContentTitle()%></td>
 	                  <td><%=ps.getReviewTitle()%></td>
 	                  <td><%=ps.getReviewDate() %></td>
 	                </tr>
@@ -139,26 +139,85 @@
           </div>
           
           <div id="delete_review_btn" align="right">
-              <button>삭제</button>
+              <button onclick="deletebtn();">삭제</button>
           </div>
+          <%-- 
+          		체크박스 체크시 삭제기능 넣어야함.. 근데 이걸 서블릿에게 넘겨야하는뎅.. 서블릿에서 설정을해야하는걸까.. ㅠ.ㅠ..고민좀더해보장
+	          <script>
+	          	function deletebtn(){
+	          		
+	          		var con = confirm('정말 삭제하시겠습니까?');
+	          		var del = document.ElementName("delete_review");
+	          		
+	          		if(con==true){
+	          			
+		          		alert("삭제되었습니다.");
+	          		}else{
+	          			alert("취소되었습니다.");
+	          		}
+	          	}
+	          </script>
+	       --%>
+	     
+	       <script>
+	      
+
+	       //상세페이지 전환
+	       function fnClickDetail() {
+	        	
+	    	   
+	    	   $(".table>tbody>tr").click(function(){
+					var rno = $(this).children().eq(1).text(); 
+
+					location.href="<%=contextPath%>/review_detail.my?rno="+rno; 
+				});
+	       }
+	       
+	       //삭제처리
+	       function deletebtn() {
+	    	   
+	    	   
+	    	   if($("input:checkbox[name=delete_review]").is(":checked") == true) {
+		    	   
+	    		   var con = confirm('정말 삭제하시겠습니까?');
+		    	   var num = "";
+	    	 
+		    	   $("input[name=delete_review]:checked").each(function() { 
+		    		   var test = $(this).parents('td').parents('tr').children().eq(1).text(); 
+		    		   num += test+',';
+		    	   });		    	   
+		    	    
+		    	   alert(num);
+		    	   
+	    		 }else {
+	    			alert('삭제할 항목을 선택해주세요.');
+	    		 }
+
+	    	   
+	       }
+	       
+	       
+	       
+	       </script>   
 
           <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
      		<%if(currentPage != 1){ %>
-            	<a href="<%=contextPath%>/show.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
+            	<a href="<%=contextPath%>/review.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
             <%} %>
             
             <%for(int p=startPage; p<=endPage; p++){ %>
             	<%if(p!=currentPage){ %>
-	           		<a href="<%=contextPath%>/show.my?currentPage=<%=p%>"><span><%=p %></span></a>
+	           		<a href="<%=contextPath%>/review.my?currentPage=<%=p%>"><span><%=p %></span></a>
 	            <%}else { %>
 	            	<a href="javascript:void(0);"><span><%=p %></span></a>
 	            <%} %>
             <%} %>
             
             <%if(currentPage != maxPage){ %>
-            	<a href="<%=contextPath%>/show.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+            	<a href="<%=contextPath%>/review.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
             <%} %>
         </div>
+    </div>
     </div>
 
 </body>

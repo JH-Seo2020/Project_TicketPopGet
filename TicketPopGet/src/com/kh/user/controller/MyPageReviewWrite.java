@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class MyPage_review_write
  */
 @WebServlet("/view_write.my")
-public class MyPage_review_write extends HttpServlet {
+public class MyPageReviewWrite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPage_review_write() {
+    public MyPageReviewWrite() {
         super();
         // TODO Auto-generated constructor stub
     }

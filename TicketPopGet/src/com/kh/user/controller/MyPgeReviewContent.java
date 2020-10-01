@@ -18,13 +18,13 @@ import com.kh.user.model.vo.PageInfo;
  * Servlet implementation class MyPge_review_content
  */
 @WebServlet("/review_content.my")
-public class MyPge_review_content extends HttpServlet {
+public class MyPgeReviewContent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPge_review_content() {
+    public MyPgeReviewContent() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,10 +34,10 @@ public class MyPge_review_content extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String userId = request.getParameter("userId");
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		String content = request.getParameter("content");
 		
-		if(userId!=null) {
+		if(userNo>0) {
 			// ---------------- 페이징처리 ----------------
 			int listCount; // 현재 총 게시글 개수
 			int currentPage; // 현재 페이지 (즉, 요청한 페이지)
@@ -48,7 +48,7 @@ public class MyPge_review_content extends HttpServlet {
 			int startPage; // 현재 페이지에 하단에 보여질 페이징 바의 시작 수
 			int endPage; // 현재 페이지에 하단에 보여질 페이징 바의 끝 수
 
-			listCount = new MyPageService().selectReviewContnetCount(content,userId);
+			listCount = new MyPageService().selectReviewContnetCount(content,userNo);
 
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			
@@ -68,7 +68,7 @@ public class MyPge_review_content extends HttpServlet {
 
 			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 
-			ArrayList<MyPage> mps = new MyPageService().selectReviewContnetList(userId, pi, content);
+			ArrayList<MyPage> mps = new MyPageService().selectReviewContnetList(userNo, pi, content);
  			
 			request.setAttribute("mps", mps);
 			request.setAttribute("pi", pi);

@@ -43,13 +43,28 @@ public class MyPage {
 	
 	
 
-	public MyPage(String userId, int reviewNo, String contentTitle, String reviewTitle, Date reviewDate) {
+	public MyPage(int reviewNo, String contentTitle, String reviewTitle, Date reviewDate) {
 		super();
-		this.userId = userId;
 		this.reviewNo = reviewNo;
 		this.contentTitle = contentTitle;
 		this.reviewTitle = reviewTitle;
 		this.reviewDate = reviewDate;
+	}
+	
+	
+
+	public MyPage(String userId, int reviewNo, String contentType, String reviewTitle, Date viewDate, Date reviewDate, int reviewPoint, String contentTitle, 
+				String reviewContent) {
+		super();
+		this.userId = userId;
+		this.reviewNo = reviewNo;
+		this.contentType = contentType;
+		this.reviewTitle = reviewTitle;
+		this.viewDate = viewDate;
+		this.reviewDate = reviewDate;
+		this.reviewPoint = reviewPoint;
+		this.contentTitle = contentTitle;
+		this.reviewContent = reviewContent;
 	}
 
 	public String getUserId() {

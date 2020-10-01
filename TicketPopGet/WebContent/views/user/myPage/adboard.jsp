@@ -177,19 +177,19 @@ input[type=checkbox] {
 		<!-- 페이징바 -->
 		<div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
      		<%if(currentPage != 1){ %>
-            	<a href="<%=contextPath%>/show.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
+            	<a href="<%=contextPath%>/adboard.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
             <%} %>
             
             <%for(int p=startPage; p<=endPage; p++){ %>
             	<%if(p!=currentPage){ %>
-	           		<a href="<%=contextPath%>/show.my?currentPage=<%=p%>"><span><%=p %></span></a>
+	           		<a href="<%=contextPath%>/adboard.my?currentPage=<%=p%>"><span><%=p %></span></a>
 	            <%}else { %>
 	            	<a href="javascript:void(0);"><span><%=p %></span></a>
 	            <%} %>
             <%} %>
             
             <%if(currentPage != maxPage){ %>
-            	<a href="<%=contextPath%>/show.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+            	<a href="<%=contextPath%>/adboard.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
             <%} %>
         </div>
     </div>

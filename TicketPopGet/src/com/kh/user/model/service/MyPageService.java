@@ -87,11 +87,11 @@ public class MyPageService {
 	 * @param userId
 	 * @return
 	 */
-	public int selectReviewListCount(String userId) {
+	public int selectReviewListCount(int userNo) {
 		
 		Connection conn = getConnection();
 		
-		int listCount = new MyPageDao().selectReviewListCount(conn, userId);
+		int listCount = new MyPageDao().selectReviewListCount(conn, userNo);
 		
 		close(conn);
 		return listCount;
@@ -104,11 +104,11 @@ public class MyPageService {
 	 * @param pi
 	 * @return
 	 */
-	public ArrayList<MyPage> selectReviewList(String userId, PageInfo pi){
+	public ArrayList<MyPage> selectReviewList(int userNo, PageInfo pi){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<MyPage> mps = new MyPageDao().selectReviewList(conn, userId, pi);
+		ArrayList<MyPage> mps = new MyPageDao().selectReviewList(conn, userNo, pi);
 		
 		close(conn);
 		
@@ -122,11 +122,11 @@ public class MyPageService {
 	 * @param userId
 	 * @return
 	 */
-	public int selectReviewContnetCount(String content, String userId) {
+	public int selectReviewContnetCount(String content, int userNo) {
 		
 		Connection conn = getConnection();
 		
-		int listCount = new MyPageDao().selectReviewContnetCount(conn, content, userId);
+		int listCount = new MyPageDao().selectReviewContnetCount(conn, content, userNo);
 		close(conn);
 		return listCount;
 		
@@ -139,11 +139,27 @@ public class MyPageService {
 	 * @param content
 	 * @return
 	 */
-	public ArrayList<MyPage> selectReviewContnetList(String userId, PageInfo pi, String content){
+	public ArrayList<MyPage> selectReviewContnetList(int userNo, PageInfo pi, String content){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<MyPage> mp = new MyPageDao().selectReviewContnetList(conn, userId, content, pi);
+		ArrayList<MyPage> mp = new MyPageDao().selectReviewContnetList(conn, userNo, content, pi);
+		
+		close(conn);
+		
+		return mp;
+	}
+	
+	/**
+	 * 나의 후기 상세확인
+	 * @param rno
+	 * @return
+	 */
+	public MyPage selectReviewDetail(int rno) {
+		
+		Connection conn = getConnection();
+		
+		MyPage mp = new MyPageDao().selectReviewDetail(conn, rno);
 		
 		close(conn);
 		

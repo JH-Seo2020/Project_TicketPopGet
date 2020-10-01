@@ -18,13 +18,13 @@ import com.kh.user.model.vo.PageInfo;
  * Servlet implementation class MyPage_review
  */
 @WebServlet("/review.my")
-public class MyPage_review extends HttpServlet {
+public class MyPageReview extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPage_review() {
+    public MyPageReview() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,9 +34,9 @@ public class MyPage_review extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userId = request.getParameter("userId");
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		
-		if(userId!=null) {
+		if(userNo>0) {
 			// ---------------- 페이징처리 ----------------
 			int listCount; // 현재 총 게시글 개수
 			int currentPage; // 현재 페이지 (즉, 요청한 페이지)
@@ -47,7 +47,7 @@ public class MyPage_review extends HttpServlet {
 			int startPage; // 현재 페이지에 하단에 보여질 페이징 바의 시작 수
 			int endPage; // 현재 페이지에 하단에 보여질 페이징 바의 끝 수
 
-			listCount = new MyPageService().selectReviewListCount(userId);
+			listCount = new MyPageService().selectReviewListCount(userNo);
 
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			
@@ -67,7 +67,7 @@ public class MyPage_review extends HttpServlet {
 
 			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 
-			ArrayList<MyPage> mps = new MyPageService().selectReviewList(userId, pi);
+			ArrayList<MyPage> mps = new MyPageService().selectReviewList(userNo, pi);
 			
 			request.setAttribute("mps", mps);
 			request.setAttribute("pi", pi);

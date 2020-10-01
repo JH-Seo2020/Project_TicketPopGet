@@ -192,7 +192,7 @@ public class MyPageDao {
 	 * @param userId
 	 * @return
 	 */
-	public int selectReviewListCount(Connection conn, String userId) {
+	public int selectReviewListCount(Connection conn, int userNo) {
 		int listCount = 0;
 		
 		PreparedStatement pstmt = null;
@@ -202,7 +202,7 @@ public class MyPageDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
+			pstmt.setInt(1, userNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -226,7 +226,7 @@ public class MyPageDao {
 	 * @param pi
 	 * @return
 	 */
-	public ArrayList<MyPage> selectReviewList(Connection conn, String userId, PageInfo pi) {
+	public ArrayList<MyPage> selectReviewList(Connection conn, int userNo, PageInfo pi) {
 		ArrayList<MyPage> mps = new ArrayList<>();
 		
 		PreparedStatement pstmt = null;
@@ -239,15 +239,14 @@ public class MyPageDao {
 			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setString(1, userId);
+			pstmt.setInt(1, userNo);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				mps.add(new MyPage(rset.getString("USER_ID"),
-						           rset.getInt("REVIEW_NO"),
+				mps.add(new MyPage(rset.getInt("REVIEW_NO"),
 						           rset.getString("CONTENT_TITLE"),
 						           rset.getString("REVIEW_TITLE"),
 						           rset.getDate("REVIEW_DATE")));
@@ -269,7 +268,7 @@ public class MyPageDao {
 	 * @param content
 	 * @return
 	 */
-	public int selectReviewContnetCount(Connection conn, String content, String userId) {
+	public int selectReviewContnetCount(Connection conn, String content, int userNo) {
 		int listCount = 0;
 		
 		PreparedStatement pstmt = null;
@@ -279,7 +278,7 @@ public class MyPageDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
+			pstmt.setInt(1, userNo);
 			pstmt.setString(2, content);
 			
 			rset = pstmt.executeQuery();
@@ -305,7 +304,7 @@ public class MyPageDao {
 	 * @param pi
 	 * @return
 	 */
-	public ArrayList<MyPage> selectReviewContnetList(Connection conn, String userId, String content, PageInfo pi){
+	public ArrayList<MyPage> selectReviewContnetList(Connection conn, int userNo, String content, PageInfo pi){
 		ArrayList<MyPage> mps = new ArrayList<>();
 		
 		PreparedStatement pstmt = null;
@@ -318,15 +317,14 @@ public class MyPageDao {
 			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setString(1, userId);
+			pstmt.setInt(1, userNo);
 			pstmt.setString(2, content);
 			pstmt.setInt(3, startRow);
 			pstmt.setInt(4, endRow);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				mps.add(new MyPage(rset.getString("USER_ID"),
-						           rset.getInt("REVIEW_NO"),
+				mps.add(new MyPage(rset.getInt("REVIEW_NO"),
 						           rset.getString("CONTENT_TITLE"),
 						           rset.getString("REVIEW_TITLE"),
 						           rset.getDate("REVIEW_DATE")));
@@ -342,6 +340,47 @@ public class MyPageDao {
 		
 	}
 
+	/**
+	 * 나의 후기 상세조회
+	 * @param conn
+	 * @param rno
+	 * @return
+	 */
+	public MyPage selectReviewDetail(Connection conn, int rno) {
+		
+		MyPage mp = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReviewDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, rno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mp = new MyPage(rset.getString("USER_ID"),
+								rset.getInt("REVIEW_NO"),
+								rset.getString("CONTENT_TYPE"),
+								rset.getString("CONTENT_TITLE"),
+								rset.getDate("VIEW_DATE"),
+								rset.getDate("REVIEW_DATE"),
+								rset.getInt("REVIEW_POINT"),
+								rset.getString("REVIEW_TITLE"),
+								rset.getString("REVIEW_CONTENT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return mp;
+	}
 	
 	
 	
