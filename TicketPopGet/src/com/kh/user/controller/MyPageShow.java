@@ -18,13 +18,13 @@ import com.kh.user.model.vo.MyPage;
  * Servlet implementation class MyPage_show
  */
 @WebServlet("/show.my")
-public class MyPage_show extends HttpServlet {
+public class MyPageShow extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public MyPage_show() {
+	public MyPageShow() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -33,12 +33,11 @@ public class MyPage_show extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-			String userId = request.getParameter("userId");
+			int userNo = Integer.parseInt(request.getParameter("userNo"));
 			
-			if(userId!=null) {
+			if(userNo>0) {
 				// ---------------- 페이징처리 ----------------
 				int listCount; // 현재 총 게시글 개수
 				int currentPage; // 현재 페이지 (즉, 요청한 페이지)
@@ -49,13 +48,13 @@ public class MyPage_show extends HttpServlet {
 				int startPage; // 현재 페이지에 하단에 보여질 페이징 바의 시작 수
 				int endPage; // 현재 페이지에 하단에 보여질 페이징 바의 끝 수
 	
-				listCount = new MyPageService().selectListCount(userId);
+				listCount = new MyPageService().selectListCount(userNo);
 	
 				currentPage = Integer.parseInt(request.getParameter("currentPage"));
 				
 				pageLimit = 10;
 	
-				boardLimit = 10;
+				boardLimit = 5;
 	
 				maxPage = (int) Math.ceil((double) listCount / boardLimit);
 	
@@ -69,7 +68,7 @@ public class MyPage_show extends HttpServlet {
 	
 				PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 	
-				ArrayList<MyPage> mps = new MyPageService().selectShowList(userId, pi);
+				ArrayList<MyPage> mps = new MyPageService().selectShowList(userNo, pi);
 	
 				request.setAttribute("mps", mps);
 				request.setAttribute("pi", pi);

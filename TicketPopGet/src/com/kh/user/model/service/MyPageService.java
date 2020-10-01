@@ -18,11 +18,11 @@ public class MyPageService {
 	 * @return
 	 * @author 이금이
 	 */
-	public int selectListCount(String userId) {
+	public int selectListCount(int userNo) {
 		
 		Connection conn = getConnection();
 		
-		int listCount = new MyPageDao().selectListCount(conn, userId);
+		int listCount = new MyPageDao().selectListCount(conn, userNo);
 		
 		close(conn);
 		return listCount;
@@ -36,11 +36,11 @@ public class MyPageService {
 	 * @return
 	 * @author 이금이
 	 */
-	public ArrayList<MyPage> selectShowList(String userId, PageInfo pi){
+	public ArrayList<MyPage> selectShowList(int userNo, PageInfo pi){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<MyPage> mps = new MyPageDao().selectShowList(conn, userId, pi);
+		ArrayList<MyPage> mps = new MyPageDao().selectShowList(conn, userNo, pi);
 		
 		close(conn);
 		
@@ -54,11 +54,11 @@ public class MyPageService {
 	 * @param userId
 	 * @return
 	 */
-	public int selectShowContnetCount(String content, String userId) {
+	public int selectShowContnetCount(String content, int userNo) {
 		
 		Connection conn = getConnection();
 		
-		int listCount = new MyPageDao().selectShowContnetCount(conn, content, userId);
+		int listCount = new MyPageDao().selectShowContnetCount(conn, content, userNo);
 		close(conn);
 		return listCount;
 		
@@ -71,11 +71,11 @@ public class MyPageService {
 	 * @param content
 	 * @return
 	 */
-	public ArrayList<MyPage> selectShowContnetList(String userId, PageInfo pi, String content){
+	public ArrayList<MyPage> selectShowContnetList(int userNo, PageInfo pi, String content){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<MyPage> mp = new MyPageDao().selectShowContnetList(conn, userId, content, pi);
+		ArrayList<MyPage> mp = new MyPageDao().selectShowContnetList(conn, userNo, content, pi);
 		
 		close(conn);
 		

@@ -32,9 +32,8 @@ public class MyPage {
 		this.reviewDate = reviewDate;
 	}
 
-	public MyPage(String userId, int ticketNo, String contentType, Date viewDate, String contentTitle) {
+	public MyPage(int ticketNo, String contentType, Date viewDate, String contentTitle) {
 		super();
-		this.userId = userId;
 		this.ticketNo = ticketNo;
 		this.contentType = contentType;
 		this.viewDate = viewDate;

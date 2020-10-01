@@ -119,10 +119,10 @@
             <div class="reservation_state">
                <!-- 컨텐츠분류 -->
 				<div class="contents_btn" align="right">
-					<a href="<%=contextPath%>/show.my?currentPage=1&userId=<%=loginUser.getUserId()%>" class="btn btn-outline-warning">전체</a>
-					<a href="<%=contextPath%>/show_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=콘서트" class="btn btn-outline-warning">콘서트</a>
-					<a href="<%=contextPath%>/show_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=연극" class="btn btn-outline-warning">연극</a>
-					<a href="<%=contextPath%>/show_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=전시" class="btn btn-outline-warning">전시</a>
+					<a href="<%=contextPath%>/show.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>" class="btn btn-outline-warning">전체</a>
+					<a href="<%=contextPath%>/show_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=콘서트" class="btn btn-outline-warning">콘서트</a>
+					<a href="<%=contextPath%>/show_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=연극" class="btn btn-outline-warning">연극</a>
+					<a href="<%=contextPath%>/show_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=전시" class="btn btn-outline-warning">전시</a>
 				</div>
             </div>
         </div>

@@ -36,7 +36,7 @@ public class MyPageDao {
 	 * @param userId
 	 * @return
 	 */
-	public int selectListCount(Connection conn, String userId) {
+	public int selectListCount(Connection conn, int userNo) {
 		int listCount = 0;
 		
 		PreparedStatement pstmt = null;
@@ -46,7 +46,7 @@ public class MyPageDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
+			pstmt.setInt(1, userNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -70,7 +70,7 @@ public class MyPageDao {
 	 * @param pi
 	 * @return
 	 */
-	public ArrayList<MyPage> selectShowList(Connection conn, String userId, PageInfo pi) {
+	public ArrayList<MyPage> selectShowList(Connection conn, int userNo, PageInfo pi) {
 		ArrayList<MyPage> mps = new ArrayList<>();
 		
 		PreparedStatement pstmt = null;
@@ -83,18 +83,17 @@ public class MyPageDao {
 			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setString(1, userId);
+			pstmt.setInt(1, userNo);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				mps.add(new MyPage(rset.getString("USER_ID"),
-										rset.getInt("TICKET_NO"),
-										rset.getString("CONTENT_TYPE"),
-										rset.getDate("VIEW_DATE"),
-										rset.getString("CONTENT_TITLE")));
+				mps.add(new MyPage(rset.getInt("TICKET_NO"),
+								   rset.getString("CONTENT_TYPE"),
+								   rset.getDate("VIEW_DATE"),
+								   rset.getString("CONTENT_TITLE")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -113,7 +112,7 @@ public class MyPageDao {
 	 * @param content
 	 * @return
 	 */
-	public int selectShowContnetCount(Connection conn, String content, String userId) {
+	public int selectShowContnetCount(Connection conn, String content, int userNo) {
 		int listCount = 0;
 		
 		PreparedStatement pstmt = null;
@@ -123,7 +122,7 @@ public class MyPageDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
+			pstmt.setInt(1, userNo);
 			pstmt.setString(2, content);
 			
 			rset = pstmt.executeQuery();
@@ -149,7 +148,7 @@ public class MyPageDao {
 	 * @param pi
 	 * @return
 	 */
-	public ArrayList<MyPage> selectShowContnetList(Connection conn, String userId, String content, PageInfo pi){
+	public ArrayList<MyPage> selectShowContnetList(Connection conn, int userNo, String content, PageInfo pi){
 		ArrayList<MyPage> mps = new ArrayList<>();
 		
 		PreparedStatement pstmt = null;
@@ -162,18 +161,17 @@ public class MyPageDao {
 			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setString(1, userId);
+			pstmt.setInt(1, userNo);
 			pstmt.setString(2, content);
 			pstmt.setInt(3, startRow);
 			pstmt.setInt(4, endRow);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				mps.add(new MyPage(rset.getString("USER_ID"),
-								   rset.getInt("TICKET_NO"),
-								   rset.getString("CONTENT_TYPE"),
-								   rset.getDate("VIEW_DATE"),
-								   rset.getString("CONTENT_TITLE")));
+				mps.add(new MyPage( rset.getInt("TICKET_NO"),
+								    rset.getString("CONTENT_TYPE"),
+								    rset.getDate("VIEW_DATE"),
+								    rset.getString("CONTENT_TITLE")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -381,8 +379,6 @@ public class MyPageDao {
 		
 		return mp;
 	}
-	
-	
 	
 	/**
 	 * 나의홍보개수

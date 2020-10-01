@@ -5,17 +5,16 @@
 SELECT COUNT(*) LISTVIEW 
  FROM(
         SELECT 
-                M.USER_ID
-             ,  R.TICKET_NO
+                R.TICKET_NO
              ,  R.CONTENT_TYPE
              ,  R.VIEW_DATE
              ,  C.CONTENT_TITLE
-          FROM  MEMBER M
-         INNER  JOIN RESERVATION_PAYMENT R
+          FROM  RESERVATION_PAYMENT R
+         INNER  JOIN  MEMBER M
             ON  M.USER_NO = R.USER_NO
          INNER  JOIN CONTENTS C
             ON  R.CONTENT_NO = C.CONTENT_NO
-         WHERE  M.USER_ID = ?
+         WHERE  R.USER_NO = ?
            AND  R.PAYMENT_STATUS = 'Y'
            AND  R.PAYMENT_CANCEL = 'N'
     )
@@ -29,17 +28,16 @@ SELECT *
  		  , A.*
  	  FROM  (	  
 		        SELECT 
-		                M.USER_ID
-		             ,  R.TICKET_NO
+		                R.TICKET_NO
 		             ,  R.CONTENT_TYPE
 		             ,  R.VIEW_DATE
 		             ,  C.CONTENT_TITLE
-		          FROM  MEMBER M
-		         INNER  JOIN RESERVATION_PAYMENT R
-		            ON  M.USER_NO = R.TICKET_NO
+		          FROM  RESERVATION_PAYMENT R
+		         INNER  JOIN  MEMBER M
+		            ON  M.USER_NO = R.USER_NO
 		         INNER  JOIN CONTENTS C
 		            ON  R.CONTENT_NO = C.CONTENT_NO
-		         WHERE  M.USER_ID = ?
+		         WHERE  R.USER_NO = ?
 		           AND  R.PAYMENT_STATUS = 'Y'
 		           AND  R.PAYMENT_CANCEL = 'N'
 		     )A
@@ -50,18 +48,17 @@ SELECT *
 <entry key="selectShowContnetCount">
 SELECT COUNT(*) LISTVIEW 
  FROM(
-                SELECT 
-                        M.USER_ID
-                     ,  R.TICKET_NO
+                 SELECT 
+                        R.TICKET_NO
                      ,  R.CONTENT_TYPE
                      ,  R.VIEW_DATE
                      ,  C.CONTENT_TITLE
-                  FROM  MEMBER M
-                 INNER  JOIN RESERVATION_PAYMENT R
+                  FROM  RESERVATION_PAYMENT R
+                 INNER  JOIN MEMBER M
                     ON  M.USER_NO = R.TICKET_NO
                  INNER  JOIN CONTENTS C
                     ON  R.CONTENT_NO = C.CONTENT_NO
-                 WHERE  M.USER_ID = ?
+                 WHERE  R.USER_NO = ?
                    AND  R.CONTENT_TYPE= ?
                    AND  R.PAYMENT_STATUS = 'Y'
                    AND  R.PAYMENT_CANCEL = 'N'
@@ -75,18 +72,17 @@ SELECT *
  			ROWNUM RNUM
  		  , A.*
  	  FROM  (	  
-                SELECT 
-                        M.USER_ID
-                     ,  R.TICKET_NO
+                 SELECT 
+                        R.TICKET_NO
                      ,  R.CONTENT_TYPE
                      ,  R.VIEW_DATE
                      ,  C.CONTENT_TITLE
-                  FROM  MEMBER M
-                 INNER  JOIN RESERVATION_PAYMENT R
+                  FROM  RESERVATION_PAYMENT R
+                 INNER  JOIN MEMBER M
                     ON  M.USER_NO = R.TICKET_NO
                  INNER  JOIN CONTENTS C
                     ON  R.CONTENT_NO = C.CONTENT_NO
-                 WHERE  M.USER_ID = ?
+                 WHERE  R.USER_NO = ?
                    AND  R.CONTENT_TYPE= ?
                    AND  R.PAYMENT_STATUS = 'Y'
                    AND  R.PAYMENT_CANCEL = 'N'
