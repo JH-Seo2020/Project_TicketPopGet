@@ -420,7 +420,7 @@ public class MyPageDao {
 	 * @param userId
 	 * @return
 	 */
-	public int selectAdboardListCount(Connection conn, String userId) {
+	public int selectAdboardListCount(Connection conn, int userNo) {
 		int listCount = 0;
 		
 		PreparedStatement pstmt = null;
@@ -430,7 +430,7 @@ public class MyPageDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
+			pstmt.setInt(1, userNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -454,7 +454,7 @@ public class MyPageDao {
 	 * @param pi
 	 * @return
 	 */
-	public ArrayList<AdBoard> selectAdboardList(Connection conn, String userId, PageInfo pi) {
+	public ArrayList<AdBoard> selectAdboardList(Connection conn, int userNo, PageInfo pi) {
 		ArrayList<AdBoard> ad = new ArrayList<>();
 		
 		PreparedStatement pstmt = null;
@@ -467,18 +467,17 @@ public class MyPageDao {
 			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setString(1, userId);
+			pstmt.setInt(1, userNo);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				ad.add(new AdBoard(rset.getString("USER_ID"),
-								  rset.getInt("BOARD_NO"),
-								  rset.getString("BOARD_TITLE"),
-								  rset.getString("BOARD_TYPE"),
-								  rset.getDate("BOARD_DATE")));
+				ad.add(new AdBoard(rset.getInt("BOARD_NO"),
+								   rset.getString("BOARD_TITLE"),
+								   rset.getString("BOARD_TYPE"),
+								   rset.getDate("BOARD_DATE")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -498,7 +497,7 @@ public class MyPageDao {
 	 * @param content
 	 * @return
 	 */
-	public int selectAdboardContnetCount(Connection conn, String content, String userId) {
+	public int selectAdboardContnetCount(Connection conn, String content, int userNo) {
 		int listCount = 0;
 		
 		PreparedStatement pstmt = null;
@@ -508,7 +507,7 @@ public class MyPageDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
+			pstmt.setInt(1, userNo);
 			pstmt.setString(2, content);
 			
 			rset = pstmt.executeQuery();
@@ -534,7 +533,7 @@ public class MyPageDao {
 	 * @param pi
 	 * @return
 	 */
-	public ArrayList<AdBoard> selectAdboardContentList(Connection conn, String userId, String content, PageInfo pi){
+	public ArrayList<AdBoard> selectAdboardContentList(Connection conn, int userNo, String content, PageInfo pi){
 		ArrayList<AdBoard> ad = new ArrayList<>();
 		
 		PreparedStatement pstmt = null;
@@ -547,7 +546,7 @@ public class MyPageDao {
 			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setString(1, userId);
+			pstmt.setInt(1, userNo);
 			pstmt.setString(2, content);
 			pstmt.setInt(3, startRow);
 			pstmt.setInt(4, endRow);
@@ -555,11 +554,10 @@ public class MyPageDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				ad.add(new AdBoard(rset.getString("USER_ID"),
-								   rset.getInt("BOARD_NO"),
-								   rset.getString("BOARD_TITLE"),
-								   rset.getString("BOARD_TYPE"),
-								   rset.getDate("BOARD_DATE")));
+				ad.add(new AdBoard( rset.getInt("BOARD_NO"),
+								    rset.getString("BOARD_TITLE"),
+								    rset.getString("BOARD_TYPE"),
+								    rset.getDate("BOARD_DATE")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

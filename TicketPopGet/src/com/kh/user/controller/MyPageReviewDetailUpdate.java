@@ -12,16 +12,16 @@ import com.kh.user.model.service.MyPageService;
 import com.kh.user.model.vo.MyPage;
 
 /**
- * Servlet implementation class MyPage_review_detail
+ * Servlet implementation class MyPageReviewDetailUpdate
  */
-@WebServlet("/review_detail.my")
-public class MyPageReviewDetail extends HttpServlet {
+@WebServlet("/review_update.my")
+public class MyPageReviewDetailUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageReviewDetail() {
+    public MyPageReviewDetailUpdate() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,18 +30,28 @@ public class MyPageReviewDetail extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int rno = Integer.parseInt(request.getParameter("rno"));
 		
-		if(rno>0) {
-			MyPage mp = new MyPageService().selectReviewDetail(rno);
+		request.setCharacterEncoding("UTF-8");
+		
+		int rno = Integer.parseInt(request.getParameter("rno"));
+		int point = Integer.parseInt(request.getParameter("reviewpoint"));
+		String title = request.getParameter("reviewtitle");
+		String content = request.getParameter("reviewcontent");
+		
+		MyPage mp = new MyPage();
+		mp.setReviewNo(rno);
+		mp.setReviewPoint(point);
+		mp.setReviewTitle(title);
+		mp.setReviewContent(content);
+		
+		/*int result = new MyPageService().updateReview(mp);
+		
+		if(result>0) {
 			
-			request.setAttribute("mp", mp);
-			
-			request.getRequestDispatcher("views/user/myPage/review_detail.jsp?rno="+rno).forward(request, response);
 		}else {
 			
-		}
+		}*/
+		
 	}
 
 	/**

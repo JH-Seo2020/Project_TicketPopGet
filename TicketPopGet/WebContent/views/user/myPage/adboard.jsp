@@ -125,10 +125,10 @@ input[type=checkbox] {
 
 		<!-- 컨텐츠분류 -->
 		<div class="contents_btn" align="right">
-			<a href="<%=contextPath%>/adboard.my?currentPage=1&userId=<%=loginUser.getUserId()%>" class="btn btn-outline-warning">전체</a>
-			<a href="<%=contextPath%>/ad_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=콘서트" class="btn btn-outline-warning">콘서트</a>
-			<a href="<%=contextPath%>/ad_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=연극" class="btn btn-outline-warning">연극</a>
-			<a href="<%=contextPath%>/ad_content.my?currentPage=1&userId=<%=loginUser.getUserId()%>&content=전시" class="btn btn-outline-warning">전시</a>
+			<a href="<%=contextPath%>/adboard.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>" class="btn btn-outline-warning">전체</a>
+			<a href="<%=contextPath%>/ad_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=콘서트" class="btn btn-outline-warning">콘서트</a>
+			<a href="<%=contextPath%>/ad_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=연극" class="btn btn-outline-warning">연극</a>
+			<a href="<%=contextPath%>/ad_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=전시" class="btn btn-outline-warning">전시</a>
 		</div>
 
 		<!-- 관람후기테이블 -->
@@ -151,7 +151,7 @@ input[type=checkbox] {
               			if(ad.isEmpty()){
               		%>
               		<tr>
-              			<td colspan="4">조회되는 리스트가 없슴니당</td>
+              			<td colspan="5">조회되는 리스트가 없슴니당</td>
               		</tr>
               		<%
               			}else{ 
@@ -160,7 +160,7 @@ input[type=checkbox] {
 	                <tr>
 	                  <td><input type="checkbox" name="delete_review"></td>
 	                  <td><%=a.getBoardNo() %></td>
-	                  <td><%=a.getBoardTitle() %></td>
+	                  <td onclick="fnClickDetail();"><%=a.getBoardTitle() %></td>
 	                  <td><%=a.getBoardType() %>
 	                  <td><%=a.getBoardDate()%></td>
 	                </tr>
@@ -169,6 +169,19 @@ input[type=checkbox] {
               </tbody>
 			</table>
 		</div>
+		
+		<script>
+		 //상세페이지 전환
+	       function fnClickDetail() {
+	        	
+	    	   
+	    	   $(".table>tbody>tr").click(function(){
+					var ano = $(this).children().eq(1).text(); 
+
+					location.href="<%=contextPath%>/adboard_detail.my?ano="+ano; 
+				});
+	       }
+		</script>
 
 		<div id="delete_review_btn" align="right">
 			<button>삭제</button>

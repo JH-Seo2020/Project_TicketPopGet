@@ -53,7 +53,7 @@
         margin-right: 180px;
     }
     .review_write_btn button{
-        width: 60px;
+        width: 80px;
         height: 40px;
     }
     .review_write_btn :first-child{
@@ -78,9 +78,10 @@
 	
    <div id="wrap">
 		<form>
+		<input type="hidden" name="rno" value="<%=mp.getReviewNo()%>">
 	        <!-- 헤더부분 -->
 	        <div class="reservation_check1">
-	            <h3 style="margin-bottom: 20px;"><b>후기작성</b></h3>
+	            <h3 style="margin-bottom: 20px;"><b>후기수정</b></h3>
 	        </div>
 	
 	         <!-- 몸통부분  -->
@@ -103,18 +104,19 @@
 	                    <th>작성일</th>
 	                    <td><%=mp.getReviewDate() %></td>
 	                    <th>평점</th>
-	                    <td><%=mp.getReviewPoint() %></td>
+	                    <td><input type="number" name="reviewpoint" value="<%=mp.getReviewPoint() %>" style="border:none;"></td>
 	                </tr>
 	                <tr>
 	                    <th>제목</th>
-	                    <td colspan="3"><%=mp.getContentTitle() %></td>
+	                    <td colspan="3"><input type="text" name="reviewtitle" value="<%=mp.getContentTitle() %>" style="border:none; width:700px;"></td>
 	                </tr>
 	            </table>
-	            <textarea><%=mp.getReviewContent() %></textarea>
+	            <%-- value 값안에 넣어줄지 아님.. 어캐..?  --%>
+	            <textarea name="reviewcontent"><%=mp.getReviewContent() %>"</textarea>
 	            
 	             <div class=review_write_btn>
-		            <button type="submit">수정</button>
-		            <button type="reset">취소</button>
+		            <button type="submit">수정하기</button>
+		            <button type="button" onclick="history.back()">뒤로가기</button>
 	        	</div>
 	        </div>
         </form>

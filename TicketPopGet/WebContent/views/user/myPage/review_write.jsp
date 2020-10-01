@@ -103,7 +103,7 @@
 	                    <th>작성일</th>
 	                    <td><input type="text" name="reviewdate" style="border:none;"></td>
 	                    <th>평점</th>
-	                    <td><input type="text" name="reviewpoint" style="border:none;"></td>
+	                    <td><input type="number" name="reviewpoint" style="border:none;"></td>
 	                </tr>
 	                <tr>
 	                    <th>제목</th>
