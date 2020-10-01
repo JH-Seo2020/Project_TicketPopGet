@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class Mypage_delete_detail
  */
 @WebServlet("/delete_de.my")
-public class Mypage_delete_detail extends HttpServlet {
+public class MypageDeleteDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Mypage_delete_detail() {
+    public MypageDeleteDetail() {
         super();
         // TODO Auto-generated constructor stub
     }

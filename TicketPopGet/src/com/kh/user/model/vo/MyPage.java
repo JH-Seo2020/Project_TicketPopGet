@@ -42,12 +42,12 @@ public class MyPage {
 	
 	
 
-	public MyPage(int reviewNo, String contentTitle, String reviewTitle, Date reviewDate) {
+	public MyPage(int reviewNo, String contentTitle, String reviewTitle, Date viewDate) {
 		super();
 		this.reviewNo = reviewNo;
 		this.contentTitle = contentTitle;
 		this.reviewTitle = reviewTitle;
-		this.reviewDate = reviewDate;
+		this.viewDate = viewDate;
 	}
 	
 	
@@ -68,11 +68,11 @@ public class MyPage {
 	
 	
 
-	public MyPage(String contentType, String contentTitle, Date reviewDate) {
+	public MyPage(String contentType, String contentTitle, Date viewDate) {
 		super();
 		this.contentType = contentType;
 		this.contentTitle = contentTitle;
-		this.reviewDate = reviewDate;
+		this.viewDate = viewDate;;
 	}
 
 	public String getUserId() {
