@@ -15,8 +15,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.community.event.model.service.EventService;
 import com.kh.community.event.model.vo.Comment;
-import com.kh.community.review.model.vo.Review;
-import com.kh.concert.model.service.ConcertService;
 import com.kh.concert.model.vo.PageInfo;
 
 /**

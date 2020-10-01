@@ -322,7 +322,7 @@
 				});
 			}
 			
-			//5. 댓글신고 시 신고내용 불러올 ajax, 신고등록은 동기식
+			//5. 댓글신고 시 신고내용 불러올 ajax, 신고등록은 동기식e
 			function callForReport(commentNo){	
 				
 				$("#tbmakers").html(commentNo);
@@ -376,7 +376,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                        <button id="deleteCheck" type="button" class="btn btn-primary" class='deleteCheck'>확인</button>
+                        <button id="deleteCheck" type="button" class="btn btn-primary" >확인</button>
                     </div>
                 </div>
             </div>
