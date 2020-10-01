@@ -359,6 +359,28 @@ public class EventDao {
 		}
 		return eComment;
 	}
+
+	public int commentUpdate(Connection conn, int commentNo, String commentCont) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("commentUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, commentCont);
+			pstmt.setInt(2, commentNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	
 	
 	
 	

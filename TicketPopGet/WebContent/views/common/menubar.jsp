@@ -127,7 +127,7 @@
         <div id="header">
       
 	            <div id="logoSpace">
-	                <a class="menubar_a" href="<%=request.getContextPath()%>"><img src="" width="90%">TicketPopGet로고</a>
+	                <a class="menubar_a" href="<%=request.getContextPath()%>"><img src="resources/logo/logo_1.png" width="90%" height="90%"></a>
 	            </div>
 	
 	            <div id="search" align="center">
@@ -161,7 +161,7 @@
                     <li id="menuCommu"><a class="menubar_a" href="">커뮤니티</a></li>
                 </ul>
                 <ul id="innerList">
-                    <li><a class="menubar_a" href="">후기</a></li>
+                    <li><a class="menubar_a" href="<%=contextPath%>/review.co?currentPage=1">후기</a></li>
                     <li><a class="menubar_a" href="<%=contextPath%>/event.co?currentPage=1">댓글이벤트</a></li>
                     <li><a class="menubar_a" href="<%=contextPath%>/adboard.co?currentPage=1">홍보게시판</a></li>
                     <li><a class="menubar_a" href="<%=contextPath%>/event.result?currentPage=1">이벤트결과발표</a></li> 

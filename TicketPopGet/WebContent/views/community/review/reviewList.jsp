@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.community.review.model.vo.Review, com.kh.concert.model.vo.*" %>
+<%
+	ArrayList<Review> list =(ArrayList<Review>) request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,99 +75,41 @@
               </tr>
             </thead>
             <tbody align="center">
-              <tr>
-                <th scope="row">1</th>
-                <td>연극</td>
-                <td><a href="">'영웅 테세우스의 모험' 후기 - 결국 장비빨</a></td>
-                <td>4.0</td>
-                <td>2020/01/02</td>
-                <td>30</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>연극</td>
-                <td><a href="">'해리포터' 후기 - 다니엘 데려와라</a></td>
-                <td>3.0</td>
-                <td>2020/02/02</td>
-                <td>40</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>콘서트</td>
-                <td><a href="">제주합창회의 소규모 콘서트를 다녀왔습니다</a></td>
-                <td>5.0</td>
-                <td>2020/11/30</td>
-                <td>50</td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>Larry</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>Larry</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td>Larry</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">7</th>
-                <td>Larry</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-                <td>Larry</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">9</th>
-                <td>Larry</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">10</th>
-                <td>Larry</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
+            <%if(list.isEmpty()){ %>
+            	<tr><td colspan=6>보여드릴 게시물이 없습니다.</td></tr>
+            <%}else{ %>
+            	<%for(Review r : list){ %>
+	              <tr>
+	                <th scope="row"><%=r.getReviewNo() %></th>
+	                <td><%=r.getContentType() %></td>
+	                <td><a href=""><%=r.getReviewTitle() %></a></td>
+	                <td><%=r.getReviewPoint() %></td>
+	                <td><%=r.getReviewDate() %></td>
+	                <td><%=r.getReviewCount() %></td>
+	              </tr>
+	             <%} %>
+              <%} %>
             </tbody>
         </table>
 
         <div id="reviewPaging">
-            <button>&lt;&lt;</button>
-            <button>&lt;</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>&gt;</button>
-            <button>&gt;&gt;</button>
+            <button onclick="location.href='<%=contextPath%>/review.co?currentPage=1';">&lt;&lt;</button>
+            <%if(currentPage != 1) { %>
+            <button onclick="location.href='<%=contextPath%>/review.co?currentPage=<%=pi.getCurrentPage()-1%>';">&lt;</button>
+            <%} %>
+            
+            <%for(int i = startPage; i <=endPage; i++){ %>
+            	<% if(currentPage != i) {%>
+            		<button onclick="location.href='<%=contextPath%>/review.co?currentPage=<%=i%>';"><%=i%></button>
+            	<%}else{ %>
+            		<button disabled style="color:black;"><%=i %></button>
+            	<%} %>
+            <%} %>
+            
+            <%if(currentPage != maxPage){ %>
+            <button onclick="location.href='<%=contextPath%>/review.co?currentPage=<%=pi.getCurrentPage()+1%>';">&gt;</button>
+            <% } %>
+            <button onclick="location.href='<%=contextPath%>/review.co?currentPage=<%=pi.getMaxPage()%>';">&gt;&gt;</button>
         </div>
 
     </div>

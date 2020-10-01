@@ -133,6 +133,12 @@
 		  JOIN MEMBER USING(USER_NO)
 		 WHERE COMMENT_NO = ?
 	</entry>
+	<entry key="commentUpdate">
+	UPDATE 
+	       EVENT_COMMENT
+	   SET COMMENT_CONTNET = ?
+	 WHERE COMMENT_NO = ?
+	</entry>
 	<entry key="boardReport">
 	INSERT 
 	  INTO REPORT

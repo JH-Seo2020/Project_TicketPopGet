@@ -7,24 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.kh.community.event.model.service.EventService;
-import com.kh.community.event.model.vo.Comment;
 
 /**
- * Servlet implementation class EventCommentRecallForUpdateServlet
+ * Servlet implementation class EventCommentUpdateServlet
  */
-@WebServlet("/comment.forUpdate")
-public class EventCommentRecallForUpdateServlet extends HttpServlet {
+@WebServlet("/comment.update")
+public class EventCommentUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EventCommentRecallForUpdateServlet() {
+    public EventCommentUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,17 +27,17 @@ public class EventCommentRecallForUpdateServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
-//		System.out.println(commentNo);
-		Comment eComment = new EventService().recallForUpdate(commentNo);
+		System.out.println(commentNo);
+		String commentCont = request.getParameter("commentContent");
+		int result = new EventService().commentUpdate(commentNo, commentCont);
 		
-		//비동기식
-		response.setContentType("application/json; charset=utf-8");
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();			
-		gson.toJson(eComment, response.getWriter());		
+		//비동기식, 바로전달
+		response.getWriter().print(result);
+		
 	}
 
 	/**

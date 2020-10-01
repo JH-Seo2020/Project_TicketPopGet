@@ -9,6 +9,7 @@ public class Review {
 	private int reviewNo;
 	private int userNo;
 	private int contentNo;
+	private String contentType;
 	private String reviewTitle;
 	private Clob reviewContent;
 	private int reviewPoint;
@@ -46,7 +47,20 @@ public class Review {
 	}
 
 	
-	
+
+	public Review(int reviewNo, int userNo, int contentNo, String contentType, String reviewTitle, int reviewPoint,
+			Date reviewDate, int reviewCount) {
+		super();
+		this.reviewNo = reviewNo;
+		this.userNo = userNo;
+		this.contentNo = contentNo;
+		this.contentType = contentType;
+		this.reviewTitle = reviewTitle;
+		this.reviewPoint = reviewPoint;
+		this.reviewDate = reviewDate;
+		this.reviewCount = reviewCount;
+	}
+
 	public int getReviewRnum() {
 		return reviewRnum;
 	}
@@ -127,6 +141,16 @@ public class Review {
 
 	public void setReviewStatus(String reviewStatus) {
 		this.reviewStatus = reviewStatus;
+	}
+	
+	
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 
 	@Override

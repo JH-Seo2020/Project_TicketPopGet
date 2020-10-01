@@ -141,8 +141,8 @@
             <div><b>댓글 작성에 참여해보세요!🖋</b></div>
             <form class="input-group mb-3" >
                 <input id="commentContent" class="form-control" type="text" placeholder="댓글을 입력해주세요" required>
-                <div class="input-group-append">
-                    <button type="button" class="btn btn-secondary" onclick="addComment();">등록하기</button>
+                <div class="input-group-append" id='divForUpdate'>
+                    <button id='insertBtn' type="button" class="btn btn-secondary" onclick="addComment();">등록하기</button>
                 </div>
             </form>
             <table class="table table-striped">
@@ -164,7 +164,7 @@
 			//1. 댓글 리스트 조회용 ajax 
 			function selectCommentList(cPage){
 				$.ajax({
-					url : "<%=contextPath%>/comment.co",
+					url : "<%=request.getContextPath()%>/comment.co",
 					type : "get",
 					data : {"eventNo" : <%=evObject.getEventNo()%>,
 						"currentPage" : cPage},
@@ -272,14 +272,13 @@
                 	user = "<%=loginUser.getUserId()%>";
 				
 					$.ajax({
-						url : "<%=contextPath%>/comment.insert",
+						url : "<%=request.getContextPath()%>/comment.insert",
 						type : "post",
 						data : {"commentContent" : $('#commentContent').val(),
 							"eno" : <%=evObject.getEventNo()%>},	//회원번호는 서블릿에서 넘긴다
 						success : function(result){
 							
 							if(result>0){
-								console.log('댓글작성성공');
 								selectCommentList(1);
 								$('#commentContent').val("");
 							}else{
@@ -306,10 +305,39 @@
 					type: "get",
 					data : {"commentNo" : cno},
 					success : function(result){
-						console.log('통신성공');
-						console.log(result);
+						$('#commentContent').val(result.commentCont);
+						$('#divForUpdate').html("<a id='upBtn' type='button' class='btn btn-warning'>수정하기</a>");
+						$('#upBtn').click(function(){
+							updateComment({commentNo : result.commentNo , commentCont : result.commentCont});
+						});
+						
+						
 					},error : function(){
 						console.log('통신실패');
+					}
+				});
+				
+			}
+			
+			function updateComment(result){
+				
+				//수정하기 클릭 시 업데이트할 ajax인데 지금 안됨.
+				$.ajax({
+					url : "<%=request.getContextPath()%>/comment.update",
+					type : "post",
+					data : {"commentContent" : result.commentCont,
+						"commentNo" : result.commentNo},	
+					success : function(update){
+						
+						if(update>0){
+							console.log(update);
+						}else{
+							console.log('댓글수정실패');
+						}
+						
+					}, 
+					error : function(){
+						console.log('수정시통신실패');
 					}
 				});
 				
@@ -327,7 +355,7 @@
 				
 				$("#tbmakers").html(commentNo);
 				
-				//5-1. 신고내용 호출용 ajax
+				//5-1. 신고내용 호출용 ajax..인데 아직 미완성.
 				$.ajax({
 						url : "<%=contextPath%>/comment.recall",
 						type : "post",

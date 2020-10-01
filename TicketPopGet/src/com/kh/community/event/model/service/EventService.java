@@ -184,4 +184,22 @@ public class EventService {
 		return eComment;
 	}
 
+	/**
+	 * 13. 댓글 수정 
+	 * @param commentNo
+	 * @return
+	 */
+	public int commentUpdate(int commentNo, String commentCont) {
+		
+		Connection conn = getConnection();
+		int result = new EventDao().commentUpdate(conn, commentNo, commentCont);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
 }
