@@ -4,6 +4,7 @@ import static com.kh.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.community.adBoard.model.vo.AdBoard;
 import com.kh.community.eventResult.model.vo.EventRaffle;
 import com.kh.community.review.model.vo.Review;
 import com.kh.concert.model.vo.PageInfo;
@@ -138,6 +140,82 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int plusCount(Connection conn, int reviewNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("plusCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Review reviewDetail(Connection conn, int reviewNo) {
+		Review r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("reviewDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				r = new Review(rset.getInt("REVIEW_NO"),
+								rset.getInt("USER_NO"),
+								rset.getInt("CONTENT_NO"),
+								rset.getString("CONTENT_TYPE"),
+								rset.getString("REVIEW_TITLE"),
+								rset.getInt("REVIEW_POINT"),
+								rset.getDate("REVIEW_DATE"),
+								rset.getInt("REVIEW_COUNT")
+									);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return r;
+	}
+
+	public String reviewContent(Connection conn, int reviewNo) {
+		String reviewContent = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("reviewDetail");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Clob information = rset.getClob("REVIEW_CONTENT");
+				if(information != null) {
+					reviewContent = information.getSubString(1, (int)information.length());
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(conn);
+		}
+		
+		return reviewContent;
 	}
 
 }

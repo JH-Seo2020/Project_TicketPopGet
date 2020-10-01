@@ -83,8 +83,12 @@
 	              <tr>
 	                <th scope="row"><%=r.getReviewNo() %></th>
 	                <td><%=r.getContentType() %></td>
-	                <td><a href=""><%=r.getReviewTitle() %></a></td>
-	                <td><%=r.getReviewPoint() %></td>
+	                <td><a href="<%=contextPath%>/review.detail?reviewNo=<%=r.getReviewNo()%>"><%=r.getReviewTitle() %></a></td>
+	                <td>
+	                <%for(int i = 0; i < r.getReviewPoint(); i++){ %>
+	                	★
+	                <%} %>
+	                </td>
 	                <td><%=r.getReviewDate() %></td>
 	                <td><%=r.getReviewCount() %></td>
 	              </tr>

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.community.review.model.vo.Review" %>
+<%
+	Review r = (Review)request.getAttribute("r");
+	String reviewContent = (String)request.getAttribute("reviewContent");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,35 +104,47 @@
         </div>
         <div id="reviewBody">
             <div id="reviewBodyTitle">
-                <span>연극</span>
-                <span>테세우스의 모험</span>
+                <span><%=r.getContentType() %></span>
+                <span><%=r.getReviewTitle() %></span>
             </div>
             <div id="reviewBodySub">
-                별점 : ★★★★★ 
+                별점 : 
+                <%for(int i = 0; i < r.getReviewPoint(); i++){ %>
+                	★
+                <%} %> 
                 <span>
+                <%if (loginUser != null && loginUser.getUserNo() != r.getUserNo()){ %>
                 	<a href="" style="color: black !important;" data-toggle="modal" data-target="#ReviewReport">신고</a>
+                <%} %>
                 </span>
-                <span>작성일 : 2020-02-02 조회수 : 100</span>
+                <span>작성일 : <%=r.getReviewDate() %> 조회수 : <%=r.getReviewCount() %></span>
             </div>
             <div id="reviewBodyContent">
-                9월 30일날  종로에서 이화동 연극회가 올린 '테세우스의 모험'을 보았습니다.<br>
-                아주 재미있었습니다.<br>    
-                결국 테세우스가 미노타우로스를 물리칠 수 있었던 건 순전히 장비빨이라는 생각이 드는군요.<br>
-                신들이 도와주지 않았다면 어림도 없었을 일입니다.<br>
-                그러니까 여러분, 주변사람들에게 잘 구걸해서 도움을 잘 받읍시다.<br> 
-                저는 그런 교훈을 얻었습니다.<br>
-                시간이 난다면 다음에 또 보고싶네요.<br>
+                <%=reviewContent %>
             </div>
             <div id="reviewBodyBtns">
-                <!--내가 쓴 글일 경우 보여질 버튼-->
-                <a class="btn btn-warning" href="">수정</a>
-                <a class="btn btn-warning" href="" data-toggle="modal" data-target="#deleteReview">삭제</a>
-
-                <a class="btn btn-secondary" href="">목록으로</a>
+                <%if (loginUser != null && loginUser.getUserNo() == r.getUserNo()){ %>
+                	<a class="btn btn-warning" href="">수정</a>
+                	<a class="btn btn-warning" href="" data-toggle="modal" data-target="#deleteReview">삭제</a>
+				<%} %>
+                <a class="btn btn-secondary" id="back">목록으로</a>
             </div>
+            
+         <script>
+	    	$(function(){
+	    		$("#back").click(function(){
+	    			if(document.referrer){
+	    	    		history.back();
+	    	    	}else{
+	    	    		location.href="<%=contextPath%>/review.detail?currentPage=1";
+	    	    	}
+	    		});
+	    	});
+    	</script>
+            
         </div>
         <div id="reviewReplyArea">
-            <div><b>n개의 댓글</b></div>
+            <div><b>댓글 작성에 참여해보세요!🖋</b></div>
             <form class="input-group mb-3" action="" method="POST">
                 <input name="" class="form-control" type="text" placeholder="댓글을 입력해주세요" required>
                 <div class="input-group-append">
@@ -289,7 +306,6 @@
 
 
 
-    </div>
 
 </body>
 </html>

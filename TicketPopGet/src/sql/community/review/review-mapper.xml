@@ -31,22 +31,25 @@
 	</entry>
 	<entry key="plusCount">
 		UPDATE 
-		       EVENT_RAFFLE
-		   SET RAFFLE_COUNT = RAFFLE_COUNT + 1
-		 WHERE RAFFLE_NO = ?
-		   AND RAFFLE_STATUS = 'Y'
+		       REVIEW
+		   SET REVIEW_COUNT = REVIEW_COUNT + 1
+		 WHERE REVIEW_NO = ?
+		   AND REVIEW_STATUS = 'Y'
 	</entry>
-	<entry key="raffleDetail">
-			SELECT 
-                   R.RAFFLE_TITLE
-                 , R.RAFFLE_CONTENT
-                 , R.RAFFLE_DATE
-                 , R.RAFFLE_COUNT
-                 , E.EVENT_TYPE
-              FROM EVENT_RAFFLE R
-              JOIN EVENT E USING(EVENT_NO)
-             WHERE RAFFLE_STATUS = 'Y'
-               AND RAFFLE_NO = ?
+	<entry key="reviewDetail">
+		SELECT REVIEW_NO
+		     , USER_NO
+		     , CONTENT_NO
+		     , CONTENT_TYPE
+		     , REVIEW_TITLE
+		     , REVIEW_CONTENT
+		     , REVIEW_POINT
+		     , REVIEW_DATE
+		     , REVIEW_COUNT
+		  FROM REVIEW
+		  JOIN CONTENTS USING (CONTENT_NO)
+		 WHERE REVIEW_STATUS = 'Y'
+               AND REVIEW_NO = ?
 	</entry>
 	<entry key="reviewCountByGenre">
 			SELECT COUNT(*) countByGenre
