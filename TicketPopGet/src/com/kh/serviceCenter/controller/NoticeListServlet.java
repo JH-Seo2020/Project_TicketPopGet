@@ -36,6 +36,7 @@ public class NoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		   
 		   int listCount;		// 현재 총 게시글 갯수
 		   int currentPage;		// 현재 페이지 (즉, 요청한 페이지)
 		   int pageLimit;		// 한 페이지 하단에 보여질 페이지 최대갯수
@@ -45,9 +46,12 @@ public class NoticeListServlet extends HttpServlet {
 		   int startPage;		// 현재 페이지에 하단에 보여질 페이징 바의 시작 수
 		   int endPage;			// 현재 페이지에 하단에 보여질 페이징 바의 끝 수
 		   
+		   
 		   listCount = new ServiceService().noticeSelectListCount();
-		   String searchType =  (String)request.getAttribute("type");
+		   
+		   
 		   currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		   
 		   pageLimit = 10;
 		   
 		   boardLimit = 10;
@@ -69,7 +73,6 @@ public class NoticeListServlet extends HttpServlet {
 		   
 		   request.setAttribute("pi", pi);
 		   request.setAttribute("list", list);
-		   request.setAttribute("type", searchType);
 		   
 		   
 		   RequestDispatcher view = request.getRequestDispatcher("views/serviceCenter/noticeList.jsp");
