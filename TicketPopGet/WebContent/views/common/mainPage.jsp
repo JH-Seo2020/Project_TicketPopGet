@@ -102,14 +102,14 @@
             </ol>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="resources/img/carouselTest.png" class="d-block w-100" alt="">
+                <img src="<%=contextPath %>/resources/imgCrs/img1.jpg" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>CATS</h5>
                   <p>MUSICAL</p>
                 </div>
               </div>
               <div class="carousel-item">
-                <img src="resources/img/carouselTest.png" class="d-block w-100" alt="">
+                <img src="resources/imgCrs/im2.jpg" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>JYKILL</h5>
                   <p>MUSICAL</p>

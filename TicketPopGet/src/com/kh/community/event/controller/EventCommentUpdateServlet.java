@@ -31,7 +31,7 @@ public class EventCommentUpdateServlet extends HttpServlet {
 	
 		
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
-		System.out.println(commentNo);
+//		System.out.println(commentNo);
 		String commentCont = request.getParameter("commentContent");
 		int result = new EventService().commentUpdate(commentNo, commentCont);
 		

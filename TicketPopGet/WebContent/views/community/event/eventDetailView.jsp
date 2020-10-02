@@ -297,7 +297,7 @@
 				
 			}
 			
-			//3. 댓글 수정 시 댓글내용 불러올 ajax, 업데이트는 동기식
+			//3. 댓글 수정 시 댓글내용 불러올 ajax
 			function callForUpdate(commentNo){	
 				var cno = commentNo;
 				$.ajax({
@@ -321,7 +321,7 @@
 			
 			function updateComment(result){
 				
-				//수정하기 클릭 시 업데이트할 ajax인데 지금 안됨.
+				//수정하기 클릭 시 업데이트할 ajax
 				$.ajax({
 					url : "<%=request.getContextPath()%>/comment.update",
 					type : "post",
@@ -330,7 +330,8 @@
 					success : function(update){
 						
 						if(update>0){
-							console.log(update);
+							selectCommentList(1);
+							$('#commentContent').val("");
 						}else{
 							console.log('댓글수정실패');
 						}
