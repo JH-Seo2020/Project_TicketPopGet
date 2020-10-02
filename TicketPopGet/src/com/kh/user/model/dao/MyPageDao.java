@@ -4,6 +4,7 @@ import static com.kh.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -568,6 +569,101 @@ public class MyPageDao {
 		
 		return ad;
 		
+	}
+	
+	/**
+	 * 홍보게시판상세조회
+	 * @param conn
+	 * @param ano
+	 * @return
+	 */
+	public AdBoard selectAdboardDetail(Connection conn, int ano) {
+		
+		AdBoard ad = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAdboardDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, ano);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				ad = new AdBoard(rset.getInt("BOARD_NO"),
+						         rset.getString("BOARD_TYPE"),
+						         rset.getString("LOCATION"),
+						         rset.getDate("BOARD_DATE"),
+						         rset.getString("BOARD_TITLE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return ad;
+	}
+	
+	public String selectAdboardContent(Connection conn, int ano) {
+		String content = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAdboardDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ano);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Clob adcontent = rset.getClob("BOARD_CONTNET");
+				if(adcontent != null) {
+					content = adcontent.getSubString(1, (int)adcontent.length());
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
+		}
+		
+		return content;
+	}
+	
+	public int adBoardUpdate(Connection conn, AdBoard ad, String content) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("adBoardUpdate");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			Clob clob = conn.createClob();
+			clob.setString(1, content);
+			
+			pstmt.setString(1, ad.getBoardType());
+			pstmt.setString(2, ad.getBoardLocation());
+			pstmt.setString(3, ad.getBoardTitle());
+			//pstmt.setDate(4, ad.getBoardDate());
+			pstmt.setClob(4,clob);
+			pstmt.setInt(5, ad.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 

@@ -277,6 +277,31 @@ SELECT COUNT(*) LISTVIEW
     WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<entry key="selectAdboardDetail">
+SELECT 
+       BOARD_NO
+     , BOARD_TYPE
+     , LOCATION
+     , BOARD_DATE
+     , BOARD_TITLE
+     , BOARD_CONTNET
+  FROM BOARD
+ WHERE BOARD_NO = ?
+   AND BOARD_STATUS = 'Y'
+</entry>
+
+<entry key="adBoardUpdate">
+    UPDATE BOARD 
+       SET BOARD_TYPE = ?
+         , LOCATION = ?
+         , BOARD_TITLE = ?
+         , BOARD_CONTNET = ?
+     WHERE BOARD_NO = ?
+       AND BOARD_STATUS = 'Y'
+</entry>
+
+
+
 
 
 

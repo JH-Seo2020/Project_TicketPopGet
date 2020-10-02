@@ -88,7 +88,7 @@ body {
 		<div class="col-md-8">
 			<div class="card">
 				<div class="card-body">
-					<form id="enrollForm" action="<%=contextPath%>//update.my" method="POST">
+					<form id="enrollForm" action="<%=contextPath%>/update.my" method="POST">
 						<div class="form-group row">
 							<label for="userId" class="col-md-4 col-form-label text-md-right">아이디</label>
 							<input type="text" id="userId" readonly class="form-control" name="userId" value="<%=userId%>" style="width: 400px;">

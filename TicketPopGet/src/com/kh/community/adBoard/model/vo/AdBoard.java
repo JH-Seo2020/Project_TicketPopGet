@@ -98,6 +98,19 @@ public class AdBoard {
 		this.boardType = boardType;
 		this.boardDate = boardDate;
 	}
+	
+	
+
+	
+
+	public AdBoard(int boardNo, String boardType, String boardTitle, Date boardDate, String boardLocation) {
+		super();
+		this.boardNo = boardNo;
+		this.boardType = boardType;
+		this.boardLocation = boardLocation;
+		this.boardDate = boardDate;
+		this.boardTitle = boardTitle;
+	}
 
 	public String getUserId() {
 		return userId;

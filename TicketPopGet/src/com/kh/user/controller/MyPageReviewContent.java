@@ -18,13 +18,13 @@ import com.kh.user.model.vo.PageInfo;
  * Servlet implementation class MyPge_review_content
  */
 @WebServlet("/review_content.my")
-public class MyPgeReviewContent extends HttpServlet {
+public class MyPageReviewContent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPgeReviewContent() {
+    public MyPageReviewContent() {
         super();
         // TODO Auto-generated constructor stub
     }

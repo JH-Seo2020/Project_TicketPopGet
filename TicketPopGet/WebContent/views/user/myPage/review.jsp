@@ -9,6 +9,8 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
+	
+	String content = (String)request.getAttribute("content");
 %>
 <!DOCTYPE html>
 <html>
@@ -87,6 +89,7 @@
 	<!-- 메뉴바쓰추가쓰 -->
 	<%@ include file="/views/common/menubar.jsp"%>
 	
+	
     <div id="review">
         <!-- 헤더부분 -->
         <div class="reservation_check1">
@@ -96,9 +99,9 @@
         <!-- 컨텐츠분류 -->
         <div class="contents_btn" align="right">
             <a href="<%=contextPath%>/review.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>" class="btn btn-outline-warning">전체</a> 
-            <a href="<%=contextPath%>//review_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=콘서트" class="btn btn-outline-warning">콘서트</a>
-            <a href="<%=contextPath%>//review_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=연극" class="btn btn-outline-warning">연극</a>
-            <a href="<%=contextPath%>//review_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=전시" class="btn btn-outline-warning">전시</a>
+            <a href="<%=contextPath%>/review_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=콘서트" class="btn btn-outline-warning">콘서트</a>
+            <a href="<%=contextPath%>/review_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=연극" class="btn btn-outline-warning">연극</a>
+            <a href="<%=contextPath%>/review_content.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=전시" class="btn btn-outline-warning">전시</a>
         </div>
 
         <!-- 관람후기테이블 -->
@@ -200,6 +203,7 @@
 	       
 	       </script>   
 
+		<%if(content == null){ %>
           <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
      		<%if(currentPage != 1){ %>
             	<a href="<%=contextPath%>/review.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
@@ -217,8 +221,29 @@
             	<a href="<%=contextPath%>/review.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
             <%} %>
         </div>
+        <%} else{ %>
+            <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
+     		<%if(currentPage != 1){ %>
+            	<a href="<%=contextPath%>/review_content.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
+            <%} %>
+            
+            <%for(int p=startPage; p<=endPage; p++){ %>
+            	<%if(p!=currentPage){ %>
+	           		<a href="<%=contextPath%>/review_content.my?currentPage=<%=p%>"><span><%=p %></span></a>
+	            <%}else { %>
+	            	<a href="javascript:void(0);"><span><%=p %></span></a>
+	            <%} %>
+            <%} %>
+            
+            <%if(currentPage != maxPage){ %>
+            	<a href="<%=contextPath%>/review_content.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+            <%} %>
+	        </div>
+        <%} %>
+        
+        
+        
+        
     </div>
-    </div>
-
 </body>
 </html>

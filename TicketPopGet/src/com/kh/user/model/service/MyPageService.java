@@ -1,7 +1,9 @@
 package com.kh.user.model.service;
 
 import static com.kh.common.JDBCTemplate.close;
+import static com.kh.common.JDBCTemplate.commit;
 import static com.kh.common.JDBCTemplate.getConnection;
+import static com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -250,6 +252,55 @@ public class MyPageService {
 		close(conn);
 		
 		return ad;
+	}
+	
+	/**
+	 * 나의 홍보 세부사항 [작성글 뺴고]
+	 * @param ano
+	 * @return
+	 */
+	public AdBoard selectAdboardDetail(int ano) {
+		
+		Connection conn = getConnection();
+		
+		AdBoard ad = new MyPageDao().selectAdboardDetail(conn,ano);
+				
+		close(conn);
+		
+		return ad;
+	}
+	
+	/**
+	 * 나의 홍보 세부사항[작성글]
+	 * @return
+	 */
+	public String selectAdboardContent(int ano) {
+		Connection conn = getConnection();	
+		String content = new MyPageDao().selectAdboardContent(conn, ano);
+		
+		close(conn);
+		return content;
+	}
+	
+	/**
+	 * 나의 홍보 수정
+	 * @param ad
+	 * @param content
+	 * @return
+	 */
+	public int adBoardUpdate(AdBoard ad, String content) {
+		
+		Connection conn = getConnection();
+		int result = new MyPageDao().adBoardUpdate(conn, ad, content);
+		
+		if (result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
 	}
 	
 
