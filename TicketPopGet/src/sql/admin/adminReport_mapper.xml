@@ -88,8 +88,34 @@
 		 WHERE REPORT_NO = ?
 	</entry>
 	
-	<entry key="deleteReport">
-		
+	<entry key="deleteReportReview">
+		UPDATE REVIEW
+		   SET REVIEW_STATUS = 'N'
+		 WHERE REVIEW_NO = ?
+	</entry>
+	
+	<entry key="deleteReportReviewReply">
+		UPDATE REVIEW_REPLY
+		   SET REPLY_STATUS = 'N'
+		 WHERE REVIEW_NO = ?
+	</entry>
+	
+	<entry key="deleteReportReply">
+		UPDATE REVIEW_REPLY
+		   SET REPLY_STATUS = 'N'
+		 WHERE REPLY_NO = ?
+	</entry>
+	
+	<entry key="deleteReportBoard">
+		UPDATE BOARD
+		   SET BOARD_STATUS = 'N'
+		 WHERE BOARD_NO = ?
+	</entry>
+	
+	<entry key="deleteReportEventComment">
+		UPDATE EVENT_COMMENT
+		   SET COMMENT_STATUS = 'N'
+		 WHERE COMMENT_NO = ?
 	</entry>
 	
 </properties>

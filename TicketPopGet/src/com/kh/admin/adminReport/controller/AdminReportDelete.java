@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.admin.adminReport.model.service.AdminReportService;
 import com.kh.admin.adminReport.model.vo.Report;
 
@@ -31,14 +32,23 @@ public class AdminReportDelete extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		
+		int reportNo = Integer.parseInt(request.getParameter("reportNo"));
 		int contentNo = Integer.parseInt(request.getParameter("contentNo"));
 		String reportCate = request.getParameter("reportCate");
 		
 		Report r = new Report();
+		r.setReportNo(reportNo);
 		r.setContentNo(contentNo);
 		r.setReportCate(reportCate);
 		
 		int result = new AdminReportService().deleteReport(r);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		Gson gson = new Gson();
+		
+		gson.toJson(result, response.getWriter());
 		
 	}
 

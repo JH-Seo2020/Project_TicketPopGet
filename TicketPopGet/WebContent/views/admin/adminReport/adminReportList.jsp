@@ -38,7 +38,7 @@
 <body>
 <%@ include file="../adminCommon/adminMenubar.jsp" %>
     <div class="wrap" align="center">
-        <button class="returnMainPage">초기화면</button>
+        <button class="returnMainPage" onclick="location.href='<%=request.getContextPath()%>/main.ad'">초기화면</button>
     <div align="center">
         <h1 style="width: 500px;">신고 회원 조회</h1>
     </div>
@@ -94,16 +94,7 @@
 		});
 	</script>
     </table>
-    <form action="" style="float: right;">
-        <input type="text" name="selectUser">
-        <select name="selectUserBy">
-            <option value="selectAll">전체</option>
-            <option value="userId">아이디</option>
-            <option value="userName">회원명</option>
-            <option value="phone">연락처</option>
-        </select>
-        <button>검색</button>
-    </form>
+
     <br><br>
         <div align="center">
 
@@ -192,27 +183,32 @@
   						alert("확인실패하였습니다.");
   					}
   				},error:function(){
-  					console.log("신고 체크 실패");
+  					//console.log("신고 체크 실패");
   				}
   			});
   			
   		});
   		$("#deleteReportInfo").click(function(){
-  			$.ajax({
-  				url:"<%=request.getContextPath()%>/delete.adre",
-  				data:{contentNo:$("#deleteContentNo").val(), reportCate:$("#deleteReportCate").val()},
-  				type:"post",
-  				success:function(result){
-  					if(result > 0){
-  						alert("확인완료되었습니다.");
-  						location.href="<%=request.getContextPath()%>/list.adre?currentPage=1"
-  					}else{
-  						alert("확인실패하였습니다.");
-  					}
-  				},error:function(){
-  					console.log("신고 체크 실패");
-  				}
-  			});
+  			if(confirm("정말 삭제하시겠습니까?") == true){
+	  			$.ajax({
+	  				url:"<%=request.getContextPath()%>/delete.adre",
+	  				data:{contentNo:$("#deleteContentNo").val(), reportCate:$("#deleteReportCate").val(), reportNo:$("#checkReportNo").val()},
+	  				type:"post",
+	  				success:function(result){
+	  					if(result > 1){
+	  						alert("삭제완료되었습니다.");
+	  						location.href="<%=request.getContextPath()%>/list.adre?currentPage=1"
+	  					}else{
+	  						alert("삭제실패되었습니다.");
+	  					}
+	  				},error:function(){
+	  					//console.log("신고 체크 실패");
+	  				}
+	  			});
+  				
+  			}else{
+  				alert("취소되었습니다");
+  			}
   			
   		});
   	});
