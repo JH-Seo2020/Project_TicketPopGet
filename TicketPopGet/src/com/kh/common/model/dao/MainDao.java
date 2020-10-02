@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 import static com.kh.common.JDBCTemplate.*;
 import com.kh.common.model.vo.MainContent;
@@ -106,6 +107,34 @@ public class MainDao {
 			close(stmt);
 		}
 		return tbEx;
+	}
+
+	public ArrayList<MainContent> selectNews(Connection conn) {
+		ArrayList<MainContent> news = new ArrayList<>();
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectNews");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			while(rset.next()) {
+				news.add (new MainContent(rset.getInt("content_no"),
+											rset.getString("content_type"),
+											rset.getString("content_title"),
+											rset.getString("content_chimg"),
+											rset.getString("content_imgpath"),
+											rset.getDate("concert_date")
+											));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return news;
 	}
 	
 	

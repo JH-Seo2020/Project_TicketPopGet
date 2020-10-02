@@ -1,6 +1,8 @@
 package com.kh.common.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,9 +39,15 @@ public class MainContentsServlet extends HttpServlet {
 		//1-3. 투데이베스트 : 전시
 		MainContent tbEx = new MainService().selectTbEx();
 		
+		//2. 신규오픈 다가져오기
+		ArrayList<MainContent> news = new MainService().selectNews();
+		
+		
+		//변수전달
 		request.setAttribute("tbConcert", tbConcert);
 		request.setAttribute("tbPlay", tbPlay);
 		request.setAttribute("tbEx", tbEx);
+		request.setAttribute("news", news);
 		
 		request.getRequestDispatcher("views/common/mainPage.jsp").forward(request, response);
 		

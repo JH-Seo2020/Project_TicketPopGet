@@ -57,4 +57,50 @@
 		join contents using (content_no)
 		where ROWNUM = 1
 	</entry>
+	<entry key="selectNews">
+		select *
+		  from 
+		        (select content_no 
+		              , content_type
+		              , content_title
+		              , content_chimg
+		              , content_imgpath
+		              , concert_date
+		          from contents
+		          join concert using (content_no)
+		         where concert_date > SYSDATE
+		         order
+		            by concert_date)
+		 where ROWNUM = 1
+		union
+		select *
+		  from 
+		        (select content_no 
+		              , content_type
+		              , content_title
+		              , content_chimg
+		              , content_imgpath
+		              , play_start
+		          from contents
+		          join play using (content_no)
+		         where play_start > SYSDATE
+		         order
+		            by play_start)
+		 where ROWNUM = 1
+		union
+		 select *
+		  from 
+		        (select content_no 
+		              , content_type
+		              , content_title
+		              , content_chimg
+		              , content_imgpath
+		              , exhibition_start
+		          from contents
+		          join exhibiton using (content_no)
+		         where exhibition_start > SYSDATE
+		         order
+		            by exhibition_start)
+		 where ROWNUM = 1
+	</entry>
 </properties>

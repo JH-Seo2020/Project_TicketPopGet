@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.common.model.vo.MainContent" %>
+<%@ page import="com.kh.common.model.vo.MainContent, java.util.ArrayList" %>
 <%
 	MainContent tbConcert = (MainContent)request.getAttribute("tbConcert");
 	MainContent tbPlay = (MainContent)request.getAttribute("tbPlay");
 	MainContent tbEx = (MainContent)request.getAttribute("tbEx");
+	ArrayList<MainContent> news = (ArrayList<MainContent>)request.getAttribute("news");
 %>
 <!DOCTYPE html>
 <html>
@@ -38,6 +39,7 @@
    #todayBest{
        width: 64%;
        margin-right: 1%;
+       background : #f6f6f6;
    }
    #rate{
        width: 34%;
@@ -46,13 +48,15 @@
    #newOpen{
        width: 100%;
        height: 20%;
-       margin-top: 10px;
+       margin-top: 30px;
+       background : #f6f6f6;
    }
    /* 마감임박 */
    #finalTicket{
        width: 100%;
        height: 20%;
-       margin-top: 10px;
+       margin-top: 30px;
+       background : #f6f6f6;
    }
 
    /* 포스터 나열칸(투베,신규,마감임박 공통) */
@@ -60,7 +64,7 @@
                font-size: 25px; font-weight: bold;
                margin-top: 10px;
                margin-bottom: 10px;}
-   #posterBody{width: 100%;height: 80%;}
+   #posterBody{width: 100%;height: 80%; margin-top: 30px;}
    #posterBody>ul{width: 100%; height: 100%;}
 
    /* 포스터 나열칸 세부설정 */
@@ -88,6 +92,7 @@
        border: none;
        background-color: #ffb300;
        border-radius: 5px;
+       margin-bottom:10px;
    }
 
 </style>
@@ -143,17 +148,17 @@
                     <ul>
                         <li>
                             <span><img src="<%=contextPath %>/<%=tbConcert.getImgPath() %>/<%=tbConcert.getChangeImg() %>" height="200px" width="150px"></span>
-                            <div><%=tbConcert.getGenre() %></div>
+                            <div><b><%=tbConcert.getGenre() %></b></div>
                             <div><%=tbConcert.getTitle() %></div>
                         </li>
                         <li>
                             <span><img src="<%=contextPath %>/<%=tbPlay.getImgPath() %>/<%=tbPlay.getChangeImg() %>" height="200px" width="150px"></span>
-                            <div><%=tbPlay.getGenre() %></div>
+                            <div><b><%=tbPlay.getGenre() %></b></div>
                             <div><%=tbPlay.getTitle() %></div>
                         </li>
                         <li>
                             <span><img src="<%=contextPath %>/<%=tbEx.getImgPath() %>/<%=tbEx.getChangeImg() %>" height="200px" width="150px"></span>
-                            <div><%=tbEx.getGenre() %></div>
+                            <div><b><%=tbEx.getGenre() %></b></div>
                             <div><%=tbEx.getTitle() %></div>
                         </li>
                     </ul>
@@ -163,15 +168,13 @@
             <div id="rate"  align="center">
                 <div id="ranking">예매율 </div>
                 <div id="genreBtn"align="right">
-                    <button type="button" value="콘서트" class="rateBtn1">콘서트</button>
-                    <button type="button" value="연극" class="rateBtn1">연극</button>
-                    <button type="button" value="전시" class="rateBtn1">전시</button>
+                    <button type="button" class="rateBtn1">더보기</button>
                 </div>
-                <table id="rankingTable">
+                <table id="rankingTable" class="table table-striped">
                     <tr>
-                        <td>순위</td>
-                        <td>컨텐츠명</td>
-                        <td>예매율</td>
+                        <th>순위</th>
+                        <th>컨텐츠명</th>
+                        <th>예매율</th>
                     </tr>
                     <tr>
                         <td>1</td>
@@ -196,21 +199,17 @@
             <div id="posterHeader">신규 오픈 티켓</div>
                 <div id="posterBody">
                     <ul>
-                        <li>
-                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
-                            <div>콘서트</div>
-                            <div>신용재 콘서트</div>
-                        </li>
-                        <li>
-                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
-                            <div>연극</div>
-                            <div>오즈프로젝트</div>
-                        </li>
-                        <li>
-                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
-                            <div>전시</div>
-                            <div>고릴라즈 앨범자켓전시</div>
-                        </li>
+                    <%if(news.isEmpty()){ %>
+                    	<li>보여드릴 정보가 없습니다.</li>
+                    <%}else{ %>
+                    	<%for(MainContent m : news){ %>
+	                        <li>
+	                            <span><img src="<%=contextPath %>/<%=m.getImgPath() %>/<%=m.getChangeImg() %>" height="200px" width="150px"></span>
+	                            <div><b><%=m.getGenre() %></b></div>
+	                            <div><%=m.getTitle() %></div>
+	                        </li>
+                        <%} %>
+                     <%} %>
                     </ul>
                 </div>
             

@@ -1,6 +1,7 @@
 package com.kh.common.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.common.model.dao.MainDao;
 import com.kh.common.model.vo.MainContent;
@@ -41,5 +42,17 @@ public class MainService {
 		close(conn);
 		return tbEx;
 	}
+
+	/**
+	 * 4. 신규오픈정보 가져오기 
+	 * @return
+	 */
+	public ArrayList<MainContent> selectNews() {
+		Connection conn = getConnection();
+		ArrayList<MainContent> news = new MainDao().selectNews(conn);
+		close(conn);
+		return news;
+	}
+
 
 }

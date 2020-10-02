@@ -1,5 +1,7 @@
 package com.kh.common.model.vo;
 
+import java.sql.Date;
+
 public class MainContent {
 	
 	private int rownum;	//순번
@@ -9,7 +11,7 @@ public class MainContent {
 	private String genre;
 	private String changeImg;
 	private String imgPath;
-	//날짜..는아직모르겠다
+	private Date concertDate;
 	
 	public MainContent() {
 		// TODO Auto-generated constructor stub
@@ -36,6 +38,18 @@ public class MainContent {
 		this.genre = genre;
 		this.changeImg = changeImg;
 		this.imgPath = imgPath;
+	}
+	
+	
+	
+	public MainContent(int contentNo, String title, String genre, String changeImg, String imgPath, Date concertDate) {
+		super();
+		this.contentNo = contentNo;
+		this.title = title;
+		this.genre = genre;
+		this.changeImg = changeImg;
+		this.imgPath = imgPath;
+		this.concertDate = concertDate;
 	}
 	public int getRownum() {
 		return rownum;
@@ -78,6 +92,14 @@ public class MainContent {
 	}
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
+	}
+	
+	
+	public Date getConcertDate() {
+		return concertDate;
+	}
+	public void setConcertDate(Date concertDate) {
+		this.concertDate = concertDate;
 	}
 	@Override
 	public String toString() {
