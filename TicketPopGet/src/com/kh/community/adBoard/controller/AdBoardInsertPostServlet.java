@@ -36,6 +36,7 @@ public class AdBoardInsertPostServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 		
+		//1. 내용물 - 처음에 내용물만 스트링으로 받기.
 		String content = request.getParameter("editordata");
 			
 		//2. 변수다가져오기

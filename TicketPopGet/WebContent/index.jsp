@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="views/common/mainPage.jsp" %>
+	
+	<script>
+		location.href = "<%=request.getContextPath()%>/main.co";
+	</script>
 </body>
 </html>

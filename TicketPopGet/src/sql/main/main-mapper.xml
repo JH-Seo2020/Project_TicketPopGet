@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="selectTbConcert">
+		select content_no
+		     , round((concert_max - concert_seats)/concert_max * 100,1) as tbConRate
+		     , content_type
+		     , content_title
+		     , content_chimg
+		     , content_imgpath
+		  from contents
+		  join concert using (content_no)
+		 where content_type = '콘서트'
+		   and ROWNUM = 1
+		 order
+		    by (concert_max - concert_seats)/concert_max * 100 DESC
+	</entry>
+<entry key="selectTbPlay">
+		select content_no 
+		     , tbPlayRate
+		     , content_type
+		     , content_title
+		     , content_chimg
+		     , content_imgpath
+		  from (select AVG(rate) as tbPlayRate, content_no
+		          from
+		                (select content_no
+		                      , round((round_max - round_seats)/round_max * 100, 1) as rate
+		                   from round
+		                  order 
+		                     by content_no
+		                      , round((round_max - round_seats)/round_max * 100, 1)
+		                 )
+		         group 
+		            by content_no)
+		  join contents using (content_no)
+		 where ROWNUM = 1
+		 order 
+		    by tbPlayRate DESC
+	</entry>
+	<entry key="selectTbEx">
+	select content_no 
+		     , tbExTicket
+		     , content_type
+		     , content_title
+		     , content_chimg
+		     , content_imgpath
+		from
+		    ( select content_no,
+		           avg(ticket_num) as tbExTicket
+		      from reservation_payment
+		     where content_type = '전시'
+		     group
+		        by content_no
+		     order
+		        by tbExTicket DESC )
+		join contents using (content_no)
+		where ROWNUM = 1
+	</entry>
+</properties>

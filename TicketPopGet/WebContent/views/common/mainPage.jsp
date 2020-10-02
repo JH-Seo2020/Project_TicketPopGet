@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.common.model.vo.MainContent" %>
+<%
+	MainContent tbConcert = (MainContent)request.getAttribute("tbConcert");
+	MainContent tbPlay = (MainContent)request.getAttribute("tbPlay");
+	MainContent tbEx = (MainContent)request.getAttribute("tbEx");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,7 +105,7 @@
             </ol>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="<%=contextPath %>/resources/imgCrs/img4.JPG" class="d-block w-100" alt="">
+                <img src="<%=contextPath %>/resources/imgCrs/img4.png" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>Tree</h5>
                   <p>exhibiton</p>
@@ -136,19 +142,19 @@
                 <div id="posterBody">
                     <ul>
                         <li>
-                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
-                            <div>콘서트</div>
-                            <div>신용재 콘서트</div>
+                            <span><img src="<%=contextPath %>/<%=tbConcert.getImgPath() %>/<%=tbConcert.getChangeImg() %>" height="200px" width="150px"></span>
+                            <div><%=tbConcert.getGenre() %></div>
+                            <div><%=tbConcert.getTitle() %></div>
                         </li>
                         <li>
-                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
-                            <div>연극</div>
-                            <div>오즈프로젝트</div>
+                            <span><img src="<%=contextPath %>/<%=tbPlay.getImgPath() %>/<%=tbPlay.getChangeImg() %>" height="200px" width="150px"></span>
+                            <div><%=tbPlay.getGenre() %></div>
+                            <div><%=tbPlay.getTitle() %></div>
                         </li>
                         <li>
-                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
-                            <div>전시</div>
-                            <div>고릴라즈 앨범자켓전시</div>
+                            <span><img src="<%=contextPath %>/<%=tbEx.getImgPath() %>/<%=tbEx.getChangeImg() %>" height="200px" width="150px"></span>
+                            <div><%=tbEx.getGenre() %></div>
+                            <div><%=tbEx.getTitle() %></div>
                         </li>
                     </ul>
                 </div>
