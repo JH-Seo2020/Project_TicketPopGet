@@ -96,51 +96,27 @@
               <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
               <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
               <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-              <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
-              <li data-target="#carouselExampleCaptions" data-slide-to="4"></li>
-              <li data-target="#carouselExampleCaptions" data-slide-to="5"></li>
             </ol>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="<%=contextPath %>/resources/imgCrs/img1.jpg" class="d-block w-100" alt="">
+                <img src="<%=contextPath %>/resources/imgCrs/img4.JPG" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
-                  <h5>CATS</h5>
-                  <p>MUSICAL</p>
+                  <h5>Tree</h5>
+                  <p>exhibiton</p>
                 </div>
               </div>
               <div class="carousel-item">
-                <img src="resources/imgCrs/im2.jpg" class="d-block w-100" alt="">
+                <img src="resources/imgCrs/img10.JPG" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
-                  <h5>JYKILL</h5>
-                  <p>MUSICAL</p>
+                  <h5>PostMan</h5>
+                  <p>exhibiton</p>
                 </div>
               </div>
               <div class="carousel-item">
-                <img src="resources/img/carouselTest.png" class="d-block w-100" alt="">
+                <img src="resources/imgCrs/img12.JPG" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
-                  <h5>MAP</h5>
-                  <p>MAP</p>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <img src="resources/img/carouselTest.png" class="d-block w-100" alt="">
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>PLAY</h5>
-                  <p>PLAY</p>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <img src="resources/img/carouselTest.png" class="d-block w-100" alt="">
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>PLAY</h5>
-                  <p>PLAY</p>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <img src="resources/img/carouselTest.png" class="d-block w-100" alt="">
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>PLAY</h5>
-                  <p>PLAY</p>
+                  <h5>Starry Night</h5>
+                  <p>exhibiton</p>
                 </div>
               </div>
             </div>
