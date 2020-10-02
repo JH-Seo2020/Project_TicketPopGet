@@ -26,6 +26,35 @@
 	        )
 	    WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	<entry key="noticeTypeListCount">
+	SELECT 
+	       COUNT(*) countTypeNotice
+	  FROM NOTICE
+	 WHERE NOTICE_STATUS = 'Y'
+	   AND NOTICE_TYPE = ?
+	</entry>
+	
+	<entry key="noticeTypeSelectList">
+     SELECT * 
+	   FROM (
+	        SELECT 
+	                ROWNUM RNUM
+	              , A.* 
+	          FROM (
+	             SELECT NOTICE_NO
+	                     , NOTICE_TYPE
+	                     , NOTICE_TITLE
+	                     , NOTICE_DATE
+	                  FROM NOTICE N
+	                 WHERE N.NOTICE_STATUS = 'Y'
+	                   AND N.NOTICE_TYPE = ?
+	                 ORDER BY NOTICE_NO DESC
+	                ) A
+	        )
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 	<entry key="faqSelectListCount">
 	SELECT 
 	       COUNT(*) FAQLISTCOUNT
@@ -52,29 +81,29 @@
 	    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
-	<entry key="noticeTypeListCount">
+	<entry key="faqTypeListCount">
 	SELECT 
-	       COUNT(*) countTypeNotice
-	  FROM NOTICE
-	 WHERE NOTICE_STATUS = 'Y'
-	   AND NOTICE_TYPE = ?
+	       COUNT(*) countTypeFaq
+	  FROM FAQ
+	 WHERE FAQ_STATUS = 'Y'
+	   AND FAQ_TYPE = ?
 	</entry>
 	
-	<entry key="noticeTypeSelectList">
-     SELECT * 
-	   FROM (
+	<entry key="faqTypeSelectList">
+	SELECT * 
+	  FROM (
 	        SELECT 
 	                ROWNUM RNUM
 	              , A.* 
 	          FROM (
-	             SELECT NOTICE_NO
-	                     , NOTICE_TYPE
-	                     , NOTICE_TITLE
-	                     , NOTICE_DATE
-	                  FROM NOTICE N
-	                 WHERE N.NOTICE_STATUS = 'Y'
-	                   AND N.NOTICE_TYPE = ?
-	                 ORDER BY NOTICE_NO DESC
+	                SELECT FAQ_NO
+                         , FAQ_TYPE
+                         , FAQ_TITLE
+                         , FAQ_CONTENT
+	                  FROM FAQ F
+                     WHERE F.FAQ_STATUS = 'Y'
+                       AND F.FAQ_TYPE = ?
+                     ORDER BY FAQ_NO DESC
 	                ) A
 	        )
 	    WHERE RNUM BETWEEN ? AND ?

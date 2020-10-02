@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList, com.kh.serviceCenter.model.vo.*" %>
 <%
 	ArrayList<Faq> list = (ArrayList<Faq>)request.getAttribute("list");
+	String searchType = (String)request.getAttribute("type");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -81,10 +82,10 @@
             <h2 class="noticetitle"><b>FAQ</b></h2>
             <nav id="topMenu">
                 <ul class="servicemenu">
-                    <li class="servicemenu"><a class="menuLink" href="">회원</a></li>
-                    <li class="servicemenu"><a class="menuLink" href="">결제</a></li>
-                    <li class="servicemenu"><a class="menuLink" href="">예매/취소</a></li>
-                    <li class="servicemenu"><a class="menuLink" href="">기타</a></li>
+                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/search.fo?currentPage=1&type=회원">회원</a></li>
+                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/search.fo?currentPage=1&type=결제">결제</a></li>
+                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/search.fo?currentPage=1&type=예매/취소">예매/취소</a></li>
+                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/search.fo?currentPage=1&type=기타">기타</a></li>
                 </ul>
             </nav>
         </div>
@@ -129,21 +130,46 @@
                 }
             </script>
             <div class="pagination">
-            	<% if(currentPage != 1) { %>
-                	<a href="<%=contextPath%>/list.fo?currentPage=<%=currentPage-1%>" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>
-               	<% } %>
-               	
-               		<% for(int p=startPage; p<=endPage; p++){ %>
-               			<%if(p != currentPage) {%>
-                		<a href="<%=contextPath%>/list.fo?currentPage=<%=p%>"><span><%= p %></span></a>
-                		<% }else{ %>
-						<a disalbed><span><%= p %></span></a>
-						<% } %>
-					<% } %>
-					
-				<% if(currentPage != maxPage) {%>
-                	<a href="<%=contextPath%>/list.no?currentPage=<%=currentPage+1%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
-            	<% } %>
+		           <% if(searchType==null) { %> <!-- 전체리스트 조회 -->
+		              <% if(currentPage != 1) { %>
+		              
+		              <!-- 이전페이지로 -->
+		                <a href="<%=contextPath%>/list.fo?currentPage=<%=currentPage-1%>&type=<%=searchType%>" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>
+		              <% } %>
+		                     
+		                     <% for(int p=startPage; p<=endPage; p++){ %>
+		                        <%if(p != currentPage) {%>
+		                        <a href="<%=contextPath%>/list.fo?currentPage=<%=p%>&type=<%=searchType%>"><span><%= p %></span></a>
+		                     <% }else{ %>
+		                     <a disalbed><span><%= p %></span></a>
+		                     <% } %>
+		                  <% } %>
+		                  
+		            <% if(currentPage != maxPage) {%>   
+		               <!-- 다음페이지로 -->   
+		                <a href="<%=contextPath%>/list.fo?currentPage=<%=currentPage+1%>&type=<%=searchType%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+		             <% } %>
+		         <% } else { %> <!-- 타입별 조회 -->
+		            <% if(currentPage != 1) { %>
+		              
+		              <!-- 이전페이지로 -->
+		                <a href="<%=contextPath%>/search.fo?currentPage=<%=currentPage-1%>&type=<%=searchType%>" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>
+		              <% } %>
+		                     
+		                     <% for(int p=startPage; p<=endPage; p++){ %>
+		                        <%if(p != currentPage) {%>
+		                        <a href="<%=contextPath%>/search.fo?currentPage=<%=p%>&type=<%=searchType%>"><span><%= p %></span></a>
+		                     <% }else{ %>
+		                     <a disalbed><span><%= p %></span></a>
+		                     <% } %>
+		                  <% } %>
+		                  
+		            <% if(currentPage != maxPage) {%>   
+		               <!-- 다음페이지로 -->   
+		                <a href="<%=contextPath%>/search.fo?currentPage=<%=currentPage+1%>&type=<%=searchType%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+		             <% } %>
+		         <% } %>
+
             </div>
         </div>
     </div>

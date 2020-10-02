@@ -138,9 +138,8 @@ public class ServiceDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Faq(
-								rset.getInt("FAQ_NO"),
-								rset.getString("FAQ_TYPE"),
+				list.add(new Faq(rset.getInt("FAQ_NO"),
+								 rset.getString("FAQ_TYPE"),
 								 rset.getString("FAQ_TITLE"),
 								 rset.getString("FAQ_CONTENT")));
 			}
@@ -209,11 +208,78 @@ public class ServiceDao {
 			
 			while(rset.next()) {
 				list.add(new Notice(rset.getInt("NOTICE_NO"),
-						rset.getString("NOTICE_TYPE"),
-						rset.getString("NOTICE_TITLE"),
-						rset.getDate("NOTICE_DATE")));
+									rset.getString("NOTICE_TYPE"),
+									rset.getString("NOTICE_TITLE"),
+									rset.getDate("NOTICE_DATE")));
 			}
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+
+	public int faqTypeListCount(Connection conn, String type) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("faqTypeListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, type);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("countTypeFaq");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+
+
+	public ArrayList<Faq> faqTypeSelectList(Connection conn, PageInfo pi, String type) {
+		
+		ArrayList<Faq> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("faqTypeSelectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, type);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Faq(rset.getInt("FAQ_NO"),
+						 		 rset.getString("FAQ_TYPE"),
+						 		 rset.getString("FAQ_TITLE"),
+						 		 rset.getString("FAQ_CONTENT")));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

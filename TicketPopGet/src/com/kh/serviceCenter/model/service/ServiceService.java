@@ -109,6 +109,37 @@ public class ServiceService {
 		
 		return list;
 	}
+
+	/** faq 타입별 리스트 갯수용 서비스
+	 * @param type
+	 * @return
+	 */
+	public int faqTypeListCount(String type) {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new ServiceDao().faqTypeListCount(conn, type);
+		
+		close(conn);
+		
+		return listCount;	
+	}
+
+	/** faq 타입별 리스트 서비스
+	 * @param pi
+	 * @param type
+	 * @return
+	 */
+	public ArrayList<Faq> faqTypeSelectList(PageInfo pi, String type) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Faq> list = new ServiceDao().faqTypeSelectList(conn, pi, type);
+		
+		close(conn);
+		
+		return list;
+	}
 	
 
 }

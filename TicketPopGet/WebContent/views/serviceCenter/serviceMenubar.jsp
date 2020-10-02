@@ -47,17 +47,16 @@
     <br>
     <ul class="serviceTopMenu">
         <li class="serviceMenu"><a class="help_meu" href="<%= request.getContextPath() %>/list.no?currentPage=1">공지사항</a></li>
-        <li class="serviceMenu"><a href="<%= request.getContextPath() %>/list.no?currentPage=1">전체</a></li>
         <li class="serviceMenu"><a href="<%= request.getContextPath() %>/search.no?currentPage=1&type=변경/취소">변경/취소</a></li>
         <li class="serviceMenu"><a href="<%= request.getContextPath() %>/search.no?currentPage=1&type=시스템">시스템</a></li>
         <li class="serviceMenu"><a href="<%= request.getContextPath() %>/search.no?currentPage=1&type=기타">기타</a></li>
       </ul>
       <ul class="serviceTopMenu">
         <li class="serviceMenu"><a class="help_meu" href="<%=request.getContextPath()%>/list.fo?currentPage=1">FAQ</a></li>
-        <li class="serviceMenu"><a href="">회원</a></li>
-        <li class="serviceMenu"><a href="">결제</a></li>
-        <li class="serviceMenu"><a href="">예매/취소</a></li>
-        <li class="serviceMenu"><a href="">기타</a></li>
+        <li class="serviceMenu"><a href="<%= request.getContextPath() %>/search.fo?currentPage=1&type=회원">회원</a></li>
+        <li class="serviceMenu"><a href="<%= request.getContextPath() %>/search.fo?currentPage=1&type=결제">결제</a></li>
+        <li class="serviceMenu"><a href="<%= request.getContextPath() %>/search.fo?currentPage=1&type=예매/취소">예매/취소</a></li>
+        <li class="serviceMenu"><a href="<%= request.getContextPath() %>/search.fo?currentPage=1&type=기타">기타</a></li>
       </ul>
       <ul class="serviceTopMenu">
         <li class="serviceMenu"><a class="help_meu" href="">1 : 1문의</a></li>
