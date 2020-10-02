@@ -34,7 +34,7 @@ public class FaqListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int listCount;		// 현재 총 게시글 갯수
+		   int listCount;		// 현재 총 게시글 갯수
 		   int currentPage;		// 현재 페이지 (즉, 요청한 페이지)
 		   int pageLimit;		// 한 페이지 하단에 보여질 페이지 최대갯수
 		   int boardLimit;		// 한 페이지내에 보여질 게시글 최대갯수
@@ -44,6 +44,8 @@ public class FaqListServlet extends HttpServlet {
 		   int endPage;			// 현재 페이지에 하단에 보여질 페이징 바의 끝 수
 		   
 		   listCount = new ServiceService().noticeSelectListCount();
+		   
+		   String searchType =  (String)request.getAttribute("type");
 		   
 		   currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		   
@@ -65,8 +67,6 @@ public class FaqListServlet extends HttpServlet {
 		   
 		   ArrayList<Faq> list = new ServiceService().faqSelectList(pi);
 		   
-		   System.out.println("CHECK NO");
-		   System.out.println(list);
 		   request.setAttribute("pi", pi);
 		   request.setAttribute("list", list);
 		   

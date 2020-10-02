@@ -129,18 +129,21 @@
                 }
             </script>
             <div class="pagination">
-                <a href="" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>
-                <a href=""><span>1</span></a>
-                <a href=""><span>2</span></a>
-                <a href=""><span>3</span></a>
-                <a href=""><span>4</span></a>
-                <a href=""><span>5</span></a>
-                <a href=""><span>6</span></a>
-                <a href=""><span>7</span></a>
-                <a href=""><span>8</span></a>
-                <a href=""><span>9</span></a>
-                <a href=""><span>10</span></a>
-                <a href="" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+            	<% if(currentPage != 1) { %>
+                	<a href="<%=contextPath%>/list.fo?currentPage=<%=currentPage-1%>" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>
+               	<% } %>
+               	
+               		<% for(int p=startPage; p<=endPage; p++){ %>
+               			<%if(p != currentPage) {%>
+                		<a href="<%=contextPath%>/list.fo?currentPage=<%=p%>"><span><%= p %></span></a>
+                		<% }else{ %>
+						<a disalbed><span><%= p %></span></a>
+						<% } %>
+					<% } %>
+					
+				<% if(currentPage != maxPage) {%>
+                	<a href="<%=contextPath%>/list.no?currentPage=<%=currentPage+1%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+            	<% } %>
             </div>
         </div>
     </div>

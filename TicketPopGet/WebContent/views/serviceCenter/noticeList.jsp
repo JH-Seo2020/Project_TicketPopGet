@@ -94,10 +94,10 @@
             <h2><b>공지사항</b></h2>
             <nav id="topMenu">
                 <ul  class="servicemenu">
-                    <li class="servicemenu"><a class="menuLink" href="">전체</a></li>
-                    <li class="servicemenu"><a class="menuLink" href="">변경/취소</a></li>
-                    <li class="servicemenu"><a class="menuLink" href="">시스템</a></li>
-                    <li class="servicemenu"><a class="menuLink" href="">기타</a></li>
+                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/list.no?currentPage=1">전체</a></li>
+                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/search.no?currentPage=1&type=변경/취소">변경/취소</a></li>
+                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/search.no?currentPage=1&type=시스템">시스템</a></li>
+                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/search.no?currentPage=1&type=기타">기타</a></li>
                 </ul>
             </nav>
         </div>
@@ -138,24 +138,45 @@
         
         </div>
         <div class="pagination" align="center">
-        	<% if(currentPage != 1) { %>
-        	
-        	<!-- 이전페이지로 -->
-			    <a href="<%=contextPath%>/list.no?currentPage=<%=currentPage-1%>&type=<%=searchType%>" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>
-		     <% } %>
-		            
-		            <% for(int p=startPage; p<=endPage; p++){ %>
-		            	<%if(p != currentPage) {%>
-			            <a href="<%=contextPath%>/list.no?currentPage=<%=p%>&type=<%=searchType%>"><span><%= p %></span></a>
-						<% }else{ %>
-						<a disalbed><span><%= p %></span></a>
+        	<% if(searchType==null) { %> <!-- 전체리스트 조회 -->
+	        	<% if(currentPage != 1) { %>
+	        	
+	        	<!-- 이전페이지로 -->
+				    <a href="<%=contextPath%>/list.no?currentPage=<%=currentPage-1%>&type=<%=searchType%>" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>
+			     <% } %>
+			            
+			            <% for(int p=startPage; p<=endPage; p++){ %>
+			            	<%if(p != currentPage) {%>
+				            <a href="<%=contextPath%>/list.no?currentPage=<%=p%>&type=<%=searchType%>"><span><%= p %></span></a>
+							<% }else{ %>
+							<a disalbed><span><%= p %></span></a>
+							<% } %>
 						<% } %>
-					<% } %>
-					
-			<% if(currentPage != maxPage) {%>	
-				<!-- 다음페이지로 -->	
-		    	<a href="<%=contextPath%>/list.no?currentPage=<%=currentPage+1%>&type=<%=searchType%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
-		    <% } %>
+						
+				<% if(currentPage != maxPage) {%>	
+					<!-- 다음페이지로 -->	
+			    	<a href="<%=contextPath%>/list.no?currentPage=<%=currentPage+1%>&type=<%=searchType%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+			    <% } %>
+			<% } else { %> <!-- 타입별 조회 -->
+				<% if(currentPage != 1) { %>
+	        	
+	        	<!-- 이전페이지로 -->
+				    <a href="<%=contextPath%>/search.no?currentPage=<%=currentPage-1%>&type=<%=searchType%>" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>
+			     <% } %>
+			            
+			            <% for(int p=startPage; p<=endPage; p++){ %>
+			            	<%if(p != currentPage) {%>
+				            <a href="<%=contextPath%>/search.no?currentPage=<%=p%>&type=<%=searchType%>"><span><%= p %></span></a>
+							<% }else{ %>
+							<a disalbed><span><%= p %></span></a>
+							<% } %>
+						<% } %>
+						
+				<% if(currentPage != maxPage) {%>	
+					<!-- 다음페이지로 -->	
+			    	<a href="<%=contextPath%>/search.no?currentPage=<%=currentPage+1%>&type=<%=searchType%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+			    <% } %>
+			<% } %>
         </div>
     </div>
     </form>
