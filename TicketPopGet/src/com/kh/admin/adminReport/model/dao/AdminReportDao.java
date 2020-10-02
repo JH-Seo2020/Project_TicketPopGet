@@ -240,8 +240,85 @@ public class AdminReportDao {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("deleteReport");
+		String sql = "";
 		
+		if(r.getReportCate().equals("홍보게시판")) {
+			sql = prop.getProperty("deleteReportBoard");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, r.getContentNo());
+				
+				result = pstmt.executeUpdate();
+				result += checkReport(conn, r.getReportNo());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			
+		}else if(r.getReportCate().equals("후기")) {
+			sql = prop.getProperty("deleteReportReview");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, r.getContentNo());
+				
+				result = pstmt.executeUpdate();
+				result += checkReport(conn, r.getReportNo());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			sql = prop.getProperty("deleteReportReviewReply");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, r.getContentNo());
+				
+				result += pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			
+			
+		}else if(r.getReportCate().equals("후기댓글")) {
+			sql = prop.getProperty("deleteReportReply");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, r.getContentNo());
+				
+				result = pstmt.executeUpdate();
+				result += checkReport(conn, r.getReportNo());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			
+		}else if(r.getReportCate().equals("이벤트댓글")){
+			sql = prop.getProperty("deleteReportEventComment");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, r.getContentNo());
+				
+				result = pstmt.executeUpdate();
+				result += checkReport(conn, r.getReportNo());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			
+		}
 		
 		return result; 
 	}

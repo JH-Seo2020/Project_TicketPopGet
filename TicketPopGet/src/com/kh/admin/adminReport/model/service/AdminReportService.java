@@ -81,7 +81,7 @@ public class AdminReportService {
 	
 	/**
 	 * 신고된 게시물 삭제용 서비스
-	 * @param r   삭제해야할 게시물타입, 게시물번호가 들어있는 객체
+	 * @param r   삭제해야할 게시물타입, 게시물번호, 신고번호가 들어있는 객체
 	 * @return    처리된 행 수
 	 */
 	public int deleteReport(Report r) {
@@ -90,12 +90,13 @@ public class AdminReportService {
 		
 		int result = new AdminReportDao().deleteReport(conn, r);
 		
-		if(result > 0) {
+		if(result > 1) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		return result;
 	}
+	
 	
 }

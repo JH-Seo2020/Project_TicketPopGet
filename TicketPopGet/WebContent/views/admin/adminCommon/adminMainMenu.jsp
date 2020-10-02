@@ -109,10 +109,10 @@
                     </th>
                 </tr>
                 <tr>
-                    <th><button type="button">컨텐츠 조회/삭제</button></th>
+                    <th><button type="button" onclick="location.href='<%=request.getContextPath()%>/list.adco'">컨텐츠 조회/삭제</button></th>
                 </tr>
                 <tr>
-                    <th><button type="button">컨텐츠 등록/수정</button></th>
+                    <th><button type="button">컨텐츠 등록</button></th>
                 </tr>
             </table>
         </div>
