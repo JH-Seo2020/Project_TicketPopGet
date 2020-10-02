@@ -40,7 +40,6 @@ public class MyPageAdboardDetailUpdate extends HttpServlet {
 		Date addate = java.sql.Date.valueOf(request.getParameter("addate"));
 		String content = request.getParameter("editordata");
 
-		
 		AdBoard ad = new AdBoard();
 		ad.setBoardNo(ano);
 		ad.setBoardType(category1);
@@ -53,9 +52,8 @@ public class MyPageAdboardDetailUpdate extends HttpServlet {
 		if(result>0) { 
 			request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다.");
 			response.sendRedirect(request.getContextPath() + "/adboard_detail.my?ano="+ano);
-		}else { //실패
+		}else { 
 			request.setAttribute("errorMsg", " 수정 실패");
-			
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		

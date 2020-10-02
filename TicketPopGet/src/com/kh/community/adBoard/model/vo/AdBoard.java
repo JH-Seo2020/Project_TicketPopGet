@@ -90,7 +90,7 @@ public class AdBoard {
 	
 
 
-
+    //리스트조회
 	public AdBoard(int boardNo, String boardTitle, String boardType, Date boardDate) {
 		super();
 		this.boardNo = boardNo;
@@ -101,15 +101,13 @@ public class AdBoard {
 	
 	
 
-	
-
-	public AdBoard(int boardNo, String boardType, String boardTitle, Date boardDate, String boardLocation) {
+	public AdBoard(int boardNo, String boardType, String boardLocation, Date boardDate , String boardTitle) {
 		super();
 		this.boardNo = boardNo;
 		this.boardType = boardType;
 		this.boardLocation = boardLocation;
-		this.boardDate = boardDate;
 		this.boardTitle = boardTitle;
+		this.boardDate = boardDate;
 	}
 
 	public String getUserId() {

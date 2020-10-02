@@ -30,8 +30,7 @@ public class MyPageAdboardDetail extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+
 		int ano = Integer.parseInt(request.getParameter("ano"));
 	
 		

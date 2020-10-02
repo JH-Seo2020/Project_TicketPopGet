@@ -76,10 +76,11 @@
 </head>
 
 <body>
-<%@ include file="/views/common/menubar.jsp" %>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
+	<!-- 메뉴바쓰추가쓰 -->
+	<%@ include file="/views/common/menubar.jsp"%>
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
    <div id="wrap">
 		<form action="<%=contextPath%>/adupdate.my?boardNo=<%=ad.getBoardNo()%>" method="post">
@@ -117,9 +118,9 @@
 	            <table border="1">  
 	                <tr>
 	                    <th style="text-align:center;">제목</th>
-	                    <td colspan="2"><input type="text" id="adtitle" name="adtitle" value="<%=ad.getBoardTitle()%>" style="border:none; width:500px;"></td>
+	                    <td colspan="2"><input type="text" id="adtitle" name="adtitle"  value="<%=ad.getBoardTitle()%>" style="border:none; width:500px;"></td>
 	                    <th style="text-align:center;">작성일</th>
-	                    <td style="text-align:center;"><input type="date" id="dadate" readonly name="addate" value="<%=ad.getBoardDate()%>" style="border:none;"></td>
+	                    <td style="text-align:center;"><input type="date" id="dadate" readonly name="addate" value="<%=ad.getBoardDate()%>"  style="border:none;"></td>
 	                </tr>
 	            </table>
 	     
