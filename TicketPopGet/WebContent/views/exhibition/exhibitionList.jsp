@@ -31,18 +31,20 @@
             text-align: center;
             margin-top: 5px;
             padding-top: 50px;
-            font-size: 30px;    
+            font-size: 30px;   
+            background: #f6f6f6;   
         }
         #exhibitionLocal>select{height: 40%; width: 15%; font-size: 25px;}
         #exhibitionLocal>select>option { font-size: 15px;}
 
         /* 전시 포스터 보여지는 부분(12개, 페이징버튼)*/
         #exhibitionList{
-            margin-top: 5px;
+            margin-top: 20px;
             height: 70%;
             width: 100%;
+            background : #f6f6f6;
         }
-        #posterBody{width: 100%;height: 80%;}
+        #posterBody{width: 100%;height: 80%;padding-top: 20px;}
         #posterBody>li{
             list-style-type: none;
             display:inline-block;
