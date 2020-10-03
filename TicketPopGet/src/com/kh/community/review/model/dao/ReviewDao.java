@@ -220,4 +220,21 @@ private Properties prop = new Properties();
 		return reviewContent;
 	}
 
+	public int deleteReview(Connection conn, int reviewNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

@@ -124,8 +124,8 @@
             </div>
             <div id="reviewBodyBtns">
                 <%if (loginUser != null && loginUser.getUserNo() == r.getUserNo()){ %>
-                	<a class="btn btn-warning" href="">수정</a>
-                	<a class="btn btn-warning" href="" data-toggle="modal" data-target="#deleteReview">삭제</a>
+                	<a class="btn btn-warning" href="<%=contextPath%>/review_detail.my?rno=<%=r.getReviewNo() %>&userNo=<%=r.getUserNo()%>">수정</a>
+                	<a class="btn btn-warning" style="cursor:pointer;" data-toggle="modal" data-target="#deleteReview">삭제</a>
 				<%} %>
                 <a class="btn btn-secondary" id="back">목록으로</a>
             </div>
@@ -229,7 +229,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                        <a type="button" class="btn btn-primary" href="">확인</a>
+                        <a type="button" class="btn btn-primary" href="<%=contextPath %>/review.delete?reviewNo=<%=r.getReviewNo() %>">확인</a>
                     </div>
                 </div>
             </div>

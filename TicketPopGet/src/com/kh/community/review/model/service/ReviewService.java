@@ -110,5 +110,22 @@ public class ReviewService {
 		return reviewContent;
 	}
 
+	/**
+	 * 8. 리뷰게시글 삭제
+	 * @param reviewNo
+	 * @return
+	 */
+	public int deleteReview(int reviewNo) {
+		Connection conn = getConnection();
+		int result = new ReviewDao().deleteReview(conn,reviewNo);
+		if (result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
 
 }

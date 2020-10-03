@@ -84,5 +84,10 @@
 	      )
 	 WHERE RNUM BETWEEN ? AND ?
 	</entry>
-	
+	<entry key="deleteReview">
+		UPDATE 
+		       REVIEW
+		   SET REVIEW_STATUS = 'N'
+		 WHERE REVIEW_NO = ?
+	</entry>
 </properties>
