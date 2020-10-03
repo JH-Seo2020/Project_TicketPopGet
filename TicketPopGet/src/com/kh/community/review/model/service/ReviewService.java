@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import com.kh.community.adBoard.model.dao.AdBoardDao;
 import com.kh.community.adBoard.model.vo.AdBoard;
+import com.kh.community.adBoard.model.vo.Report;
 import com.kh.community.eventResult.model.dao.EventResultDao;
 import com.kh.community.eventResult.model.vo.EventRaffle;
 import com.kh.community.review.model.dao.ReviewDao;
@@ -108,5 +109,6 @@ public class ReviewService {
 		close(conn);
 		return reviewContent;
 	}
+
 
 }

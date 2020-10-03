@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.community.adBoard.model.vo.AdBoard;
+import com.kh.community.adBoard.model.vo.Report;
 import com.kh.community.eventResult.model.vo.EventRaffle;
 import com.kh.community.review.model.vo.Review;
 import com.kh.concert.model.vo.PageInfo;
@@ -178,7 +179,8 @@ private Properties prop = new Properties();
 								rset.getString("REVIEW_TITLE"),
 								rset.getInt("REVIEW_POINT"),
 								rset.getDate("REVIEW_DATE"),
-								rset.getInt("REVIEW_COUNT")
+								rset.getInt("REVIEW_COUNT"),
+								rset.getString("USER_ID")
 									);
 			}
 		} catch (SQLException e) {

@@ -114,7 +114,7 @@
                 <%} %> 
                 <span>
                 <%if (loginUser != null && loginUser.getUserNo() != r.getUserNo()){ %>
-                	<a href="" style="color: black !important;" data-toggle="modal" data-target="#ReviewReport">신고</a>
+                	<a style="color: black !important; cursor:pointer;" data-toggle="modal" data-target="#ReviewReport">신고</a>
                 <%} %>
                 </span>
                 <span>작성일 : <%=r.getReviewDate() %> 조회수 : <%=r.getReviewCount() %></span>
@@ -268,34 +268,41 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                        <form method="POST" action="">
+                        <form method="POST" action="<%=contextPath%>/review.report">
+                        <%if(loginUser != null){ %>
+		                <input name="reporter" type="hidden" value="<%=loginUser.getUserNo()%>">
+		                <%} %>
+		                <input name="troubleMaker" type="hidden" value="<%=r.getUserNo()%>">
+		                <input name="reportCate" type="hidden" value="후기">
+		                <input name="reviewNo" type="hidden" value="<%=r.getReviewNo() %>">
                             <div class="modal-body">
                                 <p>
                                     <b>신고 사유</b>
                                 </p>
-                                <select required name="" class="form-control">
-                                    <option value="">선택</option>
-                                    <option value="블라블라">블라블라</option>
-                                    <option value="블라블라">블라블라</option>
-                                    <option value="블라블라">블라블라</option>
-                                    <option value="블라블라">블라블라</option>
-                                </select>
+                                <select required name="reportType" class="form-control">
+		                            <option value="">선택</option>
+		                            <option value="욕설">욕설</option>
+		                            <option value="음란">음란</option>
+		                            <option value="광고">광고</option>
+		                            <option value="비하">비하</option>
+		                            <option value="기타">기타</option>
+		                        </select>
                             </div>
                             <div class="modal-body">
                                 <p>
                                     <b>신고 대상 아이디 </b>
                                 </p>
-                                <p>grekk***</p>
+                                <p><%=r.getUserId() %></p>
                             </div>
                             <div class="modal-body">
                                 <p>
                                     <b>구체적인 신고 사유 </b>
                                 </p>
-                                <input type="text" name="" class="form-control" placeholder="이유를입력하세요" required>
+                                <input type="text" name="reportContent" class="form-control" placeholder="이유를입력하세요" required>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                                <button type="submit" class="btn btn-primary" onclick="">확인</button>
+                                <button type="submit" class="btn btn-primary" >확인</button>
                             </div>
 
                         </form>

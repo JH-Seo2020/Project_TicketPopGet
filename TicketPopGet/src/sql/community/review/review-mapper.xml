@@ -46,8 +46,10 @@
 		     , REVIEW_POINT
 		     , REVIEW_DATE
 		     , REVIEW_COUNT
+		     , USER_ID
 		  FROM REVIEW
 		  JOIN CONTENTS USING (CONTENT_NO)
+		  JOIN MEMBER USING (USER_NO)
 		 WHERE REVIEW_STATUS = 'Y'
                AND REVIEW_NO = ?
 	</entry>

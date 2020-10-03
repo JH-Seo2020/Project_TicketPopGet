@@ -308,7 +308,7 @@
 						$('#commentContent').val(result.commentCont);
 						$('#divForUpdate').html("<a id='upBtn' type='button' class='btn btn-warning'>수정하기</a>");
 						$('#upBtn').click(function(){
-							updateComment({commentNo : result.commentNo , commentCont : result.commentCont});
+							updateComment({commentNo : result.commentNo , commentCont : $('#commentContent').val()});
 						});
 						
 						
@@ -320,7 +320,7 @@
 			}
 			
 			function updateComment(result){
-				
+				console.log(result.commentCont);
 				//수정하기 클릭 시 업데이트할 ajax
 				$.ajax({
 					url : "<%=request.getContextPath()%>/comment.update",
@@ -330,6 +330,7 @@
 					success : function(update){
 						
 						if(update>0){
+							$('#divForUpdate').html("<button id='insertBtn' type='button' class='btn btn-secondary' onclick='addComment();'>등록하기</button>");
 							selectCommentList(1);
 							$('#commentContent').val("");
 						}else{

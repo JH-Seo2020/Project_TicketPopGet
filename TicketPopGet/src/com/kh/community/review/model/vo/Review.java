@@ -16,6 +16,7 @@ public class Review {
 	private Date reviewDate;
 	private int reviewCount;
 	private String reviewStatus;
+	private String userId;
 	
 	public Review() {
 		// TODO Auto-generated constructor stub
@@ -46,8 +47,6 @@ public class Review {
 		
 	}
 
-	
-
 	public Review(int reviewNo, int userNo, int contentNo, String contentType, String reviewTitle, int reviewPoint,
 			Date reviewDate, int reviewCount) {
 		super();
@@ -59,6 +58,20 @@ public class Review {
 		this.reviewPoint = reviewPoint;
 		this.reviewDate = reviewDate;
 		this.reviewCount = reviewCount;
+	}
+
+	public Review(int reviewNo, int userNo, int contentNo, String contentType, String reviewTitle, int reviewPoint,
+			Date reviewDate, int reviewCount, String userId) {
+		super();
+		this.reviewNo = reviewNo;
+		this.userNo = userNo;
+		this.contentNo = contentNo;
+		this.contentType = contentType;
+		this.reviewTitle = reviewTitle;
+		this.reviewPoint = reviewPoint;
+		this.reviewDate = reviewDate;
+		this.reviewCount = reviewCount;
+		this.userId = userId;
 	}
 
 	public int getReviewRnum() {
@@ -151,6 +164,16 @@ public class Review {
 
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
+	}
+	
+	
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	@Override
