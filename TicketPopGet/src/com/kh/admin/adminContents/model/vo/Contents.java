@@ -32,8 +32,23 @@ public class Contents {
 	private int seats;
 	
 	public Contents() {}
-	
-	
+
+	public Contents(String contentTitle, String contentSubject, String place, String limit, String price,
+			String contentKeyword, String info, String region, String contentRuntime, String startDate, int max) {
+		super();
+		this.contentTitle = contentTitle;
+		this.contentSubject = contentSubject;
+		this.place = place;
+		this.limit = limit;
+		this.price = price;
+		this.contentKeyword = contentKeyword;
+		this.info = info;
+		this.region = region;
+		this.contentRuntime = contentRuntime;
+		this.startDate = startDate;
+		Max = max;
+	}
+
 	public Contents(String contentTitle, String contentSubject, String place, String limit, String price,
 			String contentKeyword, String info, String region, String contentRuntime, String startDate, String endDate,
 			String contentDate, String startTime, String endTime, String round, int max) {

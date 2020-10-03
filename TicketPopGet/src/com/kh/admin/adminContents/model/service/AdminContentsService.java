@@ -58,4 +58,23 @@ public class AdminContentsService {
 		return result;
 	}
 	
+	/**
+	 * 콘서트 등록용 서비스
+	 * @param c 등록할 컨텐츠 객체
+	 * @return 처리된 행 수
+	 */
+	public int insertConcert(Contents c) {
+		
+		Connection conn = getConnection();
+		
+		int result = new AdminContentsDao().insertConcert(conn, c);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+	
 }

@@ -206,4 +206,50 @@ public class AdminContentsDao {
 		return result1*result2*result3;
 	}
 	
+	public int insertConcert(Connection conn, Contents c) {
+		
+		int result1= 0;
+		int result2= 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertConcertContent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, c.getContentTitle());
+			pstmt.setString(2, c.getContentSubject());
+			pstmt.setString(3, c.getPlace());
+			pstmt.setString(4, c.getLimit());
+			pstmt.setString(5, c.getPrice());
+			pstmt.setString(6, c.getContentKeyword());
+			pstmt.setString(7, c.getInfo());
+			pstmt.setString(8, c.getRegion());
+			pstmt.setString(9, c.getContentOgImg());
+			pstmt.setString(10, c.getContentChImg());
+			pstmt.setString(11, c.getContentImgPath());
+			
+			result1 = pstmt.executeUpdate();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+
+		try {
+			sql = prop.getProperty("insertConcert");
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, c.getStartDate());
+			pstmt.setString(2, c.getContentRuntime());
+			pstmt.setInt(3, c.getMax());
+			pstmt.setInt(4, c.getMax());
+			
+			result2=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result1*result2;
+	}
+	
 }

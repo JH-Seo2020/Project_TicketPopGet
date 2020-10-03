@@ -1,7 +1,6 @@
 package com.kh.admin.adminContents.controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,16 +14,16 @@ import com.kh.common.MyFileRenamePolicy;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class AdminPlayInsertFormServlet
+ * Servlet implementation class AdminConcertInsertFormServlet
  */
-@WebServlet("/insertPlayForm.adco")
-public class AdminPlayInsertFormServlet extends HttpServlet {
+@WebServlet("/insertConcertForm.adco")
+public class AdminConcertInsertFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminPlayInsertFormServlet() {
+    public AdminConcertInsertFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,44 +34,35 @@ public class AdminPlayInsertFormServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int maxSize = 10*1024*1024;
-		
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/img/ContentsImg/");
-		
 		MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 		
 		String contentTitle = multiRequest.getParameter("contentTitle");
 		String contentSubject = multiRequest.getParameter("contentSubject");
-		String limit = multiRequest.getParameter("limit");
 		String startDate = multiRequest.getParameter("startDate");
-		String endDate = multiRequest.getParameter("endDate");
-		String contentDate = multiRequest.getParameter("contentDate");
-		String round = multiRequest.getParameter("round");
-		String startTime = multiRequest.getParameter("startTime");
-		String endTime = multiRequest.getParameter("endTime");
 		String runtime = multiRequest.getParameter("runtime");
-		int ticketCount = Integer.parseInt(multiRequest.getParameter("ticketCount"));
+		int max = Integer.parseInt(multiRequest.getParameter("max"));
 		String place = multiRequest.getParameter("place");
 		String local = multiRequest.getParameter("local");
+		String limit = multiRequest.getParameter("limit");
 		String price = multiRequest.getParameter("price");
 		String keyword = multiRequest.getParameter("keyword");
 		String info = multiRequest.getParameter("info");
 		
-		Contents c = new Contents(contentTitle, contentSubject, place, limit, price, keyword, info, local, runtime, startDate, endDate, contentDate, startTime, endTime, round, ticketCount);
+		Contents c = new Contents(contentTitle, contentSubject, place, limit, price, keyword, info , local, runtime, startDate, max);
 		
-		c.setContentOgImg(multiRequest.getOriginalFileName("file1"));
-		c.setContentChImg(multiRequest.getFilesystemName("file1"));
-		c.setContentImgPath("resources/contentsImg/");
-
-		int result = new AdminContentsService().insertPlay(c);
+		c.setContentOgImg(multiRequest.getOriginalFileName("file"));
+		c.setContentChImg(multiRequest.getFilesystemName("file"));
+		c.setContentImgPath("resources/img/contentsImg/");
 		
-		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "등록완료되었습니다.");
+		int result = new AdminContentsService().insertConcert(c);
+		
+		if(result>0) {
+			request.getSession().setAttribute("alertMsg", "등록 완료되었습니다");
 		}else {
-			request.getSession().setAttribute("alertMsg", "등록실패하였습니다.");
+			request.getSession().setAttribute("alertMsg", "등록 실패되었습니다");
 		}
-		
-		response.sendRedirect(request.getContextPath() + "/list.adco?currentPage=1");
-		
+		response.sendRedirect(request.getContextPath()+"/list.adco?currentPage=1");
 	}
 
 	/**

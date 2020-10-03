@@ -56,7 +56,6 @@
                         <th style="width:150px">분류</th>
                         <td>연극</td>
                         <td colspan="2">
-                            <button type="button" class="btn btn-danger" style="float:right;">삭제</button>
                             <button type="submit" class="btn btn-primary" style="float:right;">등록</button>
                         </td>
                     </tr>
@@ -94,16 +93,16 @@
                                 <option value="8">8회차</option>
                                 <option value="9">9회차</option>
                                 <option value="10">10회차</option>
-
                             </select>
                         </td>
-                        <td colspan="2"><input type="date" name="contentDate" required></td>
+                        <td><input type="date" name="contentDate" required></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <th>공연시간</th>
-                        <td><input type="text" min="0" name="startTime" required placeholder="시작:ex)14시00분"></td>
-                        <td><input type="text" min="0" name="endTime" required placeholder="종료:ex)16시00분"></td>
-                        <td style="width:100px"><input type="number" min="0" name="runtime" required placeholder="(분)"></td>
+                        <td><input type="text" min="0" name="startTime" required placeholder="14시00분"></td>
+                        <td><input type="text" min="0" name="endTime" required placeholder="16시00분"></td>
+                        <td style="width:180px"><input type="text" name="runtime" required placeholder="150분"></td>
                     </tr>
                     <tr>
                         <th>총티겟수</th>
@@ -139,7 +138,7 @@
                 </table>
         </div>
         <div style="border: 1px solid red; width: 100%; height: 300px; box-sizing: border-box;">
-            <textarea name="info" style="width: 100%; height: 100%; resize: none; text-align: left;"></textarea>
+            <textarea name="info" style="width: 100%; height: 100%; resize: none; text-align: left;" required></textarea>
         </div>
     <input id="file" type="file" name="file1" onchange="loadImg(this);" style="display: none;" required>
             </form>

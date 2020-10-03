@@ -50,14 +50,13 @@
 	            <img id="titleImg" src="" style="width: 100%; height: 100%; border: 1px solid black; box-sizing: border-box;">
 	        </div>
 	        <div id="contentInsertDiv">
-                <table id="contentInsert">
+                <table id="contentInsert" style="width:450px">
                     <tr>
                         
                         <th>분류</th>
                         <td>콘서트</td>
                         <td style="float: right;">
-                            <button class="btn btn-primary">등록</button>
-                            <button class="btn btn-danger">삭제</button>
+                            <button type="submit" class="btn btn-primary">등록</button>
                         </td>
                     </tr>
                     <tr>
@@ -74,18 +73,16 @@
                     </tr>
                     <tr>
                         
-                        <th>기간</th>
-                        <td><input type="date" name="start" required></td>
-                        <td><input type="date" name="end" required></td>
-                        
+                        <th>공연날</th>
+                        <td colspan="2"><input type="date" name="startDate" required></td>
                     </tr>
                     <tr>
                         <th>공연시간</th>
-                        <td colspan="2"><input type="number" min="0" name="runtime" required ></td>
+                        <td colspan="2"><input type="text" name="runtime" required placeholder="ex)14시00분~16시00분"></td>
                     </tr>
                     <tr>
                         <th>총티겟수</th>
-                        <td colspan="2"><input type="number" min="0" name="ticketCount" required></td>
+                        <td colspan="2"><input type="number" min="0" name="max" required></td>
                     </tr>
                     <tr>
                         <th>장소</th>
@@ -94,9 +91,11 @@
                     <tr>
                         <th>지역</th>
                         <td colspan="2">
-                            <select name="area">
-                                <option value="서울">서울</option>
-                                <option value="경기도">경기도</option>
+                            <select name="local">
+                                <option value="서울경기권">서울경기권</option>
+				                <option value="강원충청권">강원충청권</option>
+				                <option value="전라권">전라권</option>
+				                <option value="경상제주권">경상제주권</option>
                             </select>
                         </td>
                     </tr>
@@ -113,17 +112,15 @@
                         <td colspan="2"><input type="text" name="keyword" required></td>
                     </tr>
                 </table>
-            </form>
         </div>
         <div style="border: 1px solid red; width: 100%; height: 300px; box-sizing: border-box;">
-            <textarea name="contentsContent" style="width: 100%; height: 100%; resize: none; text-align: left;">
-원래 컨텐츠 설명 내용 자리 
-            </textarea>     
+            <textarea name="info" style="width: 100%; height: 100%; resize: none; text-align: left;" required></textarea>     
         </div>
+   		 <input id="file" type="file" name="file" onchange="loadImg(this);" style="display: none;" required>
+         </form>
     </div>
 
 
-    <input id="file" type="file" name="file" onchange="loadImg(this);" style="display: none;">
 
     <script>
         $(function(){

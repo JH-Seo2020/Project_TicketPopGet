@@ -129,4 +129,95 @@
 		     )
 	</entry>
 	
+	<entry key="insertConcertContent">
+		INSERT 
+		  INTO CONTENTS
+		      (
+		       CONTENT_NO
+		     , CONTENT_TYPE
+		     , CONTENT_TITLE
+		     , CONTENT_SUBJECT
+		     , PLACE
+		     , LIMIT
+		     , PRICE
+		     , CONTENT_KEYWORD
+		     , INFO
+		     , REGION
+		     , CONTENT_OGIMG
+		     , CONTENT_CHIMG
+		     , CONTENT_IMGPATH
+		      )
+		 VALUES
+		     (
+		      SEQ_CONTENTSNO.NEXTVAL
+		    , '콘서트'
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		     )
+	</entry>
+	
+	<entry key="insertConcert">
+		INSERT
+		  INTO CONCERT
+		     (
+		       CONTENT_NO
+		     , CONCERT_DATE
+		     , CONCERT_RUNTIME
+		     , CONCERT_MAX
+		     , CONCERT_SEATS
+		     )
+		VALUES
+		     (
+		       SEQ_CONTENTSNO.CURRVAL
+		     , TO_DATE(?)
+		     , ?
+		     , ?
+		     , ?
+		     )
+	</entry>
+	
+	<entry key="insertExhibitionContent">
+		INSERT 
+		  INTO CONTENTS
+		      (
+		       CONTENT_NO
+		     , CONTENT_TYPE
+		     , CONTENT_TITLE
+		     , CONTENT_SUBJECT
+		     , PLACE
+		     , LIMIT
+		     , PRICE
+		     , CONTENT_KEYWORD
+		     , INFO
+		     , REGION
+		     , CONTENT_OGIMG
+		     , CONTENT_CHIMG
+		     , CONTENT_IMGPATH
+		      )
+		 VALUES
+		     (
+		      SEQ_CONTENTSNO.NEXTVAL
+		    , '전시'
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		     )
+	</entry>
 </properties>
