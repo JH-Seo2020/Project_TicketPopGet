@@ -1,7 +1,6 @@
 package com.kh.user.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,18 +33,18 @@ public class MyPageAdboardDetailUpdate extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int ano = Integer.parseInt(request.getParameter("ano"));
+		int uno = Integer.parseInt(request.getParameter("userNo"));
 		String category1 = request.getParameter("category1");
 		String category2 = request.getParameter("category2");
 		String title = request.getParameter("adtitle");
-		Date addate = java.sql.Date.valueOf(request.getParameter("addate"));
 		String content = request.getParameter("editordata");
 
 		AdBoard ad = new AdBoard();
 		ad.setBoardNo(ano);
+		ad.setUserNo(uno);
 		ad.setBoardType(category1);
 		ad.setBoardLocation(category2);
 		ad.setBoardTitle(title);
-		ad.setBoardDate(addate);
 
 		int result = new MyPageService().adBoardUpdate(ad, content);
 		

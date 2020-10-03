@@ -3,6 +3,7 @@
 <%@ page import="com.kh.user.model.vo.*" %>
 <%
 	MyPage mp = (MyPage)request.getAttribute("mp");
+	String content = (String)request.getAttribute("content");
 %>
 <!DOCTYPE html>
 <html>
@@ -29,23 +30,19 @@
     /* 몸통영역 */
     .reservation_check2{
         margin-top: 100px;
-        margin-left: 150px;
+        margin-left: 90px;
         
     }
     
     /* 테이블 */
     .review_write{
-        margin-left: 150px;
+        margin-left: 90px;
         margin-top: 8px;
          height: 800px;
     }
     .review_write table{
-        width: 900px;
-        height: 90px;
-    }
-    .review_write textarea{
-        width: 900px;
-        height: 500px;
+        width: 1000px;
+        height: 50px;
     }
     .review_write_btn{
         float: right;
@@ -75,10 +72,14 @@
 
 	<!-- 메뉴바쓰추가쓰 -->
 	<%@ include file="/views/common/menubar.jsp"%>
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 	
    <div id="wrap">
-		<form>
+		<form action="<%=contextPath%>/review_update.my?rno=<%=mp.getReviewNo()%>&userNo=<%=mp.getUserNo()%>" method="POST">
 		<input type="hidden" name="rno" value="<%=mp.getReviewNo()%>">
+		<input type="hidden" name="userNo" value="<%=mp.getUserNo() %>">
+		
 	        <!-- 헤더부분 -->
 	        <div class="reservation_check1">
 	            <h3 style="margin-bottom: 20px;"><b>후기수정</b></h3>
@@ -86,10 +87,16 @@
 	
 	         <!-- 몸통부분  -->
 	         <div class="reservation_check2">
-	            <select name="category" style="width: 300px; height: 50px;">
-	                <option><%=mp.getContentType()%></option>
+	            <select name="category" disabled style="width: 300px; height: 50px;">
+	            	<option value="콘서트">콘서트</option>
+	                <option value="연극">연극</option>
+	                <option value="전시">전시</option>
 	            </select>
 	        </div>
+	        
+	        <script>
+	        	$("select[name='category']").val("<%=mp.getContentType()%>");
+	        </script>
 	
 	        <!-- 테이블 -->
 	        <div class="review_write" >
@@ -102,7 +109,7 @@
 	                </tr>
 	                <tr>
 	                    <th>작성일</th>
-	                    <td><%=mp.getReviewDate() %></td>
+	                    <td><input type="date" id="dadate" readonly name="addate" value="<%=mp.getReviewDate() %>" style="border:none;"></td>
 	                    <th>평점</th>
 	                    <td><input type="number" name="reviewpoint" value="<%=mp.getReviewPoint() %>" style="border:none;"></td>
 	                </tr>
@@ -111,8 +118,17 @@
 	                    <td colspan="3"><input type="text" name="reviewtitle" value="<%=mp.getContentTitle() %>" style="border:none; width:700px;"></td>
 	                </tr>
 	            </table>
-	            <%-- value 값안에 넣어줄지 아님.. 어캐..?  --%>
-	            <textarea name="reviewcontent"><%=mp.getReviewContent() %>"</textarea>
+	            
+	            <textarea id="summernote" name="editordata"><%=content%></textarea>
+	            <script>
+		            $(document).ready(function() {
+		            	  $('#summernote').summernote({
+		            		  width: 1000,
+		            		  height : 500,
+		            		  focus : true
+		            	  });
+		            	});
+	            </script>
 	            
 	             <div class=review_write_btn>
 		            <button type="submit">수정하기</button>

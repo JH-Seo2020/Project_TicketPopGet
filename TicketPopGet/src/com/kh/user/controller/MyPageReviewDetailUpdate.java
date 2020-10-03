@@ -2,6 +2,7 @@ package com.kh.user.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,23 +35,26 @@ public class MyPageReviewDetailUpdate extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int rno = Integer.parseInt(request.getParameter("rno"));
+		int uno = Integer.parseInt(request.getParameter("userNo"));
 		int point = Integer.parseInt(request.getParameter("reviewpoint"));
 		String title = request.getParameter("reviewtitle");
-		String content = request.getParameter("reviewcontent");
+		String content = request.getParameter("editordata");
 		
 		MyPage mp = new MyPage();
 		mp.setReviewNo(rno);
+		mp.setUserNo(uno);
 		mp.setReviewPoint(point);
 		mp.setReviewTitle(title);
-		mp.setReviewContent(content);
 		
-		/*int result = new MyPageService().updateReview(mp);
+		int result = new MyPageService().reviewUpdate(mp,content);
 		
 		if(result>0) {
-			
+			request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다.");
+			RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/review.jsp");
+			view.forward(request, response);
 		}else {
 			
-		}*/
+		}
 		
 	}
 

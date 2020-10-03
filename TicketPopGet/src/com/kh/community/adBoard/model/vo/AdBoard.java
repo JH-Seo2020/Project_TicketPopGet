@@ -101,8 +101,9 @@ public class AdBoard {
 	
 	
 
-	public AdBoard(int boardNo, String boardType, String boardLocation, Date boardDate , String boardTitle) {
+	public AdBoard(int userNo, int boardNo, String boardType, String boardLocation, Date boardDate , String boardTitle) {
 		super();
+		this.userNo = userNo;
 		this.boardNo = boardNo;
 		this.boardType = boardType;
 		this.boardLocation = boardLocation;
