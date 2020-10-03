@@ -336,13 +336,12 @@
                 <p style="font-size: 35px;">&lt;상세정보&gt;</p>
                 <div>
                     <%=concertInfo %>
-                    
+                    <hr>
                     <div id="kakaoAPI">
                         <div>
-                            카카오 지도 api 미리 붙여놓음 (도메인필요)
-                            
-                            <!-- <div id="map" style="width:500px;height:400px;"></div>
-                            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 넣으시면 됩니다."></script>
+                            <span><b>위치정보</b></span>
+                            <div id="map" style="width:500px;height:200px;"></div>
+                            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7ef05dee2f78a0d0551b6fd2aa8092bf"></script>
                             <script>
                                 var container = document.getElementById('map');
                                 var options = {
@@ -351,12 +350,11 @@
                                 };
             
                                 var map = new kakao.maps.Map(container, options);
-                            </script>  -->
+                            </script>
                            
-                        </div>
-                        <div>
-                            <p>장소 : 홍대 어딘가 극장</p>
-                            <p>주소 : 서울시 마포구 홍익대학교 근처</p>
+	                        <div>
+	                            <p>장소 : <%=cObject.getPlace()%></p>
+	                        </div>
                         </div>
                     </div>
                 </div>
