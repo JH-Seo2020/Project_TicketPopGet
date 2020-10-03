@@ -77,4 +77,16 @@ public class AdminContentsService {
 		return result;
 	}
 	
+	public int insertExhibition(Contents c) {
+		Connection conn = getConnection();
+		int result = new AdminContentsDao().insertExhibition(conn, c);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+	
 }

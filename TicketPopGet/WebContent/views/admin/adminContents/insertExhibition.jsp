@@ -76,8 +76,8 @@
                     <tr>
                         
                         <th>기간</th>
-                        <td><input type="date" name="start" required></td>
-                        <td><input type="date" name="end" required></td>
+                        <td><input type="date" name="startDate" required></td>
+                        <td><input type="date" name="endDate" required></td>
                         
                     </tr>
 
@@ -88,9 +88,11 @@
                     <tr>
                         <th>지역</th>
                         <td colspan="2">
-                            <select name="area">
-                                <option value="서울">서울</option>
-                                <option value="경기도">경기도</option>
+                            <select name="local">
+				                <option value="서울경기권">서울경기권</option>
+				                <option value="강원충청권">강원충청권</option>
+				                <option value="전라권">전라권</option>
+				                <option value="경상제주권">경상제주권</option>
                             </select>
                         </td>
                     </tr>
@@ -107,17 +109,15 @@
                         <td colspan="2"><input type="text" name="keyword" required></td>
                     </tr>
                 </table>
-            </form>
         </div>
         <div style="border: 1px solid red; width: 100%; height: 300px; box-sizing: border-box;">
-            <textarea name="contentsContent" style="width: 100%; height: 100%; resize: none; text-align: left;" >
-원래 컨텐츠 설명 내용 자리 
-            </textarea>
+            <textarea name="info" style="width: 100%; height: 100%; resize: none; text-align: left;" ></textarea>
         </div>
+    <input id="file" type="file" name="file" onchange="loadImg(this);" style="display: none;">
+            </form>
     </div>
 
 
-    <input id="file" type="file" name="file" onchange="loadImg(this);" style="display: none;">
 
     <script>
         $(function(){

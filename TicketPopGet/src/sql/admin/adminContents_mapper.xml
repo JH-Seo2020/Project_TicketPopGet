@@ -220,4 +220,21 @@
 		    , ?
 		     )
 	</entry>
+	
+	<entry key="insertExhibition">
+		INSERT
+		  INTO EXHIBITON
+		      (
+		        CONTENT_NO
+		      , EXHIBITION_START
+		      , EXHIBITION_END  
+		      )
+		VALUES
+		      (
+		        SEQ_CONTENTSNO.CURRVAL
+		      , TO_DATE(?)
+		      , TO_DATE(?)
+		      )
+	</entry>
+	
 </properties>
