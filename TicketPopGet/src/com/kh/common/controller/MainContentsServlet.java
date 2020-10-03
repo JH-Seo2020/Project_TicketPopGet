@@ -45,6 +45,9 @@ public class MainContentsServlet extends HttpServlet {
 		//3. 마감임박 다가져오기
 		ArrayList<MainContent> ends = new MainService().selectEnds();
 		
+		//4. 예매율 3칸짜리 가져오기
+		ArrayList<MainContent> rateMini = new MainService().selectRank();
+		
 		
 		//변수전달
 		request.setAttribute("tbConcert", tbConcert);
@@ -52,6 +55,7 @@ public class MainContentsServlet extends HttpServlet {
 		request.setAttribute("tbEx", tbEx);
 		request.setAttribute("news", news);
 		request.setAttribute("ends", ends);
+		request.setAttribute("rateMini", rateMini);
 		
 		request.getRequestDispatcher("views/common/mainPage.jsp").forward(request, response);
 		

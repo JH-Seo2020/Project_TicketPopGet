@@ -7,6 +7,7 @@
 	MainContent tbEx = (MainContent)request.getAttribute("tbEx");
 	ArrayList<MainContent> news = (ArrayList<MainContent>)request.getAttribute("news");
 	ArrayList<MainContent> ends = (ArrayList<MainContent>)request.getAttribute("ends");
+	ArrayList<MainContent> rankMini = (ArrayList<MainContent>)request.getAttribute("rateMini");
 %>
 <!DOCTYPE html>
 <html>
@@ -89,7 +90,7 @@
        margin-top: 10px;
    }
    #rankingTable{
-       width: 80%;
+       width: 95%;
        height: 80%;
        text-align: center;
        font-size: 15px;
@@ -183,21 +184,17 @@
                         <th>컨텐츠명</th>
                         <th>예매율</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>사이클롭스</td>
-                        <td>80.2%</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>아이,로봇</td>
-                        <td>77.7%</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>일리아드</td>
-                        <td>70.1%</td>
-                    </tr>
+                    <%if(rankMini.isEmpty()){ %>
+                    	<tr><td colspan=3>보여드릴 랭크가 없습니다.</td></tr>
+                    <%}else{ %>
+                    	<%for(int i = 0; i <=2 ; i++){ %>
+		                    <tr>
+		                        <td><%=rankMini.get(i).getRownum() %></td>
+		                        <td><%=rankMini.get(i).getGenre() %></td>
+		                        <td><%=rankMini.get(i).getRate() %>%</td>
+		                    </tr>
+                    	<%} %>
+                    <%} %>
                 </table>
             </div>
         </div>
