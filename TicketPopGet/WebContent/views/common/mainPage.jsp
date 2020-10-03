@@ -58,6 +58,11 @@
        margin-top: 30px;
        background : #f6f6f6;
    }
+   #mainFooter{
+   margin-top: 50px;
+   padding-left:30px;
+   font-size:15px;
+   }
 
    /* 포스터 나열칸(투베,신규,마감임박 공통) */
    #posterHeader{width: 100%; height: 10%;
@@ -113,21 +118,21 @@
                 <img src="<%=contextPath %>/resources/imgCrs/img4.png" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>Tree</h5>
-                  <p>exhibiton</p>
+                  <p>exhibition</p>
                 </div>
               </div>
               <div class="carousel-item">
                 <img src="resources/imgCrs/img10.JPG" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>PostMan</h5>
-                  <p>exhibiton</p>
+                  <p>exhibition</p>
                 </div>
               </div>
               <div class="carousel-item">
                 <img src="resources/imgCrs/img12.JPG" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>Starry Night</h5>
-                  <p>exhibiton</p>
+                  <p>exhibition</p>
                 </div>
               </div>
             </div>
@@ -242,7 +247,16 @@
            
         </div>
 
+	    <div id="mainFooter">
+	    	<span><b>📝Project Manager</b></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>자바의 민족</span><br>
+	    	<span><b>✨Designer</b></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>자바의 민족</span><br>
+	    	<span><b>💻Developers</b></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>자바의 민족</span><br>
+	    	<br>
+	    	<span><b>ⓒ 자바의민족 / October 8th, 2020 / KH Academy Semi Project Group </b></span><br>
+	    	<span><b>Thanks for Kakao(API), SummerNote(API), Import(API), and our Teacher Boram Kang👩🏻‍💼</b><span>
+	    </div>
     </div>
+    
 
 </body>
 </html>
