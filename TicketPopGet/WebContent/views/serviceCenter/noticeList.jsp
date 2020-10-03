@@ -18,7 +18,7 @@
 <title>Insert title here</title>
 </head>
 <style>
-    h2{
+    .noticetitle{
         margin:auto;
         margin-left: 40px;
     }
@@ -91,7 +91,7 @@
     <div class="area" id="noticeDiv">
         <div>
         	<br>
-            <h2><b>공지사항</b></h2>
+            <h2 class="noticetitle"><b>공지사항</b></h2><br>
             <nav id="topMenu">
                 <ul  class="servicemenu">
                     <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/list.no?currentPage=1">전체</a></li>

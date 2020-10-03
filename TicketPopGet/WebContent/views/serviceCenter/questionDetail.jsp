@@ -77,7 +77,12 @@
                     <tr>
                         <td name="noticeContent">
                             <!-- 내용 -->
-                            회원정보수정 메뉴가 어딘지 문의합니다. <br>메뉴 어떤건가요? 
+                                                              회원정보수정 메뉴가 어딘지 문의합니다. <br>메뉴 어떤건가요? 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td name="attachment">
+                            <b>첨부파일 : </b><a href="/jsp/resources/board_upfiles/파일수정명.jsp">파일원본명.jsp</a>
                         </td>
                     </tr>
                 </table>

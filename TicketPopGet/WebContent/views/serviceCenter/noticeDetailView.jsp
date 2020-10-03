@@ -16,7 +16,7 @@
     }
     .noticeTable{
         margin-left:40px ;
-        width: 900px;
+        width: 980px;
     }
     #topMenu {
             height: 50px;
@@ -28,7 +28,7 @@
             background-color: white;
             float: left;
             line-height: 50px;
-            /* vertical-align: middle; */
+            vertical-align: middle;
             text-align: center;
     }
     #line{
@@ -61,7 +61,7 @@
     <div class="area" id="noticeDiv">
         <div>
             <br>
-            <h2 class="noticetitle"><b>공지사항</b></h2>
+            <h2 class="noticetitle"><b>공지사항</b></h2><br>
             <nav id="topMenu">
                 <ul  class="servicemenu">
                     <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/list.no?currentPage=1">전체</a></li>
@@ -72,8 +72,8 @@
             </nav>
         </div>
 
-        <div class="table table-responsive" style="width: 1200px;">
-            <table class="noticeTable" style="width: 1000px;">
+        <div class="table table-responsive">
+            <table class="noticeTable">
                 <tr>
                     <th class="success" name="noticeType"><%= n.getNoticeType() %></th>
                     <th class="success" name="noticeTitle"><%= n.getNoticeTitle() %></th>
@@ -85,7 +85,7 @@
 
                 <tr>
                     <td colspan="2" name="noticeContent">
-                        <%= n.getNoticeContent() %>
+                        <br><%= n.getNoticeContent() %><br>
                     </td>
                 </tr>
                 
