@@ -32,16 +32,15 @@ public class MyPageReviewDetail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int rno = Integer.parseInt(request.getParameter("rno"));
-		int uno = Integer.parseInt(request.getParameter("userNo"));
 		
 		if(rno>0) {
-			MyPage mp = new MyPageService().selectReviewDetail(rno,uno);
-			String content = new MyPageService().selectReviewContent(rno,uno);
+			MyPage mp = new MyPageService().selectReviewDetail(rno);
+			String content = new MyPageService().selectReviewContent(rno);
 			
 			request.setAttribute("mp", mp);
 			request.setAttribute("content", content);
 			
-			request.getRequestDispatcher("views/user/myPage/review_detail.jsp?rno="+rno+"userNo"+uno).forward(request, response);
+			request.getRequestDispatcher("views/user/myPage/review_detail.jsp?rno="+rno).forward(request, response);
 		}else {
 			
 		}

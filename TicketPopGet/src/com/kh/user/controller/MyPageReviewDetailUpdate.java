@@ -50,8 +50,7 @@ public class MyPageReviewDetailUpdate extends HttpServlet {
 		
 		if(result>0) {
 			request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다.");
-			RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/review.jsp");
-			view.forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/review_detail.my?rno="+rno);
 		}else {
 			
 		}

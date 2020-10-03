@@ -172,11 +172,11 @@ public class MyPageService {
 	 * @param rno
 	 * @return
 	 */
-	public MyPage selectReviewDetail(int rno, int uno) {
+	public MyPage selectReviewDetail(int rno) {
 		
 		Connection conn = getConnection();
 		
-		MyPage mp = new MyPageDao().selectReviewDetail(conn, rno, uno);
+		MyPage mp = new MyPageDao().selectReviewDetail(conn, rno);
 		
 		close(conn);
 		
@@ -189,9 +189,9 @@ public class MyPageService {
 	 * @param uno
 	 * @return
 	 */
-	public String selectReviewContent(int rno, int uno) {
+	public String selectReviewContent(int rno) {
 		Connection conn = getConnection();
-		String content = new MyPageDao().selectReviewContent(conn,rno,uno);
+		String content = new MyPageDao().selectReviewContent(conn,rno);
 		
 		close(conn);
 		return content;
@@ -294,11 +294,11 @@ public class MyPageService {
 	 * @param ano
 	 * @return
 	 */
-	public AdBoard selectAdboardDetail(int ano, int uno) {
+	public AdBoard selectAdboardDetail(int ano) {
 		
 		Connection conn = getConnection();
 		
-		AdBoard ad = new MyPageDao().selectAdboardDetail(conn,ano,uno);
+		AdBoard ad = new MyPageDao().selectAdboardDetail(conn,ano);
 				
 		close(conn);
 		
@@ -309,9 +309,9 @@ public class MyPageService {
 	 * 나의 홍보 세부사항[작성글]
 	 * @return
 	 */
-	public String selectAdboardContent(int ano, int uno) {
+	public String selectAdboardContent(int ano) {
 		Connection conn = getConnection();	
-		String content = new MyPageDao().selectAdboardContent(conn, ano,uno);
+		String content = new MyPageDao().selectAdboardContent(conn, ano);
 		
 		close(conn);
 		return content;

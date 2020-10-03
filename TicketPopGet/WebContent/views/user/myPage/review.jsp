@@ -9,7 +9,7 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
-	
+
 	String content = (String)request.getAttribute("content");
 %>
 <!DOCTYPE html>

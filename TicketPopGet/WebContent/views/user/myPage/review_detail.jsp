@@ -132,7 +132,7 @@
 	            
 	             <div class=review_write_btn>
 		            <button type="submit">수정하기</button>
-		            <button type="button" onclick="history.back()">뒤로가기</button>
+		            <button type="button" onclick="history.back(-3);">뒤로가기</button>
 	        	</div>
 	        </div>
         </form>

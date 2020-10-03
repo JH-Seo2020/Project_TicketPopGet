@@ -381,7 +381,7 @@ public class MyPageDao {
 	 * @param rno
 	 * @return
 	 */
-	public MyPage selectReviewDetail(Connection conn, int rno, int uno) {
+	public MyPage selectReviewDetail(Connection conn, int rno) {
 		
 		MyPage mp = null;
 		
@@ -394,7 +394,7 @@ public class MyPageDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, rno);
-			pstmt.setInt(2, uno);
+
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -424,7 +424,7 @@ public class MyPageDao {
 	 * @param uno
 	 * @return
 	 */
-	public String selectReviewContent(Connection conn, int rno, int uno) {
+	public String selectReviewContent(Connection conn, int rno) {
 		
 		String content = null;
 		PreparedStatement pstmt = null;
@@ -435,7 +435,7 @@ public class MyPageDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, rno);
-			pstmt.setInt(2, uno);
+
 			rset=pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -467,6 +467,8 @@ public class MyPageDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("reviewUpdate");
 		
+		
+		System.out.println(mp);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			Clob clob = conn.createClob();
@@ -477,6 +479,8 @@ public class MyPageDao {
 			pstmt.setClob(3, clob);
 			pstmt.setInt(4, mp.getReviewNo());
 			pstmt.setInt(5, mp.getUserNo());
+			
+			
 			
 			result = pstmt.executeUpdate();
 			
@@ -652,7 +656,7 @@ public class MyPageDao {
 	 * @param ano
 	 * @return
 	 */
-	public AdBoard selectAdboardDetail(Connection conn, int ano, int uno) {
+	public AdBoard selectAdboardDetail(Connection conn, int ano) {
 		
 		AdBoard ad = null;
 		
@@ -665,7 +669,6 @@ public class MyPageDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, ano);
-			pstmt.setInt(2, uno);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -693,7 +696,7 @@ public class MyPageDao {
 	 * @param ano
 	 * @return
 	 */
-	public String selectAdboardContent(Connection conn, int ano, int uno) {
+	public String selectAdboardContent(Connection conn, int ano) {
 		String content = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -703,7 +706,7 @@ public class MyPageDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, ano);
-			pstmt.setInt(2, uno);
+
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
