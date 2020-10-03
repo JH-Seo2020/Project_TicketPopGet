@@ -6,6 +6,7 @@
 	MainContent tbPlay = (MainContent)request.getAttribute("tbPlay");
 	MainContent tbEx = (MainContent)request.getAttribute("tbEx");
 	ArrayList<MainContent> news = (ArrayList<MainContent>)request.getAttribute("news");
+	ArrayList<MainContent> ends = (ArrayList<MainContent>)request.getAttribute("ends");
 %>
 <!DOCTYPE html>
 <html>
@@ -62,6 +63,7 @@
    margin-top: 50px;
    padding-left:30px;
    font-size:15px;
+   color : gray;
    }
 
    /* 포스터 나열칸(투베,신규,마감임박 공통) */
@@ -173,7 +175,7 @@
             <div id="rate"  align="center">
                 <div id="ranking">예매율 </div>
                 <div id="genreBtn"align="right">
-                    <button type="button" class="rateBtn1">더보기</button>
+                    <button type="button" class="rateBtn1" onclick="location.href='<%=contextPath%>/main.rank';">더보기</button>
                 </div>
                 <table id="rankingTable" class="table table-striped">
                     <tr>
@@ -224,30 +226,24 @@
             <div id="posterHeader">마감 임박 티켓</div>
                 <div id="posterBody">
                     <ul>
-                        <li>
-                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
-                            <div>콘서트</div>
-                            <div>신용재 콘서트</div>
-                            <div>D-1</div>
-                        </li>
-                        <li>
-                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
-                            <div>연극</div>
-                            <div>오즈프로젝트</div>
-                            <div>D-1</div>
-                        </li>
-                        <li>
-                            <span><img src="resources/post_upfiles/111111111140.PNG" height="200px" width="150px"></span>
-                            <div>전시</div>
-                            <div>고릴라즈 앨범자켓전시</div>
-                            <div>D-1</div>
-                        </li>
+                    <%if(ends.isEmpty()){ %>
+                    	<li>보여드릴 정보가 없습니다.</li>
+                    <%}else{ %>
+                    	<%for(MainContent m : ends){ %>
+	                        <li>
+	                            <span><img src="<%=contextPath %>/<%=m.getImgPath() %>/<%=m.getChangeImg() %>" height="200px" width="150px"></span>
+	                            <div><b><%=m.getGenre() %></b></div>
+	                            <div><%=m.getTitle() %></div>
+	                        </li>
+                        <%} %>
+                     <%} %> 
                     </ul>
                 </div>
            
         </div>
 
 	    <div id="mainFooter">
+	    	<hr>
 	    	<span><b>📝Project Manager</b></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>자바의 민족</span><br>
 	    	<span><b>✨Designer</b></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>자바의 민족</span><br>
 	    	<span><b>💻Developers</b></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>자바의 민족</span><br>

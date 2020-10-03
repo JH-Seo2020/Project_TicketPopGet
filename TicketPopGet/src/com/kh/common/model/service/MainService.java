@@ -54,5 +54,27 @@ public class MainService {
 		return news;
 	}
 
+	/**
+	 * 5. 마감임박정보 가져오기 
+	 * @return
+	 */
+	public ArrayList<MainContent> selectEnds() {
+		Connection conn = getConnection();
+		ArrayList<MainContent> ends = new MainDao().selectEnds(conn);
+		close(conn);
+		return ends;
+	}
+
+	/**
+	 * 6. 랭킹페이지 정보가져오기 
+	 * @return
+	 */
+	public ArrayList<MainContent> selectRank() {
+		Connection conn = getConnection();
+		ArrayList<MainContent> rank = new MainDao().selectRank(conn);
+		close(conn);
+		return rank;
+	}
+
 
 }

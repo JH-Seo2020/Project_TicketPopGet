@@ -30,6 +30,18 @@ public class MainContent {
 	
 	
 	
+	public MainContent(int rownum, int contentNo, int rate, String title, String genre, String changeImg,
+			String imgPath, Date concertDate) {
+		super();
+		this.rownum = rownum;
+		this.contentNo = contentNo;
+		this.rate = rate;
+		this.title = title;
+		this.genre = genre;
+		this.changeImg = changeImg;
+		this.imgPath = imgPath;
+		this.concertDate = concertDate;
+	}
 	public MainContent(int contentNo, int rate, String title, String genre,  String changeImg, String imgPath) {
 		super();
 		this.contentNo = contentNo;

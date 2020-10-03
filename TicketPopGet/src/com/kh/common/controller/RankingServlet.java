@@ -1,54 +1,42 @@
-package com.kh.concert.controller;
+package com.kh.common.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.concert.model.service.ConcertService;
-import com.kh.concert.model.vo.Concert;
+import com.kh.common.model.service.MainService;
+import com.kh.common.model.vo.MainContent;
 
 /**
- * Servlet implementation class ConcertDetailViewServlet
+ * Servlet implementation class RankingServlet
  */
-@WebServlet("/concert.detail")
-public class ConcertDetailViewServlet extends HttpServlet {
+@WebServlet("/main.rank")
+public class RankingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConcertDetailViewServlet() {
+    public RankingServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    
-    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<MainContent> rank = new MainService().selectRank();
+		request.setAttribute("rank", rank);
 		
-		int concertNo = Integer.parseInt(request.getParameter("contentNo"));
-		//일단 info빼고 다 가져옴
-		Concert concertObject = new ConcertService().concertDetailView(concertNo);
-		
-		//여기서부 clob 테스트할 예정!
-		String concertInfo = new ConcertService().concertInfo(concertNo);
-
-		//보낼거 정리하기
-		request.setAttribute("concertObject", concertObject);
-		request.setAttribute("concertInfo", concertInfo);
-		
-		request.getRequestDispatcher("views/concert/concertDetailView.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("views/common/ranking.jsp").forward(request, response);
 	}
 
-	
-	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

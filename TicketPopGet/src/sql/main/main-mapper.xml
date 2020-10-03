@@ -103,4 +103,95 @@
 		            by exhibition_start)
 		 where ROWNUM = 1
 	</entry>
+	<entry key="selectEnds">
+select *
+  from 
+        (select content_no 
+              , content_type
+              , content_title
+              , content_chimg
+              , content_imgpath
+              , concert_date
+          from contents
+          join concert using (content_no)
+         where concert_date > sysdate
+         order
+            by concert_date)
+ where ROWNUM = 1
+union
+select *
+  from 
+        (select content_no 
+              , content_type
+              , content_title
+              , content_chimg
+              , content_imgpath
+              , play_end
+          from contents
+          join play using (content_no)
+         where play_end > sysdate
+         order
+            by play_end)
+ where ROWNUM = 1
+union
+ select *
+  from 
+        (select content_no 
+              , content_type
+              , content_title
+              , content_chimg
+              , content_imgpath
+              , exhibition_end
+          from contents
+          join exhibiton using (content_no)
+         where exhibition_end > sysdate
+         order
+            by exhibition_end)
+ where ROWNUM = 1
+	</entry>
+	<entry key="selectRank">
+	SELECT ROWNUM RANK, B.*
+  FROM (
+        select A.*
+          from (
+                select content_no
+                     , round((concert_max - concert_seats)/concert_max * 100,1) as tbConRate
+                     , content_type
+                     , content_title
+                     , content_chimg
+                     , content_imgpath
+                     , concert_date
+                  from contents
+                  join concert using (content_no)
+                 where content_type = '콘서트'
+                   and concert_date > sysdate
+                UNION
+                select content_no 
+                     , tbPlayRate
+                     , content_type
+                     , content_title
+                     , content_chimg
+                     , content_imgpath
+                     , play_start
+                  from (select avg(rate) as tbPlayRate, content_no
+                          from
+                                (select content_no
+                                      , round((round_max - round_seats)/round_max * 100, 1) as rate
+                                   from round
+                                  where round_date > sysdate
+                                  order 
+                                     by content_no
+                                      , round((round_max - round_seats)/round_max * 100, 1)
+                                 )
+                         group 
+                            by content_no
+                        )
+                  join contents using (content_no)
+                  join play using (content_no)
+                 WHERE PLAY_END > SYSDATE 
+              )A     
+         order 
+            by tbconrate DESC
+     )B
+	</entry>
 </properties>

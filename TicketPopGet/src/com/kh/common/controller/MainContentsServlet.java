@@ -42,12 +42,16 @@ public class MainContentsServlet extends HttpServlet {
 		//2. 신규오픈 다가져오기
 		ArrayList<MainContent> news = new MainService().selectNews();
 		
+		//3. 마감임박 다가져오기
+		ArrayList<MainContent> ends = new MainService().selectEnds();
+		
 		
 		//변수전달
 		request.setAttribute("tbConcert", tbConcert);
 		request.setAttribute("tbPlay", tbPlay);
 		request.setAttribute("tbEx", tbEx);
 		request.setAttribute("news", news);
+		request.setAttribute("ends", ends);
 		
 		request.getRequestDispatcher("views/common/mainPage.jsp").forward(request, response);
 		

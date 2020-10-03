@@ -136,6 +136,64 @@ public class MainDao {
 		}
 		return news;
 	}
+
+	public ArrayList<MainContent> selectEnds(Connection conn) {
+		ArrayList<MainContent> ends = new ArrayList<>();
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectEnds");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			while(rset.next()) {
+				ends.add (new MainContent(rset.getInt("content_no"),
+											rset.getString("content_type"),
+											rset.getString("content_title"),
+											rset.getString("content_chimg"),
+											rset.getString("content_imgpath"),
+											rset.getDate("concert_date")
+											));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return ends;
+	}
+
+	public ArrayList<MainContent> selectRank(Connection conn) {
+		ArrayList<MainContent> rank = new ArrayList<>();
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectRank");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			while(rset.next()) {
+				rank.add (new MainContent(rset.getInt("Rank"),
+											rset.getInt("content_no"),
+											rset.getInt("tbConRate"),
+											rset.getString("content_type"),
+											rset.getString("content_title"),
+											rset.getString("content_chimg"),
+											rset.getString("content_imgpath"),
+											rset.getDate("concert_date")
+											));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return rank;
+	}
 	
 	
 	

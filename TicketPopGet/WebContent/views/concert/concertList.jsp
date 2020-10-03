@@ -111,7 +111,7 @@
             	<%for(Concert c : list){ %>
 	                <li>
 	                    <span><img src="<%=contextPath %>/<%=c.getImgPath()%>/<%=c.getContentChangeImg() %>" height="200px" width="150px"></span>
-	                    <div id=concertTitle><b><a href="<%=contextPath%>/concert.detail?concertNo=<%=c.getContentNo()%>"><%=c.getContentTitle() %></a></b></div>
+	                    <div id=concertTitle><b><a href="<%=contextPath%>/concert.detail?contentNo=<%=c.getContentNo()%>"><%=c.getContentTitle() %></a></b></div>
 	                    <div><%=c.getConcertDate() %></div>
 	                    <div><%=c.getContentKeyword() %></div>
 	                </li>
