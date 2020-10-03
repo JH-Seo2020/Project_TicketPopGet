@@ -32,16 +32,17 @@ public class MyPageAdboardDetail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int ano = Integer.parseInt(request.getParameter("ano"));
+		int uno = Integer.parseInt(request.getParameter("userNo"));
 	
 		
 		if(ano>0) {
-			AdBoard ad = new MyPageService().selectAdboardDetail(ano);
-			String content = new MyPageService().selectAdboardContent(ano);
+			AdBoard ad = new MyPageService().selectAdboardDetail(ano,uno);
+			String content = new MyPageService().selectAdboardContent(ano,uno);
 			
 			request.setAttribute("ad", ad);
 			request.setAttribute("content", content);
 			
-			request.getRequestDispatcher("views/user/myPage/adboard_detail.jsp").forward(request, response);
+			request.getRequestDispatcher("views/user/myPage/adboard_detail.jsp?rno="+ano+"userNo"+uno).forward(request, response);
 			
 		}else {
 			

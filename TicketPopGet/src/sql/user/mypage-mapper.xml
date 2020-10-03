@@ -104,8 +104,8 @@ SELECT
 <entry key="selectReviewListCount">
 SELECT COUNT(*) LISTVIEW 
  FROM(
-       SELECT 
-                R.REVIEW_NO
+       SELECT   R.USER_NO
+             ,  R.REVIEW_NO
              ,  C.CONTENT_TITLE
              ,  R.REVIEW_TITLE
              ,  R.REVIEW_DATE
@@ -126,8 +126,8 @@ SELECT *
  			ROWNUM RNUM
  		  , A.*
  	  FROM  (	  
-	           SELECT 
-                        R.REVIEW_NO
+	           SELECT   M.USER_NO
+                     ,  R.REVIEW_NO
                      ,  C.CONTENT_TITLE
                      ,  R.REVIEW_TITLE
                      ,  R.REVIEW_DATE
@@ -146,8 +146,8 @@ SELECT *
 <entry key="selectReviewContnetCount">
 SELECT COUNT(*) LISTVIEW 
  FROM(
-       SELECT 
-                R.REVIEW_NO
+       SELECT   R.USER_NO
+             ,  R.REVIEW_NO
              ,  C.CONTENT_TITLE
              ,  R.REVIEW_TITLE
              ,  R.REVIEW_DATE
@@ -169,8 +169,8 @@ SELECT *
  			ROWNUM RNUM
  		  , A.*
  	  FROM  (	  
-		       SELECT 
-		                R.REVIEW_NO
+		       SELECT   R.USER_NO
+		             ,  R.REVIEW_NO
 		             ,  C.CONTENT_TITLE
 		             ,  R.REVIEW_TITLE
 		             ,  R.REVIEW_DATE
@@ -189,7 +189,7 @@ SELECT *
 
 <entry key="selectReviewDetail">
 SELECT 
-           M.USER_ID
+           R.USER_NO
          , R.REVIEW_NO
          , C.CONTENT_TYPE
          , C.CONTENT_TITLE
@@ -198,22 +198,33 @@ SELECT
          , R.REVIEW_POINT
          , R.REVIEW_TITLE
          , R.REVIEW_CONTENT
-      FROM MEMBER M
-     INNER JOIN REVIEW R
+      FROM REVIEW R
+     INNER JOIN MEMBER M
         ON M.USER_NO = R.USER_NO
      INNER JOIN CONTENTS C
         ON R.CONTENT_NO = C.CONTENT_NO
      INNER JOIN RESERVATION_PAYMENT RP
         ON R.TICKET_NO = RP.TICKET_NO
      WHERE R.REVIEW_NO = ?
+       AND R.USER_NO = ?
        AND R.REVIEW_STATUS = 'Y'
+</entry>
+
+<entry key="reviewUpdate">
+    UPDATE REVIEW
+       SET REVIEW_POINT = ?
+         , REVIEW_TITLE = ?
+         , REVIEW_CONTENT = ?
+     WHERE REVIEW_NO = ?
+       AND USER_NO = ?
+       AND REVIEW_STATUS = 'Y'
 </entry>
 
 <entry key="selectAdboardListCount">
 SELECT COUNT(*) LISTVIEW 
  FROM(
-        SELECT 
-		        B.BOARD_NO
+        SELECT  B.USER_NO
+		      , B.BOARD_NO
 		      , B.BOARD_TITLE
 		      , B.BOARD_TYPE
 		      , B.BOARD_DATE
@@ -230,8 +241,8 @@ SELECT COUNT(*) LISTVIEW
  			ROWNUM RNUM
  		  , A.*
  	  FROM  (	  
-		        SELECT 
-				        B.BOARD_NO
+		        SELECT  B.USER_NO
+ 				      , B.BOARD_NO
 				      , B.BOARD_TITLE
 				      , B.BOARD_TYPE
 				      , B.BOARD_DATE
@@ -246,8 +257,8 @@ SELECT COUNT(*) LISTVIEW
 <entry key="selectAdboardContnetCount">
 SELECT COUNT(*) LISTVIEW 
  FROM(
-        SELECT
-		        B.BOARD_NO
+        SELECT  
+		        B.BOARD_NO 
 		      , B.BOARD_TITLE
 		      , B.BOARD_TYPE
 		      , B.BOARD_DATE
@@ -264,7 +275,7 @@ SELECT COUNT(*) LISTVIEW
  			ROWNUM RNUM
  		  , A.*
  	  FROM  (	  
-		        SELECT
+		        SELECT 
 				        B.BOARD_NO
 				      , B.BOARD_TITLE
 				      , B.BOARD_TYPE
@@ -278,8 +289,8 @@ SELECT COUNT(*) LISTVIEW
 </entry>
 
 <entry key="selectAdboardDetail">
-SELECT 
-       BOARD_NO
+SELECT USER_NO
+     , BOARD_NO
      , BOARD_TYPE
      , LOCATION
      , BOARD_DATE
@@ -287,6 +298,7 @@ SELECT
      , BOARD_CONTNET
   FROM BOARD
  WHERE BOARD_NO = ?
+   AND USER_NO = ?
    AND BOARD_STATUS = 'Y'
 </entry>
 

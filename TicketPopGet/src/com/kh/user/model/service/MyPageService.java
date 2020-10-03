@@ -168,19 +168,54 @@ public class MyPageService {
 	}
 	
 	/**
-	 * 나의 후기 상세확인
+	 * 나의 후기 상세확인[작성글빼고]
 	 * @param rno
 	 * @return
 	 */
-	public MyPage selectReviewDetail(int rno) {
+	public MyPage selectReviewDetail(int rno, int uno) {
 		
 		Connection conn = getConnection();
 		
-		MyPage mp = new MyPageDao().selectReviewDetail(conn, rno);
+		MyPage mp = new MyPageDao().selectReviewDetail(conn, rno, uno);
 		
 		close(conn);
 		
 		return mp;
+	}
+	
+	/**
+	 * 나의 후기 세부사항[작성글]
+	 * @param rno
+	 * @param uno
+	 * @return
+	 */
+	public String selectReviewContent(int rno, int uno) {
+		Connection conn = getConnection();
+		String content = new MyPageDao().selectReviewContent(conn,rno,uno);
+		
+		close(conn);
+		return content;
+		
+	}
+	
+	/**
+	 * 나의 후기 수정
+	 * @param mp
+	 * @param content
+	 * @return
+	 */
+	public int reviewUpdate(MyPage mp, String content) {
+		Connection conn = getConnection();
+		int result = new MyPageDao().reviewUpdate(conn, mp, content);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
 	}
 	
 	
@@ -259,11 +294,11 @@ public class MyPageService {
 	 * @param ano
 	 * @return
 	 */
-	public AdBoard selectAdboardDetail(int ano) {
+	public AdBoard selectAdboardDetail(int ano, int uno) {
 		
 		Connection conn = getConnection();
 		
-		AdBoard ad = new MyPageDao().selectAdboardDetail(conn,ano);
+		AdBoard ad = new MyPageDao().selectAdboardDetail(conn,ano,uno);
 				
 		close(conn);
 		
@@ -274,9 +309,9 @@ public class MyPageService {
 	 * 나의 홍보 세부사항[작성글]
 	 * @return
 	 */
-	public String selectAdboardContent(int ano) {
+	public String selectAdboardContent(int ano, int uno) {
 		Connection conn = getConnection();	
-		String content = new MyPageDao().selectAdboardContent(conn, ano);
+		String content = new MyPageDao().selectAdboardContent(conn, ano,uno);
 		
 		close(conn);
 		return content;

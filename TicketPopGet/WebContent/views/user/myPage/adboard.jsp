@@ -10,6 +10,8 @@
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
 	
+	String content = (String)request.getAttribute("content");
+	
 %>
 
    
@@ -114,6 +116,9 @@ input[type=checkbox] {
 <body>
 	<!-- 메뉴바쓰추가쓰 -->
 	<%@ include file="/views/common/menubar.jsp"%>
+	<%
+	 	int userNo = loginUser.getUserNo();
+	%>
 
 	<div id="promote">
 		<!-- 헤더부분 -->
@@ -151,7 +156,7 @@ input[type=checkbox] {
               			if(ad.isEmpty()){
               		%>
               		<tr>
-              			<td colspan="5">조회되는 리스트가 없슴니당</td>
+              			<td colspan="5">조회되는 리스트가 없습니다.</td>
               		</tr>
               		<%
               			}else{ 
@@ -174,11 +179,11 @@ input[type=checkbox] {
 		 //상세페이지 전환
 	       function fnClickDetail() {
 	        	
-	    	   
 	    	   $(".table>tbody>tr").click(function(){
 					var ano = $(this).children().eq(1).text(); 
-
-					location.href="<%=contextPath%>/adboard_detail.my?ano="+ano; 
+					var userNo = "<%=userNo%>";
+					
+					location.href="<%=contextPath%>/adboard_detail.my?ano="+ano+"&"+"userNo="+userNo; 
 				});
 	       }
 		</script>
@@ -188,23 +193,43 @@ input[type=checkbox] {
 		</div>
 		
 		<!-- 페이징바 -->
-		<div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
+		<%if(content == null){ %>
+          <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
      		<%if(currentPage != 1){ %>
-            	<a href="<%=contextPath%>/adboard.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
+            	<a href="<%=contextPath%>/review.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i></a>
             <%} %>
             
             <%for(int p=startPage; p<=endPage; p++){ %>
             	<%if(p!=currentPage){ %>
-	           		<a href="<%=contextPath%>/adboard.my?currentPage=<%=p%>"><span><%=p %></span></a>
+	           		<a href="<%=contextPath%>/review.my?currentPage=<%=p%>"><span><%=p %></span></a>
 	            <%}else { %>
 	            	<a href="javascript:void(0);"><span><%=p %></span></a>
 	            <%} %>
             <%} %>
             
             <%if(currentPage != maxPage){ %>
-            	<a href="<%=contextPath%>/adboard.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+            	<a href="<%=contextPath%>/review.my?currentPage=<%=maxPage%>" class=" btn-next"><i class="fa fa-chevron-circle-right"></i></a>
             <%} %>
         </div>
+        <%} else{ %>
+            <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
+     		<%if(currentPage != 1){ %>
+            	<a href="<%=contextPath%>/review_content.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i></a>
+            <%} %>
+            
+            <%for(int p=startPage; p<=endPage; p++){ %>
+            	<%if(p!=currentPage){ %>
+	           		<a href="<%=contextPath%>/review_content.my?currentPage=<%=p%>"><span><%=p %></span></a>
+	            <%}else { %>
+	            	<a href="javascript:void(0);"><span><%=p %></span></a>
+	            <%} %>
+            <%} %>
+            
+            <%if(currentPage != maxPage){ %>
+            	<a href="<%=contextPath%>/review_content.my?currentPage=<%=maxPage%>" class=" btn-next"> <i class="fa fa-chevron-circle-right"></i></a>
+            <%} %>
+	        </div>
+        <%} %>
     </div>
 </body>
 </html>

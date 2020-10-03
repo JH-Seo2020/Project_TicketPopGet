@@ -88,7 +88,9 @@
 
 	<!-- 메뉴바쓰추가쓰 -->
 	<%@ include file="/views/common/menubar.jsp"%>
-	
+	<%
+	 	int userNo = loginUser.getUserNo();
+	%>
 	
     <div id="review">
         <!-- 헤더부분 -->
@@ -122,7 +124,7 @@
               			if(mps.isEmpty()){
               		%>
               		<tr>
-              			<td colspan="5">조회되는 리스트가 없슴니당</td>
+              			<td colspan="5">조회되는 리스트가 없습니다.</td>
               		</tr>
               		<%
               			}else{ 
@@ -133,7 +135,7 @@
 	                  <td><%=ps.getReviewNo()%></td>
 	                  <td onclick="fnClickDetail();"><%=ps.getContentTitle()%></td>
 	                  <td><%=ps.getReviewTitle()%></td>
-	                  <td><%=ps.getReviewDate() %></td>
+	                  <td><%=ps.getReviewDate()%></td>
 	                </tr>
 	                <%} %>
 	                <%} %>
@@ -171,8 +173,8 @@
 	    	   
 	    	   $(".table>tbody>tr").click(function(){
 					var rno = $(this).children().eq(1).text(); 
-
-					location.href="<%=contextPath%>/review_detail.my?rno="+rno; 
+					var userNo = "<%=userNo%>";
+					location.href="<%=contextPath%>/review_detail.my?rno="+rno+"&"+"userNo="+userNo; 
 				});
 	       }
 	       
@@ -198,15 +200,15 @@
 
 	    	   
 	       }
-	       
-	       
-	       
+ 
 	       </script>   
-
+	       
+	       
+		<!-- 페이징바 -->
 		<%if(content == null){ %>
           <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
      		<%if(currentPage != 1){ %>
-            	<a href="<%=contextPath%>/review.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
+            	<a href="<%=contextPath%>/review.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i></a>
             <%} %>
             
             <%for(int p=startPage; p<=endPage; p++){ %>
@@ -218,13 +220,13 @@
             <%} %>
             
             <%if(currentPage != maxPage){ %>
-            	<a href="<%=contextPath%>/review.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+            	<a href="<%=contextPath%>/review.my?currentPage=<%=maxPage%>" class=" btn-next"><i class="fa fa-chevron-circle-right"></i></a>
             <%} %>
         </div>
         <%} else{ %>
             <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
      		<%if(currentPage != 1){ %>
-            	<a href="<%=contextPath%>/review_content.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
+            	<a href="<%=contextPath%>/review_content.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i></a>
             <%} %>
             
             <%for(int p=startPage; p<=endPage; p++){ %>
@@ -236,7 +238,7 @@
             <%} %>
             
             <%if(currentPage != maxPage){ %>
-            	<a href="<%=contextPath%>/review_content.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+            	<a href="<%=contextPath%>/review_content.my?currentPage=<%=maxPage%>" class=" btn-next"><i class="fa fa-chevron-circle-right"></i></a>
             <%} %>
 	        </div>
         <%} %>

@@ -83,8 +83,10 @@
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
    <div id="wrap">
-		<form action="<%=contextPath%>/adupdate.my?boardNo=<%=ad.getBoardNo()%>" method="post">
+		<form action="<%=contextPath%>/adupdate.my?boardNo=<%=ad.getBoardNo()%>&userNo=<%=loginUser.getUserNo() %>" method="post">
 		<input type="hidden" id="ano" name="ano" value="<%=ad.getBoardNo()%>">
+		<input type="hidden" name="userNo" value="<%=loginUser.getUserNo() %>">
+		
 	        <!-- 헤더부분 -->
 	        <div class="reservation_check1">
 	            <h3 style="margin-bottom: 20px;"><b>홍보글수정</b></h3>

@@ -279,7 +279,8 @@ public class MyPageDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				mps.add(new MyPage(rset.getInt("REVIEW_NO"),
+				mps.add(new MyPage(rset.getInt("USER_NO"),
+								   rset.getInt("REVIEW_NO"),
 						           rset.getString("CONTENT_TITLE"),
 						           rset.getString("REVIEW_TITLE"),
 						           rset.getDate("REVIEW_DATE")));
@@ -357,7 +358,8 @@ public class MyPageDao {
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				mps.add(new MyPage(rset.getInt("REVIEW_NO"),
+				mps.add(new MyPage(rset.getInt("USER_NO"),
+								   rset.getInt("REVIEW_NO"),
 						           rset.getString("CONTENT_TITLE"),
 						           rset.getString("REVIEW_TITLE"),
 						           rset.getDate("REVIEW_DATE")));
@@ -374,12 +376,12 @@ public class MyPageDao {
 	}
 
 	/**
-	 * 나의 후기 상세조회
+	 * 나의 후기 상세조회[글작성뺴고]
 	 * @param conn
 	 * @param rno
 	 * @return
 	 */
-	public MyPage selectReviewDetail(Connection conn, int rno) {
+	public MyPage selectReviewDetail(Connection conn, int rno, int uno) {
 		
 		MyPage mp = null;
 		
@@ -392,18 +394,18 @@ public class MyPageDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, rno);
+			pstmt.setInt(2, uno);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				mp = new MyPage(rset.getString("USER_ID"),
+				mp = new MyPage(rset.getInt("USER_NO"),
 								rset.getInt("REVIEW_NO"),
 								rset.getString("CONTENT_TYPE"),
 								rset.getString("CONTENT_TITLE"),
 								rset.getDate("VIEW_DATE"),
 								rset.getDate("REVIEW_DATE"),
 								rset.getInt("REVIEW_POINT"),
-								rset.getString("REVIEW_TITLE"),
-								rset.getString("REVIEW_CONTENT"));
+								rset.getString("REVIEW_TITLE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -413,6 +415,79 @@ public class MyPageDao {
 		}
 		
 		return mp;
+	}
+	
+	/**
+	 * 나의 후기 상세 [글부분]
+	 * @param conn
+	 * @param rno
+	 * @param uno
+	 * @return
+	 */
+	public String selectReviewContent(Connection conn, int rno, int uno) {
+		
+		String content = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReviewDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rno);
+			pstmt.setInt(2, uno);
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Clob recontent = rset.getClob("REVIEW_CONTENT");
+				if(recontent!=null) {
+					content = recontent.getSubString(1, (int)recontent.length());
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
+		}
+		
+		return content;
+	}
+	
+	/**
+	 * 후기 수정
+	 * @param conn
+	 * @param rno
+	 * @param uno
+	 * @return
+	 */
+	public int reviewUpdate(Connection conn, MyPage mp, String content) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("reviewUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			Clob clob = conn.createClob();
+			clob.setString(1, content);
+			
+			pstmt.setInt(1, mp.getReviewPoint());
+			pstmt.setString(2, mp.getReviewTitle());
+			pstmt.setClob(3, clob);
+			pstmt.setInt(4, mp.getReviewNo());
+			pstmt.setInt(5, mp.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
 	}
 	
 	/**
@@ -572,12 +647,12 @@ public class MyPageDao {
 	}
 	
 	/**
-	 * 홍보게시판상세조회
+	 * 홍보게시판상세조회[글작성빼고]
 	 * @param conn
 	 * @param ano
 	 * @return
 	 */
-	public AdBoard selectAdboardDetail(Connection conn, int ano) {
+	public AdBoard selectAdboardDetail(Connection conn, int ano, int uno) {
 		
 		AdBoard ad = null;
 		
@@ -590,10 +665,12 @@ public class MyPageDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, ano);
+			pstmt.setInt(2, uno);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				ad = new AdBoard(rset.getInt("BOARD_NO"),
+				ad = new AdBoard(rset.getInt("USER_NO"),
+								 rset.getInt("BOARD_NO"),
 						         rset.getString("BOARD_TYPE"),
 						         rset.getString("LOCATION"),
 						         rset.getDate("BOARD_DATE"),
@@ -609,7 +686,14 @@ public class MyPageDao {
 		return ad;
 	}
 	
-	public String selectAdboardContent(Connection conn, int ano) {
+	
+	/**
+	 * 홍보게시판상세조회[글작성만]
+	 * @param conn
+	 * @param ano
+	 * @return
+	 */
+	public String selectAdboardContent(Connection conn, int ano, int uno) {
 		String content = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -619,6 +703,7 @@ public class MyPageDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, ano);
+			pstmt.setInt(2, uno);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -637,6 +722,13 @@ public class MyPageDao {
 		return content;
 	}
 	
+	/**
+	 * 홍보수정
+	 * @param conn
+	 * @param ad
+	 * @param content
+	 * @return
+	 */
 	public int adBoardUpdate(Connection conn, AdBoard ad, String content) {
 		
 		int result = 0;
@@ -652,7 +744,6 @@ public class MyPageDao {
 			pstmt.setString(1, ad.getBoardType());
 			pstmt.setString(2, ad.getBoardLocation());
 			pstmt.setString(3, ad.getBoardTitle());
-			//pstmt.setDate(4, ad.getBoardDate());
 			pstmt.setClob(4,clob);
 			pstmt.setInt(5, ad.getBoardNo());
 			
