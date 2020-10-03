@@ -58,7 +58,7 @@
     #noticeTable{
         width: 1000px;
         margin:auto;
-        margin-left: 40px;
+        margin-left: 2%;
 
     }
 
@@ -67,8 +67,8 @@
             cursor:pointer;
     }
     
-    .area{float: left;}
-    #noticeDiv{margin-left:5%}
+    .area{float: left; margin-left:10%;}
+    #noticeDiv{margin-left:0%}
 
     .pagination {margin:50px 250px 0; text-align:center;cursor: pointer;}
     .pagination .btn-prev, .pagination .btn-next, .pagination a span {display: inline-block; margin-right:2px; padding: 4px 12px; border:1px solid #ddd; border-radius: 4px; color: #111; background:#fff; text-decoration: none; text-align: center;}
@@ -106,7 +106,8 @@
             <table class="table table-striped" id="listArea">
                 <thead>
                     <tr>
-                        <th style="width: 20%;">분류</th>
+                    	<th style="visibility:hidden;"></th>
+                        <th style="width: 19%;">분류</th>
                         <th style="width: 60%;">제목</th>
                         <th style="width: 20%;">등록일</th>
                     </tr>
@@ -119,6 +120,7 @@
                     <% }else { %>
                     	<% for(Notice n : list) { %>
                     <tr>
+                    	<td style="visibility:hidden;"><%= n.getNoticeNo() %></td>
                         <td><%= n.getNoticeType() %></td>
                         <td><%= n.getNoticeTitle() %></td>
                         <td><%= n.getNoticeDate() %></td>
@@ -130,8 +132,11 @@
             
             <script>
         	$(function(){
-        		$(".listArea>tbody>tr").click(function(){
-        			location.href = "<%=contextPath%>/detail.no?bno=" + $(this).children().eq(0).text();
+        		$("#listArea>tbody>tr").click(function(){
+
+        			var nno = $(this).children().eq(0).text();
+        			
+        			location.href = "<%=contextPath%>/detail.no?nno=" + nno;
         		});
         	});
         </script>
@@ -177,7 +182,7 @@
 			    	<a href="<%=contextPath%>/search.no?currentPage=<%=currentPage+1%>&type=<%=searchType%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
 			    <% } %>
 			<% } %>
-        </div>
+        </div> <br><br>
     </div>
     </form>
 </body>

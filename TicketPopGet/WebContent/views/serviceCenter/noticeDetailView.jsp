@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.serviceCenter.model.vo.Notice" %>
+<%
+	Notice n = (Notice)request.getAttribute("n");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +16,7 @@
     }
     .noticeTable{
         margin-left:40px ;
-        width: 1000px;
+        width: 900px;
     }
     #topMenu {
             height: 50px;
@@ -44,8 +47,8 @@
             color: white;
             background-color: #ffb300;
     }
-    .area{float: left;}
-    #noticeDiv{margin-left:5%}
+    .area{float: left; margin-left:10%;}
+    #noticeDiv{margin-left:0%}
 
 </style>
 <body>
@@ -61,10 +64,10 @@
             <h2 class="noticetitle"><b>공지사항</b></h2>
             <nav id="topMenu">
                 <ul  class="servicemenu">
-                    <li class="servicemenu"><a class="menuLink" href="">전체</a></li>
-                    <li class="servicemenu"><a class="menuLink" href="">변경/취소</a></li>
-                    <li class="servicemenu"><a class="menuLink" href="">시스템</a></li>
-                    <li class="servicemenu"><a class="menuLink" href="">기타</a></li>
+                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/list.no?currentPage=1">전체</a></li>
+                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/search.no?currentPage=1&type=변경/취소">변경/취소</a></li>
+                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/search.no?currentPage=1&type=시스템">시스템</a></li>
+                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/search.no?currentPage=1&type=기타">기타</a></li>
                 </ul>
             </nav>
         </div>
@@ -72,37 +75,23 @@
         <div class="table table-responsive" style="width: 1200px;">
             <table class="noticeTable" style="width: 1000px;">
                 <tr>
-                    <th class="success" name="noticeType"><!-- 분류 -->변경/취소</th>
-                    <th class="success" name="noticeTitle"><!-- 제목 -->2020 양지원 미니콘서트 오픈취소 안내</th>
+                    <th class="success" name="noticeType"><%= n.getNoticeType() %></th>
+                    <th class="success" name="noticeTitle"><%= n.getNoticeTitle() %></th>
                 </tr>
                                 
                 <tr>
-                    <td colspan="2" name="noticeDate" style="font-size: 15px;">등록일 : <!-- sysdate -->2020.02.21(금) 09:30</td>
+                    <td colspan="2" name="noticeDate" style="font-size: 15px;">등록일 : <%= n.getNoticeDate() %></td>
                 </tr>
 
                 <tr>
                     <td colspan="2" name="noticeContent">
-                        <!-- 내용 -->
-                        1st. 양지원 미니콘서트 & 팬미팅 연기 “코로나19 심각단계, 숙고 끝에 결정”
-                        <br><br>
-                        위드포유 미디어그룹에서는<br>
-                        금일 25일 부로 코로나19가 심각 단계로<br>
-                        격상됨에 따라 내달(28일) 오후 6시 예정이었던<br>
-                        1st.양지원 미니콘서트 & 팬미팅을 연기하기로<br>
-                        최종 결정했습니다.
-                        <br><br>
-                        한층 업그레이드 된 공연으로 인사드리겠습니다.
-                        <br><br>
-
-                        감사합니다.
-                        <br><br>
-                        위드포유 미디어그룹 임직원 일동.
+                        <%= n.getNoticeContent() %>
                     </td>
                 </tr>
                 
                 <tr>
                     <td colspan="2" align="right">
-                        <input type="button" class="btn btn-warning" value="목록보기">          
+                        <input type="button" class="btn btn-warning"  onclick="history.back()" value="목록보기">          
                     </td>
                 </tr>
             </table>

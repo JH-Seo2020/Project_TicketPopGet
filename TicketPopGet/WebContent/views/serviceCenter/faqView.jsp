@@ -57,8 +57,8 @@
         margin-left: 40px;
     }
     .faqTitle{cursor:pointer; color: black;}
-    .area{float: left;}
-    #noticeDiv{margin-left:5%}
+    .area{float: left; margin-left:10%;}
+    #noticeDiv{margin-left:2%}
 
     .pagination {margin:50px 30% 0; text-align:center;}
     .pagination .btn-prev, .pagination .btn-next, .pagination a span {display: inline-block; margin-right:2px; padding: 4px 12px; border:1px solid #ddd; border-radius: 4px; color: #111; background:#fff; text-decoration: none; text-align: center;}
@@ -77,7 +77,7 @@
     <!-- 왼쪽메뉴바 -->
     <%@ include file="/views/serviceCenter/serviceMenubar.jsp"%>
     </div>
-    <div class="area">
+    <div class="area" id="noticeDiv">
         <div>
             <h2 class="noticetitle"><b>FAQ</b></h2>
             <nav id="topMenu">

@@ -14,6 +14,15 @@ public class Notice {
 	
 	public Notice() {}
 
+	public Notice(int noticeNo, String noticeType, String noticeTitle, String noticeContent, Date noticeDate) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeType = noticeType;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+		this.noticeDate = noticeDate;
+	}
+
 	public Notice(int noticeNo, String noticeType, String noticeTitle, String noticeContent, Date noticeDate,
 			String noticeStatus, String adminId) {
 		super();

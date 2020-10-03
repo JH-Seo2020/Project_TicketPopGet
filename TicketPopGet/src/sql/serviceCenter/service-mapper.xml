@@ -108,4 +108,16 @@
 	        )
 	    WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	<entry key="selectNotice">
+	 SELECT
+            NOTICE_NO
+          , NOTICE_TYPE
+          , NOTICE_TITLE
+          , NOTICE_CONTENT
+          , NOTICE_DATE
+       FROM NOTICE N
+      WHERE NOTICE_NO = ?
+        AND N.NOTICE_STATUS = 'Y'
+	</entry>
 </properties>

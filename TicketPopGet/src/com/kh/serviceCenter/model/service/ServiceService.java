@@ -140,6 +140,17 @@ public class ServiceService {
 		
 		return list;
 	}
-	
+
+	public Notice selectNotice(int nno) {
+
+		Connection conn = getConnection();
+		
+		Notice n = new ServiceDao().selectNotice(conn, nno);
+		
+		close(conn);
+		
+		return n;
+	}
+
 
 }
