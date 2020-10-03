@@ -37,6 +37,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
 		.wrap{
 	        position: absolute;
         	left: 300px;
+        	margin-top: 50px;
 		}
 	
         .menuTitle{

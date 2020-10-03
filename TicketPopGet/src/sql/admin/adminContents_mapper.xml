@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="listCount">
+		SELECT COUNT(*)
+		  FROM CONTENTS
+		 WHERE CONTENT_STATUS = 'Y'
+	</entry>
+	
+	<entry key="list">
+		SELECT B.*
+		  FROM (SELECT ROWNUM RNUM, A.*
+		            FROM (SELECT CONTENT_NO
+		                         , CONTENT_TYPE
+		                         , CONTENT_TITLE
+		                         , CONTENT_SUBJECT
+		                         , PLACE
+		                         , LIMIT
+		                         , PRICE
+		                         , CONTENT_KEYWORD
+		                         , INFO
+		                         , CONTENT_STATUS
+		                         , LATITUDE
+		                         , LONGITUDE
+		                         , REGION
+		                         , CONTENT_OGIMG
+		                         , CONTENT_CHIMG
+		                         , CONTENT_IMGPATH
+		                      FROM CONTENTS
+		                     WHERE CONTENT_STATUS='Y')A)B
+ WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="listPlay">
+		SELECT PLAY_START, PLAY_END, PLAY_RUNTIME
+		  FROM PLAY
+		 WHERE CONTENT_NO = ?
+	</entry>
+	
+	<entry key="listExhibition">
+		SELECT EXHIBITION_START, EXHIBITION_END
+		  FROM EXHIBITON
+		 WHERE CONTENT_NO = ?
+	</entry>
+	
+	<entry key="listConcert">
+		SELECT CONCERT_DATE, CONCERT_RUNTIME
+		  FROM CONCERT
+		 WHERE CONTENT_NO = ?
+	</entry>
+	
+	<entry key="insertPlayContent">
+		INSERT 
+		  INTO CONTENTS
+		      (
+		       CONTENT_NO
+		     , CONTENT_TYPE
+		     , CONTENT_TITLE
+		     , CONTENT_SUBJECT
+		     , PLACE
+		     , LIMIT
+		     , PRICE
+		     , CONTENT_KEYWORD
+		     , INFO
+		     , REGION
+		     , CONTENT_OGIMG
+		     , CONTENT_CHIMG
+		     , CONTENT_IMGPATH
+		      )
+		 VALUES
+		     (
+		      SEQ_CONTENTSNO.NEXTVAL
+		    , '연극'
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		     )
+	</entry>
+	
+	<entry key="insertPlay">
+		INSERT 
+		  INTO PLAY
+		     (
+		       CONTENT_NO
+		     , PLAY_START
+		     , PLAY_END
+		     , PLAY_RUNTIME
+		     )
+		VALUES
+		     (
+		       SEQ_CONTENTSNO.CURRVAL
+		     , TO_DATE(?)
+		     , TO_DATE(?)
+		     , ?
+		     )
+	</entry>
+	
+	<entry key="insertRound">
+		INSERT
+		  INTO ROUND
+		     (
+		       ROUND_NO
+		     , ROUND_COUNT
+		     , ROUND_DATE
+		     , ROUND_START
+		     , ROUND_END
+		     , ROUND_MAX
+		     , CONTENT_NO
+		     , ROUND_SEATS
+		     )
+		VALUES
+		     (
+		       SEQ_ROUNDNO.NEXTVAL
+		     , ?
+		     , TO_DATE(?)
+		     , ?
+		     , ?
+		     , ?
+		     , SEQ_CONTENTSNO.CURRVAL
+		     , ?
+		     )
+	</entry>
+	
+</properties>

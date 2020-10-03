@@ -238,7 +238,9 @@ public class AdminReportDao {
 	
 	public int deleteReport(Connection conn, Report r) {
 		
-		int result = 0;
+		int result1 = 0;
+		int result2 = 0;
+		int result3 = 1;
 		PreparedStatement pstmt = null;
 		String sql = "";
 		
@@ -249,8 +251,8 @@ public class AdminReportDao {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, r.getContentNo());
 				
-				result = pstmt.executeUpdate();
-				result += checkReport(conn, r.getReportNo());
+				result1 = pstmt.executeUpdate();
+				result2 = checkReport(conn, r.getReportNo());
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}finally {
@@ -265,8 +267,8 @@ public class AdminReportDao {
 				
 				pstmt.setInt(1, r.getContentNo());
 				
-				result = pstmt.executeUpdate();
-				result += checkReport(conn, r.getReportNo());
+				result1 = pstmt.executeUpdate();
+				result2 = checkReport(conn, r.getReportNo());
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -278,7 +280,7 @@ public class AdminReportDao {
 				
 				pstmt.setInt(1, r.getContentNo());
 				
-				result += pstmt.executeUpdate();
+				result3 = pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}finally {
@@ -294,8 +296,8 @@ public class AdminReportDao {
 				
 				pstmt.setInt(1, r.getContentNo());
 				
-				result = pstmt.executeUpdate();
-				result += checkReport(conn, r.getReportNo());
+				result1 = pstmt.executeUpdate();
+				result2 = checkReport(conn, r.getReportNo());
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}finally {
@@ -310,8 +312,8 @@ public class AdminReportDao {
 				
 				pstmt.setInt(1, r.getContentNo());
 				
-				result = pstmt.executeUpdate();
-				result += checkReport(conn, r.getReportNo());
+				result1 = pstmt.executeUpdate();
+				result2 = checkReport(conn, r.getReportNo());
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}finally {
@@ -320,7 +322,7 @@ public class AdminReportDao {
 			
 		}
 		
-		return result; 
+		return result1 * result2 * result3; 
 	}
 	
 }

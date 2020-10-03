@@ -195,7 +195,7 @@
 	  				data:{contentNo:$("#deleteContentNo").val(), reportCate:$("#deleteReportCate").val(), reportNo:$("#checkReportNo").val()},
 	  				type:"post",
 	  				success:function(result){
-	  					if(result > 1){
+	  					if(result > 0){
 	  						alert("삭제완료되었습니다.");
 	  						location.href="<%=request.getContextPath()%>/list.adre?currentPage=1"
 	  					}else{

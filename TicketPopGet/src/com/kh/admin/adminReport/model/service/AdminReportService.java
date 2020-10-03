@@ -90,7 +90,7 @@ public class AdminReportService {
 		
 		int result = new AdminReportDao().deleteReport(conn, r);
 		
-		if(result > 1) {
+		if(result > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
