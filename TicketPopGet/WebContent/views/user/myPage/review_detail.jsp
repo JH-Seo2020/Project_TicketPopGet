@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    #wrap{
+    #reviewdetail{
         width: 1200px;
         height: 1800px;
         margin: auto;
@@ -75,7 +75,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 	
-   <div id="wrap">
+   <div id="reviewdetail">
 		<form action="<%=contextPath%>/review_update.my?rno=<%=mp.getReviewNo()%>&userNo=<%=mp.getUserNo()%>" method="POST">
 		<input type="hidden" name="rno" value="<%=mp.getReviewNo()%>">
 		<input type="hidden" name="userNo" value="<%=mp.getUserNo() %>">
