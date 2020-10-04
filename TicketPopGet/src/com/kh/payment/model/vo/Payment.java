@@ -1,4 +1,4 @@
-package com.kh.user.model.vo;
+package com.kh.payment.model.vo;
 
 import java.sql.Date;
 
@@ -17,15 +17,16 @@ public class Payment {
 	private String paymentType;		// 결제방법
 	private String paymentStatus;	// 결제여부
 	private String paymentTotal;	// 총결제금액
-	private int concertMax;			// 콘서트 총좌석수
-	private int concertSeats;		// 콘서트 잔여석수
+
 	
 	public Payment() {}
 
 
+
+
 	public Payment(Date reservationDate, Date viewDate, int ticketNum, String price, int roundNo, String contentType,
 			String contentTitle, int userNo, int contentNo, Date paymentDate, String paymentType, String paymentStatus,
-			String paymentTotal, int concertMax, int concertSeats) {
+			String paymentTotal) {
 		super();
 		this.reservationDate = reservationDate;
 		this.viewDate = viewDate;
@@ -40,9 +41,9 @@ public class Payment {
 		this.paymentType = paymentType;
 		this.paymentStatus = paymentStatus;
 		this.paymentTotal = paymentTotal;
-		this.concertMax = concertMax;
-		this.concertSeats = concertSeats;
 	}
+
+
 
 
 	public Date getReservationDate() {
@@ -150,21 +151,6 @@ public class Payment {
 	}
 	
 
-	public int getConcertMax() {
-		return concertMax;
-	}
-
-	public void setConcertMax(int concertMax) {
-		this.concertMax = concertMax;
-	}
-
-	public int getConcertSeats() {
-		return concertSeats;
-	}
-
-	public void setConcertSeats(int concertSeats) {
-		this.concertSeats = concertSeats;
-	}
 
 	@Override
 	public String toString() {
