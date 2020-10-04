@@ -13,6 +13,7 @@ import com.kh.user.model.dao.MyPageDao;
 import com.kh.user.model.vo.MyPage;
 import com.kh.user.model.vo.PageInfo;
 import com.kh.user.model.vo.Reservation;
+import com.kh.user.model.vo.WishList;
 
 public class MyPageService {
 	
@@ -96,6 +97,35 @@ public class MyPageService {
 		close(conn);
 		
 		return re;
+	}
+	
+	/**
+	 * 찜리스트 개수
+	 * @param userNo
+	 * @return
+	 */
+	public int selectWishListCount(int userNo) {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new MyPageDao().selectWishListCount(conn, userNo);
+		
+		close(conn);
+		return listCount;
+		
+	}
+	
+	/**
+	 * 찜리스트 리스트
+	 * @return
+	 */
+	public ArrayList<WishList> selectWishList(int userNo, PageInfo pi){
+		
+		Connection conn = getConnection();
+		ArrayList<WishList> wishlist = new MyPageDao().selectWishList(conn, userNo, pi);
+		close(conn);
+		return wishlist;
+		
 	}
 	
 	/**

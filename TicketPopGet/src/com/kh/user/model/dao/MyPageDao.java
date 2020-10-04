@@ -16,6 +16,7 @@ import com.kh.community.adBoard.model.vo.AdBoard;
 import com.kh.user.model.vo.MyPage;
 import com.kh.user.model.vo.PageInfo;
 import com.kh.user.model.vo.Reservation;
+import com.kh.user.model.vo.WishList;
 
 public class MyPageDao {
 	
@@ -246,6 +247,82 @@ public class MyPageDao {
 		
 		return re;
 	}
+	
+	/**
+	 * 찜리스트 개수
+	 * @param conn
+	 * @param userNo
+	 * @return
+	 */
+	public int selectWishListCount(Connection conn, int userNo) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectWishListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount =rset.getInt("LISTVIEW");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public ArrayList<WishList> selectWishList(Connection conn, int userNo, PageInfo pi){
+		ArrayList<WishList> wishlist = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectWishList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				wishlist.add(new WishList(rset.getInt("WISH_NO"),
+										  rset.getInt("CONTENT_NO"),
+										  rset.getInt("USER_NO"),
+										  rset.getInt("TICKET_NO"),
+										  rset.getString("CONTENT_TYPE"),
+										  rset.getString("CONTENT_TITLE"),
+										  rset.getString("CONTENT_CHIMG"),
+										  rset.getString("CONTENT_IMGPATH"),
+										  rset.getString("CONTENT_STATUS"),
+										  rset.getDate("WISHLIST_DATE")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return wishlist;
+	}
+	
+	
 	
 	/**
 	 * 나의관람공연개수

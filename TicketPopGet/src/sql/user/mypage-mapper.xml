@@ -123,6 +123,64 @@ SELECT *
           AND RP.PAYMENT_CANCEL = 'N'
 </entry>
 
+<entry key="selectWishListCount">
+SELECT COUNT(*) LISTVIEW 
+ FROM(
+         SELECT 
+               WI.WISH_NO 
+             , WI.CONTENT_NO
+             , WI.USER_NO
+             , WI.TICKET_NO
+             , C.CONTENT_TYPE
+             , C.CONTENT_TITLE
+             , C.CONTENT_CHIMG
+             , C.CONTENT_IMGPATH
+             , '예매진행중' AS CONTENT_STATUS
+             , WI.WISHLIST_DATE
+          FROM WISHLIST WI
+         INNER JOIN CONTENTS C
+            ON WI.CONTENT_NO = C.CONTENT_NO
+         INNER JOIN MEMBER M
+            ON WI.USER_NO = M.USER_NO
+         INNER JOIN RESERVATION_PAYMENT R
+            ON WI.TICKET_NO = R.TICKET_NO
+         WHERE WI.USER_NO = ?
+           AND WI.WISHLIST_STATUS = 'Y'
+    )
+</entry>
+
+<entry key="selectWishList">
+SELECT *
+ FROM(
+ 	SELECT
+ 			ROWNUM RNUM
+ 		  , A.*
+ 	  FROM  (	  
+                 SELECT 
+		               WI.WISH_NO 
+		             , WI.CONTENT_NO
+		             , WI.USER_NO
+		             , WI.TICKET_NO
+		             , C.CONTENT_TYPE
+		             , C.CONTENT_TITLE
+		             , C.CONTENT_CHIMG
+		             , C.CONTENT_IMGPATH
+		             , '예매진행중' AS CONTENT_STATUS
+		             , WI.WISHLIST_DATE
+		          FROM WISHLIST WI
+		         INNER JOIN CONTENTS C
+		            ON WI.CONTENT_NO = C.CONTENT_NO
+		         INNER JOIN MEMBER M
+		            ON WI.USER_NO = M.USER_NO
+		         INNER JOIN RESERVATION_PAYMENT R
+		            ON WI.TICKET_NO = R.TICKET_NO
+		         WHERE WI.USER_NO = ?
+		           AND WI.WISHLIST_STATUS = 'Y'
+		     )A
+    	)
+    WHERE RNUM BETWEEN ? AND ?
+</entry>
+
 <entry key="selectShowListCount">
 SELECT COUNT(*) LISTVIEW 
  FROM(
