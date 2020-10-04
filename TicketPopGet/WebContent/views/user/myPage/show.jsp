@@ -158,7 +158,7 @@
 	                  <td><%=ps.getContentType() %></td>
 	                  <td><%=ps.getViewDate() %></td>
 	                  <td><%=ps.getContentTitle() %></td>
-	                  <td><button onclick="location.href='<%=contextPath%>/view_write.my?tno=<%=ps.getTicketNo()%>'">후기작성</button>
+	                  <td><button onclick="location.href='<%=contextPath%>/review_write.my?tno=<%=ps.getTicketNo()%>&userNo=<%=loginUser.getUserNo()%>&cno=<%=ps.getContentNo()%>'">후기작성</button>
 	                </tr>
 	                <%} %>
 	                <%} %>

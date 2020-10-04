@@ -8,6 +8,7 @@ public class MyPage {
 	private int userNo;
 	private String userId; //로그인한 회원
 	private int ticketNo; // 관람후기번호
+	private int contentNo; //컨텐츠번호
 	private String contentType; //컨텐츠분류
 	private Date viewDate; //관람일
 	private String contentTitle; //공연,전시명
@@ -20,12 +21,13 @@ public class MyPage {
 	public MyPage() {}
 
 
-	public MyPage(int userNo, String userId, int ticketNo, String contentType, Date viewDate, String contentTitle,
+	public MyPage(int userNo, String userId, int ticketNo, int contentNo, String contentType, Date viewDate, String contentTitle,
 			int reviewNo, String reviewTitle, Clob reviewContent, int reviewPoint, Date reviewDate) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
 		this.ticketNo = ticketNo;
+		this.contentNo = contentNo;
 		this.contentType = contentType;
 		this.viewDate = viewDate;
 		this.contentTitle = contentTitle;
@@ -37,12 +39,15 @@ public class MyPage {
 	}
 
 
-	public MyPage(int ticketNo, String contentType, Date viewDate, String contentTitle) {
+	public MyPage(int ticketNo, String contentType, Date viewDate, String contentTitle,
+			      int userNo, int contentNo) {
 		super();
 		this.ticketNo = ticketNo;
 		this.contentType = contentType;
 		this.viewDate = viewDate;
 		this.contentTitle = contentTitle;
+		this.userNo = userNo;
+		this.contentNo = contentNo;
 	}
 	
 	public MyPage(int userNo, int reviewNo, String contentTitle, String reviewTitle, Date reviewDate) {
@@ -68,11 +73,14 @@ public class MyPage {
 	
 	
 
-	public MyPage(String contentType, String contentTitle, Date viewDate) {
+	public MyPage(String contentType, String contentTitle, Date viewDate,int ticketNo, int contentNo, int userNo) {
 		super();
 		this.contentType = contentType;
 		this.contentTitle = contentTitle;
 		this.viewDate = viewDate;
+		this.ticketNo = ticketNo;
+		this.contentNo = contentNo;
+		this.userNo = userNo;
 	}
 
 	public int getUserNo() {
@@ -100,6 +108,17 @@ public class MyPage {
 	public void setTicketNo(int ticketNo) {
 		this.ticketNo = ticketNo;
 	}
+	
+
+	public int getContentNo() {
+		return contentNo;
+	}
+
+
+	public void setContentNo(int contentNo) {
+		this.contentNo = contentNo;
+	}
+
 
 	public String getContentType() {
 		return contentType;

@@ -89,10 +89,10 @@ public class MyPageService {
 	 * @param tno
 	 * @return
 	 */
-	public MyPage selectReviewWrite(int tno) {
+	public MyPage selectReviewWrite(int tno, int userNo, int cno) {
 		Connection conn = getConnection();
 		
-		MyPage mp = new MyPageDao().selectReviewWrite(conn, tno);
+		MyPage mp = new MyPageDao().selectReviewWrite(conn, tno, userNo, cno);
 		
 		close(conn);
 		

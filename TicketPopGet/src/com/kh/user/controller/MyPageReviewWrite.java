@@ -9,13 +9,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.websocket.Transformation;
+
 import com.kh.user.model.service.MyPageService;
 import com.kh.user.model.vo.MyPage;
+
+import java.util.*;
+import java.text.*;
 
 /**
  * Servlet implementation class MyPage_review_write
  */
-@WebServlet("/view_write.my")
+@WebServlet("/review_write.my")
 public class MyPageReviewWrite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,11 +38,22 @@ public class MyPageReviewWrite extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int tno = Integer.parseInt(request.getParameter("tno"));
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		int cno = Integer.parseInt(request.getParameter("cno"));
 		
 		if(tno>0) {
-			MyPage mp = new MyPageService().selectReviewWrite(tno);
+			MyPage mp = new MyPageService().selectReviewWrite(tno,userNo,cno);
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = new Date();
+			
+			mp.setReviewDate(java.sql.Date.valueOf(dateFormat.format(date)));
+			
 			request.setAttribute("tno", tno);
+			request.setAttribute("userNo", userNo);
+			request.setAttribute("cno", cno);
 			request.setAttribute("mp", mp);
+			
 			
 			request.getRequestDispatcher("views/user/myPage/review_write.jsp").forward(request, response);
 		}

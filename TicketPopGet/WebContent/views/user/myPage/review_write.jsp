@@ -3,6 +3,7 @@
 <%@ page import="com.kh.user.model.vo.*" %>
 <%
 	MyPage mp = (MyPage)request.getAttribute("mp");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -79,9 +80,10 @@
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 	
    <div id="reviewinsert">
-		<form action="<%=contextPath%>/reviewInsert.my" method="POST">
-			<intpu type="hidden" name="rno">
-			<input type="hidden" name="userNo" value="<%=mp.getUserNo() %>">
+		<form action="<%=contextPath%>/reviewInsert.my?userNo=<%=mp.getUserNo()%>" method="POST">
+			<input type="hidden" name="tno" value="<%=mp.getTicketNo()%>">
+			<input type="hidden" name="userNo" value="<%=mp.getUserNo()%>">
+			<input type="hidden" name="cno" value="<%=mp.getContentNo()%>">
 	        <!-- 헤더부분 -->
 	        <div class="reservation_check1">
 	            <h3 style="margin-bottom: 20px;"><b>후기작성</b></h3>
@@ -113,14 +115,15 @@
 	                    <th>작성일</th>
 	                    <td><input type="date" name="reviewdate" value="<%=mp.getReviewDate() %>" readonly style="border:none;"></td>
 	                    <th>평점</th>
-	                    <td><input type="number" name="reviewpoint" min="1" max="10" placeholder="1~10점까지 점수매겨주세요" style="border:none; width: 250px;"></td>
+	                    <td><input type="number" name="reviewpoint" min="1" max="10" placeholder="1~10점까지 점수매겨주세요" style="border:none; width: 250px;" required></td>
 	                </tr>
 	                <tr>
 	                    <th>제목</th>
-	                    <td colspan="3"><input type="text" name="reviewtitle" style="border:none; width:700px;"></td>
+	                    <td colspan="3"><input type="text" name="reviewtitle" style="border:none; width:700px;" required></td>
 	                </tr>
 	            </table>
-	            <textarea id="summernote" name="editordata"></textarea>
+	            <textarea id="summernote" name="editordata" required="required"></textarea>
+	            
 	            <script>
 		            $(document).ready(function() {
 		            	  $('#summernote').summernote({
@@ -129,6 +132,7 @@
 		            		  focus : true
 		            	  });
 		            	});
+
 	            </script>
 	            
 	            

@@ -33,22 +33,19 @@ public class MyPageReviewWriteInsert extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		
 		String content = request.getParameter("editordata");
 
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		String category = request.getParameter("category");
-		String contenttitle = request.getParameter("contenttitle");
-		Date viewdate = java.sql.Date.valueOf(request.getParameter("viewdate"));
+		int cno = Integer.parseInt(request.getParameter("cno"));
+		int tno = Integer.parseInt(request.getParameter("tno"));
 		Date reviewdate = java.sql.Date.valueOf(request.getParameter("reviewdate"));
 		int reviewpoint = Integer.parseInt(request.getParameter("reviewpoint"));
 		String reviewtitle = request.getParameter("reviewtitle");
 		
 		MyPage mp = new MyPage();
 		mp.setUserNo(userNo);
-		mp.setContentType(category);
-		mp.setContentTitle(contenttitle);
-		mp.setViewDate(viewdate);
+		mp.setContentNo(cno);
+		mp.setTicketNo(tno);
 		mp.setReviewDate(reviewdate);
 		mp.setReviewPoint(reviewpoint);
 		mp.setReviewTitle(reviewtitle);
@@ -57,7 +54,7 @@ public class MyPageReviewWriteInsert extends HttpServlet {
 		
 		if(result>0) {
 			request.getSession().setAttribute("alertMsg", "등록되었습니다.");
-			request.getRequestDispatcher("views/user/myPage/review.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>").forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/review.my?currentPage=1&userNo="+userNo);
 		}else {
 			System.out.println("에러");
 		}

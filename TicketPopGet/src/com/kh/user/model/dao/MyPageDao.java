@@ -94,7 +94,9 @@ public class MyPageDao {
 				mps.add(new MyPage(rset.getInt("TICKET_NO"),
 								   rset.getString("CONTENT_TYPE"),
 								   rset.getDate("VIEW_DATE"),
-								   rset.getString("CONTENT_TITLE")));
+								   rset.getString("CONTENT_TITLE"),
+								   rset.getInt("USER_NO"),
+								   rset.getInt("CONTENT_NO")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -169,10 +171,12 @@ public class MyPageDao {
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				mps.add(new MyPage( rset.getInt("TICKET_NO"),
-								    rset.getString("CONTENT_TYPE"),
-								    rset.getDate("VIEW_DATE"),
-								    rset.getString("CONTENT_TITLE")));
+				mps.add(new MyPage(rset.getInt("TICKET_NO"),
+								   rset.getString("CONTENT_TYPE"),
+								   rset.getDate("VIEW_DATE"),
+								   rset.getString("CONTENT_TITLE"),
+								   rset.getInt("USER_NO"),
+								   rset.getInt("CONTENT_NO")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -191,7 +195,7 @@ public class MyPageDao {
 	 * @param tno
 	 * @return
 	 */
-	public MyPage selectReviewWrite(Connection conn, int tno) {
+	public MyPage selectReviewWrite(Connection conn, int tno, int userNo, int cno) {
 		MyPage mp = null;
 		
 		PreparedStatement pstmt = null;
@@ -203,12 +207,17 @@ public class MyPageDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, tno);
+			pstmt.setInt(2, userNo);
+			pstmt.setInt(3, cno);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				mp = new MyPage(rset.getString("CONTENT_TYPE"),
 						        rset.getString("CONTENT_TITLE"),
-						        rset.getDate("VIEW_DATE"));
+						        rset.getDate("VIEW_DATE"),
+						        rset.getInt("TICKET_NO"),
+						        rset.getInt("CONTENT_NO"),
+						        rset.getInt("USER_NO"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -241,6 +250,9 @@ public class MyPageDao {
 			pstmt.setInt(1, mp.getReviewPoint());
 			pstmt.setString(2, mp.getReviewTitle());
 			pstmt.setClob(3, clob);
+			pstmt.setInt(4, mp.getUserNo());
+			pstmt.setInt(5, mp.getContentNo());
+			pstmt.setInt(6, mp.getTicketNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
