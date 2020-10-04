@@ -12,8 +12,41 @@ import com.kh.community.adBoard.model.vo.AdBoard;
 import com.kh.user.model.dao.MyPageDao;
 import com.kh.user.model.vo.MyPage;
 import com.kh.user.model.vo.PageInfo;
+import com.kh.user.model.vo.Reservation;
 
 public class MyPageService {
+	
+	/**
+	 * 예매내역 개수 조회
+	 * @return
+	 */
+	public int selectReservationListCount(int userNo) {
+		
+		
+		Connection conn = getConnection();
+		
+		int listCount = new MyPageDao().selectReservationListCount(conn, userNo);
+		
+		close(conn);
+		return listCount;
+	}
+	
+	
+	/**
+	 * 예매내역 리스트 조회
+	 * @return
+	 */
+	public ArrayList<Reservation> selectReservationList(int userNo, PageInfo pi) {
+	
+		Connection conn = getConnection();
+		
+		ArrayList<Reservation> re = new MyPageDao().selectReservationList(conn, userNo, pi);
+		
+		close(conn);
+		
+		return re;
+		
+	}
 	
 	/**
 	 * 나의관람공연 개수 조회

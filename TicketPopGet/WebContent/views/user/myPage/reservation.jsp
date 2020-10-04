@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.user.model.vo.*" %>
+<%
+	ArrayList<Reservation> re = (ArrayList<Reservation>)request.getAttribute("re");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +46,7 @@
 
 /* 예매내역확인 몸통영역 */
 .reservation_check2 {
-	margin-top: 110px;
+	margin-top: 80px;
 	margin-left: 150px;
 }
 
@@ -47,7 +57,7 @@
 
 /* 예매내역확인 테이블 */
 .reservation_check3 {
-	margin-top: 160px;
+	margin-top: 140px;
 	margin-left: 115px;
 }
 
@@ -64,41 +74,14 @@
 	cursor: pointer;
 }
 
-/* 페이징바 */
-.pagination {
-	margin: 10px 0 0;
-	text-align: center
-}
-
-.pagination .btn-prev, .pagination .btn-next, .pagination a span {
-	display: inline-block;
-	margin-right: 2px;
-	padding: 4px 12px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	color: #111;
-	background: #fff;
-	text-decoration: none;
-	text-align: center;
-}
-
-.pagination .btn-prev:hover, .pagination .btn-next:hover, .pagination a span:hover,
-	.pagination .btn-prev:active, .pagination .btn-next:active, .pagination a span:active,
-	.pagination .btn-prev:focus, .pagination .btn-next:focus, .pagination a span:focus
-	{
-	color: #fff;
-	background: #ff8149;
-	border: 1px solid #ff8149
-}
-
-.pagination a .selected {
-	color: #ff8149;
-	border: 1px solid #ff8149
-}
-
-.pagination .no-more-prev, .pagination .no-more-next {
-	display: none
-}
+       /* 페이징바 */
+        .pagination {margin:10px 0 0; text-align:center}
+        .pagination .btn-prev, .pagination .btn-next, .pagination a span {display: inline-block; margin-right:2px; padding: 4px 12px; border:1px solid #ddd; border-radius: 4px; color: #111; background:#fff; text-decoration: none; text-align: center;}
+        .pagination .btn-prev:hover, .pagination .btn-next:hover, .pagination a span:hover,
+        .pagination .btn-prev:active, .pagination .btn-next:active, .pagination a span:active,
+        .pagination .btn-prev:focus, .pagination .btn-next:focus, .pagination a span:focus {color:#fff; background:#ff8149; border:1px solid #ff8149}
+        .pagination a .selected {color:#ff8149; border:1px solid #ff8149}
+        .pagination .no-more-prev, .pagination .no-more-next {display:none}
 </style>
 </head>
 <body>
@@ -114,6 +97,7 @@
 					<b>예매내역확인</b>
 				</h3>
 			</div>
+			<%-- 
 			<div class="reservation_date">
 				<ul style="margin-left: 110px;">
 					<li>기간 별 조회
@@ -127,7 +111,7 @@
 					</li>
 				</ul>
 			</div>
-		</div>
+		</div>--%>
 
 		<!-- 예매내역확인 몸통부분  -->
 		<div class="reservation_check2">
@@ -142,6 +126,7 @@
 							<option>연극</option>
 							<option>전시</option>
 					</select></li>
+					<%-- 
 					<li style="padding-left: 480px;">
 						<h6>
 							예매별 상태 조회 |
@@ -149,6 +134,7 @@
 							<button style="margin-left: 5px; border: 1px solid rgb(240, 168, 76); color: white; background-color: rgb(240, 168, 76);">취소</button>
 						</h6>
 					</li>
+					--%>
 				</ul>
 			</div>
 		</div>
@@ -170,84 +156,55 @@
 				</thead>
 				<tbody>
 				<%-- if문? 암튼 줘서,,, 예매인지 그거 조건 다 줘서,, 취소면 취소페이지로만 가게해야됨!!!!!! --%>
+				    <%
+              			if(re.isEmpty()){
+              		%>
+              		<tr>
+              			<td  colspan="8">조회되는 리스트가 없슴니당</td>
+              		</tr>
+              		<%
+              			}else{ 
+              		              		   for(Reservation r : re) {
+              		%>
+				
 					<tr onClick="location.href='<%=contextPath%>/re_detail.my'">
-						<td>a123456</td>
-						<td>2020-09-15</td>
-						<td>백예린 소극장 콘서트</td>
-						<td>2020-09-30</td>
-						<td>2매</td>
-						<td>카드결제</td>
-						<td>결제완료</td>
-						<td>예매</td>
+						<td><%=r.getTicketNo() %></td>
+						<td><%=r.getReservationDate() %></td>
+						<td><%=r.getContnetTitle() %></td>
+						<td><%=r.getViewDate()%></td>
+						<td><%=r.getTicketNum()%>매</td>
+						<td><%=r.getPaymentType() %></td>
+						<td><%=r.getPaymentStatus() %></td>
+						<td><%=r.getPaymentCancel() %></td>
 					</tr>
-					<tr>
-						<td>a123456</td>
-						<td>2020-09-15</td>
-						<td>백예린 소극장 콘서트</td>
-						<td>2020-09-30</td>
-						<td>2매</td>
-						<td>카드결제</td>
-						<td>결제완료</td>
-						<td>예매</td>
-					</tr>
-					<tr>
-						<td>a123456</td>
-						<td>2020-09-15</td>
-						<td>백예린 소극장 콘서트</td>
-						<td>2020-09-30</td>
-						<td>2매</td>
-						<td>무통장입금</td>
-						<td>결제진행중</td>
-						<td>예매</td>
-					</tr>
-					<tr>
-						<td>a123456</td>
-						<td>2020-09-15</td>
-						<td>백예린 소극장 콘서트</td>
-						<td>2020-09-30</td>
-						<td>2매</td>
-						<td>카드결제</td>
-						<td>환불</td>
-						<td>취소</td>
-					</tr>
-					<tr>
-						<td>a123456</td>
-						<td>2020-09-15</td>
-						<td>백예린 소극장 콘서트</td>
-						<td>2020-09-30</td>
-						<td>2매</td>
-						<td>무통장입금</td>
-						<td>환불진행중</td>
-						<td>취소</td>
-					</tr>
-					<tr>
-						<td>a123456</td>
-						<td>2020-09-15</td>
-						<td>백예린 소극장 콘서트</td>
-						<td>2020-09-30</td>
-						<td>2매</td>
-						<td>무통장입금</td>
-						<td>환불</td>
-						<td>취소</td>
-					</tr>
+					<%} %>
+	                <%} %>
 				</tbody>
 			</table>
 		</div>
 
 		<!-- 페이징바 -->
-		<div class="pagination" style="margin-top: 60px; margin-left: 30%;">
-			<a href="" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>
-				Prev</a> <a href=""><span>1</span></a> <a href=""><span>2</span></a> <a
-				href=""><span>3</span></a> <a href=""><span>4</span></a> <a href=""><span>5</span></a>
-			<a href=""><span>6</span></a> <a href=""><span>7</span></a> <a
-				href=""><span>8</span></a> <a href=""><span>9</span></a> <a href=""><span>10</span></a>
-			<a href="" class=" btn-next">Next <i
-				class="fa fa-chevron-circle-right"></i></a>
-		</div>
+	     <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
+     		<%if(currentPage != 1){ %>
+            	<a href="<%=contextPath%>/show.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
+            <%} %>
+            
+            <%for(int p=startPage; p<=endPage; p++){ %>
+            	<%if(p!=currentPage){ %>
+	           		<a href="<%=contextPath%>/show.my?currentPage=<%=p%>"><span><%=p %></span></a>
+	            <%}else { %>
+	            	<a href="javascript:void(0);"><span><%=p %></span></a>
+	            <%} %>
+            <%} %>
+            
+            <%if(currentPage != maxPage){ %>
+            	<a href="<%=contextPath%>/show.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+            <%} %>
+        </div>
 
 		<!-- 예매내역 풋터부분 -->
 		<div
-			style="margin-top: 90px; margin-left: 150px; border: 1px solid rosybrown; width: 980px;">
+			style="margin-top: 70px; margin-left: 150px; border: 1px solid rosybrown; width: 980px;">
 			<p
 				style="margin-top: 15px; padding-left: 20px; font-size: 25px; color: red;">
 				<b>유의사항</b>
@@ -261,5 +218,6 @@
 		</div>
 
 	</div>
+</div>
 </body>
 </html>

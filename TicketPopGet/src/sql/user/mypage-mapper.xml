@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+
+<entry key="selectReservationListCount">
+SELECT COUNT(*) LISTVIEW 
+ FROM(
+          SELECT 
+	               RP.TICKET_NO
+	             , RP.USER_NO
+	             , RP.CONTENT_NO
+	             , RP.RESERVATION_DATE
+	             , C.CONTENT_TITLE
+	             , RP.TICKET_NUM
+	             , RP.VIEW_DATE
+	             , RP.PAYMENT_TYPE
+	             , RP.PAYMENT_STATUS
+	             , RP.PAYMENT_CANCEL
+	         FROM  RESERVATION_PAYMENT RP
+	        INNER  JOIN CONTENTS C
+	           ON  RP.CONTENT_NO = C.CONTENT_NO
+	        WHERE  USER_NO = ?
+    )
+</entry>
+
+<entry key="selectReservationList">
+SELECT *
+ FROM(
+ 	SELECT
+ 			ROWNUM RNUM
+ 		  , A.*
+ 	  FROM  (	  
+		         SELECT 
+			               RP.TICKET_NO
+			             , RP.USER_NO
+			             , RP.CONTENT_NO
+			             , RP.RESERVATION_DATE
+			             , C.CONTENT_TITLE
+			             , RP.TICKET_NUM
+			             , RP.VIEW_DATE
+			             , RP.PAYMENT_TYPE
+			             , RP.PAYMENT_STATUS
+			             , RP.PAYMENT_CANCEL
+			         FROM  RESERVATION_PAYMENT RP
+			        INNER  JOIN CONTENTS C
+			           ON  RP.CONTENT_NO = C.CONTENT_NO
+			        WHERE  USER_NO = ?
+		     )A
+    	)
+    WHERE RNUM BETWEEN ? AND ?
+
+</entry>
+
 <entry key="selectShowListCount">
 SELECT COUNT(*) LISTVIEW 
  FROM(
@@ -21,7 +71,7 @@ SELECT COUNT(*) LISTVIEW
          WHERE  RP.USER_NO = 1
            AND  RP.PAYMENT_STATUS = 'Y'
            AND  RP.PAYMENT_CANCEL = 'N'
-                 AND  R.REVIEW_STATUS = 'N'
+           AND  R.REVIEW_STATUS = 'N'
     )
 </entry>
 

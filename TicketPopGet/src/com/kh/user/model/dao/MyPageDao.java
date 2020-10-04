@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.kh.community.adBoard.model.vo.AdBoard;
 import com.kh.user.model.vo.MyPage;
 import com.kh.user.model.vo.PageInfo;
+import com.kh.user.model.vo.Reservation;
 
 public class MyPageDao {
 	
@@ -30,6 +31,87 @@ public class MyPageDao {
 	         e.printStackTrace();
 	      }
 	   }
+	
+	/**
+	 * 예매내역 개수
+	 * @param conn
+	 * @param userNo
+	 * @return
+	 */
+	public int selectReservationListCount(Connection conn, int userNo) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReservationListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("LISTVIEW");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	/**
+	 * 예매매수 리스트
+	 * @param conn
+	 * @param userNo
+	 * @return
+	 */
+	public ArrayList<Reservation> selectReservationList(Connection conn, int userNo, PageInfo pi){
+		ArrayList<Reservation> re = new ArrayList<>();
+		
+		PreparedStatement pstmt = null; 
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReservationList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				re.add(new Reservation(rset.getInt("TICKET_NO"),
+									   rset.getInt("USER_NO"),
+									   rset.getInt("CONTENT_NO"),
+									   rset.getDate("RESERVATION_DATE"),
+								   	   rset.getString("CONTENT_TITLE"),
+								   	   rset.getInt("TICKET_NUM"),
+								       rset.getDate("VIEW_DATE"),
+								       rset.getString("PAYMENT_TYPE"),
+								       rset.getString("PAYMENT_STATUS"),
+								       rset.getString("PAYMENT_CANCEL")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return re;
+	}
 	
 	/**
 	 * 나의관람공연개수
