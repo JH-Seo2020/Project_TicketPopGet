@@ -281,6 +281,13 @@ public class MyPageDao {
 		return listCount;
 	}
 	
+	/**
+	 * 찜리스트 리스트
+	 * @param conn
+	 * @param userNo
+	 * @param pi
+	 * @return
+	 */
 	public ArrayList<WishList> selectWishList(Connection conn, int userNo, PageInfo pi){
 		ArrayList<WishList> wishlist = new ArrayList<>();
 		
@@ -321,8 +328,92 @@ public class MyPageDao {
 		
 		return wishlist;
 	}
+
+	/**
+	 * 찜리스트 컨텐츠 개수
+	 * @param conn
+	 * @param userNo
+	 * @param content
+	 * @return
+	 */
+	public int selectWishContentCount(Connection conn, int userNo, String content) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectWishContentCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, content);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount =rset.getInt("LISTVIEW");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 	
-	
+	/**
+	 * 찜리스트 컨텐츠 리스트
+	 * @param conn
+	 * @param userNo
+	 * @param pi
+	 * @param content
+	 * @return
+	 */
+	public ArrayList<WishList> selectWishContentList(Connection conn, int userNo, PageInfo pi, String content){
+		ArrayList<WishList> wishlist = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectWishContentList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				wishlist.add(new WishList(rset.getInt("WISH_NO"),
+						                  rset.getInt("CONTENT_NO"),
+						                  rset.getInt("USER_NO"),
+						                  rset.getInt("TICKET_NO"),
+					                 	  rset.getString("CONTENT_TYPE"),
+					                      rset.getString("CONTENT_TITLE"),
+						                  rset.getString("CONTENT_CHIMG"),
+						                  rset.getString("CONTENT_IMGPATH"),
+						                  rset.getString("CONTENT_STATUS"),
+						                  rset.getDate("WISHLIST_DATE")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return wishlist;
+	}
 	
 	/**
 	 * 나의관람공연개수

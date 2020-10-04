@@ -83,10 +83,10 @@
 
         <!-- 컨텐츠분류 -->
         <div class="contents_btn" align="right">
-            <button class="btn btn-outline-warning">전체</button> 
-            <button class="btn btn-outline-warning">콘서트</button>
-            <button class="btn btn-outline-warning">연극</button>
-            <button class="btn btn-outline-warning">전시</button>
+            <a href="<%=contextPath%>/wishlist.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>" class="btn btn-outline-warning">전체</a> 
+            <a href="<%=contextPath%>/wishContent.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=콘서트" class="btn btn-outline-warning">콘서트</a>
+            <a href="<%=contextPath%>/wishContent.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=연극" class="btn btn-outline-warning">연극</a>
+            <a href="<%=contextPath%>/wishContent.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=전시" class="btn btn-outline-warning">전시</a>
         </div>
 
         <!-- 찜리스트 목록 -->
@@ -94,7 +94,7 @@
             <%
                 if(wishlist.isEmpty()){
             %>
-        		<p>조회되는 리스트가 없습니다.</p>
+        		
              <%
                  }else{ 
                          for(WishList w : wishlist) {
@@ -114,19 +114,19 @@
      <!-- 페이징바 -->
           <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
      		<%if(currentPage != 1){ %>
-            	<a href="<%=contextPath%>/show.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
+            	<a href="<%=contextPath%>/wishlist.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
             <%} %>
             
             <%for(int p=startPage; p<=endPage; p++){ %>
             	<%if(p!=currentPage){ %>
-	           		<a href="<%=contextPath%>/show.my?currentPage=<%=p%>"><span><%=p %></span></a>
+	           		<a href="<%=contextPath%>/wishlist.my?currentPage=<%=p%>"><span><%=p %></span></a>
 	            <%}else { %>
 	            	<a href="javascript:void(0);"><span><%=p %></span></a>
 	            <%} %>
             <%} %>
             
             <%if(currentPage != maxPage){ %>
-            	<a href="<%=contextPath%>/show.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
+            	<a href="<%=contextPath%>/wishlist.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
             <%} %>
         </div>
           

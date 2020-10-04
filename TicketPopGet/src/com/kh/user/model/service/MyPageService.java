@@ -129,6 +129,33 @@ public class MyPageService {
 	}
 	
 	/**
+	 * 찜리스트 컨텐츠 개수
+	 * @param userNo
+	 * @param content
+	 * @return
+	 */
+	public int selectWishContentCount(int userNo, String content) {
+	   Connection conn = getConnection();
+		int listCount = new MyPageDao().selectWishContentCount(conn, userNo, content);
+		close(conn);
+		return listCount;
+	}
+	
+	/**
+	 * 찜리스트 컨텐츠 리스트
+	 * @param userNo
+	 * @param pi
+	 * @param content
+	 * @return
+	 */
+	public ArrayList<WishList> selectWishContentList(int userNo, PageInfo pi, String content){
+		Connection conn = getConnection();
+		ArrayList<WishList> wishlist = new MyPageDao().selectWishContentList(conn, userNo, pi, content);
+		close(conn);
+		return wishlist;
+	}
+	
+	/**
 	 * 나의관람공연 개수 조회
 	 * @return
 	 * @author 이금이
