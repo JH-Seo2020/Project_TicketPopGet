@@ -100,6 +100,27 @@ public class MyPageService {
 	}
 	
 	/**
+	 * 후기작성
+	 * @param mp
+	 * @param content
+	 * @return
+	 */
+	public int reviewInsert(MyPage mp, String content) {
+		
+		Connection conn = getConnection();
+		int result = new MyPageDao().reviewInsert(conn, mp, content);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+	
+	/**
 	 * 후기 개수조회
 	 * @param userId
 	 * @return

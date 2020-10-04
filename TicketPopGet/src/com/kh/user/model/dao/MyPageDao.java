@@ -220,6 +220,38 @@ public class MyPageDao {
 	}
 	
 	/**
+	 * 후기작성
+	 * @param conn
+	 * @param mp
+	 * @param content
+	 * @return
+	 */
+	public int reviewInsert(Connection conn, MyPage mp, String content) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("reviewInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			Clob clob = conn.createClob();
+			clob.setString(1, content);
+			
+	
+			pstmt.setInt(1, mp.getReviewPoint());
+			pstmt.setString(2, mp.getReviewTitle());
+			pstmt.setClob(3, clob);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/**
 	 * 나의 후기개수
 	 * @param conn
 	 * @param userId

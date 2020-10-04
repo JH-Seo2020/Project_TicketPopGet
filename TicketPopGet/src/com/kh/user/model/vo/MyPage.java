@@ -72,7 +72,7 @@ public class MyPage {
 		super();
 		this.contentType = contentType;
 		this.contentTitle = contentTitle;
-		this.viewDate = viewDate;;
+		this.viewDate = viewDate;
 	}
 
 	public int getUserNo() {

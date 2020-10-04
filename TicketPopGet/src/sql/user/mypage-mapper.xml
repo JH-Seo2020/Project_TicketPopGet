@@ -101,6 +101,24 @@ SELECT
  WHERE RP.TICKET_NO = ?
 </entry>
 
+<entry key="reviewInsert">
+ INSERT 
+      INTO REVIEW
+         (
+            REVIEW_NO
+          , REVIEW_POINT 
+          , REVIEW_TITLE 
+          , REVIEW_CONTENT 
+         )
+     VALUES
+          ( 
+            SEQ_REVIEWNO.NEXTVAL
+          , ?
+          , ?
+          , ?
+          )
+</entry>
+
 <entry key="selectReviewListCount">
 SELECT COUNT(*) LISTVIEW 
  FROM(

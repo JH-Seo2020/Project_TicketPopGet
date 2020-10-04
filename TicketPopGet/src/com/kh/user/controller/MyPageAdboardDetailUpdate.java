@@ -50,7 +50,7 @@ public class MyPageAdboardDetailUpdate extends HttpServlet {
 		
 		if(result>0) { 
 			request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/adboard_detail.my?ano="+ano);
+			response.sendRedirect(request.getContextPath() + "/review.my?currentPage=1&userNo="+uno);
 		}else { 
 			request.setAttribute("errorMsg", " 수정 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

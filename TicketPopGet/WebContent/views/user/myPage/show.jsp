@@ -47,7 +47,7 @@
 
         /* 몸통영역 */
         .contents_btn {
-			margin-top: 150px;
+			margin-top: 120px;
 			margin-right: 150px;
 		}
     
@@ -99,6 +99,7 @@
             <div style="font-size: 25px; width: 1000px; margin-left: 90px; border-bottom: 1px solid rosybrown;">
                 <h3 style="margin-bottom: 20px;"><b>나의 관람 공연</b></h3>
             </div>
+            <%-- 
             <div class="reservation_date">
                 <ul style="margin-left: 110px;">
                     <li> 기간 별 조회
@@ -112,6 +113,7 @@
                     </li>
                 </ul>
             </div>
+            --%>
         </div>
 
         <!-- 몸통부분  -->

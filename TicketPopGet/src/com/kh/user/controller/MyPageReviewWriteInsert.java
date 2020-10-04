@@ -1,8 +1,8 @@
 package com.kh.user.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +13,16 @@ import com.kh.user.model.service.MyPageService;
 import com.kh.user.model.vo.MyPage;
 
 /**
- * Servlet implementation class MyPageReviewDetailUpdate
+ * Servlet implementation class MyPageReviewWriteInsert
  */
-@WebServlet("/review_update.my")
-public class MyPageReviewDetailUpdate extends HttpServlet {
+@WebServlet("/reviewInsert.my")
+public class MyPageReviewWriteInsert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageReviewDetailUpdate() {
+    public MyPageReviewWriteInsert() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,26 +34,35 @@ public class MyPageReviewDetailUpdate extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		int rno = Integer.parseInt(request.getParameter("rno"));
-		int uno = Integer.parseInt(request.getParameter("userNo"));
-		int point = Integer.parseInt(request.getParameter("reviewpoint"));
-		String title = request.getParameter("reviewtitle");
 		String content = request.getParameter("editordata");
+
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		String category = request.getParameter("category");
+		String contenttitle = request.getParameter("contenttitle");
+		Date viewdate = java.sql.Date.valueOf(request.getParameter("viewdate"));
+		Date reviewdate = java.sql.Date.valueOf(request.getParameter("reviewdate"));
+		int reviewpoint = Integer.parseInt(request.getParameter("reviewpoint"));
+		String reviewtitle = request.getParameter("reviewtitle");
 		
 		MyPage mp = new MyPage();
-		mp.setReviewNo(rno);
-		mp.setUserNo(uno);
-		mp.setReviewPoint(point);
-		mp.setReviewTitle(title);
+		mp.setUserNo(userNo);
+		mp.setContentType(category);
+		mp.setContentTitle(contenttitle);
+		mp.setViewDate(viewdate);
+		mp.setReviewDate(reviewdate);
+		mp.setReviewPoint(reviewpoint);
+		mp.setReviewTitle(reviewtitle);
 		
-		int result = new MyPageService().reviewUpdate(mp,content);
+		int result = new MyPageService().reviewInsert(mp, content);
 		
 		if(result>0) {
-			request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/review.my?currentPage=1&userNo="+uno);
+			request.getSession().setAttribute("alertMsg", "등록되었습니다.");
+			request.getRequestDispatcher("views/user/myPage/review.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>").forward(request, response);
 		}else {
-			
+			System.out.println("에러");
 		}
+		
+		
 		
 	}
 
