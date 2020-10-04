@@ -297,4 +297,29 @@ private Properties prop = new Properties();
 
 	}
 
+	public int insertReply(Connection conn, Reply reply) {
+	
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, reply.getUserNo());
+			pstmt.setInt(2, reply.getReviewNo());
+			pstmt.setString(3, reply.getReplyContent());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+
+	}
+
 }

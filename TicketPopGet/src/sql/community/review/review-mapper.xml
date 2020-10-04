@@ -118,4 +118,19 @@
 		      )
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	<entry key="insertReply">
+		INSERT 
+	  INTO REVIEW_REPLY
+	     (
+	      REPLY_NO
+	    , USER_NO
+	    , REVIEW_NO
+	    , REPLY_CONTENT
+	) values(
+	    SEQ_REPLY_LNO.nextval
+	    , ?
+	    , ?
+	    , ?
+	)
+	</entry>
 </properties>

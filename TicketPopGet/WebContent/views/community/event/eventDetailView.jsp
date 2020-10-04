@@ -266,7 +266,7 @@
 			
 			//2. 댓글 작성용 ajax
 			function addComment(){
-				
+				console.log($('#commentContent').val());
 				var user;
                 <%if(loginUser != null){%>
                 	user = "<%=loginUser.getUserId()%>";

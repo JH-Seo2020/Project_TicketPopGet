@@ -269,6 +269,40 @@
 			});
 		}
 		
+		//2. 댓글 작성용 ajax
+		function addComment(){
+			console.log($('#commentContent').val());
+			var user;
+            <%if(loginUser != null){%>
+            	user = "<%=loginUser.getUserId()%>";
+			
+				$.ajax({
+					url : "<%=request.getContextPath()%>/reply.insert",
+					type : "post",
+					data : {"replyContent" : $('#commentContent').val(),
+						"reviewNo" : <%=r.getReviewNo()%>},	//회원번호는 서블릿에서 넘긴다
+					success : function(result){
+						
+						if(result>0){
+							selectReplyList(1);
+							$('#commentContent').val("");
+						}else{
+							console.log('댓글작성실패');
+						}
+						
+					}, 
+					error : function(){
+						console.log('통신실패');
+					}
+				});
+			
+			<%}else{%>
+        		alert("로그인 후 이용해주세요!");
+        	<%}%>
+			
+		}
+		
+		
 		</script>
 
 

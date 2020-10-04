@@ -155,5 +155,25 @@ public class ReviewService {
 		return list;
 	}
 
+	/**
+	 * 11. 리뷰게시글 댓글추가
+	 * @param reply
+	 * @return
+	 */
+	public int insertReply(Reply reply) {
+		Connection conn = getConnection();
+		int result = new ReviewDao().insertReply(conn, reply);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+
+	}
+
 
 }
