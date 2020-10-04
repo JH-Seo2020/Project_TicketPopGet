@@ -43,7 +43,6 @@ public class UserInsertServlet extends HttpServlet {
 		String phone = request.getParameter("phone");		// 전화번호
 		Date birthdate = Date.valueOf(request.getParameter("birth"));	//생년월일
 		String gender = request.getParameter("gender");		//성별
-		System.out.println(gender);
 	
 		
 		Member m = new Member(userId, userPwd, userName, email, phone, birthdate, gender);

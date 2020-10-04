@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.payment.model.vo.*" %>
+<%
+	ConcertPayment cp = (ConcertPayment)request.getAttribute("cp");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -73,7 +77,7 @@ border: none;
           <div class="listArea">
             <br>
             <div id="selectDate">
-              <b>날짜</b><br><span>2020-10-05</span> <br>
+              <b>날짜</b><br><span><%=cp.getConcertDate() %></span> <br>
             </div>
             <br>
             &nbsp;<b>회차정보</b>
@@ -84,18 +88,18 @@ border: none;
                 <table>
                   <tr>
                     <td style="width: 80px;">&nbsp;전석</td>
-                    <td>&nbsp;30석</td>
+                    <td>&nbsp;<%=cp.getConcertMax() %>석</td>
                   </tr>
                   <tr>
                     <td>&nbsp;잔여석</td>
-                    <td>&nbsp;14석</td>
+                    <td>&nbsp;<%=cp.getConcertSeats() %>석</td>
                   </tr>
                 </table>
                 <hr>
                 <table>
                   <tr>
                     <td style="width: 60px;">&nbsp;금액</td>
-                    <td>&nbsp;16000원</td>
+                    <td>&nbsp;<%=cp.getPrice() %>원</td>
                   </tr>
                   <tr>
                     <td>&nbsp;매수</td>
@@ -116,7 +120,7 @@ border: none;
             <div id="selectDate">
               <b>결제방법</b><br><br>
               <input type="radio"> 카드 <br>
-              <input type="radio"> 실시간 계좌이체 <br>
+              <input type="radio"> 무통장 입금<br>
             </div>
           </div>
           
@@ -126,9 +130,9 @@ border: none;
                   <tr>
                     <td><img id="poster" src="css/캡처.JPG" width=70px height="90px"> </td>
                     <td>
-                      <b style="font-size: 15px;">연극 [메밀꽃 필무렵]</b><br>
-                      <span style="font-size: 13px;">2020-09-01 ~ 2020-10-21<br>
-                      서울예술대학교</span>
+                      <b style="font-size: 15px;"><%=cp.getContentType() %><%=cp.getContentTitle() %></b><br>
+                      <span style="font-size: 13px;"><%=cp.getConcertDate() %><br>
+                      	<%=cp.getPlace() %></span>
                     </td>
                   </tr>
                 </table>
@@ -138,11 +142,11 @@ border: none;
                 <table width=220px>
                     <tr>
                       <td>날짜</td>
-                      <td id="selected_date" style="text-align: right;">2020-09-05(토)</td>
+                      <td id="selected_date" style="text-align: right;"><%=cp.getConcertDate() %></td>
                     </tr>
                     <tr>
                       <td>시간</td>
-                      <td style="text-align: right;">[1회차]15시00분</td>
+                      <td style="text-align: right;"><%=cp.getConcertRuntime() %></td>
                     </tr>
                     <tr>
                       <td>매수</td>
@@ -150,7 +154,7 @@ border: none;
                     </tr>
                     <tr>
                       <td>티켓금액</td>
-                      <td style="text-align: right;">16000원</td>
+                      <td style="text-align: right;"><%=cp.getPrice() %>원</td>
                     </tr>
                   </table>
                   <hr>
