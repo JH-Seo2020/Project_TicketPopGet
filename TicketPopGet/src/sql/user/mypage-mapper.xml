@@ -48,6 +48,55 @@ SELECT *
 		     )A
     	)
     WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key="selectReservationContnetCount"> 
+SELECT COUNT(*) LISTVIEW 
+ FROM(
+           SELECT 
+	               RP.TICKET_NO
+	             , RP.USER_NO
+	             , RP.CONTENT_NO
+	             , RP.RESERVATION_DATE
+	             , C.CONTENT_TITLE
+	             , RP.VIEW_DATE
+	             , RP.PAYMENT_TYPE
+	             , RP.PAYMENT_STATUS
+	             , RP.PAYMENT_CANCEL
+	         FROM  RESERVATION_PAYMENT RP
+	        INNER  JOIN CONTENTS C
+	           ON  RP.CONTENT_NO = C.CONTENT_NO
+	        WHERE  RP.USER_NO = ?
+	          AND  C.CONTENT_TYPE = ?
+    )
+</entry>
+
+<entry key="selectReservationContnetList">
+SELECT *
+ FROM(
+ 	SELECT
+ 			ROWNUM RNUM
+ 		  , A.*
+ 	  FROM  (	  
+		          SELECT 
+			               RP.TICKET_NO
+			             , RP.USER_NO
+			             , RP.CONTENT_NO
+			             , RP.RESERVATION_DATE
+			             , C.CONTENT_TITLE
+			             , RP.TICKET_NUM
+			             , RP.VIEW_DATE
+			             , RP.PAYMENT_TYPE
+			             , RP.PAYMENT_STATUS
+			             , RP.PAYMENT_CANCEL
+			         FROM  RESERVATION_PAYMENT RP
+			        INNER  JOIN CONTENTS C
+			           ON  RP.CONTENT_NO = C.CONTENT_NO
+			        WHERE  RP.USER_NO = ?
+			          AND  C.CONTENT_TYPE = ?
+		     )A
+    	)
+    WHERE RNUM BETWEEN ? AND ?
 
 </entry>
 

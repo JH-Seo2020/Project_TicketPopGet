@@ -120,12 +120,14 @@
 					<li>
 						<h5>예매내역</h5>
 					</li>
-					<li style="margin-left: 5px;"><select>
-							<option>전체</option>
-							<option>콘서트</option>
-							<option>연극</option>
-							<option>전시</option>
-					</select></li>
+					<li style="margin-left: 5px;">
+						<select name="content" onchange="location.href=this.value">
+								<option value="<%=contextPath%>/reservation.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">전체</option>
+								<option value="<%=contextPath%>/reservationContent.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=콘서트">콘서트</option>
+								<option value="<%=contextPath%>/reservationContent.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=연극">연극</option>
+								<option value="<%=contextPath%>/reservationContent.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=전시">전시</option>
+						</select>
+					</li>
 					<%-- 
 					<li style="padding-left: 480px;">
 						<h6>
@@ -155,18 +157,17 @@
 					</tr>
 				</thead>
 				<tbody>
-				<%-- if문? 암튼 줘서,,, 예매인지 그거 조건 다 줘서,, 취소면 취소페이지로만 가게해야됨!!!!!! --%>
 				    <%
               			if(re.isEmpty()){
               		%>
               		<tr>
-              			<td  colspan="8">조회되는 리스트가 없슴니당</td>
+              			<td  colspan="8">조회되는 리스트가 없습니다</td>
               		</tr>
               		<%
               			}else{ 
               		              		   for(Reservation r : re) {
               		%>
-				
+				<%-- if문? 암튼 줘서,,, 예매인지 그거 조건 다 줘서,, 취소면 취소페이지로만 가게해야됨!!!!!! onclick (if문) --%>
 					<tr onClick="location.href='<%=contextPath%>/re_detail.my'">
 						<td><%=r.getTicketNo() %></td>
 						<td><%=r.getReservationDate() %></td>

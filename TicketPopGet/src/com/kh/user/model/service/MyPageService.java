@@ -49,6 +49,39 @@ public class MyPageService {
 	}
 	
 	/**
+	 * 예매내역 컨텐츠 개수
+	 * @param content
+	 * @param userNo
+	 * @return
+	 */
+	public int selectReservationContnetCount(String content, int userNo) {
+		
+		Connection conn =getConnection();
+		
+		int listCount = new MyPageDao().selectReservationContnetCount(conn, content, userNo);
+		close(conn);
+		return listCount;	
+	}
+	
+	/**
+	 * 예매내역 컨텐츠 리스트
+	 * @param userNo
+	 * @param pi
+	 * @param content
+	 * @return
+	 */
+	public ArrayList<Reservation> selectReservationContnetList(int userNo, PageInfo pi, String content){
+		Connection conn = getConnection();
+		
+		ArrayList<Reservation> re = new MyPageDao().selectReservationContnetList(conn, userNo, content, pi);
+		
+		close(conn);
+		
+		return re;
+		
+	}
+	
+	/**
 	 * 나의관람공연 개수 조회
 	 * @return
 	 * @author 이금이

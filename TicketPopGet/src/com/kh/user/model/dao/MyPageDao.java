@@ -114,6 +114,86 @@ public class MyPageDao {
 	}
 	
 	/**
+	 * 예매내역 컨텐츠 조회 개수
+	 * @param conn
+	 * @param content
+	 * @param userNo
+	 * @return
+	 */
+	public int selectReservationContnetCount(Connection conn, String content, int userNo) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReservationContnetCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, content);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("LISTVIEW");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public ArrayList<Reservation> selectReservationContnetList(Connection conn, int userNo, String content, PageInfo pi){
+		ArrayList<Reservation> re = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReservationContnetList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				re.add(new Reservation(rset.getInt("TICKET_NO"),
+									   rset.getInt("USER_NO"),
+									   rset.getInt("CONTENT_NO"),
+									   rset.getDate("RESERVATION_DATE"),
+								   	   rset.getString("CONTENT_TITLE"),
+								   	   rset.getInt("TICKET_NUM"),
+								       rset.getDate("VIEW_DATE"),
+								       rset.getString("PAYMENT_TYPE"),
+								       rset.getString("PAYMENT_STATUS"),
+								       rset.getString("PAYMENT_CANCEL")));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return re;
+	}
+	
+	/**
 	 * 나의관람공연개수
 	 * @param conn
 	 * @param userId
