@@ -204,7 +204,7 @@
 
             <div width="100%" align="center">
             	<%if(loginUser != null){ %>
-                	<a class="btn btn-warning btn-lg" href="<%= request.getContextPath() %>/pay.me" target="_blank">예매하기</a>
+                	<a class="btn btn-warning btn-lg" href="<%= request.getContextPath() %>/pay.me?contentNo=<%=cObject.getContentNo()%>" target="_blank">예매하기</a>
                 <%}else{ %>
                 	<a class="btn btn-warning btn-lg" onclick="call();">예매하기</a>
                 	<script>function call(){alert("로그인 후 이용해주세요!");}</script>
