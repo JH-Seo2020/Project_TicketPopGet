@@ -72,7 +72,7 @@
             vertical-align: middle;
         }
         #reveiwReplyContent{
-            width: 80%;
+            width: 70%;
             padding-left: 35px;
         }
         /*리뷰댓글 버튼부분*/
@@ -145,72 +145,132 @@
         </div>
         <div id="reviewReplyArea">
             <div><b>댓글 작성에 참여해보세요!🖋</b></div>
-            <form class="input-group mb-3" action="" method="POST">
-                <input name="" class="form-control" type="text" placeholder="댓글을 입력해주세요" required>
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-secondary" >등록하기</button>
+            <form class="input-group mb-3">
+                <input name="commentContent" class="form-control" type="text" placeholder="댓글을 입력해주세요" required>
+                <div class="input-group-append" id='divForUpdate'>
+                    <button id='insertBtn' type="button" class="btn btn-secondary" onclick="addComment();">등록하기</button>
                 </div>
             </form>
             <table class="table table-striped">
-                <tbody>
-                  <tr>
-                    <td>
-                        <p><b>greek***</b></p>
-                        <p>2020-09-02</p>
-                    </td>
-                    <td id="reveiwReplyContent">감상이 비슷하시네요. 잘 읽고 갑니다.</td>
-                    <td id="reviewReplyBtns">
-                        <!--본인일 경우만 보임-->
-                        <a href="">수정</a>
-                        <a href="" data-toggle="modal" data-target="#deleteReviewReply">삭제</a>
-
-                        <a href="" data-toggle="modal" data-target="#ReviewReport">신고</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                        <p><b>greek***</b></p>
-                        <p>2020-09-02</p>
-                    </td>
-                    <td id="reveiwReplyContent">감상이 비슷하시네요. 잘 읽고 갑니다.</td>
-                    <td id="reviewReplyBtns">
-                        <!--본인일 경우만 보임-->
-                        <a href="">수정</a>
-                        <a href="" data-toggle="modal" data-target="#deleteReviewReply">삭제</a>
-
-                        <a href="" data-toggle="modal" data-target="#ReviewReport">신고</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                        <p><b>greek***</b></p>
-                        <p>2020-09-02</p>
-                    </td>
-                    <td id="reveiwReplyContent">몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중몇자까지들어가나 어떻게보이나 테스트중</td>
-                    <td id="reviewReplyBtns">
-                        <!--본인일 경우만 보임-->
-                        <a href="">수정</a>
-                        <a href="" data-toggle="modal" data-target="#deleteReviewReply">삭제</a>
-
-                        <a href="" data-toggle="modal" data-target="#ReviewReport">신고</a>
-                    </td>
-                  </tr>
+                <tbody id='tbodyArea'>
                   
                 </tbody>
               </table>
 
               <div id="ReviewReplyPaging">
-                <button>&lt;&lt;</button>
-                <button>&lt;</button>
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>4</button>
-                <button>5</button>
-                <button>&gt;</button>
-                <button>&gt;&gt;</button>
+                
             </div>
         </div>
+
+		<script>
+		$(function(){
+			selectReplyList(1);
+		});
+		
+		//1. 댓글 리스트 조회용 ajax 
+		function selectReplyList(cPage){
+			$.ajax({
+				url : "<%=request.getContextPath()%>/reply.co",
+				type : "get",
+				data : {"reviewNo" : <%=r.getReviewNo()%>,
+					"currentPage" : cPage},
+				success : function(result){
+					
+					if(result.list.length >= '1'){	//댓글이 1개 이상 있을 때
+						
+						var comments = "";
+						var commentBtns = "";
+	                    
+						for(var i in result.list){
+								
+							//수정,삭제,신고, 추천버튼 조건처리 (내 댓글이면 수정삭제, 남의 댓글이면 신고 추천)
+							$replyNo = result.list[i].replyNo;
+							
+		                    $update = "<a class='btn' onclick='callForUpdate("+$replyNo+");'>수정</a>";
+		                    $delete = "<a class='btn' onclick='callForDelete("+$replyNo+");' data-toggle='modal' data-target='#deleteReviewReply'>삭제</a>";
+		                    $report = "<a class='btn' onclick='callForReport("+$replyNo+");' data-toggle='modal' data-target='#ReviewReport'>신고</a>";
+		                    $like = "<a class='btn' onclick='call("+$replyNo+");'>추천</a><lable>7</lable>";	
+		                    
+							<%if(loginUser != null){%>
+								
+								if(result.list[i].userNo == '<%=loginUser.getUserId()%>'){
+		                    		commentBtns = $update + "&nbsp;&nbsp;"+$delete;
+								}else{
+									commentBtns = $report +"&nbsp;&nbsp;"+ $like;
+								}
+								
+		                    <%}else{%>
+		                    	commentBtns = "";
+		                    <%}%>
+							
+							comments += "<tr>"
+									 + "<td id='reveiwReplyHead'><p><b>" + result.list[i].userId + "</b></p>"
+									 + "<p style='font-size: 13px;'>" + result.list[i].replyDate + "</p></td>"
+									 + "<td id='reveiwReplyContent'>" + result.list[i].replyContent + "</td>"
+									 + "<td><input type='hidden' value="+result.list[i].replyNo +"></td>" 
+									 + "<td id='reviewReplyBtns'>"+commentBtns+"</td></tr>";
+							
+									 
+						}
+						
+					   var $boardLimit = result.pi.boardLimit;
+                       var $currentPage = result.pi.currentPage;
+                       var $endPage = result.pi.endPage;
+                       var $listCount = result.pi.listCount;
+                       var $maxPage = result.pi.maxPage;
+                       var $pageLimit = result.pi.pageLimit;
+                       var $startPage = result.pi.startPage;
+                       
+                       var $btns = "";
+                       for(var $p = $startPage; $p <= $endPage; $p++ ){
+                          //$btns += "&nbsp;"+<a href="+'<%=contextPath%>/reply.co?currentPage='+">"+$p+"</a>"+"&nbsp;";
+                       	  if($p != $currentPage){
+                          	$btns += "<button class='cc' type='button' onclick='selectReplyList(" + $p + ");'>" + $p + "</button>"+"&nbsp;";	                       		  
+                       	  }else{
+                       		$btns += "<button disabled style='color:black'>" + $p + "</button>"+"&nbsp;";
+                       	  }   
+                       
+                       }
+						
+                       
+                       
+						var $firstBtn = "<button type='button' onclick='selectReplyList(" + 1 + ");'>" + "&lt;&lt;" + "</button>";
+	                    var $prevBtn = "<button type='button' onclick='selectReplyList(" + ($currentPage - 1) + ");'>" + "&lt;" + "</button>";
+	                    var $nextBtn = "<button type='button' onclick='selectReplyList(" + ($currentPage + 1) + ");'>" + "&gt;" + "</button>";
+	                    var $endBtn = "<button type='button' onclick='selectReplyList(" + $maxPage + ");'>" + "&gt;&gt;" + "</button>";
+	                       
+	                    var $buttons = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
+	                    var $buttons0 = $firstBtn +"&nbsp;"+ $btns +"&nbsp;"+ $endBtn ;
+	                    var $buttons1 = $firstBtn + "&nbsp;"+ $btns +"&nbsp;"+ $nextBtn +"&nbsp;"+ $endBtn ;
+	                    var $buttons2 = $firstBtn +"&nbsp;"+ $prevBtn +"&nbsp;"+ $btns +"&nbsp;" + $endBtn ;
+	                    
+	                    $("#tbodyArea").html(comments);
+	                    
+	                    //버튼조건처리.. 댓글 등록 후 기능 다시 확인해볼것 
+	                    if(cPage == "1" && cPage == $maxPage){
+	                    	$("#ReviewReplyPaging").html($buttons0);
+	                    }else if(cPage == "1" && cPage != $maxPage) {
+	                    	$("#ReviewReplyPaging").html($buttons1);
+                        }else if(cPage != "1" && cPage != $maxPage){
+                        	$("#ReviewReplyPaging").html($buttons);
+                        }else if (cPage != "1" && cPage == $maxPage){
+                        	$("#ReviewReplyPaging").html($buttons2);
+                        }
+	                    
+	                    
+					}else{	//댓글이 1개도 없을 때
+						$("#tbodyArea").html('보여드릴 댓글이 없습니다.');
+					}
+					
+				},
+				error : function(){
+					console.log("ajax 통신실패");
+				}
+			});
+		}
+		
+		</script>
+
 
         <!--글 삭제 모달-->
         <div class="modal" tabindex="-1" id="deleteReview">

@@ -11,9 +11,12 @@ import java.util.ArrayList;
 import com.kh.community.adBoard.model.dao.AdBoardDao;
 import com.kh.community.adBoard.model.vo.AdBoard;
 import com.kh.community.adBoard.model.vo.Report;
+import com.kh.community.event.model.dao.EventDao;
+import com.kh.community.event.model.vo.Comment;
 import com.kh.community.eventResult.model.dao.EventResultDao;
 import com.kh.community.eventResult.model.vo.EventRaffle;
 import com.kh.community.review.model.dao.ReviewDao;
+import com.kh.community.review.model.vo.Reply;
 import com.kh.community.review.model.vo.Review;
 import com.kh.concert.model.vo.PageInfo;
 
@@ -125,6 +128,31 @@ public class ReviewService {
 		}
 		close(conn);
 		return result;
+	}
+
+	/**
+	 * 9. 리뷰 게시글에 달린 댓글 총 개수 조회 
+	 * @param reviewNo
+	 * @return
+	 */
+	public int selectReplyCount(int reviewNo) {
+		Connection conn = getConnection();
+		int result = new ReviewDao().selectReplyCount(conn, reviewNo);
+		close(conn);
+		return result;
+	}
+
+	/**
+	 * 10. 리뷰게시글 댓글 조회
+	 * @param pi
+	 * @param reviewNo
+	 * @return
+	 */
+	public ArrayList<Reply> selectReply(PageInfo pi, int reviewNo) {
+		Connection conn = getConnection();
+		ArrayList<Reply> list = new ReviewDao().selectReply(conn,pi,reviewNo);
+		close(conn);
+		return list;
 	}
 
 

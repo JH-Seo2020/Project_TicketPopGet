@@ -15,7 +15,9 @@ import java.util.Properties;
 
 import com.kh.community.adBoard.model.vo.AdBoard;
 import com.kh.community.adBoard.model.vo.Report;
+import com.kh.community.event.model.vo.Comment;
 import com.kh.community.eventResult.model.vo.EventRaffle;
+import com.kh.community.review.model.vo.Reply;
 import com.kh.community.review.model.vo.Review;
 import com.kh.concert.model.vo.PageInfo;
 
@@ -235,6 +237,64 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int selectReplyCount(Connection conn, int reviewNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReplyCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("ReplyCOUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+
+	}
+
+	public ArrayList<Reply> selectReply(Connection conn, PageInfo pi, int reviewNo) {
+		ArrayList<Reply> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReply");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, reviewNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Reply(rset.getInt("REPLY_NO"),
+									rset.getInt("USER_NO"),
+									rset.getString("USER_ID"),
+									rset.getInt("REVIEW_NO"),
+									rset.getDate("REPLY_DATE"),
+									rset.getString("REPLY_CONTENT")
+									));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+
 	}
 
 }

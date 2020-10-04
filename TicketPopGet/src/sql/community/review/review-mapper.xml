@@ -90,4 +90,32 @@
 		   SET REVIEW_STATUS = 'N'
 		 WHERE REVIEW_NO = ?
 	</entry>
+	<entry key="selectReplyCount">
+		SELECT COUNT(*) ReplyCOUNT
+		  FROM REVIEW
+		 WHERE REVIEW_NO = ?
+		   AND REVIEW_STATUS = 'Y'	
+	</entry>
+	<entry key="selectReply">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM
+		             , R.*
+		          FROM (
+		                SELECT REPLY_NO
+		                     , USER_NO
+		                     , USER_ID	
+		                     , REVIEW_NO
+		                     , REPLY_DATE
+                             , REPLY_CONTENT
+		                  FROM REVIEW_REPLY
+		                  JOIN MEMBER USING(USER_NO)
+		                 WHERE REVIEW_NO = ?
+		                   AND REPLY_STATUS = 'Y'
+		                 ORDER 
+		                    BY REPLY_NO DESC
+		                 )R
+		      )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
 </properties>
