@@ -149,6 +149,14 @@ public class MyPageDao {
 		return listCount;
 	}
 	
+	/**
+	 * 예매매수 컨텐츠 리스트
+	 * @param conn
+	 * @param userNo
+	 * @param content
+	 * @param pi
+	 * @return
+	 */
 	public ArrayList<Reservation> selectReservationContnetList(Connection conn, int userNo, String content, PageInfo pi){
 		ArrayList<Reservation> re = new ArrayList<>();
 		
@@ -183,6 +191,52 @@ public class MyPageDao {
 			}
 			
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return re;
+	}
+	
+	/**
+	 * 예매내역상세
+	 * @param conn
+	 * @param userNo
+	 * @param tno
+	 * @return
+	 */
+	public Reservation selectReservationDetail(Connection conn, int userNo, int tno) {
+		
+		Reservation re = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReservationDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tno);
+			pstmt.setInt(2, userNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				re = new Reservation(rset.getInt("TICKET_NO"),
+									 rset.getString("CONTENT_TITLE"),
+									 rset.getDate("VIEW_DATE"),
+									 rset.getDate("VIEW_DATE_CANCEL"),
+									 rset.getString("PLACE"),
+									 rset.getString("USER_NAME"),
+									 rset.getDate("PAYMENT_DATE"),
+									 rset.getDate("RESERVATION_DATE"),
+									 rset.getString("PAYMENT_TYPE"),
+									 rset.getString("PAYMENT_TOTAL"),
+									 rset.getInt("TICKET_NUM"),
+									 rset.getString("PAYMENT_CANCEL"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

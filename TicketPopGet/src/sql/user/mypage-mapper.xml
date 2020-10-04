@@ -97,7 +97,30 @@ SELECT *
 		     )A
     	)
     WHERE RNUM BETWEEN ? AND ?
+</entry>
 
+<entry key="selectReservationDetail">
+  SELECT
+              RP.TICKET_NO
+            , C.CONTENT_TITLE
+            , RP.VIEW_DATE
+            , RP.VIEW_DATE -3 VIEW_DATE_CANCEL
+            , C.PLACE
+            , M.USER_NAME
+            , RP.PAYMENT_DATE
+            , RP.RESERVATION_DATE
+            , RP.PAYMENT_TYPE
+            , RP.PAYMENT_TOTAL
+            , RP.TICKET_NUM
+            , RP.PAYMENT_CANCEL
+         FROM RESERVATION_PAYMENT RP
+        INNER JOIN CONTENTS C
+           ON RP.CONTENT_NO = C.CONTENT_NO
+        INNER JOIN MEMBER M
+           ON RP.USER_NO = M.USER_NO
+        WHERE RP.TICKET_NO = ?
+          AND RP.USER_NO = ?
+          AND RP.PAYMENT_CANCEL = 'N'
 </entry>
 
 <entry key="selectShowListCount">

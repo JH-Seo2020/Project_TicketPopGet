@@ -8,7 +8,7 @@
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
+	int maxPage = pi.getMaxPage();	
 %>
 <!DOCTYPE html>
 <html>
@@ -46,8 +46,8 @@
 
 /* 예매내역확인 몸통영역 */
 .reservation_check2 {
-	margin-top: 80px;
-	margin-left: 150px;
+	margin-top: 50px;
+	margin-left: 100px;
 }
 
 .reservation_state ul li {
@@ -56,32 +56,40 @@
 }
 
 /* 예매내역확인 테이블 */
-.reservation_check3 {
-	margin-top: 140px;
-	margin-left: 115px;
+
+
+.reservation_check3 table{
+    width: 950px;
+    height: 350px;
+    text-align: center;
+  
+}
+.reservation_check3 table>tbody>tr:hover{
+   color: tomato;
+   background:white;
+   cursor:pointer;
 }
 
-.reservation_check3 table {
-	margin-left:140px;
-	width: 900px;
-	height: 350px;
-	text-align: center;
+.reservation_check3 button{
+    background-color: white;
+    border: 1px solid  orangered;
+    border-radius: 0.5em;
 }
 
-.reservation_check3 table>tbody>tr:hover {
-	color: rgb(149, 130, 255);
-	background-color: white;
-	cursor: pointer;
+.reservation_check3 button:hover{
+    background-color:orangered;
+    color: white;
 }
 
-       /* 페이징바 */
-        .pagination {margin:10px 0 0; text-align:center}
-        .pagination .btn-prev, .pagination .btn-next, .pagination a span {display: inline-block; margin-right:2px; padding: 4px 12px; border:1px solid #ddd; border-radius: 4px; color: #111; background:#fff; text-decoration: none; text-align: center;}
-        .pagination .btn-prev:hover, .pagination .btn-next:hover, .pagination a span:hover,
-        .pagination .btn-prev:active, .pagination .btn-next:active, .pagination a span:active,
-        .pagination .btn-prev:focus, .pagination .btn-next:focus, .pagination a span:focus {color:#fff; background:#ff8149; border:1px solid #ff8149}
-        .pagination a .selected {color:#ff8149; border:1px solid #ff8149}
-        .pagination .no-more-prev, .pagination .no-more-next {display:none}
+
+/* 페이징바 */
+ .pagination {margin:10px 0 0; text-align:center}
+ .pagination .btn-prev, .pagination .btn-next, .pagination a span {display: inline-block; margin-right:2px; padding: 4px 12px; border:1px solid #ddd; border-radius: 4px; color: #111; background:#fff; text-decoration: none; text-align: center;}
+ .pagination .btn-prev:hover, .pagination .btn-next:hover, .pagination a span:hover,
+ .pagination .btn-prev:active, .pagination .btn-next:active, .pagination a span:active,
+ .pagination .btn-prev:focus, .pagination .btn-next:focus, .pagination a span:focus {color:#fff; background:#ff8149; border:1px solid #ff8149}
+ .pagination a .selected {color:#ff8149; border:1px solid #ff8149}
+ .pagination .no-more-prev, .pagination .no-more-next {display:none}
 </style>
 </head>
 <body>
@@ -89,6 +97,8 @@
 	<!-- 메뉴바쓰추가쓰 -->
 	<%@ include file="/views/common/menubar.jsp"%>
 
+	
+	
 	<div id=reservation>
 		<!-- 예매내역확인 헤더부분 -->
 		<div class="reservation_check1">
@@ -142,8 +152,8 @@
 		</div>
 
 		<!-- 예매내역 테이블부분 -->
-		<div class="container reservation_check3">
-			<table class="table table-hover">
+		<div class="container reservation_check3" style="margin-left: 90px; margin-top:100px;">
+			<table class="table table-hover" style="width: 950px; height: 70px; margin-left: 30px; text-align: center;">
 				<thead>
 					<tr>
 						<th>예매번호</th>
@@ -165,10 +175,10 @@
               		</tr>
               		<%
               			}else{ 
-              		              		   for(Reservation r : re) {
+              		           for(Reservation r : re) {
               		%>
 				<%-- if문? 암튼 줘서,,, 예매인지 그거 조건 다 줘서,, 취소면 취소페이지로만 가게해야됨!!!!!! onclick (if문) --%>
-					<tr onClick="location.href='<%=contextPath%>/re_detail.my'">
+					<tr onClick="location.href='<%=contextPath%>/re_detail.my?userNo=<%=loginUser.getUserNo()%>&tno=<%=r.getTicketNo()%>'">
 						<td><%=r.getTicketNo() %></td>
 						<td><%=r.getReservationDate() %></td>
 						<td><%=r.getContnetTitle() %></td>
@@ -183,6 +193,7 @@
 				</tbody>
 			</table>
 		</div>
+		
 
 		<!-- 페이징바 -->
 	     <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">

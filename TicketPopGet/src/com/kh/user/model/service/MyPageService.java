@@ -82,6 +82,23 @@ public class MyPageService {
 	}
 	
 	/**
+	 * 예매상세내역
+	 * @param userNo
+	 * @param tno
+	 * @return
+	 */
+	public Reservation selectReservationDetail(int userNo, int tno) {
+		
+		Connection conn = getConnection();
+		
+		Reservation re = new MyPageDao().selectReservationDetail(conn, userNo, tno);
+		
+		close(conn);
+		
+		return re;
+	}
+	
+	/**
 	 * 나의관람공연 개수 조회
 	 * @return
 	 * @author 이금이

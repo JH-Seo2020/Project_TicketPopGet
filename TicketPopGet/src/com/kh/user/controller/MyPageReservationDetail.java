@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.user.model.service.MyPageService;
+import com.kh.user.model.vo.Reservation;
+
 /**
  * Servlet implementation class MyPage_reservation_detail
  */
@@ -28,6 +31,14 @@ public class MyPageReservationDetail extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		int tno = Integer.parseInt(request.getParameter("tno"));
+		
+		Reservation re = new MyPageService().selectReservationDetail(userNo, tno);
+		
+		request.setAttribute("re", re);
+		
 		RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/reservation_detail.jsp");
 		view.forward(request, response);
 	}

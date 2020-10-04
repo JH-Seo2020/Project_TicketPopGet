@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.kh.user.model.vo.Reservation" %>
+<%
+	Reservation re = (Reservation)request.getAttribute("re");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,27 +83,27 @@
 		<table class="reservation_table" id="reservation_table_list1">
 			<tr>
 				<th>예매번호</th>
-				<td>aaaaaa</td>
+				<td><%=re.getTicketNo()%></td>
 			</tr>
 			<tr>
 				<th>티켓명</th>
-				<td>외갈매기</td>
+				<td><%=re.getContnetTitle() %></td>
 			</tr>
 			<tr>
 				<th>관람일시</th>
-				<td>2020-09-01(화) 18시30분 1회</td>
+				<td><%=re.getViewDate()%></td>
 			</tr>
 			<tr>
 				<th>공연장</th>
-				<td>소극장 산울림</td>
+				<td><%=re.getPlace()%></td>
 			</tr>
 			<tr>
 				<th>예매자</th>
-				<td>땡땡땡</td>
+				<td><%=re.getUserName()%></td>
 			</tr>
 			<tr>
 				<th>취소가능일시</th>
-				<td>2020-08-29(토) 23시59분까지</td>
+				<td><%=re.getViewDatecancel() %></td>
 			</tr>
 		</table>
 
@@ -108,15 +112,15 @@
 		<table class="reservation_table" id="reservation_table_list2">
 			<tr>
 				<th>예매일</th>
-				<td>2020-08-27(목)</td>
+				<td><%=re.getReservationDate()%></td>
 			</tr>
 			<tr>
 				<th>결제수단</th>
-				<td>무통장입금</td>
+				<td><%=re.getPaymentType()%></td>
 			</tr>
 			<tr>
-				<th>결제수단</th>
-				<td>결제완료/결제미완료/결제진행중</td>
+				<th>총결제가격</th>
+				<td><%=re.getPaymentTotal()%></td>
 			</tr>
 		</table>
 
@@ -130,10 +134,10 @@
 				<th>취소여부</th>
 			</tr>
 			<tr>
-				<td>aaaaaa</td>
-				<td>2매</td>
-				<td>20,000원</td>
-				<td>취소가능</td>
+				<td><%=re.getTicketNo()%></td>
+				<td><%=re.getTicketNum()%>매</td>
+				<td><%=re.getPaymentTotal()%>원</td>
+				<td><%=re.getPaymentCancel()%></td>
 			</tr>
 		</table>
 
