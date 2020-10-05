@@ -186,10 +186,10 @@
 							//수정,삭제,신고, 추천버튼 조건처리 (내 댓글이면 수정삭제, 남의 댓글이면 신고 추천)
 							$replyNo = result.list[i].replyNo;
 							
-		                    $update = "<a class='btn' onclick='callForUpdate("+$replyNo+");'>수정</a>";
-		                    $delete = "<a class='btn' onclick='callForDelete("+$replyNo+");' data-toggle='modal' data-target='#deleteReviewReply'>삭제</a>";
-		                    $report = "<a class='btn' onclick='callForReport("+$replyNo+");' data-toggle='modal' data-target='#ReviewReport'>신고</a>";
-		                    $like = "<a class='btn' onclick='call("+$replyNo+");'>추천</a><lable>7</lable>";	
+		                    $update = "<a class='btn' onclick='callForUpdate("+$replyNo+");'>수정💬</a>";
+		                    $delete = "<a class='btn' onclick='callForDelete("+$replyNo+");' data-toggle='modal' data-target='#deleteReviewReply'>삭제❌</a>";
+		                    $report = "<a class='btn' onclick='callForReport("+$replyNo+");' data-toggle='modal' data-target='#ReviewReport'>신고🚨</a>";
+		                    $like = "<a class='btn' onclick='call("+$replyNo+");'>추천💛</a><lable>7</lable>";	
 		                    
 							<%if(loginUser != null){%>
 								
@@ -347,7 +347,13 @@
 			
 		}
 
-		
+		//4. 댓글삭제 시 댓글번호 전달용 함수, 동기식
+		function callForDelete(replyNo){	
+			$("#deleteReplyCheck").click(function(){
+				location.href="<%=contextPath%>/reply.delete?replyNo="+replyNo+"&reviewNo=<%=r.getReviewNo()%>";
+			});
+		}
+
 		
 		</script>
 
@@ -392,7 +398,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                        <a type="button" class="btn btn-primary" href="">확인</a>
+                        <a type="button" class="btn btn-primary" id="deleteReplyCheck">확인</a>
                     </div>
                 </div>
             </div>

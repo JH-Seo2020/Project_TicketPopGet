@@ -169,7 +169,6 @@
 					data : {"eventNo" : <%=evObject.getEventNo()%>,
 						"currentPage" : cPage},
 					success : function(result){
-						console.log(result.pi);
 						if(result.list.length >= '1'){	//댓글이 1개 이상 있을 때
 							
 							var comments = "";
@@ -180,10 +179,10 @@
 								//수정,삭제,신고, 추천버튼 조건처리 (내 댓글이면 수정삭제, 남의 댓글이면 신고 추천)
 								$commentNo = result.list[i].commentNo;
 								
-			                    $update = "<a class='btn' onclick='callForUpdate("+$commentNo+");'>수정</a>";
-			                    $delete = "<a class='btn' onclick='callForDelete("+$commentNo+");' data-toggle='modal' data-target='#deleteReviewReply'>삭제</a>";
-			                    $report = "<a class='btn' onclick='callForReport("+$commentNo+");' data-toggle='modal' data-target='#eventReport'>신고</a>";
-			                    $like = "<a class='btn' onclick='call("+$commentNo+");'>추천</a><lable>7</lable>";	
+			                    $update = "<a class='btn' onclick='callForUpdate("+$commentNo+");'>수정💬</a>";
+			                    $delete = "<a class='btn' onclick='callForDelete("+$commentNo+");' data-toggle='modal' data-target='#deleteReviewReply'>삭제❌</a>";
+			                    $report = "<a class='btn' onclick='callForReport("+$commentNo+");' data-toggle='modal' data-target='#eventReport'>신고🚨</a>";
+			                    $like = "<a class='btn' onclick='call("+$commentNo+");'>추천💛</a><lable>7</lable>";	
 			                    
 								<%if(loginUser != null){%>
 									
@@ -352,35 +351,26 @@
 				});
 			}
 			
-			//5. 댓글신고 시 신고내용 불러올 ajax, 신고등록은 동기식e
+			//5. 댓글신고 시 신고내용 불러올 ajax, 신고등록은 동기식
 			function callForReport(commentNo){	
-				
-				$("#tbmakers").html(commentNo);
-				
-				//5-1. 신고내용 호출용 ajax..인데 아직 미완성.
 				$.ajax({
-						url : "<%=contextPath%>/comment.recall",
-						type : "post",
-						data : {"commentContent" : $('#commentContent').val(),
-							"eno" : <%=evObject.getEventNo()%>},	//회원번호는 서블릿에서 넘긴다
+						url : "<%=contextPath%>/comment.forUpdate",
+						type : "get",
+						data : {"commentNo" : commentNo},	
 						success : function(result){
 							
-							if(result>0){
-								console.log('불러왔으니까 이제 신고칸에 내용 하나씩 넣어줍시다.. 그리고 동기식으로 신고 업뎃 ㄱㄱ')
-							}else{
-								console.log('댓글작성실패');
-							}
+							console.log(result);
+							$('#troubleMaker').val(result.userNo);
+							$('#commentNo').val(result.commentNo);
+							$('#troubleMakerId').text(result.userId);
+							$('#eventNo').val(result.eventNo);
+							$('#reportForm').attr('action','<%=contextPath%>/comment.report');
 							
 						}, 
 						error : function(){
 							console.log('통신실패');
 						}
 					});
-				
-			
-				$("#reportCheck").click(function(){
-					$("#reportForm").attr('action','<%=contextPath%>/commentReport');
-				});
 			}
 			
 		</script>
@@ -427,6 +417,14 @@
                         </button>
                     </div>
                         <form id='reportForm' method="POST" action="">
+                        <%if(loginUser != null){ %>
+		                	<input id="" name="reporter" type="hidden" value="<%=loginUser.getUserNo()%>">
+		                <%} %>
+		                	<input id="troubleMaker" name="troubleMaker" type="hidden" value="">
+		                	<input id="" name="reportCate" type="hidden" value="이벤트댓글">
+		                	<input id="commentNo" name="commentNo" type="hidden" value="">
+		                	<input id="eventNo" name="eventNo" type="hidden" value="">
+		                	
                             <div class="modal-body">
                                 <p>
                                     <b>신고 사유</b>
@@ -444,13 +442,13 @@
                                 <p>
                                     <b>신고 대상 아이디 </b>
                                 </p>
-                                <p id="tbmakers">grekk***</p>
+                                <p id="troubleMakerId"></p>
                             </div>
                             <div class="modal-body">
                                 <p>
                                     <b>구체적인 신고 사유 </b>
                                 </p>
-                                <input type="text" name="" class="form-control" placeholder="이유를입력하세요" required>
+                                <input type="text" name="reportContent" class="form-control" placeholder="이유를입력하세요" required>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>

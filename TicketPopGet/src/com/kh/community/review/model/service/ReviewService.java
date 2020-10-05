@@ -206,6 +206,18 @@ public class ReviewService {
 		return result;
 	}
 
+	/**
+	 * 14. 리뷰댓글 삭제 
+	 * @param replyNo
+	 * @return
+	 */
+	public int replyDelete(int replyNo) {
+		Connection conn = getConnection();
+		int result = new ReviewDao().replyDelete(conn, replyNo);
+		close(conn);
+		return result;
+	}
+
 
 
 }

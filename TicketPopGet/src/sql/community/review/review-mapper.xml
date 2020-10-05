@@ -150,4 +150,10 @@
 		   SET REPLY_CONTENT = ?
 		 WHERE REPLY_NO = ?
 	</entry>
+	<entry key="replyDelete">
+		UPDATE 
+		       REVIEW_REPLY
+		   SET REPLY_STATUS = 'N'
+		 WHERE REPLY_NO = ?
+	</entry>
 </properties>
