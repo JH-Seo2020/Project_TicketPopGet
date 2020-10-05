@@ -2,6 +2,68 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+<entry key="mainReservation">	  
+    SELECT 
+           RP.TICKET_NO
+         , RP.USER_NO
+         , RP.CONTENT_NO
+         , RP.RESERVATION_DATE
+         , C.CONTENT_TITLE
+         , RP.TICKET_NUM
+         , RP.VIEW_DATE
+         , RP.PAYMENT_TYPE
+         , RP.PAYMENT_STATUS
+         , RP.PAYMENT_CANCEL
+     FROM  RESERVATION_PAYMENT RP
+    INNER  JOIN CONTENTS C
+       ON  RP.CONTENT_NO = C.CONTENT_NO
+    WHERE  USER_NO = ?
+</entry>
+
+<entry key="mainWishList">
+SELECT 
+        WI.WISH_NO 
+      , WI.CONTENT_NO
+      , WI.USER_NO
+      , WI.TICKET_NO
+      , C.CONTENT_TYPE
+      , C.CONTENT_TITLE
+      , C.CONTENT_CHIMG
+      , C.CONTENT_IMGPATH
+      , '예매진행중' AS CONTENT_STATUS
+      , WI.WISHLIST_DATE
+   FROM WISHLIST WI
+  INNER JOIN CONTENTS C
+     ON WI.CONTENT_NO = C.CONTENT_NO
+  INNER JOIN MEMBER M
+     ON WI.USER_NO = M.USER_NO
+  INNER JOIN RESERVATION_PAYMENT R
+     ON WI.TICKET_NO = R.TICKET_NO
+  WHERE WI.USER_NO = ?
+  AND WI.WISHLIST_STATUS = 'Y'
+</entry>
+
+<entry key="mainShowList">
+  SELECT 
+         RP.TICKET_NO
+      ,  C.CONTENT_TITLE
+      ,  RP.USER_NO
+      ,  C.CONTENT_CHIMG
+      ,  C.CONTENT_IMGPATH
+   FROM  RESERVATION_PAYMENT RP
+  INNER  JOIN  MEMBER M
+     ON  M.USER_NO = RP.USER_NO
+  INNER  JOIN CONTENTS C
+     ON  RP.CONTENT_NO = C.CONTENT_NO
+        INNER  JOIN REVIEW R
+           ON  RP.TICKET_NO = R.TICKET_NO
+  WHERE  RP.USER_NO = ?
+    AND  RP.PAYMENT_STATUS = 'Y'
+    AND  RP.PAYMENT_CANCEL = 'N'
+    AND  R.REVIEW_STATUS = 'N'
+
+</entry>
+
 <entry key="selectReservationListCount">
 SELECT COUNT(*) LISTVIEW 
  FROM(
@@ -259,7 +321,7 @@ SELECT COUNT(*) LISTVIEW
             ON  RP.CONTENT_NO = C.CONTENT_NO
                INNER  JOIN REVIEW R
                   ON  RP.TICKET_NO = R.TICKET_NO
-         WHERE  RP.USER_NO = 1
+         WHERE  RP.USER_NO = ?
            AND  RP.PAYMENT_STATUS = 'Y'
            AND  RP.PAYMENT_CANCEL = 'N'
            AND  R.REVIEW_STATUS = 'N'
@@ -287,7 +349,7 @@ SELECT *
 		            ON  RP.CONTENT_NO = C.CONTENT_NO
                  INNER  JOIN REVIEW R
                     ON  RP.TICKET_NO = R.TICKET_NO
-		         WHERE  RP.USER_NO = 1
+		         WHERE  RP.USER_NO = ?
 		           AND  RP.PAYMENT_STATUS = 'Y'
 		           AND  RP.PAYMENT_CANCEL = 'N'
                    AND  R.REVIEW_STATUS = 'N'

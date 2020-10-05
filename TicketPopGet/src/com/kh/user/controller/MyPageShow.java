@@ -37,7 +37,7 @@ public class MyPageShow extends HttpServlet {
 
 			int userNo = Integer.parseInt(request.getParameter("userNo"));
 			
-			if(userNo>0) {
+			
 				// ---------------- 페이징처리 ----------------
 				int listCount; // 현재 총 게시글 개수
 				int currentPage; // 현재 페이지 (즉, 요청한 페이지)
@@ -75,9 +75,7 @@ public class MyPageShow extends HttpServlet {
 	
 				RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/show.jsp");
 				view.forward(request, response);
-			}else {
-				
-			}
+			
 		
 	}
 

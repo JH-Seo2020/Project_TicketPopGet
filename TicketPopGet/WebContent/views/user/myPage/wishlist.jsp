@@ -9,6 +9,8 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
+	
+	String content = (String)request.getAttribute("content");
 %>
 <!DOCTYPE html>
 <html>
@@ -111,24 +113,48 @@
 		            
         </div>
         
-     <!-- 페이징바 -->
-          <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
-     		<%if(currentPage != 1){ %>
-            	<a href="<%=contextPath%>/wishlist.my?currentPage=1" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
-            <%} %>
-            
-            <%for(int p=startPage; p<=endPage; p++){ %>
-            	<%if(p!=currentPage){ %>
-	           		<a href="<%=contextPath%>/wishlist.my?currentPage=<%=p%>"><span><%=p %></span></a>
-	            <%}else { %>
-	            	<a href="javascript:void(0);"><span><%=p %></span></a>
+    <!-- 페이징바 -->
+		<%if(content == null){ %>
+	        <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
+	     		<%if(currentPage != 1){ %>
+	     			<!-- 맨 처음으로(<<) -->
+	     			<a href="<%=contextPath%>/wishlist.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
 	            <%} %>
-            <%} %>
-            
-            <%if(currentPage != maxPage){ %>
-            	<a href="<%=contextPath%>/wishlist.my?currentPage=<%=maxPage%>" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
-            <%} %>
-        </div>
+	            
+	            <%for(int p=startPage; p<=endPage; p++){ %>
+	            	<%if(p!=currentPage){ %>
+		           		<a href="<%=contextPath%>/wishlist.my?currentPage=<%=p%>&userNo=<%=loginUser.getUserNo()%>"><span><%=p %></span></a>
+		            <%}else { %>
+		            	<a href="javascript:void(0);"><span><%=p %></span></a>
+		            <%} %>
+	            <%} %>
+	            
+	            <%if(currentPage != maxPage){ %>
+	            	<!-- 맨 끝으로(>>) -->
+	            	<a href="<%=contextPath%>/wishlist.my?currentPage=<%=maxPage%>&userNo=<%=loginUser.getUserNo()%>" class=" btn-next"><i class="fa fa-chevron-circle-right"></i>NEXT</a>
+	            <%} %>
+	        </div>
+	     <%} else{ %>
+	        <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
+		     		<%if(currentPage != 1){ %>
+		     			<!-- 맨 처음으로(<<) -->
+		     			<a href="<%=contextPath%>/wishContent.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>&content=<%=content%>" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
+		            <%} %>
+		            
+		            <%for(int p=startPage; p<=endPage; p++){ %>
+		            	<%if(p!=currentPage){ %>
+			           		<a href="<%=contextPath%>/wishContent.my?currentPage=<%=p%>&userNo=<%=loginUser.getUserNo()%>&content=<%=content%>"><span><%=p %></span></a>
+			            <%}else { %>
+			            	<a href="javascript:void(0);"><span><%=p %></span></a>
+			            <%} %>
+		            <%} %>
+		            
+		            <%if(currentPage != maxPage){ %>
+		            	<!-- 맨 끝으로(>>) -->
+		            	<a href="<%=contextPath%>/wishContent.my?currentPage=<%=maxPage%>&userNo=<%=loginUser.getUserNo()%>&content=<%=content%>" class=" btn-next"><i class="fa fa-chevron-circle-right">&gt;&gt;</i>Next</a>
+		            <%} %>
+		     </div>
+        <%} %>
           
 </div>
 </body>

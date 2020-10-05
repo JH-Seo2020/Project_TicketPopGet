@@ -37,7 +37,7 @@ public class MyPageReviewContent extends HttpServlet {
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		String content = request.getParameter("content");
 		
-		if(userNo>0) {
+		
 			// ---------------- 페이징처리 ----------------
 			int listCount; // 현재 총 게시글 개수
 			int currentPage; // 현재 페이지 (즉, 요청한 페이지)
@@ -52,9 +52,9 @@ public class MyPageReviewContent extends HttpServlet {
 
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			
-			pageLimit = 10;
+			pageLimit = 5;
 
-			boardLimit = 5;
+			boardLimit = 6;
 
 			maxPage = (int) Math.ceil((double) listCount / boardLimit);
 
@@ -73,12 +73,10 @@ public class MyPageReviewContent extends HttpServlet {
 			request.setAttribute("mps", mps);
 			request.setAttribute("pi", pi);
 			
-			RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/review.jsp");
-			view.forward(request, response);
+			request.getRequestDispatcher("views/user/myPage/review.jsp").forward(request, response);
+		
 			
-		}else {
-			
-		}
+		
 	}
 
 	/**

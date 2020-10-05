@@ -18,6 +18,45 @@ import com.kh.user.model.vo.WishList;
 public class MyPageService {
 	
 	/**
+	 * 메인 최근예매내역
+	 * @param userNo
+	 * @return
+	 */
+	public ArrayList<Reservation> mainReservation(int userNo) {
+		Connection conn = getConnection();
+		ArrayList<Reservation> re = new MyPageDao().mainReservation(conn, userNo);
+		close(conn);
+		return re;
+	}
+	
+	/**
+	 * 메인 찜리스트
+	 * @param userNo
+	 * @return
+	 */
+	public ArrayList<WishList> mainWishList(int userNo){
+		Connection conn = getConnection();
+		ArrayList<WishList> wishlist = new MyPageDao().mainWishList(conn, userNo);
+		close(conn);
+		return wishlist;
+	}
+	
+	/**
+	 * 나의 관람 공연/전시
+	 * @param userNo
+	 * @return
+	 */
+	public ArrayList<MyPage> mainShowList(int userNo){
+		Connection conn = getConnection();
+		
+		ArrayList<MyPage> mps = new MyPageDao().mainShowList(conn, userNo);
+		
+		close(conn);
+		
+		return mps;
+	}
+	
+	/**
 	 * 예매내역 개수 조회
 	 * @return
 	 */

@@ -1,205 +1,204 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<% String userId = (String)request.getAttribute("userId");  %>
+<%@ page import="java.util.ArrayList, com.kh.user.model.vo.*" %>
+<%
+	ArrayList<Reservation> re = (ArrayList<Reservation>)request.getAttribute("re");
+	ArrayList<WishList> wishlist = (ArrayList<WishList>)request.getAttribute("wishlist");
+	ArrayList<MyPage> mps = (ArrayList<MyPage>)request.getAttribute("mps");
+    String userId = (String)request.getAttribute("userId");  
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <style>
-	/* 공통사항 */
-	*:focus {
-		outline: none;
-	}
-	
-	#mypage {
-		width: 1200px;
-		height: 1500px;
-		margin: auto;
-		box-sizing: border-box;
-	}
-	
-	.more_btn {
-		background: orangered;
-		border: 1px solid orangered;
-		color: white;
-		cursor: pointer;
-		width:45px;
-		height:20px;
-		font-size:10px;
-	}
-	
-	/* 왼쪽 메뉴바 */
-	.mypage_left {
-		float: left;
-		width: 230px;
-		height: 700px;
-		margin-top: 50px;
-		margin-left: 40px;
-	}
-	
-	/* 회원정보관리 */
-	#mypage_info {
-		width: 100%;
-		height: 200px;
-		text-align: center;
-		background-color: #ffb300;
-		color: white;
-	}
-	
-	#mypage_info h1 {
-		padding-top: 35px;
-		font-size: 35px;
-	}
-	
-	#mypage_info p {
-		font-size: 23px;
-	}
-	
-	#mypage_info_a {
-		font-size: 20px;
-		text-decoration: none;
-		color: white;
-	}
-	
-	#mypage_info_a:hover {
-		color: white;
-	}
-	
-	/* 마이페이지 메뉴 */
-	#mypage_menu {
-		border: 1px solid black;
-		width: 100%;
-		height: 430px;
-		margin-top: 30px;
-	}
-	
-	#mypage_menu ul {
-		font-size: 20px;
-		list-style-type: none;
-		margin: 0px;
-		padding: 0px;
-	}
-	
-	.mypage_menu_a {
-		display: block;
-		text-decoration: none;
-		color: black;
-		font-weight: bold;
-		padding: 28px;
-		text-align: center;
-	}
-	
-	.mypage_menu_a:hover {
-		color: tomato;
-		text-decoration: none;
-	}
-	
-	/* 중앙 컨텐츠 */
-	.mypage_middle {
-		width: 850px;
-		height: 1500px;
-		margin-left: 200px;
-	}
-	/* 최근예매내역 */
-	#mypage_reservation {
-		height: 350px;
-	}
-	
-	#mypage_reservation  p {
-		float: left;
-		margin-top: 50px;
-		margin-left: 50px;
-	}
-	
-	#mypage_reservation table {
-		margin-left: 55px;
-		text-align: center;
-		border: 1px solid black;
-		width: 850px;
-		height: 200px;
-		border-collapse: collapse;
-	}
-	
-	#mypage_reservation th {
-		border-bottom: 1px solid black;
-		height: 45px;
-		font-size: 18px;
-	}
-	
-	#mypage_reservation td {
-		font-size: 15px;
-	}
-	
-	#mypage_reservation tbody>tr:hover {
-		color: coral;
-		cursor: pointer;
-	}
-	
-	/* 찜리스트 */
-	#mypage_wishlist {
-		height: 400px;
-	}
-	
-	/* 찜리스트목록 */
-	.wishlist_area {
-		border: 1px solid silver;
-		border-radius: 1em;
-		float: left;
-		width: 850px;
-		margin-left: 50px;
-	}
-	/* 찜리스트목록 세부 항목 */
-	.wishlist {
-		margin-left: 30px;
-		display: inline-block;
-		position: relative;
-		padding-top: 20px;
-	}
-	/* 찜여부버튼 */
-	.wishlist_btn button {
-		position: absolute;
-		top: 3%;
-		right: 0%;
-		background-color: transparent !important;
-		border: 0;
-		outline: 0;
-		cursor: pointer;
-		background: rgba(0, 0, 0, 0);
-		padding-top: 20px;
-	}
-	
-	/* 나의 관람공연/전시 */
-	#mypage_watchshow {
-		height: 500px;
-		margin-top: 20px;
-	}
-	
-	.watchshow_area {
-		border: 1px solid silver;
-		border-radius: 1em;
-		float: left;
-		width: 850px;
-		margin-left: 50px;
-	}
-	
-	.watchshow_list {
-		margin-left: 30px;
-		display: inline-block;
-		position: relative;
-		padding-top: 20px;
-	}
-	
-	.watchshow_btn {
-		margin-bottom: 20px;
-		background-color: white;
-		border: 1px solid tomato;
-		cursor: pointer;
-	}
-	.watchshow_btn:hover{
-		background-color: tomato;
-		color:white;
-	}
+/* 공통사항 */
+*:focus {
+	outline: none;
+}
+
+#mypage {
+	width: 1200px;
+	height: 1500px;
+	margin: auto;
+	box-sizing: border-box;
+}
+
+.more_btn {
+	background: orangered;
+	border: 1px solid orangered;
+	color: white;
+	cursor: pointer;
+}
+
+/* 왼쪽 메뉴바 */
+.mypage_left {
+	float: left;
+	width: 230px;
+	height: 700px;
+	margin-top:50px;
+	margin-left: 50px;
+}
+
+/* 회원정보관리 */
+#mypage_info {
+	width: 100%;
+	height: 200px;
+	text-align: center;
+	background-color: #ffb300;
+	color: white;
+}
+
+#mypage_info h1 {
+	padding-top: 35px;
+	font-size: 35px;
+}
+
+#mypage_info p {
+	font-size: 23px;
+}
+
+#mypage_info_a {
+	font-size: 20px;
+	text-decoration: none;
+	color: white;
+}
+
+#mypage_info_a:hover {
+	color: white;
+}
+
+/* 마이페이지 메뉴 */
+#mypage_menu {
+	border: 1px solid black;
+	width: 100%;
+	height: 430px;
+	margin-top: 30px;
+}
+
+#mypage_menu ul {
+	font-size: 20px;
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.mypage_menu_a {
+	display: block;
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+	padding: 28px;
+	text-align: center;
+}
+
+.mypage_menu_a:hover {
+	color: tomato;
+}
+
+/* 중앙 컨텐츠 */
+.mypage_middle {
+	width: 850px;
+	height: 1500px;
+	margin-left: 250px;
+}
+/* 최근예매내역 */
+.mypage_reservation {
+	height: 300px;
+}
+
+.mypage_reservation  p {
+	float: left;
+	margin-top: 55px;
+	margin-left: 50px;
+}
+
+.mypage_reservation table {
+	margin-left: 55px;
+	text-align: center;
+	width: 850px;
+	border-collapse: collapse;
+}
+
+.mypage_reservation th {
+	border-bottom: 1px solid black;
+	height: 45px;
+	font-size: 18px;
+}
+
+.mypage_reservation td {
+	font-size: 15px;
+}
+
+.mypage_reservation table>tbody>tr:hover {
+	color: coral;
+	cursor: pointer;
+}
+
+/* 찜리스트 */
+#mypage_wishlist {
+	height: 400px;
+}
+
+/* 찜리스트목록 */
+.wishlist_area {
+	width: 850px;
+	border:1px solid silver;
+	border-radius: 1em;
+	float: left;
+	margin-left: 50px;
+}
+/* 찜리스트목록 세부 항목 */
+.wishlist {
+	width: 850px;
+	padding-right:500px;
+	display: inline-block;
+	position: relative;
+	margin-top: 10px;
+}
+/* 찜여부버튼 */
+.wishlist_btn button {
+	position: absolute;
+	top: 3%;
+	right: 0%;
+	background-color: transparent !important;
+	border: 0;
+	outline: 0;
+	cursor: pointer;
+	background: rgba(0, 0, 0, 0);
+	padding-right:590px;
+}
+
+/* 나의 관람공연/전시 */
+#mypage_watchshow {
+	height: 500px;
+	margin-top: 20px;
+}
+
+.watchshow_area {
+	border: 1px solid silver;
+	border-radius: 1em;
+	float: left;
+	width: 850px;
+	height: 350px;
+	margin-left: 50px;
+}
+
+.watchshow_list {
+	width: 850px;
+	display: inline-block;
+	position: relative;
+	padding-top: 20px;
+	padding-right:500px;
+}
+
+.watchshow_btn {
+	margin-bottom: 20px;
+	background-color: white;
+	border: 1px solid tomato;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -230,60 +229,53 @@
 			</div>
 		</div>
 		<!-- 중앙 컨텐츠 -->
-		<div class="mypage_middle">
-			<!-- 최근예매내역 -->
-			<div id="mypage_reservation">
-				<p>
-					<b style="font-size: 30px;">최근예매내역</b> <span>xxx님의 최근 3개월간 예매하신내역입니다.</span>
-					<button class="more_btn">더보기</button>
-				</p>
-				<table>
-					<thead>
-						<tr>
-							<th>예매번호</th>
-							<th>예매일</th>
-							<th>공연/전시명</th>
-							<th>관람일</th>
-							<th>매수</th>
-							<th>결제방법</th>
-							<th>결제여부</th>
-							<th>예매상태</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>aaaaa</td>
-							<td>2020-09-22</td>
-							<td>행복</td>
-							<td>2020-09-30</td>
-							<td>1매</td>
-							<td>카드결제</td>
-							<td>결제완료</td>
-							<td>예매</td>
-						</tr>
-						<tr>
-							<td>aaaaa</td>
-							<td>2020-09-22</td>
-							<td>행복</td>
-							<td>2020-09-30</td>
-							<td>1매</td>
-							<td>카드결제</td>
-							<td>환불</td>
-							<td>취소</td>
-						</tr>
-						<tr>
-							<td>aaaaa</td>
-							<td>2020-09-22</td>
-							<td>행복</td>
-							<td>2020-09-30</td>
-							<td>1매</td>
-							<td>무통장입금</td>
-							<td>환불진행중</td>
-							<td>취소</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+			<div class="mypage_middle">
+				<!-- 최근예매내역 -->
+				<div class="mypage_reservation">
+					<p>
+						<b style="font-size: 30px;">최근예매내역</b>
+						<button class="more_btn">더보기</button>
+					</p>
+					<table>
+						<thead>
+							<tr>
+								<th>예매번호</th>
+								<th>예매일</th>
+								<th>공연/전시명</th>
+								<th>관람일</th>
+								<th>매수</th>
+								<th>결제방법</th>
+								<th>결제여부</th>
+								<th>예매상태</th>
+							</tr>
+						</thead>
+						<tbody>
+						 <%
+	              			if(re.isEmpty()){
+	              		 %>
+	              		    <tr>
+	              			   <td  colspan="8">조회되는 리스트가 없습니다</td>
+	              		    </tr>
+	              		 <%
+	              			}else{ 
+	              		           for(Reservation r : re) {
+	              		 %>
+							<tr>
+								<td><%=r.getTicketNo() %></td>
+								<td><%=r.getReservationDate() %></td>
+								<td><%=r.getContnetTitle() %></td>
+								<td><%=r.getViewDate()%></td>
+								<td><%=r.getTicketNum()%>매</td>
+								<td><%=r.getPaymentType() %></td>
+								<td><%=r.getPaymentStatus() %></td>
+								<td><%=r.getPaymentCancel() %></td>
+							</tr>
+							<%} %>
+               			 <%} %>
+						</tbody>
+					</table>
+				</div>
+			
 			<!-- 찜리스트 -->
 			<div id="mypage_wishlist">
 				<p style="float: left; margin-left: 50px;">
@@ -291,43 +283,26 @@
 					<button class="more_btn">더보기</button>
 				</p>
 				<div class="wishlist_area">
+				 	<%
+               			 if(wishlist.isEmpty()){
+           			 %>
+        			<%
+             		    }else{ 
+                      		 for(WishList w : wishlist) {
+             		 %>
 					<div class="wishlist">
-						<img src="/TicketPopGet/resources/post_upfiles/111111111126.PNG" width="200" height="250" align="center"><br>
+						<img src="<%=contextPath%>/<%=w.getContentImgPath()%>/<%=w.getContentChimg()%>" width="200" height="250"><br>
 						<div class="wishlist_btn">
 							<button type="button" class="like_btn">
-								<img src="/TicketPopGet/resources/img/imgForSearch/like_heart.png" width="30" height="30">
+								<img src="<%=contextPath%>/resources/img/imgForSearch/like_heart.png" width="30" height="30">
 							</button>
 						</div>
-						<p>
-							공연제목 <br> 예매상황
-						</p>
+						<span><%=w.getContentTitle()%> </span> <br>
+                        <span style="color:red;"><%=w.getContentStatus()%></span> <br>
+                        <span><%=w.getWishlistDate()%></span>
 					</div>
-					<div class="wishlist">
-						<img src="/TicketPopGet/resources/post_upfiles/111111111126.PNG" width="200"
-							height="250" align="center"><br>
-						<div class="wishlist_btn">
-							<button type="button" class="like_btn">
-								<img src="/TicketPopGet/resources/img/imgForSearch/like_heart.png" width="30"
-									height="30">
-							</button>
-						</div>
-						<p>
-							공연제목 <br> 예매상황
-						</p>
-					</div>
-					<div class="wishlist">
-						<img src="/TicketPopGet/resources/post_upfiles/111111111126.PNG" width="200"
-							height="250" align="center"><br>
-						<div class="wishlist_btn">
-							<button type="button" class="like_btn">
-								<img src="/TicketPopGet/resources/img/imgForSearch/like_heart.png" width="30"
-									height="30">
-							</button>
-						</div>
-						<p>
-							공연제목 <br> 예매상황
-						</p>
-					</div>
+					  <%} %>
+       			  <%} %>
 				</div>
 			</div>
 			<!-- 나의 관람공연/전시 -->
@@ -337,24 +312,20 @@
 					<button class="more_btn">더보기</button>
 				</p>
 				<div class="watchshow_area">
+					<%
+               			 if(wishlist.isEmpty()){
+           			 %>
+        			<%
+             		    }else{ 
+                      		 for(MyPage mp : mps) {
+             		 %>
 					<div class="watchshow_list">
-						<img src="/TicketPopGet/resources/post_upfiles/111111111134.PNG" width="200"
-							height="250"> <br>
-						<p>공연제목</p>
+						<img src="<%=contextPath%>/<%=mp.getContentImgPath()%>/<%=mp.getContentChimg()%>" width="200" height="250"> <br>
+						<p><%=mp.getContentTitle() %></p>
 						<button class="watchshow_btn">후기작성</button>
-					</div>
-					<div class="watchshow_list">
-						<img src="/TicketPopGet/resources/post_upfiles/111111111134.PNG" width="200"
-							height="250"> <br>
-						<p>공연제목</p>
-						<button class="watchshow_btn">후기작성</button>
-					</div>
-					<div class="watchshow_list">
-						<img src="/TicketPopGet/resources/post_upfiles/111111111134.PNG" width="200"
-							height="250"> <br>
-						<p>공연제목</p>
-						<button class="watchshow_btn">후기작성</button>
-					</div>
+					</div>	
+					  <%} %>
+       			  <%} %>
 				</div>
 			</div>
 		</div>

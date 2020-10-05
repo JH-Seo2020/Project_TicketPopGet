@@ -17,12 +17,14 @@ public class MyPage {
 	private Clob reviewContent; //후기내용
 	private int reviewPoint; //평점
 	private Date reviewDate; //후기작성일
+	private String contentChimg; //수정이미지
+	private String contentImgPath; //파일경로
 	
 	public MyPage() {}
 
-
-	public MyPage(int userNo, String userId, int ticketNo, int contentNo, String contentType, Date viewDate, String contentTitle,
-			int reviewNo, String reviewTitle, Clob reviewContent, int reviewPoint, Date reviewDate) {
+	public MyPage(int userNo, String userId, int ticketNo, int contentNo, String contentType, Date viewDate,
+			String contentTitle, int reviewNo, String reviewTitle, Clob reviewContent, int reviewPoint, Date reviewDate,
+			String contentChimg, String contentImgPath) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -36,7 +38,12 @@ public class MyPage {
 		this.reviewContent = reviewContent;
 		this.reviewPoint = reviewPoint;
 		this.reviewDate = reviewDate;
+		this.contentChimg = contentChimg;
+		this.contentImgPath = contentImgPath;
 	}
+
+
+
 
 
 	public MyPage(int ticketNo, String contentType, Date viewDate, String contentTitle,
@@ -81,6 +88,17 @@ public class MyPage {
 		this.ticketNo = ticketNo;
 		this.contentNo = contentNo;
 		this.userNo = userNo;
+	}
+	
+	
+
+	public MyPage( int ticketNo, String contentTitle, int userNo,String contentChimg, String contentImgPath) {
+		super();
+		this.userNo = userNo;
+		this.ticketNo = ticketNo;
+		this.contentTitle = contentTitle;
+		this.contentChimg = contentChimg;
+		this.contentImgPath = contentImgPath;
 	}
 
 	public int getUserNo() {
@@ -184,6 +202,21 @@ public class MyPage {
 		this.reviewDate = reviewDate;
 	}
 
+	public String getContentChimg() {
+		return contentChimg;
+	}
+
+	public void setContentChimg(String contentChimg) {
+		this.contentChimg = contentChimg;
+	}
+
+	public String getContentImgPath() {
+		return contentImgPath;
+	}
+
+	public void setContentImgPath(String contentImgPath) {
+		this.contentImgPath = contentImgPath;
+	}
 
 	@Override
 	public String toString() {

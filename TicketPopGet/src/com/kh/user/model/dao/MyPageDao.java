@@ -34,6 +34,129 @@ public class MyPageDao {
 	   }
 	
 	/**
+	 * 메인 최근예매내역
+	 * @param conn
+	 * @param userNo
+	 * @return
+	 */
+	public ArrayList<Reservation> mainReservation(Connection conn, int userNo){
+		ArrayList<Reservation> re = new ArrayList<>();
+		
+		PreparedStatement pstmt = null; 
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("mainReservation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				re.add(new Reservation(rset.getInt("TICKET_NO"),
+									   rset.getInt("USER_NO"),
+									   rset.getInt("CONTENT_NO"),
+									   rset.getDate("RESERVATION_DATE"),
+								   	   rset.getString("CONTENT_TITLE"),
+								   	   rset.getInt("TICKET_NUM"),
+								       rset.getDate("VIEW_DATE"),
+								       rset.getString("PAYMENT_TYPE"),
+								       rset.getString("PAYMENT_STATUS"),
+								       rset.getString("PAYMENT_CANCEL")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return re;
+	}
+	
+	/**
+	 * 메인 찜리스트
+	 * @param conn
+	 * @param userNo
+	 * @return
+	 */
+	public ArrayList<WishList> mainWishList(Connection conn, int userNo){
+		ArrayList<WishList> wishlist = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("mainWishList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				wishlist.add(new WishList(rset.getInt("WISH_NO"),
+										  rset.getInt("CONTENT_NO"),
+										  rset.getInt("USER_NO"),
+										  rset.getInt("TICKET_NO"),
+										  rset.getString("CONTENT_TYPE"),
+										  rset.getString("CONTENT_TITLE"),
+										  rset.getString("CONTENT_CHIMG"),
+										  rset.getString("CONTENT_IMGPATH"),
+										  rset.getString("CONTENT_STATUS"),
+										  rset.getDate("WISHLIST_DATE")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return wishlist;
+	}
+	
+	/**
+	 * 메인 관람공연/전시
+	 * @param conn
+	 * @param userNo
+	 * @return
+	 */
+	public ArrayList<MyPage> mainShowList(Connection conn, int userNo){
+		ArrayList<MyPage> mps = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("mainShowList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				mps.add(new MyPage(rset.getInt("TICKET_NO"),
+								   rset.getString("CONTENT_TITLE"),
+								   rset.getInt("USER_NO"),
+								   rset.getString("CONTENT_CHIMG"),
+								   rset.getString("CONTENT_IMGPATH")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return mps;
+	}
+	
+	/**
 	 * 예매내역 개수
 	 * @param conn
 	 * @param userNo
@@ -67,7 +190,7 @@ public class MyPageDao {
 	}
 	
 	/**
-	 * 예매매수 리스트
+	 * 예매 리스트
 	 * @param conn
 	 * @param userNo
 	 * @return

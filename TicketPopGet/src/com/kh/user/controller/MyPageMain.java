@@ -1,6 +1,7 @@
 package com.kh.user.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.kh.user.model.service.MyPageService;
+import com.kh.user.model.vo.MyPage;
+import com.kh.user.model.vo.Reservation;
+import com.kh.user.model.vo.WishList;
 
 /**
  * Servlet implementation class MyPage_main
@@ -29,6 +35,20 @@ public class MyPageMain extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		
+		ArrayList<Reservation> re = new MyPageService().mainReservation(userNo);
+		ArrayList<WishList> wishlist = new MyPageService().mainWishList(userNo);
+		ArrayList<MyPage> mps = new MyPageService().mainShowList(userNo);
+		
+		request.setAttribute("re", re);
+		request.setAttribute("wishlist", wishlist);
+		request.setAttribute("mps", mps);
+		
+		
+		
+		
 		
 		HttpSession session = request.getSession();
 		
