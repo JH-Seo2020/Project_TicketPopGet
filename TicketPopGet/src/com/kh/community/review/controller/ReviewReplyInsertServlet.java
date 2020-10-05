@@ -34,6 +34,7 @@ public class ReviewReplyInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//요청시 전달값 2개 + 회원번호 넘기기
 		String replyContent = request.getParameter("replyContent");
+//		System.out.println(replyContent);
 		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		

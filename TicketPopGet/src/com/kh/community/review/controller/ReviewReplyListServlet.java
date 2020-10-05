@@ -13,8 +13,6 @@ import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.kh.community.event.model.service.EventService;
-import com.kh.community.event.model.vo.Comment;
 import com.kh.community.review.model.service.ReviewService;
 import com.kh.community.review.model.vo.Reply;
 import com.kh.concert.model.vo.PageInfo;
@@ -49,10 +47,10 @@ public class ReviewReplyListServlet extends HttpServlet {
 		int endPage;		// 5, 10, 15, ...
 		
 		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
-//		System.out.println(reviewNo);
 		
 		//sql에서 개수조회
 		listCount = new ReviewService().selectReplyCount(reviewNo);
+		System.out.println(listCount);
 		
 		//현재페이지
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));

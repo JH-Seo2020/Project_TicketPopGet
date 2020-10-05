@@ -92,9 +92,9 @@
 	</entry>
 	<entry key="selectReplyCount">
 		SELECT COUNT(*) ReplyCOUNT
-		  FROM REVIEW
+		  FROM REVIEW_REPLY
 		 WHERE REVIEW_NO = ?
-		   AND REVIEW_STATUS = 'Y'	
+		   AND REPLY_STATUS = 'Y'
 	</entry>
 	<entry key="selectReply">
 		SELECT *

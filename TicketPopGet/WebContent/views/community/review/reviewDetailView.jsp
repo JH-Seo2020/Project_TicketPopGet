@@ -146,9 +146,9 @@
         <div id="reviewReplyArea">
             <div><b>댓글 작성에 참여해보세요!🖋</b></div>
             <form class="input-group mb-3">
-                <input name="commentContent" class="form-control" type="text" placeholder="댓글을 입력해주세요" required>
+                <input id="commentContent" class="form-control" type="text" placeholder="댓글을 입력해주세요" required>
                 <div class="input-group-append" id='divForUpdate'>
-                    <button id='insertBtn' type="button" class="btn btn-secondary" onclick="addComment();">등록하기</button>
+                    <button id='insertBtn' type="button" class="btn btn-secondary" onclick="addReply();">등록하기</button>
                 </div>
             </form>
             <table class="table table-striped">
@@ -175,7 +175,7 @@
 				data : {"reviewNo" : <%=r.getReviewNo()%>,
 					"currentPage" : cPage},
 				success : function(result){
-					
+					console.log(result.pi);
 					if(result.list.length >= '1'){	//댓글이 1개 이상 있을 때
 						
 						var comments = "";
@@ -193,7 +193,7 @@
 		                    
 							<%if(loginUser != null){%>
 								
-								if(result.list[i].userNo == '<%=loginUser.getUserId()%>'){
+								if(result.list[i].userId == '<%=loginUser.getUserId()%>'){
 		                    		commentBtns = $update + "&nbsp;&nbsp;"+$delete;
 								}else{
 									commentBtns = $report +"&nbsp;&nbsp;"+ $like;
@@ -223,7 +223,7 @@
                        
                        var $btns = "";
                        for(var $p = $startPage; $p <= $endPage; $p++ ){
-                          //$btns += "&nbsp;"+<a href="+'<%=contextPath%>/reply.co?currentPage='+">"+$p+"</a>"+"&nbsp;";
+                          
                        	  if($p != $currentPage){
                           	$btns += "<button class='cc' type='button' onclick='selectReplyList(" + $p + ");'>" + $p + "</button>"+"&nbsp;";	                       		  
                        	  }else{
@@ -246,7 +246,7 @@
 	                    
 	                    $("#tbodyArea").html(comments);
 	                    
-	                    //버튼조건처리.. 댓글 등록 후 기능 다시 확인해볼것 
+	                  //버튼조건처리.. 댓글 등록 후 기능 다시 확인해볼것 
 	                    if(cPage == "1" && cPage == $maxPage){
 	                    	$("#ReviewReplyPaging").html($buttons0);
 	                    }else if(cPage == "1" && cPage != $maxPage) {
@@ -256,7 +256,6 @@
                         }else if (cPage != "1" && cPage == $maxPage){
                         	$("#ReviewReplyPaging").html($buttons2);
                         }
-	                    
 	                    
 					}else{	//댓글이 1개도 없을 때
 						$("#tbodyArea").html('보여드릴 댓글이 없습니다.');
@@ -270,8 +269,7 @@
 		}
 		
 		//2. 댓글 작성용 ajax
-		function addComment(){
-			console.log($('#commentContent').val());
+		function addReply(){
 			var user;
             <%if(loginUser != null){%>
             	user = "<%=loginUser.getUserId()%>";
@@ -279,7 +277,7 @@
 				$.ajax({
 					url : "<%=request.getContextPath()%>/reply.insert",
 					type : "post",
-					data : {"replyContent" : $('#commentContent').val(),
+					data : {"replyContent" : $("#commentContent").val(),
 						"reviewNo" : <%=r.getReviewNo()%>},	//회원번호는 서블릿에서 넘긴다
 					success : function(result){
 						

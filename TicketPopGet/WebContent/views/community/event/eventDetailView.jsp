@@ -169,7 +169,7 @@
 					data : {"eventNo" : <%=evObject.getEventNo()%>,
 						"currentPage" : cPage},
 					success : function(result){
-						
+						console.log(result.pi);
 						if(result.list.length >= '1'){	//댓글이 1개 이상 있을 때
 							
 							var comments = "";
