@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.exhibition.model.vo.Exhibition, java.sql.Date" %>
+<%@ page import="com.kh.exhibition.model.vo.Exhibition, java.sql.Date, com.kh.user.model.vo.Member" %>
 <%
+	Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 	String contextPath = request.getContextPath();
 	Exhibition exObject = (Exhibition) request.getAttribute("exObject");
 	Date exDate = (Date) request.getAttribute("exDate");
@@ -70,7 +71,36 @@ border: none;
 </head>
 
 <body>
-  <form action="">
+  <form action="<%=contextPath %>/expayinsert.me" method="post">
+  
+  <!-- DB로 보낼 값들 숨겨서 넘겨주기 -->
+  <input type="hidden" name="viewDate" value="<%=exDate%>">
+  <input type="hidden" name="contentType" value="전시">
+  <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
+  <input type="hidden" name="contentNo" value="<%=exObject.getContentNo()%>">
+  <input type="hidden" name="paymentDate" value="">
+  <input type="hidden" name="paymentTotal" value="">
+  
+  <script>
+  	$(function(){
+  		//조건처리 : 무통장이라면 결제일이 비고, 카드라면 결제일이 오늘이 된다 (근데 아직 상태변경 조건은 안줬음)
+  		if($("input[name='paymentMethod']").on('change',function(){
+  			
+  			if($("input[name='paymentMethod']:checked").val() == '카드'){
+  				$("input[name='paymentDate']").val('<%=exDate%>');
+	  		}else{
+	  			$("input[name='paymentDate']").val('');
+	  		}
+  			
+  		}));
+  	
+  		//총 금액 : 매수 선택이 변할 때마다 그 값을 가져와야 함
+  		$('#choiceNo').on('change',function(){
+  			$("input[name='paymentTotal']").val($('#choiceNo').val()*<%=truePrice %>);
+  		});
+  	});
+  </script>
+  
     <div class="row">
       <div class="col-xs-12 ">
           
@@ -126,8 +156,8 @@ border: none;
               <br>
               <div id="selectDate">
                 <b>결제방법</b><br><br>
-                <input type="radio" name="paymentMethod" required> 카드 <br>
-                <input type="radio" name="paymentMethod" required> 실시간 계좌이체 <br>
+                <input type="radio" name="paymentMethod" required value="카드"> 카드 <br>
+                <input type="radio" name="paymentMethod" required value="실시간 계좌이체"> 실시간 계좌이체 <br>
               </div>
             </div>
             

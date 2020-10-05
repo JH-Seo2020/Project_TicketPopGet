@@ -34,9 +34,9 @@ public class ExhibitionPaymentViewServlet extends HttpServlet {
 		
 		int contentNo = Integer.parseInt(request.getParameter("contentNo"));	//전시 컨텐츠넘버
 		String exdate = request.getParameter("exDate");
-		System.out.println(exdate);
+//		System.out.println(exdate);
 		Date exDate = Date.valueOf(exdate);				//전시 가기로 선택한 날짜
-		System.out.println(exDate);
+//		System.out.println(exDate);
 		//선택한 전시 컨텐츠에 해당하는 컨텐츠 내용을 예매 페이지에 뿌려주기 위해 서비스 호출
 		Exhibition exObject = new PaymentService().selectExhibitionForPayment(contentNo);
 		

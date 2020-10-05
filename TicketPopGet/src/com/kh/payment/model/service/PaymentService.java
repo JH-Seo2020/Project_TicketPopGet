@@ -7,6 +7,7 @@ import java.sql.Connection;
 import com.kh.exhibition.model.vo.Exhibition;
 import com.kh.payment.model.dao.PaymentDao;
 import com.kh.payment.model.vo.ConcertPayment;
+import com.kh.payment.model.vo.Payment;
 
 public class PaymentService {
 
@@ -40,6 +41,25 @@ public class PaymentService {
 		Exhibition exObject = new PaymentDao().selectExhibitionForPayment(conn, contentNo);
 		close(conn);
 		return exObject;
+	}
+
+	/**
+	 * 3. 예매한 전시내역 DB에 insert하기 
+	 * @param exPay
+	 * @return
+	 * @author 서지혜
+	 */
+	public int insertPayment(Payment exPay) {
+		
+		Connection conn = getConnection();
+		int result = new PaymentDao().insertPayment(conn, exPay);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 	
 

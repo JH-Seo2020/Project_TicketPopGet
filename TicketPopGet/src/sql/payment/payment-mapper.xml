@@ -44,4 +44,32 @@
   JOIN EXHIBITON USING (CONTENT_NO)
  WHERE CONTENT_NO = ?
 </entry>
+<entry key="insertExPayment">
+	Insert 
+	  into RESERVATION_PAYMENT
+	      (TICKET_NO            --있음
+	     , RESERVATION_DATE     --있음
+	     , VIEW_DATE            --hidden으로가자
+	     , TICKET_NUM           --select name값으로추출
+	     , CONTENT_TYPE         --hidden
+	     , USER_NO              --세션에서넘기기
+	     , CONTENT_NO           --hidden
+	     , PAYMENT_DATE         --제이쿼리 조건처리해서 hidden
+	     , PAYMENT_TYPE         --input name값으로 추출
+	     , PAYMENT_TOTAL        --제이쿼리에서 넘기기(id값이용)
+	     )
+	     VALUES
+	     (
+	      SEQ_RESERVATION_PNO.NEXTVAL
+	     , SYSDATE
+	     , ?
+	     , ?
+	     , ?
+	     , ?
+	     , ?
+	     , ?
+	     , ?
+	     , ?
+	     )
+</entry>
 </properties>

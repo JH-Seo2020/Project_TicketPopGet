@@ -12,6 +12,7 @@ import static com.kh.common.JDBCTemplate.*;
 
 import com.kh.exhibition.model.vo.Exhibition;
 import com.kh.payment.model.vo.ConcertPayment;
+import com.kh.payment.model.vo.Payment;
 
 public class PaymentDao {
 	
@@ -90,6 +91,35 @@ public class PaymentDao {
 			close(pstmt);
 		}
 		return exObject;
+	}
+
+	public int insertPayment(Connection conn, Payment exPay) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertExPayment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setDate(1, exPay.getViewDate());
+			pstmt.setInt(2, exPay.getTicketNum());
+			pstmt.setString(3, exPay.getContentType());
+			pstmt.setInt(4, exPay.getUserNo());
+			pstmt.setInt(5, exPay.getContentNo());
+			pstmt.setDate(6, exPay.getPaymentDate());
+			pstmt.setString(7, exPay.getPaymentType());
+			pstmt.setString(8, exPay.getPaymentTotal());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }
