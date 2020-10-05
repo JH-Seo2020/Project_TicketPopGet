@@ -133,4 +133,21 @@
 	    , ?
 	)
 	</entry>
+	<entry key="recallForUpdate">
+		SELECT REPLY_NO
+			 , USER_NO
+			 , USER_ID
+			 , REVIEW_NO
+			 , REPLY_DATE
+			 , REPLY_CONTENT
+			FROM REVIEW_REPLY
+			JOIN MEMBER USING(USER_NO)
+			WHERE REPLY_NO = ?
+	</entry>
+	<entry key="replyUpdate">
+		UPDATE 
+		       REVIEW_REPLY
+		   SET REPLY_CONTENT = ?
+		 WHERE REPLY_NO = ?
+	</entry>
 </properties>

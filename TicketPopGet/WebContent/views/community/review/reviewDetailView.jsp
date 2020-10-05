@@ -300,6 +300,54 @@
 			
 		}
 		
+		//3. 댓글 수정 시 댓글내용 불러올 ajax
+		function callForUpdate(replyNo){	
+			var rno = replyNo;
+			$.ajax({
+				url : "<%=contextPath%>/reply.forUpdate",
+				type: "get",
+				data : {"replyNo" : rno},
+				success : function(result){
+					$('#commentContent').val(result.replyContent);
+					$('#divForUpdate').html("<a id='upBtn' type='button' class='btn btn-warning'>수정하기</a>");
+					$('#upBtn').click(function(){
+						updateComment({replyNo : result.replyNo , replyContent : $('#commentContent').val()});
+					});
+					
+					
+				},error : function(){
+					console.log('통신실패');
+				}
+			});
+			
+		}
+
+		function updateComment(result){
+			//수정하기 클릭 시 업데이트할 ajax
+			$.ajax({
+				url : "<%=request.getContextPath()%>/reply.update",
+				type : "post",
+				data : {"replyContent" : result.replyContent,
+					"replyNo" : result.replyNo},	
+				success : function(update){
+					
+					if(update>0){
+						$('#divForUpdate').html("<button id='insertBtn' type='button' class='btn btn-secondary' onclick='addReply();'>등록하기</button>");
+						selectReplyList(1);
+						$('#commentContent').val("");
+					}else{
+						console.log('댓글수정실패');
+					}
+					
+				}, 
+				error : function(){
+					console.log('수정시통신실패');
+				}
+			});
+			
+		}
+
+		
 		
 		</script>
 

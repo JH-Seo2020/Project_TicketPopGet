@@ -175,5 +175,37 @@ public class ReviewService {
 
 	}
 
+	/**
+	 * 12. 리뷰댓글 수정을 위한 댓글내용 재호출 메소드
+	 * @param replyNo
+	 * @return
+	 */
+	public Reply recallForUpdate(int replyNo) {
+		Connection conn = getConnection();
+		Reply rReply = new ReviewDao().recallForUpdate(conn, replyNo);
+		close(conn);
+		return rReply;
+	}
+
+	/**
+	 * 13. 리뷰댓글 수정 
+	 * @param replyNo
+	 * @param replyContent
+	 * @return
+	 */
+	public int replyUpdate(int replyNo, String replyContent) {
+		
+		Connection conn = getConnection();
+		int result = new ReviewDao().replyUpdate(conn, replyNo, replyContent);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+
 
 }

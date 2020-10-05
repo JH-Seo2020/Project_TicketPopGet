@@ -50,7 +50,7 @@ public class ReviewReplyListServlet extends HttpServlet {
 		
 		//sql에서 개수조회
 		listCount = new ReviewService().selectReplyCount(reviewNo);
-		System.out.println(listCount);
+//		System.out.println(listCount);
 		
 		//현재페이지
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));

@@ -322,4 +322,59 @@ private Properties prop = new Properties();
 
 	}
 
+	public Reply recallForUpdate(Connection conn, int replyNo) {
+		
+		Reply rReply = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("recallForUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, replyNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				rReply = new Reply(rset.getInt("REPLY_NO"),
+									  rset.getInt("USER_NO"),
+									  rset.getString("USER_ID"),
+									  rset.getInt("REVIEW_NO"),
+									  rset.getDate("REPLY_DATE"),
+									  rset.getString("REPLY_CONTENT"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return rReply;
+
+	}
+
+	public int replyUpdate(Connection conn, int replyNo, String replyContent) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("replyUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, replyContent);
+			pstmt.setInt(2, replyNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
+
 }
