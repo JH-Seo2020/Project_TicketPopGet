@@ -59,7 +59,7 @@
             <nav id="topMenu">
                 <ul class="servicemenu">
                     <li class="servicemenu"><a class="menuLink" href="">문의내역</a></li>
-                    <li class="servicemenu"><a class="menuLink" href="">문의하기</a></li>
+                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/enrollForm.qo">문의하기</a></li>
                 </ul>
             </nav>
         </div>

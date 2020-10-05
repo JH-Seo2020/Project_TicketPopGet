@@ -120,4 +120,41 @@
       WHERE NOTICE_NO = ?
         AND N.NOTICE_STATUS = 'Y'
 	</entry>
+	
+	<entry key="insertQuestion">
+	INSERT
+		  INTO QUESTION
+		  (
+		     QUESTION_NO
+		   , QUESTION_USER
+		   , QUESTION_TYPE
+		   , QUESTION_TITLE
+		   , QUESTION_CONTENT
+		   , QUESTION_DATE
+		  )
+		  VALUES
+		  (
+		      SEQ_BNO.NEXTVAL
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , SYSDATE
+		  )
+	</entry>
+	<entry key="insertAttachment">
+	INSERT
+		  INTO QUESTION
+		  (
+		      QUESTION_FILE_O
+		    , QUESTION_FILE_C
+		    , QUESTION_IMGPATH
+		  )
+		  VALUES
+		  (
+		     ?
+		   , ?
+		   , ?
+		  )
+	</entry>
 </properties>

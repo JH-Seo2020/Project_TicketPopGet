@@ -10,9 +10,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.serviceCenter.model.vo.Attachment;
 import com.kh.serviceCenter.model.vo.Faq;
 import com.kh.serviceCenter.model.vo.Notice;
 import com.kh.serviceCenter.model.vo.PageInfo;
+import com.kh.serviceCenter.model.vo.Question;
 
 import static com.kh.common.JDBCTemplate.*;
 
@@ -324,6 +326,64 @@ public class ServiceDao {
 		}
 		
 		return n;
+	}
+
+
+
+	public int insertQuestion(Connection conn, Question q) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertQuestion");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, q.getQuestionUser());
+			pstmt.setString(2, q.getQuestionType());
+			pstmt.setString(3, q.getQuestionTitle());
+			pstmt.setString(4, q.getQuestionContent());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+
+
+
+	public int insertAttachment(Connection conn, Attachment at) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, at.getQuestionFileO());
+			pstmt.setString(2, at.getQuestionFileC());
+			pstmt.setString(3, at.getQuestionImgPath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
 	}
 
 

@@ -60,8 +60,8 @@
       </ul>
       <ul class="serviceTopMenu">
         <li class="serviceMenu"><a class="help_meu" href="">1 : 1문의</a></li>
-        <li class="serviceMenu"><a href="">문의내역</a></li>
-        <li class="serviceMenu"><a href="">문의하기</a></li>
+        <li class="serviceMenu"><a href="<%= request.getContextPath() %>/list.fo?currentPage=1">문의내역</a></li>
+        <li class="serviceMenu"><a href="<%= request.getContextPath() %>/enrollForm.qo">문의하기</a></li>
       </ul>
 </body>
 </html>
