@@ -131,11 +131,6 @@
 	font-size: 15px;
 }
 
-.mypage_reservation table>tbody>tr:hover {
-	color: coral;
-	cursor: pointer;
-}
-
 /* 찜리스트 */
 #mypage_wishlist {
 	height: 400px;
@@ -220,8 +215,8 @@
 				<ul>
 					<li><a class="mypage_menu_a" href="<%=contextPath%>/reservation.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">예매내역조회/취소</a></li>
 					<li><a class="mypage_menu_a" href="<%=contextPath%>/wishlist.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">찜 리스트</a></li>
-					<li><a class="mypage_menu_a" href="<%=contextPath%>/show.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">나의 관람공연</a></li>
-					<li><a class="mypage_menu_a" href="<%=contextPath%>/review.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">나의 관람후기</a></li>
+					<li><a class="mypage_menu_a" href="<%=contextPath%>/show.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">나의 관람후기</a></li>
+					<li><a class="mypage_menu_a" href="<%=contextPath%>/review.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">나의 관람공연</a></li>
 					<li><a class="mypage_menu_a" href="<%=contextPath%>/adboard.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">나의 홍보 글</a></li>
 				</ul>
 			</div>
@@ -232,7 +227,7 @@
 				<div class="mypage_reservation">
 					<p>
 						<b style="font-size: 30px;">최근예매내역</b>
-						<button class="more_btn">더보기</button>
+						<button onclick="location.href='<%=contextPath%>/reservation.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>'" class="more_btn">더보기</button>
 					</p>
 					<table>
 						<thead>
@@ -278,7 +273,7 @@
 			<div id="mypage_wishlist">
 				<p style="float: left; margin-left: 50px;">
 					<b style="font-size: 30px;">찜 리스트</b>
-					<button class="more_btn">더보기</button>
+					<button onclick="location.href='<%=contextPath%>/wishlist.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>'" class="more_btn">더보기</button>
 				</p>
 				<div class="wishlist_area">
 				 	<%
@@ -307,7 +302,7 @@
 			<div id="mypage_watchshow">
 				<p style="float: left; margin-left: 50px;">
 					<b style="font-size: 30px;">나의 관람공연/전시</b>
-					<button class="more_btn">더보기</button>
+					<button  onclick="location.href='<%=contextPath%>/review.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>'" class="more_btn">더보기</button>
 				</p>
 				<div class="watchshow_area">
 					<%
