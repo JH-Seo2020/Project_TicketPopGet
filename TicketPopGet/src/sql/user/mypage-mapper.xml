@@ -186,6 +186,37 @@ SELECT *
           AND RP.PAYMENT_CANCEL = 'N'
 </entry>
 
+<entry key="deleteReservation">
+ 	   UPDATE
+              RESERVATION_PAYMENT
+          SET PAYMENT_CANCEL = 'Y'
+        WHERE USER_NO = ?
+          AND TICKET_NO = ?
+</entry>
+
+<entry key="deleteReservationList">
+        SELECT
+               RP.TICKET_NO  
+             , C.CONTENT_TYPE   
+             , C.CONTENT_TITLE 
+             , C.PLACE
+             , C.CONTENT_CHIMG
+             , C.CONTENT_IMGPATH  
+             , M.USER_NAME 
+             , RP.RESERVATION_DATE 
+             , RP.VIEW_DATE
+             , RP.PAYMENT_TYPE 
+             , RP.PAYMENT_TOTAL 
+         FROM  RESERVATION_PAYMENT RP
+        INNER JOIN CONTENTS C
+           ON RP.CONTENT_NO = C.CONTENT_NO
+        INNER JOIN MEMBER M
+           ON RP.USER_NO = M.USER_NO
+        WHERE RP.USER_NO = ?
+          AND RP.TICKET_NO = ?
+          AND PAYMENT_CANCEL = 'Y'
+</entry>
+
 <entry key="selectWishListCount">
 SELECT COUNT(*) LISTVIEW 
  FROM(

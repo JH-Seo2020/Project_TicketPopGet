@@ -19,13 +19,17 @@ public class Reservation {
 	private String paymentStatus; //결제여부
 	private String paymentTotal; // 총결제금액
 	private String paymentCancel; //취소여부
-	private String place;
-	private String userName;
+	private String place; //장소
+	private String userName; //이름
+	private String contentChimg; //수정이미지
+	private String contentImgPath; //파일경로
 	
+	
+
 	public Reservation(int ticketNo, int userNo, int contentNo, Date reservationDate, Date viewDate, int ticketNum,
 			int roundNo, String contentType, String contnetTitle, Date paymentDate, Date viewDatecancel,
 			String paymentType, String paymentStatus, String paymentTotal, String paymentCancel, String place,
-			String userName) {
+			String userName, String contentChimg, String contentImgPath) {
 		super();
 		this.ticketNo = ticketNo;
 		this.userNo = userNo;
@@ -44,6 +48,8 @@ public class Reservation {
 		this.paymentCancel = paymentCancel;
 		this.place = place;
 		this.userName = userName;
+		this.contentChimg = contentChimg;
+		this.contentImgPath = contentImgPath;
 	}
 
 	public Reservation(int ticketNo, int userNo, int contentNo, Date reservationDate
@@ -78,7 +84,22 @@ public class Reservation {
 		this.userName = userName;
 	}
 
-	
+
+	public Reservation(int ticketNo, String contentType, String contnetTitle, String place, String contentChimg, String contentImgPath, String userName,Date reservationDate, Date viewDate, String paymentType,
+			String paymentTotal) {
+		super();
+		this.ticketNo = ticketNo;
+		this.viewDate = viewDate;
+		this.reservationDate = reservationDate;
+		this.contentType = contentType;
+		this.contnetTitle = contnetTitle;
+		this.paymentType = paymentType;
+		this.paymentTotal = paymentTotal;
+		this.place = place;
+		this.userName = userName;
+		this.contentChimg = contentChimg;
+		this.contentImgPath = contentImgPath;
+	}
 
 	public Date getViewDatecancel() {
 		return viewDatecancel;
@@ -216,15 +237,34 @@ public class Reservation {
 		this.paymentCancel = paymentCancel;
 	}
 
+	public String getContentChimg() {
+		return contentChimg;
+	}
+
+	public void setContentChimg(String contentChimg) {
+		this.contentChimg = contentChimg;
+	}
+
+	public String getContentImgPath() {
+		return contentImgPath;
+	}
+
+	public void setContentImgPath(String contentImgPath) {
+		this.contentImgPath = contentImgPath;
+	}
+
 	@Override
 	public String toString() {
 		return "Reservation [ticketNo=" + ticketNo + ", userNo=" + userNo + ", contentNo=" + contentNo
 				+ ", reservationDate=" + reservationDate + ", viewDate=" + viewDate + ", ticketNum=" + ticketNum
 				+ ", roundNo=" + roundNo + ", contentType=" + contentType + ", contnetTitle=" + contnetTitle
-				+ ", paymentDate=" + paymentDate + ", viewDatecancel=" +viewDatecancel + ", paymentType="
-				+ paymentType + ", paymentStatus=" + paymentStatus + ", paymentTotal=" + paymentTotal
-				+ ", paymentCancel=" + paymentCancel + ", place=" + place + ", userName=" + userName + "]";
+				+ ", paymentDate=" + paymentDate + ", viewDatecancel=" + viewDatecancel + ", paymentType=" + paymentType
+				+ ", paymentStatus=" + paymentStatus + ", paymentTotal=" + paymentTotal + ", paymentCancel="
+				+ paymentCancel + ", place=" + place + ", userName=" + userName + ", contentChimg=" + contentChimg
+				+ ", contentImgPath=" + contentImgPath + "]";
 	}
+
+	
 
 	
 	

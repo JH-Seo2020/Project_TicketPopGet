@@ -373,6 +373,80 @@ public class MyPageDao {
 	}
 	
 	/**
+	 * 예매취소
+	 * @param conn
+	 * @param userNo
+	 * @param tno
+	 * @return
+	 */
+	public int deleteReservation(Connection conn, int userNo, int tno) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteReservation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, tno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 예매취소확인
+	 * @param conn
+	 * @param userNo
+	 * @param tno
+	 * @return
+	 */
+	public Reservation deleteReservationList(Connection conn, int userNo, int tno) {
+		Reservation re = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("deleteReservationList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, tno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				re = new Reservation(rset.getInt("TICKET_NO"),
+									 rset.getString("CONTENT_TYPE"),
+									 rset.getString("CONTENT_TITLE"),
+									 rset.getString("PLACE"),
+									 rset.getString("CONTENT_CHIMG"),
+									 rset.getString("CONTENT_IMGPATH"),
+									 rset.getString("USER_NAME"),
+									 rset.getDate("RESERVATION_DATE"),
+									 rset.getDate("VIEW_DATE"),
+									 rset.getString("PAYMENT_TYPE"),
+									 rset.getString("PAYMENT_TOTAL"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return re;
+	}
+	
+	/**
 	 * 찜리스트 개수
 	 * @param conn
 	 * @param userNo

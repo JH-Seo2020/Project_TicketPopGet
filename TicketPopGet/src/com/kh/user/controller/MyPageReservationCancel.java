@@ -2,12 +2,14 @@ package com.kh.user.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.user.model.service.MyPageService;
+import com.kh.user.model.vo.Reservation;
 
 /**
  * Servlet implementation class MyPage_reservation_cancel
@@ -28,8 +30,24 @@ public class MyPageReservationCancel extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/reservation_cancel.jsp");
-		view.forward(request, response);
+		
+		int userNo = Integer.parseInt(request.getParameter("userNo")); 
+		int tno = Integer.parseInt(request.getParameter("tno"));
+		
+		int result = new MyPageService().deleteReservation(userNo,tno);
+		
+		if(result>0) {
+		
+		Reservation re = new MyPageService().deleteReservationList(userNo, tno);
+		
+		request.setAttribute("re", re);
+			
+		request.getRequestDispatcher("views/user/myPage/reservation_cancel.jsp").forward(request, response);
+		
+		}else {
+			
+		}
+		
 	}
 
 	/**
