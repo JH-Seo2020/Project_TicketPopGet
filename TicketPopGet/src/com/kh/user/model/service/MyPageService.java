@@ -139,6 +139,38 @@ public class MyPageService {
 	}
 	
 	/**
+	 * 예매취소
+	 * @param userNo
+	 * @param tno
+	 * @return
+	 */
+	public int deleteReservation(int userNo, int tno) {
+		Connection conn = getConnection();
+		
+		int result = new MyPageDao().deleteReservation(conn, userNo, tno);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public Reservation deleteReservationList(int userNo, int tno) {
+		Connection conn = getConnection();
+		
+		Reservation re = new MyPageDao().deleteReservationList(conn, userNo, tno);
+		
+		close(conn);
+		
+		return re;
+	}
+	
+	/**
 	 * 찜리스트 개수
 	 * @param userNo
 	 * @return

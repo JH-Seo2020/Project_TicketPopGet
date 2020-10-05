@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.kh.user.model.vo.Reservation" %>
+<%
+	Reservation re = (Reservation)request.getAttribute("re");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -129,13 +133,13 @@
 		<div class="reservation_check2" align="center">
 
 			<div id="rc2_1">
-				<img src="/TicketPopGet/resources/post_upfiles/111111111133.PNG" width="200px">
+				<img src="<%=contextPath%>/<%=re.getContentImgPath()%>/<%=re.getContentChimg()%>" width="200px">
 			</div>
 
 			<div id="rc2_2">
-				<p>연극</p>
+				<p><%=re.getContentType()%></p>
 				<p>
-					연극[xxxxxxxxx] <br> 장소
+					<%=re.getContentType()%>[<%=re.getContnetTitle()%>] <br> <%=re.getPlace()%>
 				</p>
 			</div>
 
@@ -144,23 +148,23 @@
 				<table>
 					<tr>
 						<th>예매번호</th>
-						<td>aaaaaaa</td>
+						<td><%=re.getTicketNo()%></td>
 					</tr>
 					<tr>
 						<th>티켓명</th>
-						<td>티켓명입니다</td>
+						<td><%=re.getContnetTitle()%></td>
 					</tr>
 					<tr>
 						<th>관람일시</th>
-						<td>관람일시입니다</td>
+						<td><%=re.getViewDate()%></td>
 					</tr>
 					<tr>
 						<th>공연장</th>
-						<td>공연장이당</td>
+						<td><%=re.getPlace()%></td>
 					</tr>
 					<tr>
 						<th>예매자</th>
-						<td>누구누구</td>
+						<td><%=re.getUserName()%></td>
 					</tr>
 				</table>
 			</div>
@@ -172,21 +176,21 @@
 			<table class="reservation_table" id="reservation_table_list2">
 				<tr>
 					<th>예매일</th>
-					<td>2020-08-27(목)</td>
+					<td><%=re.getReservationDate()%></td>
 				</tr>
 				<tr>
 					<th>결제수단</th>
-					<td>무통장입금</td>
+					<td><%=re.getPaymentType()%></td>
 				</tr>
 				<tr>
-					<th>결제수단</th>
-					<td>결제완료/결제미완료/결제진행중</td>
+					<th>총결제가격</th>
+					<td><%=re.getPaymentTotal()%></td>
 				</tr>
 			</table>
 		</div>
 
 		<div style="margin-top: 220px;" align="center">
-			<button id="cancel_btn">확인</button>
+			<button onclick="location.href='<%=contextPath%>/reservation.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>'" id="cancel_btn">확인</button>
 		</div>
 
 	</div>
