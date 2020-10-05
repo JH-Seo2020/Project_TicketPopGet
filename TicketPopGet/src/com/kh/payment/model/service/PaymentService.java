@@ -4,6 +4,7 @@ import static com.kh.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 
+import com.kh.exhibition.model.vo.Exhibition;
 import com.kh.payment.model.dao.PaymentDao;
 import com.kh.payment.model.vo.ConcertPayment;
 
@@ -25,6 +26,20 @@ public class PaymentService {
 		
 		return result;
 		
+	}
+
+	/**
+	 * 2. 선택한 전시 서비스에 관련된 정보를 예매페이지에 뿌려주는 서비스 호출
+	 * @param contentNo				//전시 컨텐츠 번호 
+	 * @return						//전시 컨텐츠 정보
+	 * @author 서지혜
+	 */
+	public Exhibition selectExhibitionForPayment(int contentNo) {
+		
+		Connection conn = getConnection();
+		Exhibition exObject = new PaymentDao().selectExhibitionForPayment(conn, contentNo);
+		close(conn);
+		return exObject;
 	}
 	
 

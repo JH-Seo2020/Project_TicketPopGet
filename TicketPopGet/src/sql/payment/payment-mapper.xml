@@ -30,4 +30,18 @@
         , ?
 	  )
 </entry>
+<entry key="selectExhibitionForPayment">
+	SELECT CONTENT_NO
+     , CONTENT_TYPE
+     , CONTENT_TITLE
+     , PLACE
+     , PRICE
+     , CONTENT_CHIMG
+     , CONTENT_IMGPATH
+     , EXHIBITION_START
+     , EXHIBITION_END
+  FROM CONTENTS
+  JOIN EXHIBITON USING (CONTENT_NO)
+ WHERE CONTENT_NO = ?
+</entry>
 </properties>

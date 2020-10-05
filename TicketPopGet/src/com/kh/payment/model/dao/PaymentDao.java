@@ -4,22 +4,24 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
 import static com.kh.common.JDBCTemplate.*;
 
+import com.kh.exhibition.model.vo.Exhibition;
 import com.kh.payment.model.vo.ConcertPayment;
 
 public class PaymentDao {
 	
-	String fileName = PaymentDao.class.getResource("/sql/payment/payment-papper.xml").getPath();
 	
 	private Properties prop = new Properties();
 	
 	public PaymentDao() {
 		
 		try {
+			String fileName = PaymentDao.class.getResource("/sql/payment/payment-mapper.xml").getPath();
 			prop.loadFromXML(new FileInputStream(fileName));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -55,6 +57,39 @@ public class PaymentDao {
 		}
 		
 		return result;
+	}
+
+	//예매페이지에 보여주기 위한 전시객체 호출용 메소드
+	public Exhibition selectExhibitionForPayment(Connection conn, int contentNo) {
+		Exhibition exObject = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectExhibitionForPayment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, contentNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				exObject = new Exhibition(rset.getInt("CONTENT_NO"),
+										  rset.getString("CONTENT_TYPE"),
+										  rset.getString("CONTENT_TITLE"),
+										  rset.getString("PLACE"),
+										  rset.getString("PRICE"),
+										  rset.getString("CONTENT_CHIMG"),
+										  rset.getString("CONTENT_IMGPATH"),
+										  rset.getDate("EXHIBITION_START"),
+										  rset.getDate("EXHIBITION_END"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return exObject;
 	}
 
 }

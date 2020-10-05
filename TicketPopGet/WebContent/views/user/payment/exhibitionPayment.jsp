@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.payment.model.vo.*" %>
+<%@ page import="com.kh.exhibition.model.vo.Exhibition, java.sql.Date" %>
+<%
+	String contextPath = request.getContextPath();
+	Exhibition exObject = (Exhibition) request.getAttribute("exObject");
+	Date exDate = (Date) request.getAttribute("exDate");
+	//가격데이터 가공 (받을때 String으로 받았기 때문에 int로 변형 거쳐주기)
+	String price = exObject.getPrice().substring(0,exObject.getPrice().length()-2);
+	int truePrice = Integer.parseInt(price);
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,8 +49,8 @@ border: none;
 }
 .select{
   background-color: #ffb3005d;
-  width: 150px;
-  height: 90px;
+  width: 155px;
+  height: 130px;
   float: left;
   margin-top: 5px;
 }
@@ -75,7 +84,7 @@ border: none;
             <div class="listArea">
               <br>
               <div id="selectDate">
-                <b>날짜</b><br><span>2020-10-05</span> <br>
+                <b>날짜</b><br><span><%=exDate %></span> <br>
               </div>
               <br>
               &nbsp;<b>티켓정보</b>
@@ -85,18 +94,29 @@ border: none;
 
                   <table>
                     <tr>
-                      <td style="width: 60px;">&nbsp;금액</td>
-                      <td>&nbsp;16000원</td>
+                      <td style="width: 50px; font-size:12px;">&nbsp;금액</td>
+                      <td style="width: 150px;">&nbsp;1매당 <%=truePrice %>원</td>
                     </tr>
                     <tr>
-                      <td>&nbsp;매수</td>
-                      <td><select id="gender" class="form-control" style="width: 80px;">
-                        <option>선택</option>
+                      <td style="font-size:12px;">&nbsp;매수</td>
+                      <td align="center"><select required id="choiceNo" name="choiceNo" class="form-control" style="width: 90px;">
+                        <option value="">선택</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
-                        <option value="4">3</option>
-                        <option value="5">5</option>
-                    </select></td>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    <button id='decide' type="button" class='btn btn-warning btn-sm' style="margin-top:20px;">금액확인!</button>
+                    <script>
+                    	$(function(){
+                    		$('#decide').click(function(){
+                    			$('#TicketNum').html($('#choiceNo').val()+'장');
+                    			$('#nowPayment').html($('#choiceNo').val()*<%=truePrice %>+'원');
+                    			$('#totalPayment').html($('#choiceNo').val()*<%=truePrice %>+'원');
+                    		});
+                    	});
+                    </script>
+                    </td>
                     </tr>
                   </table>
                 </div>
@@ -106,8 +126,8 @@ border: none;
               <br>
               <div id="selectDate">
                 <b>결제방법</b><br><br>
-                <input type="radio"> 카드 <br>
-                <input type="radio"> 실시간 계좌이체 <br>
+                <input type="radio" name="paymentMethod" required> 카드 <br>
+                <input type="radio" name="paymentMethod" required> 실시간 계좌이체 <br>
               </div>
             </div>
             
@@ -115,11 +135,11 @@ border: none;
                 <div>
                   <table>
                     <tr>
-                      <td><img id="poster" src="css/캡처.JPG" width=70px height="90px"> </td>
+                      <td><img id="poster" src="<%=contextPath %>/<%=exObject.getImgPath() %>/<%=exObject.getContentChangeImg() %>" width=70px height="90px"> </td>
                       <td>
-                        <b style="font-size: 15px;">전시 [메밀꽃 필무렵]</b><br>
-                        <span style="font-size: 13px;">2020-09-01 ~ 2020-10-21<br>
-                        서울예술대학교</span>
+                        <b style="font-size: 15px;"><%=exObject.getContentType() %> [<%=exObject.getContentTitle() %>]</b><br>
+                        <span style="font-size: 13px;"><%=exObject.getExhibitionStartDate() %> ~ <%=exObject.getExhibitionEndDate() %><br>
+                        <%=exObject.getPlace() %></span>
                       </td>
                     </tr>
                   </table>
@@ -129,22 +149,22 @@ border: none;
                   <table width=220px>
                       <tr>
                         <td>날짜</td>
-                        <td id="selected_date" style="text-align: right;">2020-09-05(토)</td>
+                        <td id="selected_date" style="text-align: right;"><%=exDate %></td>
                       </tr>
                       <tr>
                         <td>매수</td>
-                        <td style="text-align: right;">2</td>
+                        <td style="text-align: right;" id="TicketNum"></td>
                       </tr>
                       <tr>
                         <td>티켓금액</td>
-                        <td style="text-align: right;">16000원</td>
+                        <td style="text-align: right;" id="nowPayment"></td>
                       </tr>
                     </table>
                     <hr>
                     <table width=220px>
                       <tr>
                         <th>총결제금액</th>
-                        <th style="color: red; text-align: right;">32000원</th>
+                        <th style="color: red; text-align: right;" id="totalPayment"></th>
                       </tr>
                     </table>
                     <br> <br>
