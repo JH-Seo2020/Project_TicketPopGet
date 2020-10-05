@@ -355,7 +355,7 @@ public class ServiceDao {
 		}
 		
 		return result;
-		
+
 	}
 
 
@@ -388,8 +388,104 @@ public class ServiceDao {
 
 
 
+	public int questionSelectListCount(Connection conn) {
+		
+		int listCount = 0;
+		
+		Statement stmt = null;
+		ResultSet rset = null; 
+		
+		String sql = prop.getProperty("questionSelectListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt("QUESTIONLISTCOUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return listCount;
+		
+	}
 
 
+
+	public ArrayList<Question> questionSelectList(Connection conn, PageInfo pi) {
+		
+		ArrayList<Question> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("questionSelectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Question(rset.getInt("QUESTION_NO"),
+									  rset.getString("ANSWER_STATUS"),
+									  rset.getString("QUESTION_TYPE"),
+									  rset.getString("QUESTION_TITLE"),
+									  rset.getDate("QUESTION_DATE")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+
+	public Question selectQuestion(Connection conn, int qno) {
+		Question q = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectQuestion");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, qno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				q = new Question(rset.getInt("QUESTION_NO"),
+							     rset.getString("QUESTION_TYPE"),
+							     rset.getString("QUESTION_TITLE"),
+							     rset.getString("QUESTION_CONTENT"),
+							     rset.getDate("QUESTION_DATE"),
+							     rset.getString("QUESTION_ANSWER"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return q;
+	}
 
 
 }

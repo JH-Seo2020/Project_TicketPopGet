@@ -178,5 +178,38 @@ public class ServiceService {
 		
 	}
 
+	public int questionSelectListCount() {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new ServiceDao().questionSelectListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+		
+	}
+
+	public ArrayList<Question> questionSelectList(PageInfo pi) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Question> list = new ServiceDao().questionSelectList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public Question selectQuestion(int qno) {
+		Connection conn = getConnection();
+		
+		Question q = new ServiceDao().selectQuestion(conn, qno);
+		
+		close(conn);
+		
+		return q;
+	}
+
 
 }
