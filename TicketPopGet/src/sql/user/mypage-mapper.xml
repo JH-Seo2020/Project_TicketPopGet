@@ -198,7 +198,7 @@ SELECT COUNT(*) LISTVIEW
              , C.CONTENT_TITLE
              , C.CONTENT_CHIMG
              , C.CONTENT_IMGPATH
-             , '예매진행중' AS CONTENT_STATUS
+             , CONTENT_STATUS
              , WI.WISHLIST_DATE
           FROM WISHLIST WI
          INNER JOIN CONTENTS C
