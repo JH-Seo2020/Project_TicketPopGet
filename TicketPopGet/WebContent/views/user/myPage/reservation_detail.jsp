@@ -1,3 +1,4 @@
+<%@page import="com.kh.user.model.vo.MyPage"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.kh.user.model.vo.Reservation" %>
@@ -159,7 +160,7 @@
 		<div align="center" style="margin-top: 50px;">
 			<a href="" class="btn btn-outline-warning">예매목록내역</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="<%=contextPath%>/re_cancel.my" class="btn btn-outline-warning">예매취소</a>
+			<a href="<%=contextPath%>/re_cancel.my/tno=<%=re.getTicketNo()%>" class="btn btn-outline-warning">예매취소</a>
 		</div>
 	</div>
 
