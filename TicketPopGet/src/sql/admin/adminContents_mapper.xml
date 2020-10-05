@@ -32,19 +32,26 @@
 	</entry>
 	
 	<entry key="listPlay">
-		SELECT PLAY_START, PLAY_END, PLAY_RUNTIME
-		  FROM PLAY
-		 WHERE CONTENT_NO = ?
+		SELECT PLAY_START
+		     , PLAY_END
+		     , PLAY_RUNTIME
+		     , ROUND_COUNT
+		     , ROUND_NO
+		  FROM PLAY P
+		  JOIN ROUND R ON(P.CONTENT_NO = R.CONTENT_NO)
+		  WHERE P.CONTENT_NO = ?
 	</entry>
 	
 	<entry key="listExhibition">
-		SELECT EXHIBITION_START, EXHIBITION_END
+		SELECT EXHIBITION_START
+		     , EXHIBITION_END
 		  FROM EXHIBITON
 		 WHERE CONTENT_NO = ?
 	</entry>
 	
 	<entry key="listConcert">
-		SELECT CONCERT_DATE, CONCERT_RUNTIME
+		SELECT CONCERT_DATE
+		     , CONCERT_RUNTIME
 		  FROM CONCERT
 		 WHERE CONTENT_NO = ?
 	</entry>
@@ -174,11 +181,15 @@
 		     , CONCERT_RUNTIME
 		     , CONCERT_MAX
 		     , CONCERT_SEATS
+		     , CONCERT_START
+		     , CONCERT_END
 		     )
 		VALUES
 		     (
 		       SEQ_CONTENTSNO.CURRVAL
 		     , TO_DATE(?)
+		     , ?
+		     , ?
 		     , ?
 		     , ?
 		     , ?
@@ -237,4 +248,149 @@
 		      )
 	</entry>
 	
+	<entry key="selectPlay">
+		SELECT 
+		       CONTENT_TITLE
+		     , CONTENT_SUBJECT
+		     , PLAY_START
+		     , PLAY_END
+		     , ROUND_COUNT
+		     , ROUND_DATE
+		     , PLAY_RUNTIME
+		     , ROUND_START
+		     , ROUND_END
+		     , ROUND_MAX
+		     , PLACE
+		     , REGION
+		     , LIMIT
+		     , PRICE
+		     , CONTENT_KEYWORD
+		     , INFO
+		     , CONTENT_OGIMG
+		     , CONTENT_CHIMG
+		     , CONTENT_IMGPATH
+		 FROM CONTENTS C
+		 JOIN PLAY P ON (C.CONTENT_NO = P.CONTENT_NO)
+		 JOIN ROUND R ON(C.CONTENT_NO=R.CONTENT_NO)
+		WHERE C.CONTENT_NO = ?
+		  AND R.ROUND_NO = ?
+	</entry>
+	
+	<entry key="selectExhibition">
+		SELECT
+		       CONTENT_TITLE
+		     , CONTENT_SUBJECT
+		     , EXHIBITION_START
+		     , EXHIBITION_END
+		     , PLACE
+		     , INFO
+		     , REGION
+		     , LIMIT
+		     , PRICE
+		     , CONTENT_KEYWORD
+		     , CONTENT_OGIMG
+		     , CONTENT_CHIMG
+		     , CONTENT_IMGPATH
+		  FROM CONTENTS C
+		  JOIN EXHIBITON E ON(C.CONTENT_NO=E.CONTENT_NO)
+		 WHERE C.CONTENT_NO = ?
+	</entry>
+		
+	<entry key="selectConcert">
+		SELECT 
+		        CONTENT_TITLE
+		      , CONTENT_SUBJECT
+		      , CONCERT_DATE
+		      , CONCERT_START
+		      , CONCERT_END
+		      , CONCERT_MAX
+		      , PLACE
+		      , REGION
+		      , CONCERT_RUNTIME
+		      , INFO
+		      , LIMIT
+		      , PRICE
+		      , CONTENT_KEYWORD
+		      , CONTENT_OGIMG
+		      , CONTENT_CHIMG
+		      , CONTENT_IMGPATH
+		  FROM CONTENTS C
+		  JOIN CONCERT CC ON (C.CONTENT_NO=CC.CONTENT_NO)
+		 WHERE C.CONTENT_NO = ?
+	</entry>
+	
+	<entry key="updateContent">
+		UPDATE CONTENTS
+		  SET  CONTENT_TITLE = ?
+		     , CONTENT_SUBJECT = ?
+		     , PLACE = ?
+		     , LIMIT = ?
+		     , PRICE = ?
+		     , CONTENT_KEYWORD = ?
+		     , INFO = ?
+		     , REGION = ?
+		     , CONTENT_OGIMG = ?
+		     , CONTENT_CHIMG = ?
+		     , CONTENT_IMGPATH = ?
+		 WHERE CONTENT_NO = ?
+	</entry>
+	
+	<entry key="updatePlay">
+		UPDATE PLAY
+		   SET PLAY_START = TO_DATE(?)
+		     , PLAY_END = TO_DATE(?)
+		     , PLAY_RUNTIME = ?
+		 WHERE CONTENT_NO = ?
+	</entry>
+	
+	<entry key="updateRound">
+		UPDATE ROUND
+		   SET ROUND_COUNT =?
+		     , ROUND_DATE = TO_DATE(?)
+		     , ROUND_START = ?
+		     , ROUND_END = ?
+		     , ROUND_MAX = ?
+		 WHERE CONTENT_NO = ?
+	</entry>
+	
+	<entry key="updateConcert">
+		UPDATE CONCERT
+		   SET CONCERT_DATE = ?
+		     , CONCERT_RUNTIME = ?
+		     , CONCERT_MAX = ?
+		     , CONCERT_START = ?
+		     , CONCERT_END = ?
+		 WHERE CONTENT_NO = ?
+	</entry>
+	
+	<entry key="updateExhibition">
+		UPDATE EXHIBITON
+		   SET EXHIBITION_START = ?
+		     , EXHIBITION_END = ?
+		 WHERE CONTENT_NO = ?
+	</entry>
+	
+	<entry key="deleteContent">
+		UPDATE CONTENTS
+		   SET CONTENT_STATUS = 'N'
+		 WHERE CONTENT_NO = ?
+	</entry>
+	
+	<entry key="deletePlay">
+		UPDATE PLAY
+		   SET PLAY_STATUS = 'N'
+		 WHERE CONTENT_NO = ?
+	</entry>
+	
+	<entry key="deleteExhibition">
+		UPDATE EXHIBITON
+		   SET EXHIBITION_STATUS = 'N'
+		 WHERE CONTENT_NO = ?
+	</entry>
+		
+	<entry key="deleteConcert">
+		UPDATE CONCERT
+		   SET CONCERT_STATUS = 'N'
+		 WHERE CONTENT_NO = ?
+	</entry>
 </properties>

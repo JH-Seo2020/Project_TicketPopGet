@@ -52,7 +52,7 @@ public class AdminExhibitionInsertFormServlet extends HttpServlet {
 		
 		c.setContentOgImg(multiRequest.getOriginalFileName("file"));
 		c.setContentChImg(multiRequest.getFilesystemName("file"));
-		c.setContentImgPath("resources/img/contentsImg/");
+		c.setContentImgPath("resources/img/ContentsImg/");
 		
 		int result = new AdminContentsService().insertExhibition(c);
 		

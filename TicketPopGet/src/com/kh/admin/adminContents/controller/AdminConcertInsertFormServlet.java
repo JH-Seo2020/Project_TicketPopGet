@@ -48,12 +48,16 @@ public class AdminConcertInsertFormServlet extends HttpServlet {
 		String price = multiRequest.getParameter("price");
 		String keyword = multiRequest.getParameter("keyword");
 		String info = multiRequest.getParameter("info");
+		String startTime = multiRequest.getParameter("startTime");
+		String endTime = multiRequest.getParameter("endTime");
 		
 		Contents c = new Contents(contentTitle, contentSubject, place, limit, price, keyword, info , local, runtime, startDate, max);
 		
+		c.setStartTime(startTime);
+		c.setEndTime(endTime);
 		c.setContentOgImg(multiRequest.getOriginalFileName("file"));
 		c.setContentChImg(multiRequest.getFilesystemName("file"));
-		c.setContentImgPath("resources/img/contentsImg/");
+		c.setContentImgPath("resources/img/ContentsImg/");
 		
 		int result = new AdminContentsService().insertConcert(c);
 		

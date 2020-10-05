@@ -44,16 +44,16 @@
 <body>
 <%@ include file="../adminCommon/adminMenubar.jsp" %>
     <div class="wrap">  
-        <button class="returnMainPage">초기화면</button>
-        <form action="insertPlayForm.adco" method="POST" enctype="multipart/form-data">
+        <button class="returnMainPage" onclick="location.href='<%=request.getContextPath()%>/list.adco?currentPage=1'">이전으로</button>
+        <form action="<%=request.getContextPath()%>/insertPlayForm.adco" method="POST" enctype="multipart/form-data">
         <div id="contentThumbnail">
             <img id="titleImg" src="" style="width: 100%; height: 100%; border: 1px solid black; box-sizing: border-box;">
         </div>
         <div id="contentInsertDiv">
-                <table id="contentInsert" style="width:450px">
+                <table id="contentInsert" style="width:460px">
                     <tr>
                         
-                        <th style="width:150px">분류</th>
+                        <th style="width:160px">분류</th>
                         <td>연극</td>
                         <td colspan="2">
                             <button type="submit" class="btn btn-primary" style="float:right;">등록</button>
@@ -125,7 +125,7 @@
                     </tr>
                     <tr>
                         <th>관람등급</th>
-                        <td colspan="3"><input type="number" name="limit" required></td>
+                        <td colspan="3"><input type="text" name="limit" required></td>
                     </tr>
                     <tr>
                         <th>가격</th>
@@ -140,7 +140,7 @@
         <div style="border: 1px solid red; width: 100%; height: 300px; box-sizing: border-box;">
             <textarea name="info" style="width: 100%; height: 100%; resize: none; text-align: left;" required></textarea>
         </div>
-    <input id="file" type="file" name="file1" onchange="loadImg(this);" style="display: none;" required>
+    <input id="file" type="file" name="file" onchange="loadImg(this);" style="display: none;" required>
             </form>
     </div>
 

@@ -1,7 +1,9 @@
 package com.kh.admin.adminContents.model.service;
 
-import static com.kh.common.JDBCTemplate.*;
+import static com.kh.common.JDBCTemplate.close;
+import static com.kh.common.JDBCTemplate.commit;
 import static com.kh.common.JDBCTemplate.getConnection;
+import static com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class AdminContentsService {
 		
 		close(conn);
 		return result;
+		
 	}
 	
 	/**
@@ -55,6 +58,7 @@ public class AdminContentsService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
 		return result;
 	}
 	
@@ -74,9 +78,15 @@ public class AdminContentsService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
 		return result;
 	}
 	
+	/**
+	 * 전시 등록용 서비스
+	 * @param c 등록할 컨턴츠 객체
+	 * @return 처리된 행 수
+	 */
 	public int insertExhibition(Contents c) {
 		Connection conn = getConnection();
 		int result = new AdminContentsDao().insertExhibition(conn, c);
@@ -86,6 +96,102 @@ public class AdminContentsService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
+		return result;
+	}
+	
+	/**
+	 * 컨텐츠 상세보기용 서비스
+	 * @param contentNo			상세보기 요청할 콘텐츠번호
+	 * @param contentType		상세보기 요청할 콘텐츠타입
+	 * @return					조회된 컨텐츠
+	 */
+	public Contents contentDetail(int contentNo, String contentType, int roundNo) {
+		
+		Connection conn = getConnection();
+		
+		Contents c = new AdminContentsDao().contentDetail(conn, contentNo, contentType, roundNo);
+		
+		close(conn);
+		
+		return c;
+	}
+	
+	/**
+	 * 연극 수정용 서비스
+	 * @param c	수정할 객체
+	 * @return  처리된 행 수
+	 */
+	public int updatePlay(Contents c) {
+		Connection conn = getConnection();
+		
+		int result = new AdminContentsDao().updatePlay(conn, c);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	/**
+	 * 콘서트 수정용 서비스
+	 * @param c 등록할 컨텐츠 객체
+	 * @return 처리된 행 수
+	 */
+	public int updateConcert(Contents c) {
+		
+		Connection conn = getConnection();
+		
+		int result = new AdminContentsDao().updateConcert(conn, c);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+
+		return result;
+	}
+	
+	/**
+	 * 전시 수정용 서비스
+	 * @param c 등록할 컨턴츠 객체
+	 * @return 처리된 행 수
+	 */
+	public int updateExhibition(Contents c) {
+		Connection conn = getConnection();
+		int result = new AdminContentsDao().updateExhibition(conn, c);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	/**
+	 * 컨텐츠 삭제용 서비스
+	 * @param contentNo		삭제할 컨텐츠번호
+	 * @param contentType	삭제할 컨텐츠 타입
+	 * @return				처리된 행 수
+	 */
+	public int deleteContents(int contentNo, String contentType) {
+		Connection conn = getConnection();
+		
+		int result = new AdminContentsDao().deleteContents(conn, contentNo, contentType);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
 		return result;
 	}
 	

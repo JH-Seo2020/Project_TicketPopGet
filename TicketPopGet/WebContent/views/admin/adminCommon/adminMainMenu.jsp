@@ -75,9 +75,6 @@
                 <tr>
                     <th><button type="button" onclick="location.href='<%=request.getContextPath()%>/blacklist.adme?currentPage=1'">블랙리스트 조회</button></th>
                 </tr>
-                <tr>
-                    <th><button type="button">탈퇴회원 조회</button></th>
-                </tr>
             </table>
         </div>
         <div class="mainPageTableWrap" align="center">
@@ -110,9 +107,6 @@
                 </tr>
                 <tr>
                     <th><button type="button" onclick="location.href='<%=request.getContextPath()%>/list.adco?currentPage=1'">컨텐츠 조회</button></th>
-                </tr>
-                <tr>
-                    <th><button type="button">컨텐츠 등록</button></th>
                 </tr>
             </table>
         </div>
@@ -156,5 +150,8 @@
             </table>
         </div>
     </div>
+    
+
+
 </body>
 </html>

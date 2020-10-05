@@ -59,9 +59,9 @@ public class AdminPlayInsertFormServlet extends HttpServlet {
 		
 		Contents c = new Contents(contentTitle, contentSubject, place, limit, price, keyword, info, local, runtime, startDate, endDate, contentDate, startTime, endTime, round, ticketCount);
 		
-		c.setContentOgImg(multiRequest.getOriginalFileName("file1"));
-		c.setContentChImg(multiRequest.getFilesystemName("file1"));
-		c.setContentImgPath("resources/contentsImg/");
+		c.setContentOgImg(multiRequest.getOriginalFileName("file"));
+		c.setContentChImg(multiRequest.getFilesystemName("file"));
+		c.setContentImgPath("resources/img/ContentsImg/");
 
 		int result = new AdminContentsService().insertPlay(c);
 		

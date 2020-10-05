@@ -45,7 +45,7 @@
 <body>
 <%@ include file="../adminCommon/adminMenubar.jsp" %>
     <div class="wrap">  
-        <button class="returnMainPage">초기화면</button>
+        <button class="returnMainPage" onclick="location.href='<%=request.getContextPath()%>/list.adco?currentPage=1'">이전으로</button>
         <form action="insertExhibitionForm.adco" method="POST" enctype="multipart/form-data">
 	        <div id="contentThumbnail">
 	            <img id="titleImg" src="" style="width: 100%; height: 100%; border: 1px solid black; box-sizing: border-box;">
@@ -58,7 +58,6 @@
                         <td>전시</td>
                         <td style="float: right;">
                             <button class="btn btn-primary">등록</button>
-                            <button class="btn btn-danger">삭제</button>
                         </td>
                     </tr>
                     <tr>
@@ -98,7 +97,7 @@
                     </tr>
                     <tr>
                         <th>관람등급</th>
-                        <td colspan="2"><input type="number" name="limit" required></td>
+                        <td colspan="2"><input type="text" name="limit" required></td>
                     </tr>
                     <tr>
                         <th>가격</th>

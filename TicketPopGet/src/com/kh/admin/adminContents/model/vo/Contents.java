@@ -28,11 +28,79 @@ public class Contents {
 	private String startTime;
 	private String endTime;
 	private String round;
+	private int roundNo;
 	private int Max;
 	private int seats;
 	
+	private Date startDay;
+	private Date endDay;
+	private Date contentDay;
+	
 	public Contents() {}
 	
+	public Contents(int contentNo, String contentType, String contentTitle, String contentSubject, String place,
+			String limit, String price, String contentKeyword, String info, String contentStatus, int latitude,
+			int longtitude, String region, String contentOgImg, String contentChImg, String contentImgPath,
+			String contentRuntime, String contentTerm, String startDate, String endDate, String contentDate,
+			String startTime, String endTime, String round, int roundNo, int max, int seats) {
+		super();
+		this.contentNo = contentNo;
+		this.contentType = contentType;
+		this.contentTitle = contentTitle;
+		this.contentSubject = contentSubject;
+		this.place = place;
+		this.limit = limit;
+		this.price = price;
+		this.contentKeyword = contentKeyword;
+		this.info = info;
+		this.contentStatus = contentStatus;
+		this.latitude = latitude;
+		this.longtitude = longtitude;
+		this.region = region;
+		this.contentOgImg = contentOgImg;
+		this.contentChImg = contentChImg;
+		this.contentImgPath = contentImgPath;
+		this.contentRuntime = contentRuntime;
+		this.contentTerm = contentTerm;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.contentDate = contentDate;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.round = round;
+		this.roundNo = roundNo;
+		Max = max;
+		this.seats = seats;
+	}
+
+	public Contents(int contentNo, String contentType, String contentTitle, String contentSubject, String place,
+			String limit, String price, String contentKeyword, String info, String region, String contentOgImg,
+			String contentChImg, String contentImgPath, String contentRuntime, String startDate, String endDate,
+			String contentDate, String startTime, String endTime, String round, int max) {
+		super();
+		this.contentNo = contentNo;
+		this.contentType = contentType;
+		this.contentTitle = contentTitle;
+		this.contentSubject = contentSubject;
+		this.place = place;
+		this.limit = limit;
+		this.price = price;
+		this.contentKeyword = contentKeyword;
+		this.info = info;
+		this.region = region;
+		this.contentOgImg = contentOgImg;
+		this.contentChImg = contentChImg;
+		this.contentImgPath = contentImgPath;
+		this.contentRuntime = contentRuntime;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.contentDate = contentDate;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.round = round;
+		Max = max;
+	}
+
 	public Contents(String contentTitle, String contentSubject, String place, String limit, String price,
 			String contentKeyword, String info, String region, String startDate, String endDate) {
 		super();
@@ -428,6 +496,38 @@ public class Contents {
 	}
 
 
+	public int getRoundNo() {
+		return roundNo;
+	}
+
+	public void setRoundNo(int roundNo) {
+		this.roundNo = roundNo;
+	}
+
+	public Date getStartDay() {
+		return startDay;
+	}
+
+	public void setStartDay(Date startDay) {
+		this.startDay = startDay;
+	}
+
+	public Date getEndDay() {
+		return endDay;
+	}
+
+	public void setEndDay(Date endDay) {
+		this.endDay = endDay;
+	}
+
+	public Date getContentDay() {
+		return contentDay;
+	}
+
+	public void setContentDay(Date contentDay) {
+		this.contentDay = contentDay;
+	}
+
 	@Override
 	public String toString() {
 		return "Contents [contentNo=" + contentNo + ", contentType=" + contentType + ", contentTitle=" + contentTitle
@@ -437,8 +537,10 @@ public class Contents {
 				+ contentOgImg + ", contentChImg=" + contentChImg + ", contentImgPath=" + contentImgPath
 				+ ", contentRuntime=" + contentRuntime + ", contentTerm=" + contentTerm + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", contentDate=" + contentDate + ", startTime=" + startTime + ", endTime="
-				+ endTime + ", round=" + round + ", Max=" + Max + ", seats=" + seats + "]";
+				+ endTime + ", round=" + round + ", roundNo=" + roundNo + ", Max=" + Max + ", seats=" + seats
+				+ ", startDay=" + startDay + ", endDay=" + endDay + ", contentDay=" + contentDay + "]";
 	}
+
 
 
 }

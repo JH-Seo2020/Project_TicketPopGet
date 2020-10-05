@@ -86,7 +86,6 @@ String alertMsg = (String)session.getAttribute("alertMsg");
         <div class="menuTitle">회원관리</div>
         <div class="menuWrap">
         <button onclick="location.href='<%=request.getContextPath()%>/list.adme?currentPage=1'">회원전체 조회</button>
-        <button>탈퇴회원 조회</button>
         <button type="button" onclick="location.href='<%=request.getContextPath()%>/blacklist.adme?currentPage=1'">블랙리스트 조회</button>
         </div>
 
@@ -101,8 +100,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
 
         <div class="menuTitle">컨텐츠관리</div>
         <div class="menuWrap">
-        <button>컨텐츠 조회/삭제</button>
-        <button>컨텐츠 등록/수정</button>
+        <button onclick="location.href='<%=request.getContextPath()%>/list.adco?currentPage=1'">컨텐츠 조회</button>
         </div>
 
         <div class="menuTitle">컨텐츠 예매현황</div>
@@ -130,5 +128,6 @@ String alertMsg = (String)session.getAttribute("alertMsg");
             
         });
     </script>
+    
 </body>
 </html>

@@ -44,7 +44,7 @@
 <body>
 <%@ include file="../adminCommon/adminMenubar.jsp" %>
     <div class="wrap">  
-        <button class="returnMainPage">초기화면</button>
+        <button class="returnMainPage" onclick="location.href='<%=request.getContextPath()%>/list.adco?currentPage=1'">이전으로</button>
         <form action="insertConcertForm.adco" method="POST" enctype="multipart/form-data">
 	        <div id="contentThumbnail">
 	            <img id="titleImg" src="" style="width: 100%; height: 100%; border: 1px solid black; box-sizing: border-box;">
@@ -74,11 +74,14 @@
                     <tr>
                         
                         <th>공연날</th>
-                        <td colspan="2"><input type="date" name="startDate" required></td>
+                        <td><input type="date" name="startDate" required></td>
+                        <td style="width:180px"><input type="text" name="runtime" required placeholder="150분"></td>
                     </tr>
                     <tr>
                         <th>공연시간</th>
-                        <td colspan="2"><input type="text" name="runtime" required placeholder="ex)14시00분~16시00분"></td>
+                        <td><input type="text" name="startTime" required placeholder="14시00분"></td>
+                        <td><input type="text" name="endTime" required placeholder="16시00분"></td>
+           
                     </tr>
                     <tr>
                         <th>총티겟수</th>
@@ -101,7 +104,7 @@
                     </tr>
                     <tr>
                         <th>관람등급</th>
-                        <td colspan="2"><input type="number" name="limit" required></td>
+                        <td colspan="2"><input type="text" name="limit" required></td>
                     </tr>
                     <tr>
                         <th>가격</th>
