@@ -151,8 +151,6 @@
 }
 /* 찜리스트목록 세부 항목 */
 .wishlist {
-	width: 850px;
-	padding-right:500px;
 	display: inline-block;
 	position: relative;
 	margin-top: 10px;
@@ -167,7 +165,7 @@
 	outline: 0;
 	cursor: pointer;
 	background: rgba(0, 0, 0, 0);
-	padding-right:590px;
+
 }
 
 /* 나의 관람공연/전시 */
@@ -190,7 +188,7 @@
 	display: inline-block;
 	position: relative;
 	padding-top: 20px;
-	padding-right:500px;
+
 }
 
 .watchshow_btn {
@@ -322,7 +320,7 @@
 					<div class="watchshow_list">
 						<img src="<%=contextPath%>/<%=mp.getContentImgPath()%>/<%=mp.getContentChimg()%>" width="200" height="250"> <br>
 						<p><%=mp.getContentTitle() %></p>
-						<button class="watchshow_btn">후기작성</button>
+						<p><%=mp.getViewDate() %>
 					</div>	
 					  <%} %>
        			  <%} %>

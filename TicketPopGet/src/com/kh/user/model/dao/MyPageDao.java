@@ -144,7 +144,8 @@ public class MyPageDao {
 								   rset.getString("CONTENT_TITLE"),
 								   rset.getInt("USER_NO"),
 								   rset.getString("CONTENT_CHIMG"),
-								   rset.getString("CONTENT_IMGPATH")));
+								   rset.getString("CONTENT_IMGPATH"),
+								   rset.getDate("VIEW_DATE")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

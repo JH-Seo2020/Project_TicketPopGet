@@ -92,13 +92,14 @@ public class MyPage {
 	
 	
 
-	public MyPage( int ticketNo, String contentTitle, int userNo,String contentChimg, String contentImgPath) {
+	public MyPage( int ticketNo, String contentTitle, int userNo,String contentChimg, String contentImgPath, Date viewDate) {
 		super();
 		this.userNo = userNo;
 		this.ticketNo = ticketNo;
 		this.contentTitle = contentTitle;
 		this.contentChimg = contentChimg;
 		this.contentImgPath = contentImgPath;
+		this.viewDate = viewDate;
 	}
 
 	public int getUserNo() {
