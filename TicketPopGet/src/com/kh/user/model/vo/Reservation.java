@@ -14,14 +14,18 @@ public class Reservation {
 	private String contentType; //컨텐츠분류
 	private String contnetTitle; //공연제목
 	private Date paymentDate; //결제일자
+	private Date viewDatecancel; // 취소가능날
 	private String paymentType; //결제방법
 	private String paymentStatus; //결제여부
 	private String paymentTotal; // 총결제금액
 	private String paymentCancel; //취소여부
+	private String place;
+	private String userName;
 	
 	public Reservation(int ticketNo, int userNo, int contentNo, Date reservationDate, Date viewDate, int ticketNum,
-			int roundNo, String contentType, String contnetTitle, Date paymentDate, String paymentType,
-			String paymentStatus, String paymentTotal, String paymentCancel) {
+			int roundNo, String contentType, String contnetTitle, Date paymentDate, Date viewDatecancel,
+			String paymentType, String paymentStatus, String paymentTotal, String paymentCancel, String place,
+			String userName) {
 		super();
 		this.ticketNo = ticketNo;
 		this.userNo = userNo;
@@ -33,12 +37,14 @@ public class Reservation {
 		this.contentType = contentType;
 		this.contnetTitle = contnetTitle;
 		this.paymentDate = paymentDate;
+		this.viewDatecancel = viewDatecancel;
 		this.paymentType = paymentType;
 		this.paymentStatus = paymentStatus;
 		this.paymentTotal = paymentTotal;
 		this.paymentCancel = paymentCancel;
+		this.place = place;
+		this.userName = userName;
 	}
-
 
 	public Reservation(int ticketNo, int userNo, int contentNo, Date reservationDate
 			, String contnetTitle,int ticketNum, Date viewDate, String paymentType, String paymentStatus, String paymentCancel) {
@@ -55,8 +61,48 @@ public class Reservation {
 		this.paymentCancel = paymentCancel;
 	}
 	
+	public Reservation(int ticketNo, String contnetTitle, Date viewDate, Date viewDatecancel, String place, String userName, Date paymentDate,
+			 Date reservationDate, String paymentType, String paymentTotal, int ticketNum, String paymentCancel) {
+		super();
+		this.ticketNo = ticketNo;
+		this.reservationDate = reservationDate;
+		this.viewDate = viewDate;
+		this.viewDatecancel = viewDatecancel;
+		this.ticketNum = ticketNum;
+		this.contnetTitle = contnetTitle;
+		this.paymentDate = paymentDate;
+		this.paymentType = paymentType;
+		this.paymentTotal = paymentTotal;
+		this.paymentCancel = paymentCancel;
+		this.place = place;
+		this.userName = userName;
+	}
 
+	
 
+	public Date getViewDatecancel() {
+		return viewDatecancel;
+	}
+
+	public void setViewDatecancel(Date viewDatecancel) {
+		this.viewDatecancel = viewDatecancel;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	public int getTicketNo() {
 		return ticketNo;
@@ -102,15 +148,9 @@ public class Reservation {
 		return contnetTitle;
 	}
 
-
-
-
 	public void setContnetTitle(String contnetTitle) {
 		this.contnetTitle = contnetTitle;
 	}
-
-
-
 
 	public int getTicketNum() {
 		return ticketNum;
@@ -178,12 +218,15 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "RESERVATION [ticketNo=" + ticketNo + ", userNo=" + userNo + ", contentNo=" + contentNo
+		return "Reservation [ticketNo=" + ticketNo + ", userNo=" + userNo + ", contentNo=" + contentNo
 				+ ", reservationDate=" + reservationDate + ", viewDate=" + viewDate + ", ticketNum=" + ticketNum
-				+ ", roundNo=" + roundNo + ", contentType=" + contentType + ", paymentDate=" + paymentDate
-				+ ", paymentType=" + paymentType + ", paymentStatus=" + paymentStatus + ", paymentTotal=" + paymentTotal
-				+ ", paymentCancel=" + paymentCancel + "]";
+				+ ", roundNo=" + roundNo + ", contentType=" + contentType + ", contnetTitle=" + contnetTitle
+				+ ", paymentDate=" + paymentDate + ", viewDatecancel=" +viewDatecancel + ", paymentType="
+				+ paymentType + ", paymentStatus=" + paymentStatus + ", paymentTotal=" + paymentTotal
+				+ ", paymentCancel=" + paymentCancel + ", place=" + place + ", userName=" + userName + "]";
 	}
+
+	
 	
 	
 	
