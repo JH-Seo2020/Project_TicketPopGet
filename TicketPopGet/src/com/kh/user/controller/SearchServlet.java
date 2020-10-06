@@ -69,8 +69,10 @@ public class SearchServlet extends HttpServlet {
 		
 		request.setAttribute("search", search);
 		request.setAttribute("keyword", keyword);
+		request.setAttribute("pi",pi);
 		
 		request.getRequestDispatcher("views/common/search.jsp").forward(request, response);
+
 	}
 
 	/**
