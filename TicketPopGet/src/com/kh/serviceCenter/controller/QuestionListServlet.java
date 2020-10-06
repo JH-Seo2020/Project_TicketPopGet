@@ -9,10 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.serviceCenter.model.service.ServiceService;
 import com.kh.serviceCenter.model.vo.PageInfo;
 import com.kh.serviceCenter.model.vo.Question;
+import com.kh.user.model.vo.Member;
 
 /**
  * Servlet implementation class QuestionListServlet
@@ -41,13 +43,14 @@ public class QuestionListServlet extends HttpServlet {
 		   int maxPage;			// 전체 페이지들 중요세의 가장 마지막 페이지
 		   int startPage;		// 현재 페이지에 하단에 보여질 페이징 바의 시작 수
 		   int endPage;			// 현재 페이지에 하단에 보여질 페이징 바의 끝 수
-		   
-		   listCount = new ServiceService().questionSelectListCount();
+		   HttpSession session = request.getSession();  
+		   Member loginUser = (Member)session.getAttribute("loginUser");
+		   listCount = new ServiceService().questionSelectListCount(loginUser);
 		   
 		   String searchType =  (String)request.getAttribute("type");
-		   
+		   System.out.println(searchType);
 		   currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		   
+	
 		   pageLimit = 10;
 		   
 		   boardLimit = 10;
@@ -64,7 +67,7 @@ public class QuestionListServlet extends HttpServlet {
 		   
 		   PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		   
-		  ArrayList<Question> list = new ServiceService().questionSelectList(pi);
+		  ArrayList<Question> list = new ServiceService().questionSelectList(pi, loginUser);
 		  
 		  request.setAttribute("pi", pi);
 		  request.setAttribute("list", list);

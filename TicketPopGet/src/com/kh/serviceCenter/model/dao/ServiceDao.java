@@ -1,5 +1,7 @@
 package com.kh.serviceCenter.model.dao;
 
+import static com.kh.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,13 +12,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.kh.serviceCenter.model.vo.Attachment;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.kh.serviceCenter.model.vo.Faq;
 import com.kh.serviceCenter.model.vo.Notice;
 import com.kh.serviceCenter.model.vo.PageInfo;
 import com.kh.serviceCenter.model.vo.Question;
-
-import static com.kh.common.JDBCTemplate.*;
+import com.kh.user.model.vo.Member;
 
 public class ServiceDao {
 	
@@ -360,46 +363,21 @@ public class ServiceDao {
 
 
 
-	public int insertAttachment(Connection conn, Attachment at) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertAttachment");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, at.getQuestionFileO());
-			pstmt.setString(2, at.getQuestionFileC());
-			pstmt.setString(3, at.getQuestionImgPath());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-		
-	}
 
 
-
-	public int questionSelectListCount(Connection conn) {
+	public int questionSelectListCount(Connection conn , Member loginUser) {
 		
 		int listCount = 0;
 		
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null; 
 		
 		String sql = prop.getProperty("questionSelectListCount");
 		
 		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				listCount = rset.getInt("QUESTIONLISTCOUNT");
@@ -414,7 +392,7 @@ public class ServiceDao {
 
 
 
-	public ArrayList<Question> questionSelectList(Connection conn, PageInfo pi) {
+	public ArrayList<Question> questionSelectList(Connection conn, PageInfo pi , Member loginUser) {
 		
 		ArrayList<Question> list = new ArrayList<>();
 		
@@ -428,9 +406,9 @@ public class ServiceDao {
 			
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() -1;
-			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(1, loginUser.getUserNo());
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			

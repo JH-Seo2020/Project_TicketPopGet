@@ -12,7 +12,6 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.common.MyFileRenamePolicy;
 import com.kh.serviceCenter.model.service.ServiceService;
-import com.kh.serviceCenter.model.vo.Attachment;
 import com.kh.serviceCenter.model.vo.Question;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -45,7 +44,6 @@ public class questionInsertServlet extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/question_upfiles/");
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
 			String questionType = multiRequest.getParameter("questionType");
 			String questionTitle = multiRequest.getParameter("questionTitle");
 			String questionContent = multiRequest.getParameter("questionContent");
@@ -57,19 +55,8 @@ public class questionInsertServlet extends HttpServlet {
 			q.setQuestionContent(questionContent);
 			q.setQuestionUser(questionUser);
 			
-			Attachment at = null;
-			if(multiRequest.getOriginalFileName("upfile") != null) {
-			
-				String questionFileO = multiRequest.getOriginalFileName("upfile");
-				String questionFileC = multiRequest.getFilesystemName("upfile");
-				
-				at = new Attachment();
-				at.setQuestionFileO(questionFileO);
-				at.setQuestionFileC(questionFileC);
-				at.setQuestionImgPath("resources/question_upfiles/");
-			}
-			
-			int result = new ServiceService().insertQuestion(q, at);
+
+			int result = new ServiceService().insertQuestion(q);
 			
 			if(result > 0) {
 				
@@ -78,10 +65,6 @@ public class questionInsertServlet extends HttpServlet {
 				
 			}else {
 				
-				if(at != null) {
-					File failedFile = new File(savePath + at.getQuestionFileC());
-					failedFile.delete();
-				}
 				
 				request.setAttribute("errorMsg", "1:1문의 등록 실패하였습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
