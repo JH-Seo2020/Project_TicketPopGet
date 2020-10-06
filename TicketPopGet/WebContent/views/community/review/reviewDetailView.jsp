@@ -364,10 +364,11 @@
 						
 						console.log(result);
 						$('#troubleMaker').val(result.userNo);
-						$('#commentNo').val(result.replyNo);
+						$('#reportCate').val('후기댓글');
+						$('#reviewNo').val(result.replyNo);			//여기에 댓글번호추가!!
 						$('#troubleMakerId').text(result.userId);
-						$('#eventNo').val(result.eventNo);
-						$('#reportForm').attr('action','<%=contextPath%>/comment.report');
+						$('#rno').val(result.reviewNo);
+						$('#reportForm').attr('action','<%=contextPath%>/reply.report');
 						
 					}, 
 					error : function(){
@@ -438,11 +439,12 @@
                     </div>
                         <form method="POST" action="<%=contextPath%>/review.report">
                         <%if(loginUser != null){ %>
-		                <input name="reporter" type="hidden" value="<%=loginUser.getUserNo()%>">
+		                	<input name="reporter" type="hidden" value="<%=loginUser.getUserNo()%>">
 		                <%} %>
-		                <input id="troubleMaker" name="troubleMaker" type="hidden" value="<%=r.getUserNo()%>">
-		                <input id="reportCate" name="reportCate" type="hidden" value="후기">
-		                <input name="reviewNo" type="hidden" value="<%=r.getReviewNo() %>">
+		                	<input id="troubleMaker" name="troubleMaker" type="hidden" value="<%=r.getUserNo()%>">
+		                	<input id="reportCate" name="reportCate" type="hidden" value="후기">
+		                	<input id="reviewNo" name="reviewNo" type="hidden" value="<%=r.getReviewNo() %>">
+		                	<input id="rno" name="rno" type="hidden" value="">
                             <div class="modal-body">
                                 <p>
                                     <b>신고 사유</b>
