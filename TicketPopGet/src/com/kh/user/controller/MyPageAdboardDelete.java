@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.user.model.service.MyPageService;
 
 /**
- * Servlet implementation class MyPage_review_delete
+ * Servlet implementation class MyPageAdboardDelete
  */
-@WebServlet("/reviewDelete.my")
-public class MyPageReviewDelete extends HttpServlet {
+@WebServlet("/deleteadboard.my")
+public class MyPageAdboardDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageReviewDelete() {
+    public MyPageAdboardDelete() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,20 +31,21 @@ public class MyPageReviewDelete extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int rno = Integer.parseInt(request.getParameter("rno"));
+		int ano = Integer.parseInt(request.getParameter("ano"));
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		
-		int result = new MyPageService().deleteReview(rno, userNo);
+		int result = new MyPageService().deleteAdboard(ano, userNo);
 		
 		if(result>0) {
 			request.getSession().setAttribute("alertMsg", "삭제되었습니다.");
-			response.sendRedirect(request.getContextPath()+"/review.my?currentPage=1&userNo="+userNo);
+			response.sendRedirect(request.getContextPath()+"/adboard.my?currentPage=1&userNo="+userNo);
 
 		}
 		else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}
+		
 	}
 
 	/**

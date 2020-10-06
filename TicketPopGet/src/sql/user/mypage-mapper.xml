@@ -604,6 +604,13 @@ SELECT
        AND REVIEW_STATUS = 'Y'
 </entry>
 
+<entry key="deleteReview">
+	UPDATE REVIEW
+	   SET REVIEW_STATUS = 'N'
+	 WHERE REVIEW_NO = ?
+	   AND USER_NO = ?
+</entry>
+
 <entry key="selectAdboardListCount">
 SELECT COUNT(*) LISTVIEW 
  FROM(
@@ -695,6 +702,12 @@ SELECT USER_NO
        AND BOARD_STATUS = 'Y'
 </entry>
 
+<entry key="deleteAdboard">
+ 	   UPDATE BOARD
+          SET BOARD_STATUS = 'N'
+        WHERE BOARD_NO = ? 
+          AND USER_NO = ?
+</entry>
 
 
 

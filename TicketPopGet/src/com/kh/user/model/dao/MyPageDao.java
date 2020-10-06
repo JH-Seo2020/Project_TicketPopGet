@@ -1121,6 +1121,38 @@ public class MyPageDao {
 	}
 	
 	/**
+	 * 후기삭제
+	 * @param conn
+	 * @param rno
+	 * @param userNo
+	 * @return
+	 */
+	public int deleteReview(Connection conn, int rno, int userNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rno);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+		
+	}
+	
+	/**
 	 * 나의홍보개수
 	 * @param conn
 	 * @param userId
@@ -1386,6 +1418,36 @@ public class MyPageDao {
 		return result;
 	}
 
+	/**
+	 * 홍보삭제
+	 * @param conn
+	 * @param rno
+	 * @param userNo
+	 * @return
+	 */
+	public int deleteAdboard(Connection conn, int ano, int userNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteAdboard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ano);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+		
+	}
 
 
 }

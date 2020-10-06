@@ -1,3 +1,4 @@
+<%@page import="com.kh.community.review.model.vo.Review"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, com.kh.user.model.vo.*" %>
@@ -9,7 +10,6 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
-
 	String content = (String)request.getAttribute("content");
 %>
 <!DOCTYPE html>
@@ -59,15 +59,12 @@
 
 
     /* 삭제여부버튼 */
-    #delete_review_btn{
-        margin-top: 20px;
-        margin-right: 150px;
-    }
-    #delete_review_btn button{
+    
+    #delete{
         background-color: sandybrown;
         border-radius: 0.5em;
         border:1px solid sandybrown;
-        width: 50px;
+        width: 80px;
         height: 30px;
         color: white;
     }
@@ -111,11 +108,11 @@
             <table class="table table-hover listArea"   style="width: 950px; height: 70px; margin-left: 30px; text-align: center;">
               <thead>
                 <tr>
-                  <th></th>
                   <th>번호</th>
                   <th>공연명</th>
                   <th>제목</th>
                   <th>작성일</th>
+                  <th></th>
                 </tr>
               </thead>
               
@@ -131,11 +128,11 @@
               		           for(MyPage ps : mps) {
               		%>
 	                <tr>
-	                  <td><input type="checkbox"  name="delete_review"></td>
 	                  <td><%=ps.getReviewNo()%></td>
 	                  <td onclick="fnClickDetail();"><%=ps.getContentTitle()%></td>
 	                  <td><%=ps.getReviewTitle()%></td>
 	                  <td><%=ps.getReviewDate()%></td>
+	                  <td><input type="button" id="delete" value="삭제하기" onclick="location.href='<%=contextPath%>/reviewDelete.my?rno=<%=ps.getReviewNo()%>&userNo=<%=ps.getUserNo()%>'" name="delete_review"></td>
 	                </tr>
 	                <%} %>
 	                <%} %>
@@ -143,9 +140,6 @@
             </table>
           </div>
           
-          <div id="delete_review_btn" align="right">
-              <button id="delete" onclick="deletebtn();">삭제</button>
-          </div>
           <%-- 
           		체크박스 체크시 삭제기능 넣어야함.. 근데 이걸 서블릿에게 넘겨야하는뎅.. 서블릿에서 설정을해야하는걸까.. ㅠ.ㅠ..고민좀더해보장
 	          <script>
@@ -176,20 +170,6 @@
 					location.href="<%=contextPath%>/review_detail.my?rno="+rno+"&"+"userNo="+userNo; 
 				});
 	       }
-	       
-	       $("#delete").click(function(){
-	    	   
-	    	   if( $("input[type=checkbox][name=delete_review]:checked").length == 0 ){
-				    alert("삭제할 항목을 하나이상 체크해요.");
-				    return;
-				}
-					
-				$("#delete").attr({
-					"method" : "post",
-					"action" : "<%=contextPath%>/reviewDelete.my"
-				})
-				$("#delete").submit();
-	       });
 	       
 	       </script>
 	   
