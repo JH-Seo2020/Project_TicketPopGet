@@ -160,6 +160,12 @@ public class MyPageService {
 		return result;
 	}
 	
+	/**
+	 * 예매취소리스트
+	 * @param userNo
+	 * @param tno
+	 * @return
+	 */
 	public Reservation deleteReservationList(int userNo, int tno) {
 		Connection conn = getConnection();
 		
@@ -450,6 +456,28 @@ public class MyPageService {
 		return result;
 	}
 	
+	/**
+	 * 후기삭제
+	 * @param rno
+	 * @param userNo
+	 * @return
+	 */
+	public int deleteReview(int rno, int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new MyPageDao().deleteReview(conn, rno, userNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
 	
 	
 		
@@ -567,6 +595,28 @@ public class MyPageService {
 		}
 		
 		close(conn);
+		return result;
+	}
+	
+	/**
+	 * 나의홍보삭제
+	 * @param ano
+	 * @param userNo
+	 * @return
+	 */
+	public int deleteAdboard(int ano, int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new MyPageDao().deleteAdboard(conn, ano, userNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
 		return result;
 	}
 	

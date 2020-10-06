@@ -35,8 +35,7 @@ public class MyPageReview extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		
-		
+
 		
 			// ---------------- 페이징처리 ----------------
 			int listCount; // 현재 총 게시글 개수
@@ -72,9 +71,9 @@ public class MyPageReview extends HttpServlet {
 			
 			request.setAttribute("mps", mps);
 			request.setAttribute("pi", pi);
+			request.setAttribute("userNo", userNo);
 		
-			RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/review.jsp");
-			view.forward(request, response);
+			request.getRequestDispatcher("views/user/myPage/review.jsp").forward(request, response);
 		
 	}
 

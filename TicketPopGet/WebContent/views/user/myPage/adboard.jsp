@@ -37,7 +37,7 @@
 }
 /* 컨텐츠분류 */
 .contents_btn {
-	margin-top: 80px;
+	margin-top: 70px;
 	margin-right: 150px;
 }
 
@@ -61,21 +61,15 @@ input[type=checkbox] {
 	height: 20px;
 }
 
-/* 삭제여부버튼 */
-#delete_review_btn {
-	margin-top: 20px;
-	margin-right: 150px;
-}
-
-#delete_review_btn button {
-	background-color: sandybrown;
-	border-radius: 0.5em;
-	border: 1px solid sandybrown;
-	width: 50px;
-	height: 30px;
-	color: white;
-}
-
+/* 삭제여부버튼 */   
+    #delete{
+        background-color: sandybrown;
+        border-radius: 0.5em;
+        border:1px solid sandybrown;
+        width: 80px;
+        height: 30px;
+        color: white;
+    }
 /* 페이징바 */
 .pagination {
 	margin: 10px 0 0;
@@ -144,11 +138,11 @@ input[type=checkbox] {
 				style="width: 950px; height: 70px; margin-left: 30px; text-align: center;">
 				<thead>
 					<tr>
-						<th></th>
 						<th>번호</th>
 						<th>제목</th>
 						<th>분류</th>
 						<th>작성일</th>
+						<th></th>
 					</tr>
 				</thead>
 				 <tbody>
@@ -163,11 +157,11 @@ input[type=checkbox] {
               		          for(AdBoard a : ad) {
               		%>
 	                <tr>
-	                  <td><input type="checkbox" name="delete_review"></td>
 	                  <td><%=a.getBoardNo() %></td>
 	                  <td onclick="fnClickDetail();"><%=a.getBoardTitle() %></td>
 	                  <td><%=a.getBoardType() %>
 	                  <td><%=a.getBoardDate()%></td>
+	                  <td><input type="button" id="delete" value="삭제하기" onclick="location.href='<%=contextPath%>/deleteadboard.my?ano=<%=a.getBoardNo()%>&userNo=<%=loginUser.getUserNo()%>'" name="delete_adboard"></td>
 	                </tr>
 	                <%} %>
 	                <%} %>
@@ -188,10 +182,6 @@ input[type=checkbox] {
 	       }
 		</script>
 
-		<div id="delete_review_btn" align="right">
-			<button>삭제</button>
-		</div>
-		
 		<!-- 페이징바 -->
 		<%if(content == null){ %>
           <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">

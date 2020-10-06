@@ -4,14 +4,13 @@
 <%
 	ArrayList<Search> search = (ArrayList<Search>)request.getAttribute("search");
 	String keyword = (String)request.getAttribute("keyword");
-		
+	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
-	
 %>
 <!DOCTYPE html>
 <html>
