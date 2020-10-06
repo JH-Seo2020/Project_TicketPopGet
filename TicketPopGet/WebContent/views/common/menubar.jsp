@@ -131,13 +131,19 @@
 	            </div>
 	
 	            <div id="search" align="center">
-	                <form action="<%=contextPath%>/search.tp" method="post" name="search">
+	                <form action="<%=contextPath%>/search.tp" method="GET" id="searchForm" name="search">
 	                    <input type="search" id="searchBar" name="keyword" placeholder="검색창">
 	                    <button type="submit" id="searchBtn">검색</button>
 	                </form>
 	                
 	                <script>
-	                	
+	                	var searchForm = $("#searchForm");
+	                	$("#searchBtn").on("click", function(e){
+	                		if(!searchForm.find("input[name='keyword']").val()){
+	                			alert('검색어를 입력하세요');
+	                			return false;
+	                		}
+	                	});
 	                </script>
 	            </div>
 	            
