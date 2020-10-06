@@ -15,7 +15,6 @@ import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.kh.serviceCenter.model.vo.Attachment;
 import com.kh.serviceCenter.model.vo.Faq;
 import com.kh.serviceCenter.model.vo.Notice;
 import com.kh.serviceCenter.model.vo.PageInfo;
@@ -363,32 +362,6 @@ public class ServiceDao {
 	}
 
 
-
-	public int insertAttachment(Connection conn, Attachment at) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertAttachment");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, at.getQuestionFileO());
-			pstmt.setString(2, at.getQuestionFileC());
-			pstmt.setString(3, at.getQuestionImgPath());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-		
-	}
 
 
 

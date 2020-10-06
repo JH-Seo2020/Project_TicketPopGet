@@ -134,29 +134,12 @@
 		  )
 		  VALUES
 		  (
-		      SEQ_BNO.NEXTVAL
+		      SEQ_QUESTIONNO.NEXTVAL
 		    , ?
 		    , ?
 		    , ?
 		    , ?
 		    , SYSDATE
-		  )
-	</entry>
-	<entry key="insertAttachment">
-	INSERT
-		  INTO QUESTION
-		  (
-		      QUESTION_NO
-		    , QUESTION_FILE_O
-		    , QUESTION_FILE_C
-		    , QUESTION_IMGPATH
-		  )
-		  VALUES
-		  (
-		     SEQ_BNO.NEXTVAL
-		   , ?
-		   , ?
-		   , ?
 		  )
 	</entry>
 	
@@ -165,6 +148,7 @@
 	       COUNT(*) QUESTIONLISTCOUNT
 	  FROM QUESTION
 	 WHERE QUESTION_STATUS = 'Y'
+	   AND QUESTION_USER = ?
 	</entry>
 	<entry key="questionSelectList">
 	SELECT * 
@@ -181,10 +165,12 @@
 	                     , QUESTION_DATE
 	                  FROM QUESTION Q
 	                 WHERE Q.QUESTION_STATUS = 'Y'
+	                   AND QUESTION_USER = ?
 	                 ORDER BY QUESTION_NO DESC
 	                ) A
 	        )
 	    WHERE RNUM BETWEEN ? AND ?
+	      
 	</entry>
 	<entry key="selectQuestion">
 	SELECT
