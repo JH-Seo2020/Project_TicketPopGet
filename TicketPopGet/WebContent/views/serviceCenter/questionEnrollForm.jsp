@@ -15,7 +15,7 @@
     }
     #topMenu {
             height: 50px;
-            width: 1100px;
+            width: 900px;
     }
 
     .servicemenu {
@@ -32,7 +32,7 @@
             text-decoration:none;
             color: #ffb300;
             display: block;
-            width: 500px;
+            width: 400px;
             font-size: 20px;
             font-weight: bold;
             font-family: "Trebuchet MS";
@@ -51,31 +51,37 @@
     cursor: pointer;
     }
 
-    input, textarea{ width: 95%;}
+    input, textarea{ width: 600px;}
+    .area{float: left;}
+    #leftmenu{ margin-left:11%;}
+ 	#contentArea{margin-left:4%;}
 
 </style>
 </head>
 <body>
 <!-- 상단 메뉴바  -->
 <%@ include file="/views/common/menubar.jsp"%>
-	<div class="area">
-    <!-- 왼쪽메뉴바 -->
-    <%@ include file="/views/serviceCenter/serviceMenubar.jsp"%>
-    <div class="area">
-        <div>
-            <h2 class="noticetitle"><b>1 : 1문의</b></h2>
-            <nav id="topMenu">
-                <ul class="servicemenu">
-                    <li class="servicemenu"><a class="menuLink" href="">문의내역</a></li>
-                    <li class="servicemenu"><a class="menuLink" href="">문의하기</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="table table-responsive" style="width: 1200px;">
-            <form action="" id="question" method="post">
-                <table class="table" style="width: 1000px;">
+    <div class="area" id="leftmenu">
+	<!-- 왼쪽 메뉴바 -->
+	<%@ include file="/views/serviceCenter/serviceMenubar.jsp"%>
+    </div>
+    <form action="<%=request.getContextPath()%>/insert.qo" id="questioninsert" method="post" enctype="multipart/form-data">
+	    <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
+	    <div class="area" id="contentArea">
+	        <div id="noticeDiv">
+	            <h2 class="noticetitle"><b>1 : 1문의</b></h2>
+	            <nav id="topMenu">
+	                <ul class="servicemenu">
+	                    <li class="servicemenu"><a class="menuLink" href="">문의내역</a></li>
+	                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/enrollForm.qo">문의하기</a></li>
+	                </ul>
+	            </nav>
+	        </div>
+	        <div class="table table-responsive">
+	            
+                <table class="table" style="width: 800px;">
                     <tr>
-                        <th width="70">문의유형</th>
+                        <th width="80">문의유형</th>
                         <td width="500">
                             <select name="category">
                                 <option value="회원">회원</option>
@@ -92,7 +98,7 @@
                     </tr>
                                 
                     <tr>
-                        <th>문의 내용</th>
+                        <th>문의내용</th>
                         <td><textarea name="content" rows="10" style="resize: none;"></textarea></td>
                     </tr>
 
@@ -101,12 +107,12 @@
                         <td><input type="file" name="upfile"></td>
                     </tr>
                 </table>
-                <div align="center">
-                    <button type="submit" class="btnRegister">작성하기</button>
-                    <button type="reset" class="btnRegister">취소하기</button>
-                </div>
-            </form>
-        </div>
-    </div>
+	        </div>
+            <div align="center">
+                <button type="submit" class="btnRegister">작성하기</button>
+                <button type="reset" class="btnRegister">취소하기</button>
+            </div> <br><br>
+    	</div>
+    </form>
 </body>
 </html>

@@ -1,3 +1,4 @@
+<%@page import="com.kh.user.model.vo.MyPage"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.kh.user.model.vo.Reservation" %>
@@ -157,10 +158,21 @@
 		</div>
 
 		<div align="center" style="margin-top: 50px;">
-			<button class="btn btn-outline-warning">예매목록내역</button>
+			<a href="<%=contextPath%>/reservation.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>" class="btn btn-outline-warning">예매목록내역</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="<%=contextPath%>/re_cancel.my" class="btn btn-outline-warning">예매취소</a>
+			<button onclick="cancel();" class="btn btn-outline-warning">예매취소</button>
 		</div>
+		
+		<script>
+			function cancel(){
+				var result = confirm("예매취소하시겠습니까?");
+				if(result == true){
+					location.href = "<%=contextPath%>/re_cancel.my?userNo=<%=loginUser.getUserNo()%>&tno=<%=re.getTicketNo()%>";
+				}else{
+					location.href = "<%=contextPath%>/reservation.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>";
+				}
+			}
+		</script>
 	</div>
 
 </body>

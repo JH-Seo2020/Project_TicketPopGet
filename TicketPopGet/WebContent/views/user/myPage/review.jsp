@@ -108,7 +108,7 @@
 
         <!-- 관람후기테이블 -->
         <div class="container reservation_check3" style="margin-left: 70px; margin-top:50px;">          
-            <table class="table table-hover listArea" style="width: 950px; height: 70px; margin-left: 30px; text-align: center;">
+            <table class="table table-hover listArea"   style="width: 950px; height: 70px; margin-left: 30px; text-align: center;">
               <thead>
                 <tr>
                   <th></th>
@@ -131,7 +131,7 @@
               		           for(MyPage ps : mps) {
               		%>
 	                <tr>
-	                  <td><input type="checkbox" name="delete_review"></td>
+	                  <td><input type="checkbox"  name="delete_review"></td>
 	                  <td><%=ps.getReviewNo()%></td>
 	                  <td onclick="fnClickDetail();"><%=ps.getContentTitle()%></td>
 	                  <td><%=ps.getReviewTitle()%></td>
@@ -144,7 +144,7 @@
           </div>
           
           <div id="delete_review_btn" align="right">
-              <button onclick="deletebtn();">삭제</button>
+              <button id="delete" onclick="deletebtn();">삭제</button>
           </div>
           <%-- 
           		체크박스 체크시 삭제기능 넣어야함.. 근데 이걸 서블릿에게 넘겨야하는뎅.. 서블릿에서 설정을해야하는걸까.. ㅠ.ㅠ..고민좀더해보장
@@ -164,9 +164,8 @@
 	          </script>
 	       --%>
 	     
-	       <script>
 	      
-
+			<script>
 	       //상세페이지 전환
 	       function fnClickDetail() {
 	        	
@@ -178,10 +177,26 @@
 				});
 	       }
 	       
-	       //삭제처리
-	       function deletebtn() {
+	       $("#delete").click(function(){
 	    	   
+	    	   if( $("input[type=checkbox][name=delete_review]:checked").length == 0 ){
+				    alert("삭제할 항목을 하나이상 체크해요.");
+				    return;
+				}
+					
+				$("#delete").attr({
+					"method" : "post",
+					"action" : "<%=contextPath%>/reviewDelete.my"
+				})
+				$("#delete").submit();
+	       });
+	       
+	       </script>
+	   
+	      <%--
+	       function deletebtn(delete_review) {
 	    	   
+	    	  
 	    	   if($("input:checkbox[name=delete_review]").is(":checked") == true) {
 		    	   
 	    		   var con = confirm('정말 삭제하시겠습니까?');
@@ -196,12 +211,10 @@
 		    	   
 	    		 }else {
 	    			alert('삭제할 항목을 선택해주세요.');
-	    		 }
-
-	    	   
+	    		 }  			    	   
 	       }
- 
-	       </script>   
+	       </script>   --%>
+	      
 	       
 	       
 		<!-- 페이징바 -->

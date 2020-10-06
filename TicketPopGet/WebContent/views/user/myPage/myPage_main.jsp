@@ -18,6 +18,7 @@
 	outline: none;
 }
 
+
 #mypage {
 	width: 1200px;
 	height: 1500px;
@@ -149,7 +150,10 @@
 	display: inline-block;
 	position: relative;
 	margin-top: 10px;
+	margin-left: 10px;
 }
+
+
 /* 찜여부버튼 */
 .wishlist_btn button {
 	position: absolute;
@@ -183,7 +187,7 @@
 	display: inline-block;
 	position: relative;
 	padding-top: 20px;
-
+	margin-left: 20px;
 }
 
 .watchshow_btn {
@@ -215,8 +219,8 @@
 				<ul>
 					<li><a class="mypage_menu_a" href="<%=contextPath%>/reservation.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">예매내역조회/취소</a></li>
 					<li><a class="mypage_menu_a" href="<%=contextPath%>/wishlist.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">찜 리스트</a></li>
-					<li><a class="mypage_menu_a" href="<%=contextPath%>/show.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">나의 관람후기</a></li>
-					<li><a class="mypage_menu_a" href="<%=contextPath%>/review.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">나의 관람공연</a></li>
+					<li><a class="mypage_menu_a" href="<%=contextPath%>/show.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">나의 관람공연</a></li>
+					<li><a class="mypage_menu_a" href="<%=contextPath%>/review.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">나의 관람후기</a></li>
 					<li><a class="mypage_menu_a" href="<%=contextPath%>/adboard.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>">나의 홍보 글</a></li>
 				</ul>
 			</div>
@@ -275,7 +279,7 @@
 					<b style="font-size: 30px;">찜 리스트</b>
 					<button onclick="location.href='<%=contextPath%>/wishlist.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>'" class="more_btn">더보기</button>
 				</p>
-				<div class="wishlist_area">
+				<div class="wishlist_area" align="left">
 				 	<%
                			 if(wishlist.isEmpty()){
            			 %>
@@ -290,7 +294,7 @@
 								<img src="<%=contextPath%>/resources/img/imgForSearch/like_heart.png" width="30" height="30">
 							</button>
 						</div>
-						<span><%=w.getContentTitle()%> </span> <br>
+						<span ><%=w.getContentTitle()%> </span> <br>
                         <span style="color:red;"><%=w.getContentStatus()%></span> <br>
                         <span><%=w.getWishlistDate()%></span>
 					</div>
@@ -304,7 +308,7 @@
 					<b style="font-size: 30px;">나의 관람공연/전시</b>
 					<button  onclick="location.href='<%=contextPath%>/review.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>'" class="more_btn">더보기</button>
 				</p>
-				<div class="watchshow_area">
+				<div class="watchshow_area" align="left">
 					<%
                			 if(wishlist.isEmpty()){
            			 %>
@@ -314,8 +318,8 @@
              		 %>
 					<div class="watchshow_list">
 						<img src="<%=contextPath%>/<%=mp.getContentImgPath()%>/<%=mp.getContentChimg()%>" width="200" height="250"> <br>
-						<p><%=mp.getContentTitle() %></p>
-						<p><%=mp.getViewDate() %>
+						<span><%=mp.getContentTitle() %></span> <br>
+						<span><%=mp.getViewDate() %></span>
 					</div>	
 					  <%} %>
        			  <%} %>

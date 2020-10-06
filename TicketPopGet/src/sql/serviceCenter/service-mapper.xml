@@ -120,4 +120,82 @@
       WHERE NOTICE_NO = ?
         AND N.NOTICE_STATUS = 'Y'
 	</entry>
+	
+	<entry key="insertQuestion">
+	INSERT
+		  INTO QUESTION
+		  (
+		     QUESTION_NO
+		   , QUESTION_USER
+		   , QUESTION_TYPE
+		   , QUESTION_TITLE
+		   , QUESTION_CONTENT
+		   , QUESTION_DATE
+		  )
+		  VALUES
+		  (
+		      SEQ_BNO.NEXTVAL
+		    , ?
+		    , ?
+		    , ?
+		    , ?
+		    , SYSDATE
+		  )
+	</entry>
+	<entry key="insertAttachment">
+	INSERT
+		  INTO QUESTION
+		  (
+		      QUESTION_NO
+		    , QUESTION_FILE_O
+		    , QUESTION_FILE_C
+		    , QUESTION_IMGPATH
+		  )
+		  VALUES
+		  (
+		     SEQ_BNO.NEXTVAL
+		   , ?
+		   , ?
+		   , ?
+		  )
+	</entry>
+	
+	<entry key="questionSelectListCount">
+	SELECT 
+	       COUNT(*) QUESTIONLISTCOUNT
+	  FROM QUESTION
+	 WHERE QUESTION_STATUS = 'Y'
+	</entry>
+	<entry key="questionSelectList">
+	SELECT * 
+	  FROM (
+	        SELECT 
+	                ROWNUM RNUM
+	              , A.* 
+	          FROM (
+	                SELECT 
+                           QUESTION_NO
+	                     , CASE ANSWER_STATUS WHEN 'Y' THEN '답변완료' ELSE '문의접수' END AS ANSWER_STATUS
+                         , QUESTION_TYPE
+	                     , QUESTION_TITLE
+	                     , QUESTION_DATE
+	                  FROM QUESTION Q
+	                 WHERE Q.QUESTION_STATUS = 'Y'
+	                 ORDER BY QUESTION_NO DESC
+	                ) A
+	        )
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="selectQuestion">
+	SELECT
+            QUESTION_NO
+          , QUESTION_TYPE
+          , QUESTION_TITLE
+          , QUESTION_CONTENT
+          , QUESTION_DATE
+          , QUESTION_ANSWER
+       FROM QUESTION Q
+      WHERE QUESTION_NO = ?
+        AND Q.QUESTION_STATUS = 'Y'
+	</entry>
 </properties>

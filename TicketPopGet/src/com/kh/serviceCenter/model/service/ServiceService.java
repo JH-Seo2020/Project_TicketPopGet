@@ -6,9 +6,11 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.serviceCenter.model.dao.ServiceDao;
+import com.kh.serviceCenter.model.vo.Attachment;
 import com.kh.serviceCenter.model.vo.Faq;
 import com.kh.serviceCenter.model.vo.Notice;
 import com.kh.serviceCenter.model.vo.PageInfo;
+import com.kh.serviceCenter.model.vo.Question;
 
 public class ServiceService {
 
@@ -150,6 +152,63 @@ public class ServiceService {
 		close(conn);
 		
 		return n;
+	}
+
+	public int insertQuestion(Question q, Attachment at) {
+		Connection conn = getConnection();
+		
+		int result1 = new ServiceDao().insertQuestion(conn, q);
+		
+		int result2 = 1;
+		
+		if(at != null) {
+			result2 = new ServiceDao().insertAttachment(conn, at);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1 * result2;
+		
+		
+	}
+
+	public int questionSelectListCount() {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new ServiceDao().questionSelectListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+		
+	}
+
+	public ArrayList<Question> questionSelectList(PageInfo pi) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Question> list = new ServiceDao().questionSelectList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public Question selectQuestion(int qno) {
+		Connection conn = getConnection();
+		
+		Question q = new ServiceDao().selectQuestion(conn, qno);
+		
+		close(conn);
+		
+		return q;
 	}
 
 

@@ -10,9 +10,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.serviceCenter.model.vo.Attachment;
 import com.kh.serviceCenter.model.vo.Faq;
 import com.kh.serviceCenter.model.vo.Notice;
 import com.kh.serviceCenter.model.vo.PageInfo;
+import com.kh.serviceCenter.model.vo.Question;
 
 import static com.kh.common.JDBCTemplate.*;
 
@@ -328,8 +330,162 @@ public class ServiceDao {
 
 
 
+	public int insertQuestion(Connection conn, Question q) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertQuestion");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, q.getQuestionUser());
+			pstmt.setString(2, q.getQuestionType());
+			pstmt.setString(3, q.getQuestionTitle());
+			pstmt.setString(4, q.getQuestionContent());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+
+	}
 
 
+
+	public int insertAttachment(Connection conn, Attachment at) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, at.getQuestionFileO());
+			pstmt.setString(2, at.getQuestionFileC());
+			pstmt.setString(3, at.getQuestionImgPath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+
+
+
+	public int questionSelectListCount(Connection conn) {
+		
+		int listCount = 0;
+		
+		Statement stmt = null;
+		ResultSet rset = null; 
+		
+		String sql = prop.getProperty("questionSelectListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt("QUESTIONLISTCOUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return listCount;
+		
+	}
+
+
+
+	public ArrayList<Question> questionSelectList(Connection conn, PageInfo pi) {
+		
+		ArrayList<Question> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("questionSelectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Question(rset.getInt("QUESTION_NO"),
+									  rset.getString("ANSWER_STATUS"),
+									  rset.getString("QUESTION_TYPE"),
+									  rset.getString("QUESTION_TITLE"),
+									  rset.getDate("QUESTION_DATE")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+
+	public Question selectQuestion(Connection conn, int qno) {
+		Question q = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectQuestion");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, qno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				q = new Question(rset.getInt("QUESTION_NO"),
+							     rset.getString("QUESTION_TYPE"),
+							     rset.getString("QUESTION_TITLE"),
+							     rset.getString("QUESTION_CONTENT"),
+							     rset.getDate("QUESTION_DATE"),
+							     rset.getString("QUESTION_ANSWER"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return q;
+	}
 
 
 }

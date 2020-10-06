@@ -79,6 +79,22 @@ public class Exhibition {
 		this.exhibitionStartDate = exhibitionStartDate;
 		this.exhibitionEndDate = exhibitionEndDate;
 	}
+	
+	
+
+	public Exhibition(int contentNo, String contentType, String contentTitle, String place, String price,
+			String contentChangeImg, String imgPath, Date exhibitionStartDate, Date exhibitionEndDate) {
+		super();
+		this.contentNo = contentNo;
+		this.contentType = contentType;
+		this.contentTitle = contentTitle;
+		this.place = place;
+		this.price = price;
+		this.contentChangeImg = contentChangeImg;
+		this.imgPath = imgPath;
+		this.exhibitionStartDate = exhibitionStartDate;
+		this.exhibitionEndDate = exhibitionEndDate;
+	}
 
 	public int getContentNo() {
 		return contentNo;

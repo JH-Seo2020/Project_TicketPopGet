@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "com.kh.user.model.vo.Member" %>
+<%@ page import = "com.kh.user.model.vo.Member"%>
 <%
 	String contextPath = request.getContextPath();
 	
@@ -131,11 +131,18 @@
 	            </div>
 	
 	            <div id="search" align="center">
-	                <form>
+	                <form action="<%=contextPath%>/search.tp" method="get" name="search" onsubmit="return check()">
 	                    <input type="search" id="searchBar" placeholder="검색창">
-	                    <button id="searchBtn">검색</button>
+	                    <button type="submit" id="searchBtn">검색</button>
 	                </form>
+	                
+	                <script>
+	                	
+	                </script>
 	            </div>
+	            
+	            
+	            
 		<%if(loginUser == null){ %>
 	            <div id="loginSpace" align="right">
 	                <label><a class="menubar_a" href="<%=contextPath%>/loginview.me">로그인</a></label>

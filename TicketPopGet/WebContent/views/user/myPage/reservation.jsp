@@ -165,7 +165,7 @@
 						<th>매수</th>
 						<th>결제방법</th>
 						<th>결제여부</th>
-						<th>예매상태</th>
+						<th>예매취소여부</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -180,6 +180,7 @@
               		           for(Reservation r : re) {
               		%>
 				<%-- if문? 암튼 줘서,,, 예매인지 그거 조건 다 줘서,, 취소면 취소페이지로만 가게해야됨!!!!!! onclick (if문) --%>
+					<%if(r.getPaymentCancel()=="N"){ %>
 					<tr onClick="location.href='<%=contextPath%>/re_detail.my?userNo=<%=loginUser.getUserNo()%>&tno=<%=r.getTicketNo()%>'">
 						<td><%=r.getTicketNo() %></td>
 						<td><%=r.getReservationDate() %></td>
@@ -190,6 +191,18 @@
 						<td><%=r.getPaymentStatus() %></td>
 						<td><%=r.getPaymentCancel() %></td>
 					</tr>
+					<%} else{%>
+					<tr onClick="location.href='<%=contextPath%>/re_cancel.my?userNo=<%=loginUser.getUserNo()%>&tno=<%=r.getTicketNo()%>'">
+						<td><%=r.getTicketNo() %></td>
+						<td><%=r.getReservationDate() %></td>
+						<td><%=r.getContnetTitle() %></td>
+						<td><%=r.getViewDate()%></td>
+						<td><%=r.getTicketNum()%>매</td>
+						<td><%=r.getPaymentType() %></td>
+						<td><%=r.getPaymentStatus() %></td>
+						<td><%=r.getPaymentCancel() %></td>
+					</tr>
+					<%} %>
 					<%} %>
 	                <%} %>
 				</tbody>

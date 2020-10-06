@@ -174,7 +174,7 @@
                 	//조건처리! 
                 	var $currentDay = new Date();
                 	var $resultDay = ($currentDay - <%=exObject.getExhibitionStartDate()%> < 0 ? '<%=exObject.getExhibitionStartDate()%>': '0');
-                	
+                	var exhibitionDay;
                     $("#exCalendar").datepicker({
                         dateFormat: "yy-mm-dd",     
                         minDate: $resultDay,      
@@ -182,10 +182,16 @@
                         //일단 이정도만? 주말 예외처리..이런건 차차 생각해봐요..
                     });
                     $("#exCalendar").on("change",function(){
-                        var exhibitionDay = $(this).val();         //회원이 고른 날짜 변수에담음
+                        exhibitionDay = $(this).val();         //회원이 고른 날짜 변수에담음
                         $("#exSeatNo>span").text(exhibitionDay);   //고른 날짜 표기 (필요없으시면 지워도됩니다)
+                        callForReservation(exhibitionDay);			//예매용 함수에 날짜보내기
                     });
                 });
+                
+                function callForReservation(exDate){
+                	console.log(exDate);
+                	$('#reservationBtn').attr('href','<%=contextPath%>/exPay.me?contentNo=<%=exObject.getContentNo()%>&exDate='+exDate);
+                }
             </script>
 
                 <div id="exSeatNo">
@@ -195,7 +201,7 @@
 
             <div width="100%" align="center">
                 <%if(loginUser != null){ %>
-                	<a class="btn btn-warning btn-lg">예매하기</a>
+                	<a class="btn btn-warning btn-lg" id="reservationBtn">예매하기</a>
                 <%}else{ %>
                 	<a class="btn btn-warning btn-lg" onclick="call();">예매하기</a>
                 	<script>function call(){alert("로그인 후 이용해주세요!");}</script>
