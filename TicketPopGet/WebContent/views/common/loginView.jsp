@@ -85,22 +85,19 @@
             <input type="text" id="loginid" name="userId" required><br>
             <label for="loginpw" class="labelpw">패스워드</label>&nbsp;
             <input type="password" id="loginpw" name="userPwd" required>
-            <div class="chk">
-                <input type="checkbox" id="idchk">
-                <label for="idchk">비밀번호 저장</label>
-                <input type="checkbox" id="pwchk">
-                <label for="pwchk">비밀번호 저장</label>
-            </div>
+
             <br>
             <div class="btnwrap">
                 <input type="submit" id="loginbtn" value="로그인">
             </div>
             <br>
+            <!-- 
             <div class="search">
                 <span class="text">아이디 또는 비밀번호를 잊으셨나요?</span>
                 <a href="">ID찾기</a>
                 <a href="">ID찾기</a>
             </div>
+             -->
         </form>
         
         <script>

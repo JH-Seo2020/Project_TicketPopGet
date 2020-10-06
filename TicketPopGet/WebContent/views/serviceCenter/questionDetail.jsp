@@ -85,11 +85,6 @@
                             <%= q.getQuestionContent() %> 
                         </td>
                     </tr>
-                    <tr>
-                        <td name="attachment">
-                            <b>첨부파일 : </b><a href="/jsp/resources/board_upfiles/파일수정명.jsp">파일원본명.jsp</a>
-                        </td>
-                    </tr>
                 </table>
                 <br><br>
                 <table style="width: 1000px;">

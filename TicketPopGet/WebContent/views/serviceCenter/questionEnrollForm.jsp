@@ -102,10 +102,6 @@
                         <td><textarea name="questionContent" rows="10" style="resize: none;"></textarea></td>
                     </tr>
 
-                    <tr>
-                        <th>첨부파일</th>
-                        <td><input type="file" name="upfile"></td>
-                    </tr>
                 </table>
 	        </div>
             <div align="center">
