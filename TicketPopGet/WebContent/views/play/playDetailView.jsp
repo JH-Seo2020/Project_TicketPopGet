@@ -180,6 +180,7 @@
                 <div id="plCalendar"></div>
             <!--캘린더 설정-->
             <script>
+            var playDay;
                 $(function() {
                 	//조건처리 : 시작일이 아직 안왔으면, 예매가능일이 곧 시작일. 시작일이 지났으면, 예매가능일이 오늘
                 	var $currentDay = new Date();
@@ -192,7 +193,7 @@
                     });
                    
                     $("#plCalendar").on("change",function(){
-                        var playDay = $(this).val();         //회원이 고른 날짜 변수에담음
+                        playDay = $(this).val();         //회원이 고른 날짜 변수에담음
                         $("#plSeatNo>span").text(playDay);   //고른 날짜 표기 (필요없으시면 지워도됩니다)
                         
                         //회차정보 조회용 ajax 호출..
@@ -204,30 +205,24 @@
                         		"playDay" : playDay
                         	},
                         	success:function(round){
-                        		//전역변수세팅!
-                        		var roundMax;
-                        		var roundSeats;
                         		
                         		if(round.length >= '1'){
-                        			console.log(round[0]);
+                        			
                         			var options = "";
                         			for(var i in round){
 	                        			options += "<option value='"+round[i].playRoundCount+"'>" + round[i].playRoundCount +'회 : '+round[i].roundStart+'~'+round[i].roundEnd+ "</option>"
-                        				optionss = "<option value=''>선택</option>"+options;
-                        				
-                        				
+                        				optionss = "<option id='emptyOption' value='선택'>선택</option>"+options;
                         				callForSeat({"k":round[i].playRoundCount,"max":round[i].roundMax, "seat":round[i].roundSeats});
                         			}
-                        			
                         			
                         			$("#roundSelect").css("display","block");
                         			$("#roundSelect").html(optionss);
                         			$("#seatInfo").css("display","block");
                         			
-                        			
                         		}else{
                         			$("#roundSelect").css("display","none");
                         			$("#seatInfo").css("display","none");
+                        			alert('보여드릴 회차정보가 없습니다!');
                         		}
                         		
                         	},error : function(){
@@ -247,6 +242,7 @@
                 	});
                 }
                 
+                
             </script>
 
                 <div id="plSeatNo">
@@ -265,7 +261,7 @@
 
             <div width="100%" align="center">
                 <%if(loginUser != null){ %>
-                	<a class="btn btn-warning btn-lg">예매하기</a>	//여기도 함수호출해서,, select값 널이면 선택하게끔 유도필요
+                	<button id="reservationBtn" class="btn btn-warning btn-lg" onclick="callForReservation();">예매하기</button>
                 <%}else{ %>
                 	<a class="btn btn-warning btn-lg" onclick="call();">예매하기</a>
                 	<script>function call(){alert("로그인 후 이용해주세요!");}</script>
@@ -382,6 +378,17 @@
              function callReview(reviewNo){
             	   location.href = '<%=contextPath%>/review.detail?reviewNo='+reviewNo;
                }
+             
+             function callForReservation(){
+           		 $('#reservationBtn').click(function(){
+           			if($('#roundSelect').val() == '선택' || $('#roundSelect').val() == null){
+           				alert('회차를선택해주세요');
+           		 	}else{
+           		 		location.href="<%=contextPath%>/playPay.me?contentNo=<%=playObject.getContentNo()%>&playDay="+playDay+"&round="+$('#roundSelect').val();
+           		 	}
+           		 });
+           	 
+             }
 
 			</script>
 
