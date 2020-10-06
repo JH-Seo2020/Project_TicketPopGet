@@ -3,6 +3,7 @@ package com.kh.user.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.user.model.service.SearchService;
 import com.kh.user.model.vo.PageInfo;
 import com.kh.user.model.vo.Search;
-
-
 
 /**
  * Servlet implementation class search
@@ -66,10 +65,12 @@ public class SearchServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<SearchServlet> search = new SearchService().searchList(pi,keyword);
+		ArrayList<Search> search = new SearchService().searchList(pi,keyword);
 		
+		request.setAttribute("search", search);
+		request.setAttribute("keyword", keyword);
 		
-		request.getRequestDispatcher("views/common/search.jsp?keyword="+keyword).forward(request, response);
+		request.getRequestDispatcher("views/common/search.jsp").forward(request, response);
 	}
 
 	/**

@@ -12,8 +12,8 @@
 	         , C.REGION           
 	         , C.CONTENT_CHIMG    
 	         , C.CONTENT_IMGPATH  
-	    FROM  CONTENTS C
-    	WHERE  REGEXP_LIKE(CONTENT_KEYWORD, '#?','i')
+	      FROM  CONTENTS C
+    	 WHERE CONTENT_KEYWORD LIKE  ?
     )
 </entry>
 
@@ -22,7 +22,7 @@ SELECT *
  FROM(
 		 	SELECT
 		 			ROWNUM RNUM
-		 		  , A.*
+		 		  , B.*
 		 	  FROM  (	  
 				SELECT C.CONTENT_NO   
 			         , C.CONTENT_TYPE     
@@ -33,8 +33,8 @@ SELECT *
 			         , C.CONTENT_CHIMG    
 			         , C.CONTENT_IMGPATH  
 			     FROM  CONTENTS C
-   				 WHERE  REGEXP_LIKE(CONTENT_KEYWORD, '#?','i')
-		     )A
+   				WHERE  CONTENT_KEYWORD LIKE  ?
+		     )B
     	)
     WHERE RNUM BETWEEN ? AND ?
 </entry>

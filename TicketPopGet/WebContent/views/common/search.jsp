@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.user.model.vo.*" %>
+<%
+	ArrayList<Search> search = (ArrayList<Search>)request.getAttribute("search");
+	String keyword = (String)request.getAttribute("keyword");
+		
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,20 +137,20 @@
             <div class="search_result1">
             <form>
                 <p style="height: 90px;">
-                    <span style="color:red; font-weight: bold; line-height: 130px;">'검색'</span>
-                    에 대한 검색 결과 입니다.
+                    <span style="color:red; font-weight: bold; line-height: 130px;"><%=keyword%></span>
+                    	에 대한 검색 결과 입니다.
                 </p>
                 <div id="search_result1">
                     <input type="text" >
-                    <!-- 버튼 누르면 검색결과 나오게->동기식? 비동기식? -->
                     <button id="search_button1"><img src="resources/img/imgForSearch/search.png"  width="30px" height="30px"></button>
                 </div>
               </form>
             </div>
-
+			<%--
             <!-- 지역,분류,관람기간 상세조회 -->
             <div class="search_result2">
             <form>
+            
                 <!-- 지역 -->
                 <ul>
                     <li>
@@ -172,50 +185,68 @@
                 </ul>
                  </form>
             </div>
-           
-
-        
-        <!-- 검색결과 한페이지당 목록은 4개만 보여줄것 -->
+             --%>  
         <div class="search_result3">
-            <!-- 목록하나 -->
-            <div class="search_result_list">
-                <!-- 이미지 -->
-                <div id="search_result_img" style="margin-left: 70px;">
-                    <a href=""><img src="resources/post_upfiles/연극_옥탑방고양이.PNG" width="150" ></a>
-                </div>
-                <!-- 검색내용 -->
-                <div id="search_result_content">
-                    <h3><b><a href="">공연명</a></b></h3>
-                    <p>
-                        장 소 : 장소입니다 <br>
-                        기 간 : 기간입니다 <br>
-                        가 격 : 가격입니다 <br>
-                    </p>
-                </div>
-                <!-- 예매상황 // 진행중 -->
-                <div id="search_result_reservation">
-                    <span>예매진행중</span>
-                </div>
-            </div>
+        			<%
+                       if(search.isEmpty()){
+                    %>
+                   
+                       	조회되는 리스트가 없습니다.
+                    
+                    <%
+                       }else{ 
+                           for(Search s : search) {
+                    %>
+        
+	            <!-- 목록하나 -->
+	            <div class="search_result_list">
+	                <!-- 이미지 -->
+	                <div id="search_result_img" style="margin-left: 70px;">
+	                    <a href=""><img src="<%=contextPath%>/<%=s.getContentImgpath()%>/<%=s.getContentChimg()%>" width="150" ></a>
+	                </div>
+	                <!-- 검색내용 -->
+	                <div id="search_result_content">
+	                    <h3><b><a href=""><%=s.getContentTitle()%></a></b></h3>
+	                    <p>
+				                        장 소 : <%=s.getPlace()%> <br>
+				                        기 간 : <%=s.getRegion()%> <br>
+				                        가 격 : <%=s.getPrice()%> <br>
+	                    </p>
+	                </div>
+		                <%--
+		                <!-- 예매상황 // 진행중 -->
+		                <div id="search_result_reservation">
+		                    <span><%=s.get %></span>
+		                </div>
+		                 --%>
+	                 <%} %>
+	               <%} %>
+	                
+	            </div>
 
          
-        </div> 
+        	</div> 
 
         <!-- 페이징바 -->
-        <div class="pagination" style="margin:auto; margin-top:40px">
-            <a href="" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i> Prev</a>
-            <a href=""><span>1</span></a>
-            <a href=""><span>2</span></a>
-            <a href=""><span>3</span></a>
-            <a href=""><span>4</span></a>
-            <a href=""><span>5</span></a>
-            <a href=""><span>6</span></a>
-            <a href=""><span>7</span></a>
-            <a href=""><span>8</span></a>
-            <a href=""><span>9</span></a>
-            <a href=""><span>10</span></a>
-            <a href="" class=" btn-next">Next <i class="fa fa-chevron-circle-right"></i></a>
-        </div>
+         <div class="pagination" align="center" style="margin-top: 60px; margin-left: 50%;">
+	     		<%if(currentPage != 1){ %>
+	     			<!-- 맨 처음으로(<<) -->
+	     			<a href="<%=contextPath%>/reservation.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>" class=" btn-prev"><i class="fa fa-chevron-circle-left"></i>Prev</a>
+	            <%} %>
+	            
+	            <%for(int p=startPage; p<=endPage; p++){ %>
+	            	<%if(p!=currentPage){ %>
+		           		<a href="<%=contextPath%>/reservation.my?currentPage=<%=p%>&userNo=<%=loginUser.getUserNo()%>"><span><%=p %></span></a>
+		            <%}else { %>
+		            	<a href="javascript:void(0);"><span><%=p %></span></a>
+		            <%} %>
+	            <%} %>
+	            
+	            <%if(currentPage != maxPage){ %>
+	            	<!-- 맨 끝으로(>>) -->
+	            	<a href="<%=contextPath%>/reservation.my?currentPage=<%=maxPage%>&userNo=<%=loginUser.getUserNo()%>" class=" btn-next"><i class="fa fa-chevron-circle-right"></i>NEXT</a>
+	            <%} %>
+	        </div>
     </div>  
 </body>
 </html>

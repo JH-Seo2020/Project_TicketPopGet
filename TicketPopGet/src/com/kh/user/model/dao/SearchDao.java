@@ -40,7 +40,7 @@ public class SearchDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, keyword);
+			pstmt.setString(1, "%"+"#"+keyword+"%");
 			
 			rset = pstmt.executeQuery();
 			
@@ -53,6 +53,7 @@ public class SearchDao {
 			close(rset);
 			close(pstmt);
 		}
+
 		return listCount;
 	}
 	
@@ -70,10 +71,9 @@ public class SearchDao {
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setString(1, keyword);
+			pstmt.setString(1,  "%"+"#"+keyword+"%");
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
-			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

@@ -131,7 +131,8 @@
 	            </div>
 	
 	            <div id="search" align="center">
-	                <form action="<%=contextPath%>/search.tp" method="GET" id="searchForm" name="search">
+	                <form action="<%=contextPath%>/search.me?currentPage=1" method="GET" id="searchForm" name="search">
+	                	<input type="hidden" name="currentPage" value="1">
 	                    <input type="search" id="searchBar" name="keyword" placeholder="검색창">
 	                    <button type="submit" id="searchBtn">검색</button>
 	                </form>
