@@ -87,7 +87,7 @@
 		        <h2 class="noticetitle"><b>1 : 1문의</b></h2>
 		        <nav id="topMenu">
 		            <ul class="servicemenu">
-		                <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/list.qo?currentPage=1&userNo=<%=loginUser.getUserNo()%>">문의내역</a></li>
+		                <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/list.qo?currentPage=1">문의내역</a></li>
 		                <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/enrollForm.qo">문의하기</a></li>
 		            </ul>
 		        </nav>
@@ -106,11 +106,13 @@
 		            <tbody>
 		            	<% if(list.isEmpty()){ %>
 		            	<tr>
+		            		<td hidden="true"></td>
 	                        <td colspan="4">조회된 리스트가 없습니다.</td>
 	                    </tr>
 		            	<% }else { %>
 		            		<% for(Question q : list) { %>
 		                <tr>
+		                	<td hidden="true"><%=q.getQuestionNo() %></td>
 		                    <td><%=q.getAnswerStatus() %></td>
 		                    <td><%=q.getQuestionTitle() %></td>
 		                    <td><%=q.getQuestionType() %></td>
@@ -126,7 +128,9 @@
 		        		$("#listArea>tbody>tr").click(function(){
 
 		        			var qno = $(this).children().eq(0).text();
-		        			
+		        			if(qno == null || qno == ''){
+		        				return;
+		        			}
 		        			location.href = "<%=contextPath%>/detail.qo?qno=" + qno;
 		        		});
 		        	});
@@ -138,7 +142,7 @@
 		        <% } %>
 		        		<% for(int p=startPage; p<=endPage; p++){ %>
 				            <%if(p != currentPage) {%>    
-		            		<a href="<%=contextPath%>/list.no?currentPage=<%=p%>&userNo=<%=loginUser.getUserNo()%>"><span><%= p %></span></a>
+		            		<a href="<%=contextPath%>/list.qo?currentPage=<%=p%>&userNo=<%=loginUser.getUserNo()%>"><span><%= p %></span></a>
 		            		<% }else{ %>
 		            		<a  href="javascript:void(0);"><span><%= p %></span></a>
 							<% } %>

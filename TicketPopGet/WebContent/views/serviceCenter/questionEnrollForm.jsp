@@ -66,7 +66,7 @@
 	<%@ include file="/views/serviceCenter/serviceMenubar.jsp"%>
     </div>
     <form action="<%=request.getContextPath()%>/insert.qo" id="questioninsert" method="post" enctype="multipart/form-data">
-	    <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
+	    <input type="hidden" name="questionUser" value="<%=loginUser.getUserNo()%>">
 	    <div class="area" id="contentArea">
 	        <div id="noticeDiv">
 	            <h2 class="noticetitle"><b>1 : 1문의</b></h2>
@@ -83,7 +83,7 @@
                     <tr>
                         <th width="80">문의유형</th>
                         <td width="500">
-                            <select name="category">
+                            <select name="questionType">
                                 <option value="회원">회원</option>
                                 <option value="결제">결제</option>
                                 <option value="예매/취소">예매/취소</option>
@@ -94,12 +94,12 @@
                     </tr>
                     <tr>
                         <th>제목</th>
-                        <td><input type="text" name="title" required></td>
+                        <td><input type="text" name="questionTitle" required></td>
                     </tr>
                                 
                     <tr>
                         <th>문의내용</th>
-                        <td><textarea name="content" rows="10" style="resize: none;"></textarea></td>
+                        <td><textarea name="questionContent" rows="10" style="resize: none;"></textarea></td>
                     </tr>
 
                     <tr>

@@ -45,7 +45,6 @@ public class questionInsertServlet extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/question_upfiles/");
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
 			String questionType = multiRequest.getParameter("questionType");
 			String questionTitle = multiRequest.getParameter("questionTitle");
 			String questionContent = multiRequest.getParameter("questionContent");

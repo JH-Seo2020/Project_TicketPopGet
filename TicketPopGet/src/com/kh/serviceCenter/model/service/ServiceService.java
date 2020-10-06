@@ -1,6 +1,9 @@
 package com.kh.serviceCenter.model.service;
 
-import static com.kh.common.JDBCTemplate.*;
+import static com.kh.common.JDBCTemplate.close;
+import static com.kh.common.JDBCTemplate.commit;
+import static com.kh.common.JDBCTemplate.getConnection;
+import static com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -11,6 +14,7 @@ import com.kh.serviceCenter.model.vo.Faq;
 import com.kh.serviceCenter.model.vo.Notice;
 import com.kh.serviceCenter.model.vo.PageInfo;
 import com.kh.serviceCenter.model.vo.Question;
+import com.kh.user.model.vo.Member;
 
 public class ServiceService {
 
@@ -161,9 +165,9 @@ public class ServiceService {
 		
 		int result2 = 1;
 		
-		if(at != null) {
-			result2 = new ServiceDao().insertAttachment(conn, at);
-		}
+		/*
+		 * if(at != null) { result2 = new ServiceDao().insertAttachment(conn, at); }
+		 */
 		
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);
@@ -178,11 +182,11 @@ public class ServiceService {
 		
 	}
 
-	public int questionSelectListCount() {
+	public int questionSelectListCount(Member loginUser) {
 		
 		Connection conn = getConnection();
 		
-		int listCount = new ServiceDao().questionSelectListCount(conn);
+		int listCount = new ServiceDao().questionSelectListCount(conn, loginUser);
 		
 		close(conn);
 		
@@ -190,11 +194,11 @@ public class ServiceService {
 		
 	}
 
-	public ArrayList<Question> questionSelectList(PageInfo pi) {
+	public ArrayList<Question> questionSelectList(PageInfo pi , Member loginUser) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Question> list = new ServiceDao().questionSelectList(conn, pi);
+		ArrayList<Question> list = new ServiceDao().questionSelectList(conn, pi , loginUser);
 		
 		close(conn);
 		
