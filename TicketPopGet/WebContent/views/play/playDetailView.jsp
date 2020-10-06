@@ -121,18 +121,49 @@
             
             <script>
             	$(function(){
+            		changeImg();
+            		
             		$("#likeImg").click(function(){
             			<%if(loginUser!=null){%>
 	            			if( $(this).attr("src") === "<%=contextPath %>/resources/img/imgForSearch/heart.png" ){
 	            				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/like_heart.png");
+	            				updateWish();
 	            			}else{
 	            				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/heart.png");
+	            				deletewish();
 	            			}
             			<%}else{%>
             				alert("로그인 후 이용해주세요!");
             			<%}%>
             		});
             	});
+            	
+            	function changeImg(){
+            		<%if(loginUser!=null){%>
+            			$.ajax({
+            				url : "<%=contextPath%>/check.img",
+            				type : "get",
+            				data : {"contentNo" : <%=playObject.getContentNo()%>},
+            				success : function(result){
+            					console.log(result);
+            					
+            					if(result>0){
+            						$("#likeImg").attr("src","<%=contextPath %>/resources/img/imgForSearch/like_heart.png");
+            					}else{
+            						$("#likeImg").attr("src","<%=contextPath %>/resources/img/imgForSearch/heart.png");
+            					}
+            					
+            				},error : function(){
+            					console.log('실패');
+            				}
+            				
+            			});	
+            		
+            		<%}else{%>
+            			$('#likeImg').attr("src","<%=contextPath %>/resources/img/imgForSearch/heart.png");
+            		<%}%>
+            	}
+
             </script>
 
             <div id="plBody2">
@@ -242,6 +273,37 @@
                 	});
                 }
                 
+                function updateWish(){
+            		$.ajax({
+            			url:"<%=contextPath%>/update.wishEx",
+            			type:"get",
+            			data:{"contentNo":<%=playObject.getContentNo()%>},
+            			success: function(result){
+            				alert('관심등록성공!');
+            			},
+            			error: function(){
+            				console.log('통신실패');
+            			}
+            				
+            		});
+            	}
+                
+                function deletewish(){
+                	$.ajax({
+            			url:"<%=contextPath%>/delete.wishEx",
+            			type:"get",
+            			data:{"contentNo":<%=playObject.getContentNo()%>},
+            			success: function(result){
+            				alert('관심등록삭제!');
+            				changeImg();
+            			},
+            			error: function(){
+            				console.log('통신실패');
+            			}
+            				
+            		});
+                }
+
                 
             </script>
 
