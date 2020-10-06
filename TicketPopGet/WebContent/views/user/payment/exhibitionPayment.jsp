@@ -4,8 +4,10 @@
 <%
 	Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 	String contextPath = request.getContextPath();
+	
 	Exhibition exObject = (Exhibition) request.getAttribute("exObject");
 	Date exDate = (Date) request.getAttribute("exDate");
+
 	//가격데이터 가공 (받을때 String으로 받았기 때문에 int로 변형 거쳐주기)
 	String price = exObject.getPrice().substring(0,exObject.getPrice().length()-2);
 	int truePrice = Integer.parseInt(price);

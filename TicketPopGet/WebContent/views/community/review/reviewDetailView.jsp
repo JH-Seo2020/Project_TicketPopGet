@@ -354,6 +354,28 @@
 			});
 		}
 
+		//5. 댓글신고 시 신고내용 불러올 ajax, 신고등록은 동기식
+		function callForReport(replyNo){	
+			$.ajax({
+					url : "<%=contextPath%>/reply.forUpdate",
+					type : "get",
+					data : {"replyNo" : replyNo},	
+					success : function(result){
+						
+						console.log(result);
+						$('#troubleMaker').val(result.userNo);
+						$('#commentNo').val(result.replyNo);
+						$('#troubleMakerId').text(result.userId);
+						$('#eventNo').val(result.eventNo);
+						$('#reportForm').attr('action','<%=contextPath%>/comment.report');
+						
+					}, 
+					error : function(){
+						console.log('통신실패');
+					}
+				});
+		}
+
 		
 		</script>
 
@@ -418,8 +440,8 @@
                         <%if(loginUser != null){ %>
 		                <input name="reporter" type="hidden" value="<%=loginUser.getUserNo()%>">
 		                <%} %>
-		                <input name="troubleMaker" type="hidden" value="<%=r.getUserNo()%>">
-		                <input name="reportCate" type="hidden" value="후기">
+		                <input id="troubleMaker" name="troubleMaker" type="hidden" value="<%=r.getUserNo()%>">
+		                <input id="reportCate" name="reportCate" type="hidden" value="후기">
 		                <input name="reviewNo" type="hidden" value="<%=r.getReviewNo() %>">
                             <div class="modal-body">
                                 <p>
@@ -438,7 +460,7 @@
                                 <p>
                                     <b>신고 대상 아이디 </b>
                                 </p>
-                                <p><%=r.getUserId() %></p>
+                                <p id='troubleMakerId'><%=r.getUserId() %></p>
                             </div>
                             <div class="modal-body">
                                 <p>

@@ -127,7 +127,7 @@
         <div id="header">
       
 	            <div id="logoSpace">
-	                <a class="menubar_a" href="<%=request.getContextPath()%>"><img src="resources/logo/logo_1.png" width="90%" height="90%"></a>
+	                <a class="menubar_a" href="<%=request.getContextPath()%>"><img src="resources/logo/logotest.png" width="90%" height="90%"></a>
 	            </div>
 	
 	            <div id="search" align="center">

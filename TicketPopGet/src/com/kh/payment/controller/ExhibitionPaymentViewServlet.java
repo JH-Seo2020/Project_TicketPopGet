@@ -33,10 +33,9 @@ public class ExhibitionPaymentViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int contentNo = Integer.parseInt(request.getParameter("contentNo"));	//전시 컨텐츠넘버
-		String exdate = request.getParameter("exDate");
-//		System.out.println(exdate);
-		Date exDate = Date.valueOf(exdate);				//전시 가기로 선택한 날짜
-//		System.out.println(exDate);
+		String exdate = request.getParameter("exDate");							//전시 가기로 선택한 날짜
+		Date exDate = Date.valueOf(exdate);				
+
 		//선택한 전시 컨텐츠에 해당하는 컨텐츠 내용을 예매 페이지에 뿌려주기 위해 서비스 호출
 		Exhibition exObject = new PaymentService().selectExhibitionForPayment(contentNo);
 		
