@@ -131,8 +131,8 @@
 	            </div>
 	
 	            <div id="search" align="center">
-	                <form action="<%=contextPath%>/search.tp" method="get" name="search" onsubmit="return check()">
-	                    <input type="search" id="searchBar" placeholder="검색창">
+	                <form action="<%=contextPath%>/search.tp" method="post" name="search">
+	                    <input type="search" id="searchBar" name="keyword" placeholder="검색창">
 	                    <button type="submit" id="searchBtn">검색</button>
 	                </form>
 	                
