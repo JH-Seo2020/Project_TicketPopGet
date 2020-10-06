@@ -91,6 +91,40 @@ public class ExhibitionService {
 		return result;
 	}
 
+	/**
+	 * 6. 찜하기 이미지 체크용
+	 * @param contentNo
+	 * @param userNo
+	 * @return
+	 */
+	public int likeImgCheck(int contentNo, int userNo) {
+		Connection conn = getConnection();
+		int result = new ExhibitionDao().likeImgCheck(conn, contentNo, userNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	/**
+	 * 7. 찜하기 삭제
+	 * @param contentNo
+	 * @param userNo
+	 * @return
+	 */
+	public int deleteWish(int contentNo, int userNo) {
+		Connection conn = getConnection();
+		int result = new ExhibitionDao().deleteWish(conn, contentNo, userNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
 	
 
 }

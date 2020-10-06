@@ -97,4 +97,16 @@ SELECT *
 		    , ?
 		)
 	</entry>
+	<entry key="likeImgCheck">
+	SELECT COUNT(*) AS ALREADYLIKED
+	  FROM WISHLIST
+	 WHERE CONTENT_NO = ?
+	   AND USER_NO = ?
+	</entry>
+	<entry key="deleteWish">
+	DELETE 
+	  FROM WISHLIST
+	 WHERE CONTENT_NO = ?
+	   AND USER_NO = ?
+	</entry>
 </properties>
