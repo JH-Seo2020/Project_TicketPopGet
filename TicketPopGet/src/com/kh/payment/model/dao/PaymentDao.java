@@ -10,8 +10,8 @@ import java.util.Properties;
 
 import static com.kh.common.JDBCTemplate.*;
 
+import com.kh.concert.model.vo.Concert;
 import com.kh.exhibition.model.vo.Exhibition;
-import com.kh.payment.model.vo.ConcertPayment;
 import com.kh.payment.model.vo.Payment;
 import com.kh.play.model.vo.Play;
 
@@ -31,35 +31,6 @@ public class PaymentDao {
 		
 	}
 	
-	public int insertConcertPayment(Connection conn, ConcertPayment cp) {
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("insertConcertPayment");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setDate(1, cp.getConcertDate());
-			pstmt.setInt(2, cp.getTicketNum());
-			pstmt.setString(3, cp.getContentType());
-			pstmt.setInt(4, cp.getUserNo());
-			pstmt.setInt(5, cp.getContentNo());
-			pstmt.setDate(6, cp.getPaymentDate());
-			pstmt.setString(7, cp.getPaymentType());
-			pstmt.setString(8, cp.getPaymentTotal());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
 
 	//예매페이지에 보여주기 위한 전시객체 호출용 메소드
 	public Exhibition selectExhibitionForPayment(Connection conn, int contentNo) {
@@ -160,6 +131,42 @@ public class PaymentDao {
 			close(pstmt);
 		}
 		return playObject;
+	}
+
+	public Concert selectConcertPayment(Connection conn, int contentNo) {
+		Concert conObject = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectConcertPayment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, contentNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				conObject = new Concert(rset.getInt("CONTENT_NO"),
+										rset.getString("CONTENT_TYPE"),
+										rset.getString("CONTENT_TITLE"),
+										rset.getString("PLACE"),
+										rset.getString("PRICE"),
+										rset.getString("CONTENT_CHIMG"),
+										rset.getString("CONTENT_IMGPATH"),
+										rset.getDate("CONCERT_DATE"),
+										rset.getInt("CONCERT_MAX"),
+										rset.getInt("CONCERT_SEATS"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return conObject;
 	}
 
 }

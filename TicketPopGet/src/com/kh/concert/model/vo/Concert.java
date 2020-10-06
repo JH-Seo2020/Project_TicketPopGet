@@ -89,6 +89,21 @@ public class Concert {
 		
 	}
 
+	public Concert(int contentNo, String contentType, String contentTitle, String place, String price,
+			String contentChangeImg, String imgPath, Date concertDate, int concertMax, int concertSeats) {
+		super();
+		this.contentNo = contentNo;
+		this.contentType = contentType;
+		this.contentTitle = contentTitle;
+		this.place = place;
+		this.price = price;
+		this.contentChangeImg = contentChangeImg;
+		this.imgPath = imgPath;
+		this.concertDate = concertDate;
+		this.concertMax = concertMax;
+		this.concertSeats = concertSeats;
+	}
+
 	public int getContentNo() {
 		return contentNo;
 	}
