@@ -120,6 +120,7 @@
             			<%if(loginUser!=null){%>
 	            			if( $(this).attr("src") === "<%=contextPath %>/resources/img/imgForSearch/heart.png" ){
 	            				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/like_heart.png");
+	            				updateWish();
 	            			}else{
 	            				$(this).attr("src","<%=contextPath %>/resources/img/imgForSearch/heart.png");
 	            			}
@@ -128,6 +129,7 @@
             			<%}%>
             		});
             	});
+            	
             </script>
 
             <div id="exBody2">
@@ -193,6 +195,21 @@
                 	console.log(exDate);
                 	$('#reservationBtn').attr('href','<%=contextPath%>/exPay.me?contentNo=<%=exObject.getContentNo()%>&exDate='+exDate);
                 }
+                
+                function updateWish(){
+            		$.ajax({
+            			url:"<%=contextPath%>/update.wishEx",
+            			type:"get",
+            			data:{"contentNo":<%=exObject.getContentNo()%>},
+            			success: function(result){
+            				alert('관심등록성공!');
+            			},
+            			error: function(){
+            				console.log('통신실패');
+            			}
+            				
+            		});
+            	}
             </script>
 
                 <div id="exSeatNo">

@@ -84,4 +84,17 @@ SELECT *
             )
       WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	<entry key="updateWish">
+		INSERT 
+		  INTO WISHLIST
+		     (
+		      WISH_NO
+		    , CONTENT_NO
+		    , USER_NO
+		) values(
+		    SEQ_WISHLISTNO.nextval
+		    , ?
+		    , ?
+		)
+	</entry>
 </properties>

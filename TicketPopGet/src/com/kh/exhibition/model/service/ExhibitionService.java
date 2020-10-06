@@ -74,6 +74,23 @@ public class ExhibitionService {
 		return list;
 	}
 
+	/**
+	 * 5. 찜하기 목록에 추가 
+	 * @param contentNo
+	 * @param userNo
+	 * @return
+	 */
+	public int updateWish(int contentNo, int userNo) {
+		Connection conn = getConnection();
+		int result = new ExhibitionDao().updateWish(conn, contentNo, userNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
 	
 
 }
