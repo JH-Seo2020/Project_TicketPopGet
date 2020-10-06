@@ -72,4 +72,25 @@
 	     , ?
 	     )
 </entry>
+<entry key="selectPlayForPayment">
+SELECT CONTENT_NO
+     , CONTENT_TYPE     --전시
+     , CONTENT_TITLE    --타이틀
+     , PLACE            --장소
+     , PRICE            --가격(스트링..)
+     , CONTENT_CHIMG        --이미지이름
+     , CONTENT_IMGPATH      --이미지패스
+     , PLAY_START     --연극시작일
+     , PLAY_END       --연극끝나는날
+     , ROUND_Count      --회차
+     , ROUND_START   --시작시간
+     , ROUND_MAX     --전석
+     , (ROUND_MAX - ROUND_SEATS) AS ROUNDSEAT   --잔여석
+  FROM CONTENTS
+  JOIN PLAY USING (CONTENT_NO)
+  JOIN ROUND USING (CONTENT_NO)
+ WHERE CONTENT_NO = ?
+   AND ROUND_DATE = ?
+   AND ROUND_COUNT = ?
+</entry>
 </properties>

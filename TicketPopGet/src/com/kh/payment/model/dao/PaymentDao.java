@@ -13,6 +13,7 @@ import static com.kh.common.JDBCTemplate.*;
 import com.kh.exhibition.model.vo.Exhibition;
 import com.kh.payment.model.vo.ConcertPayment;
 import com.kh.payment.model.vo.Payment;
+import com.kh.play.model.vo.Play;
 
 public class PaymentDao {
 	
@@ -120,6 +121,45 @@ public class PaymentDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public Play selectPlayForPayment(Connection conn, int contentNo, String playDay, int round) {
+		Play playObject = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPlayForPayment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, contentNo);
+			pstmt.setString(2, playDay);
+			pstmt.setInt(3, round);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				playObject = new Play(rset.getInt("CONTENT_NO"),
+										  rset.getString("CONTENT_TYPE"),
+										  rset.getString("CONTENT_TITLE"),
+										  rset.getString("PLACE"),
+										  rset.getString("PRICE"),
+										  rset.getString("CONTENT_CHIMG"),
+										  rset.getString("CONTENT_IMGPATH"),
+										  rset.getDate("PLAY_START"),
+										  rset.getDate("PLAY_END"),
+										  rset.getString("ROUND_Count"),
+										  rset.getString("ROUND_START"),
+										  rset.getInt("ROUND_MAX"),
+										  rset.getInt("ROUNDSEAT")
+										  );
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return playObject;
 	}
 
 }

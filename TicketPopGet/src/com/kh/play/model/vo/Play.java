@@ -94,6 +94,25 @@ public class Play {
 
 	
 	
+	public Play(int contentNo, String contentType, String contentTitle, String place, String price,
+			String contentChangeImg, String imgPath, Date playStartDate, Date playEndDate, String playRoundCount,
+			String roundStart, int roundMax, int roundSeats) {
+		super();
+		this.contentNo = contentNo;
+		this.contentType = contentType;
+		this.contentTitle = contentTitle;
+		this.place = place;
+		this.price = price;
+		this.contentChangeImg = contentChangeImg;
+		this.imgPath = imgPath;
+		this.playStartDate = playStartDate;
+		this.playEndDate = playEndDate;
+		this.playRoundCount = playRoundCount;
+		this.roundStart = roundStart;
+		this.roundMax = roundMax;
+		this.roundSeats = roundSeats;
+	}
+
 	public Play(String playRoundCount, String roundStart, String roundEnd, int roundMax, int roundSeats) {
 		super();
 		this.playRoundCount = playRoundCount;

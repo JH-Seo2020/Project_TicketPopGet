@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.sql.Date, com.kh.play.model.vo.Play, com.kh.user.model.vo.Member" %>    
+<%
+	Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+	String contextPath = request.getContextPath();
+
+	Play playObject = (Play)request.getAttribute("playObject");
+	Date playDate = (Date)request.getAttribute("playDate");
+	
+	//가격데이터 가공 (받을때 String으로 받았기 때문에 int로 변형 거쳐주기)
+	String price = playObject.getPrice().substring(0,playObject.getPrice().length()-2);
+	int truePrice = Integer.parseInt(price);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +79,7 @@ border: none;
             <div class="listArea">
               <br>
               <div id="selectDate">
-                <b>날짜</b><br><span>2020-10-05</span> <br>
+                <b>날짜</b><br><span><%=playDate %></span> <br>
               </div>
               <br>
               <br>
@@ -75,8 +87,7 @@ border: none;
               <br>
                 <div class="select">
                   <b>회차선택</b><br>
-                  <button id="playTime">[1회] 15시 00분</button>
-                  <button id="playTime">[2회] 18시 00분</button>
+                  <lable id="playTime">[<%=playObject.getPlayRoundCount() %>회] <%=playObject.getRoundStart() %></label>
                 </div>
                 
 
@@ -85,18 +96,18 @@ border: none;
                   <table>
                     <tr>
                       <td style="width: 80px;">&nbsp;전석</td>
-                      <td>&nbsp;30석</td>
+                      <td>&nbsp;<%=playObject.getRoundMax() %></td>
                     </tr>
                     <tr>
                       <td>&nbsp;잔여석</td>
-                      <td>&nbsp;14석</td>
+                      <td>&nbsp;<%=playObject.getRoundSeats() %></td>
                     </tr>
                   </table>
                   <hr>
                   <table>
                     <tr>
                       <td style="width: 60px;">&nbsp;금액</td>
-                      <td>&nbsp;16000원</td>
+                      <td>&nbsp;<%=truePrice %>원</td>
                     </tr>
                     <tr>
                       <td>&nbsp;매수</td>
@@ -104,8 +115,8 @@ border: none;
                         <option>선택</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
-                        <option value="4">3</option>
-                        <option value="5">5</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
                     </select></td>
                     </tr>
                   </table>
@@ -125,11 +136,11 @@ border: none;
                 <div>
                   <table>
                     <tr>
-                      <td><img id="poster" src="css/캡처.JPG" width=70px height="90px"> </td>
+                      <td><img id="poster" src="<%=contextPath %>/<%=playObject.getImgPath() %>/<%=playObject.getContentChangeImg() %>" width=70px height="90px"> </td>
                       <td>
-                        <b style="font-size: 15px;">연극 [메밀꽃 필무렵]</b><br>
-                        <span style="font-size: 13px;">2020-09-01 ~ 2020-10-21<br>
-                        서울예술대학교</span>
+                        <b style="font-size: 15px;"><%=playObject.getContentType() %> [<%=playObject.getContentTitle() %>]</b><br>
+                        <span style="font-size: 13px;"><%=playObject.getPlayStartDate() %> ~ <%=playObject.getPlayEndDate() %><br>
+                        <%=playObject.getPlace() %></span>
                       </td>
                     </tr>
                   </table>
@@ -139,26 +150,26 @@ border: none;
                   <table width=220px>
                       <tr>
                         <td>날짜</td>
-                        <td id="selected_date" style="text-align: right;">2020-09-05(토)</td>
+                        <td id="selected_date" style="text-align: right;"><%=playDate %></td>
                       </tr>
                       <tr>
                         <td>시간</td>
-                        <td style="text-align: right;">[1회차]15시00분</td>
+                        <td style="text-align: right;">[<%=playObject.getPlayRoundCount() %>회차]<%=playObject.getRoundStart() %></td>
                       </tr>
                       <tr>
                         <td>매수</td>
-                        <td style="text-align: right;">2</td>
+                        <td style="text-align: right;"></td>
                       </tr>
                       <tr>
                         <td>티켓금액</td>
-                        <td style="text-align: right;">16000원</td>
+                        <td style="text-align: right;"></td>
                       </tr>
                     </table>
                     <hr>
                     <table width=220px>
                       <tr>
                         <th>총결제금액</th>
-                        <th style="color: red; text-align: right;">32000원</th>
+                        <th style="color: red; text-align: right;"></th>
                       </tr>
                     </table>
                     <br> <br>

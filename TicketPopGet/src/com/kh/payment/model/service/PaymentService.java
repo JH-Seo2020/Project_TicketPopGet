@@ -8,6 +8,7 @@ import com.kh.exhibition.model.vo.Exhibition;
 import com.kh.payment.model.dao.PaymentDao;
 import com.kh.payment.model.vo.ConcertPayment;
 import com.kh.payment.model.vo.Payment;
+import com.kh.play.model.vo.Play;
 
 public class PaymentService {
 
@@ -60,6 +61,20 @@ public class PaymentService {
 		}
 		close(conn);
 		return result;
+	}
+
+	/**
+	 * 4. 선택한 연극 서비스에 관련된 정보를 예매페이지에 뿌려주는 서비스 호출
+	 * @param contentNo
+	 * @param playDay
+	 * @param round
+	 * @return
+	 */
+	public Play selectPlayForPayment(int contentNo, String playDay, int round) {
+		Connection conn = getConnection();
+		Play playObject = new PaymentDao().selectPlayForPayment(conn, contentNo,playDay,round);
+		close(conn);
+		return playObject;
 	}
 	
 
