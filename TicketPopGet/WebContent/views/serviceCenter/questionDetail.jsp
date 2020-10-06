@@ -61,7 +61,7 @@
             <h2 class="noticetitle"><b>1 : 1문의</b></h2>
             <nav id="topMenu">
                 <ul class="servicemenu">
-                    <li class="servicemenu"><a class="menuLink" href="">문의내역</a></li>
+                    <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/list.qo?currentPage=1">문의내역</a></li>
                     <li class="servicemenu"><a class="menuLink" href="<%= request.getContextPath() %>/enrollForm.qo">문의하기</a></li>
                 </ul>
             </nav>
@@ -97,7 +97,7 @@
                     
                     <tr>
                         <td align="right">
-                            <input type="button" class="btn btn-warning" value="목록보기">          
+                            <input type="button" class="btn btn-warning" onclick="history.back()" value="목록보기">          
                         </td>
                     </tr>
                     </table>
