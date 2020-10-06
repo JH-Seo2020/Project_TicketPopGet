@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="searchListCount">
+  SELECT COUNT(*) LISTVIEW 
+ FROM(
+        SELECT C.CONTENT_NO   
+	         , C.CONTENT_TYPE     
+	         , C.CONTENT_TITLE   
+	         , C.PLACE            
+	         , C.PRICE            
+	         , C.REGION           
+	         , C.CONTENT_CHIMG    
+	         , C.CONTENT_IMGPATH  
+	      FROM  CONTENTS C
+    	 WHERE CONTENT_KEYWORD LIKE  ?
+    )
+</entry>
+
+<entry key="searchList">
+SELECT *
+ FROM(
+		 	SELECT
+		 			ROWNUM RNUM
+		 		  , B.*
+		 	  FROM  (	  
+				SELECT C.CONTENT_NO   
+			         , C.CONTENT_TYPE     
+			         , C.CONTENT_TITLE   
+			         , C.PLACE            
+			         , C.PRICE            
+			         , C.REGION           
+			         , C.CONTENT_CHIMG    
+			         , C.CONTENT_IMGPATH  
+			     FROM  CONTENTS C
+   				WHERE  CONTENT_KEYWORD LIKE  ?
+		     )B
+    	)
+    WHERE RNUM BETWEEN ? AND ?
+</entry>
+</properties>
+

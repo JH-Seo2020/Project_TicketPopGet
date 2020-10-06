@@ -34,7 +34,6 @@ public class noticeDetailServlet extends HttpServlet {
 		
 		int nno = Integer.parseInt(request.getParameter("nno"));
 		
-		
 		Notice n = new ServiceService().selectNotice(nno);
 		
 		request.setAttribute("n", n);

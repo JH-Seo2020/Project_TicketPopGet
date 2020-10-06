@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.serviceCenter.model.vo.Question" %>
+<%
+	Question q = (Question)request.getAttribute("q");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,17 +70,19 @@
                 <div class="table table-responsive" style="width: 1200px;">
                     <table class="table" style="width: 1000px;">
                     <tr>
-                        <th class="success" name="noticeType">회원정보수정은 어디서 하나요?</th>
+                        <th class="success" name="questionType">문의유형 : <%=q.getQuestionType() %></th>
+                    </tr>
+                    <tr>
+                        <th class="success" name="questionTitle"><%=q.getQuestionTitle() %></th>
                     </tr>
                                 
                     <tr>
-                        <td name="noticeDate" style="font-size: 15px;">등록일 : <!-- sysdate -->2020.02.21(금) 09:30</td>
+                        <td name="questionDate" style="font-size: 15px;">등록일 : <%=q.getQuestionDate() %></td>
                     </tr>
 
                     <tr>
-                        <td name="noticeContent">
-                            <!-- 내용 -->
-                                                              회원정보수정 메뉴가 어딘지 문의합니다. <br>메뉴 어떤건가요? 
+                        <td name="questionConten">
+                            <%= q.getQuestionContent() %> 
                         </td>
                     </tr>
                     <tr>

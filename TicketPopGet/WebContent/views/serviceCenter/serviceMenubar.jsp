@@ -59,8 +59,8 @@
         <li class="serviceMenu"><a href="<%= request.getContextPath() %>/search.fo?currentPage=1&type=기타">기타</a></li>
       </ul>
       <ul class="serviceTopMenu">
-        <li class="serviceMenu"><a class="help_meu" href="">1 : 1문의</a></li>
-        <li class="serviceMenu"><a href="<%= request.getContextPath() %>/list.fo?currentPage=1">문의내역</a></li>
+        <li class="serviceMenu"><a class="help_meu" href="<%= request.getContextPath() %>/list.qo?currentPage=1">1 : 1문의</a></li>
+        <li class="serviceMenu"><a href="<%= request.getContextPath() %>/list.qo?currentPage=1">문의내역</a></li>
         <li class="serviceMenu"><a href="<%= request.getContextPath() %>/enrollForm.qo">문의하기</a></li>
       </ul>
 </body>

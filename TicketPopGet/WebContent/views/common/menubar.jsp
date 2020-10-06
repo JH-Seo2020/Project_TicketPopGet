@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "com.kh.user.model.vo.Member" %>
+<%@ page import = "com.kh.user.model.vo.Member"%>
 <%
 	String contextPath = request.getContextPath();
 	
@@ -131,13 +131,20 @@
 	            </div>
 	
 	            <div id="search" align="center">
-	                <form action="<%=contextPath%>/search.tp" method="get" name="search" onsubmit="return check()">
-	                    <input type="search" id="searchBar" placeholder="검색창">
+	                <form action="<%=contextPath%>/search.me" method="GET" id="searchForm" name="search">
+	                	<input type="hidden" name="currentPage" value="1">
+	                    <input type="search" id="searchBar" name="keyword" placeholder="검색창">
 	                    <button type="submit" id="searchBtn">검색</button>
 	                </form>
 	                
 	                <script>
-	                	
+	                	var searchForm = $("#searchForm");
+	                	$("#searchBtn").on("click", function(e){
+	                		if(!searchForm.find("input[name='keyword']").val()){
+	                			alert('검색어를 입력하세요');
+	                			return false;
+	                		}
+	                	});
 	                </script>
 	            </div>
 	            

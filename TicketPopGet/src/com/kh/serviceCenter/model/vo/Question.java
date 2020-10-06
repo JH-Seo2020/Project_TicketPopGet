@@ -32,6 +32,29 @@ public class Question {
 		this.questionAnswer = questionAnswer;
 		this.questionAdmin = questionAdmin;
 	}
+	
+
+	public Question(int questionNo, String answerStatus, String questionType, String questionTitle, Date questionDate) {
+		super();
+		this.questionNo = questionNo;
+		this.answerStatus = answerStatus;
+		this.questionType = questionType;
+		this.questionTitle = questionTitle;
+		this.questionDate = questionDate;
+	}
+	
+	
+
+	public Question(int questionNo, String questionType, String questionTitle, String questionContent,
+			Date questionDate, String questionAnswer) {
+		super();
+		this.questionNo = questionNo;
+		this.questionType = questionType;
+		this.questionTitle = questionTitle;
+		this.questionContent = questionContent;
+		this.questionDate = questionDate;
+		this.questionAnswer = questionAnswer;
+	}
 
 	public int getQuestionNo() {
 		return questionNo;
