@@ -64,6 +64,7 @@ border: none;
 .hasDatepicker{cursor: pointer;}
 </style>
 <body>
+
   <div class="row">
     <div class="col-xs-12 ">
 
@@ -164,12 +165,18 @@ border: none;
                       <th style="color: red; text-align: right;">32000원</th>
                     </tr>
                   </table>
+                  <br><br>
               </div>
           </div>
         </div>
-        <button id="nextBtn"  class="btn btn-warning" style="margin-left: 40%; margin-top: 7%;">다음단계</button>
+        <div align="right">
+          <button type="submit" class="btn btn-warning">결제하기</button>
+          <button type="reset" class="btn btn-warning">취소하기</button>
+        </div>
       </div>
-
   </div>
+  <form action="<%=request.getContextPath()%>/concertpayinsert.me" method="POST">
+  
+  </form>
 </body>
 </html>
