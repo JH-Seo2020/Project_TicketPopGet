@@ -93,8 +93,7 @@ public class SearchDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(search);
-		return search;
 		
+		return search;
 	}
 }
