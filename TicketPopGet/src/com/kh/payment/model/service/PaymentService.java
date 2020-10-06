@@ -4,31 +4,30 @@ import static com.kh.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 
+import com.kh.concert.model.vo.Concert;
 import com.kh.exhibition.model.vo.Exhibition;
 import com.kh.payment.model.dao.PaymentDao;
-import com.kh.payment.model.vo.ConcertPayment;
 import com.kh.payment.model.vo.Payment;
 import com.kh.play.model.vo.Play;
 
 public class PaymentService {
 
-
-	public int insertConcertPayment(ConcertPayment cp) {
+	/**
+	 * 1. 선택된 콘서트 정보 예매페이지 넘기는 서비스
+	 * @param contentNo
+	 * @return 			// 콘서트 컨텐츠 정보
+	 * @author 김현선
+	 */
+	public Concert selectConcertPayment(int contentNo) {
+		
 		Connection conn = getConnection();
 		
-		int result = new PaymentDao().insertConcertPayment(conn, cp);
-		
-		if(result > 0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		
+		Concert conObject = new PaymentDao().selectConcertPayment(conn, contentNo);
 		close(conn);
 		
-		return result;
-		
+		return conObject;
 	}
+
 
 	/**
 	 * 2. 선택한 전시 서비스에 관련된 정보를 예매페이지에 뿌려주는 서비스 호출

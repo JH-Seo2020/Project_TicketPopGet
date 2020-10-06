@@ -1,34 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-<entry key="">
-  	INSERT
-	  INTO RESERVATION_PAYMENT
-	  (
-	     TICKET_NO
-       , RESERVATION_DATE
-       , VIEW_DATE
-       , TICKET_NUM
-       , CONTENT_TYPE
-       , USER_NO
-       , CONTENT_NO
-       , PAYMENT_DATE
-       , PAYMENT_TYPE
-       , PAYMENT_TOTAL
-	  )
-	  VALUES
-	  (
-	      SEQ_RNO.NEXTVAL
-	    , SYSDATE
-	    , ?
-	    , ?
-	    , ?
-        , ?
-        , ?
-        , ?
-        , ?
-        , ?
-	  )
+<entry key="selectConcertPayment">
+  		SELECT CONTENT_NO
+		     , CONTENT_TYPE
+		     , CONTENT_TITLE
+		     , PLACE
+		     , PRICE
+		     , CONTENT_CHIMG
+		     , CONTENT_IMGPATH
+		     , CONCERT_DATE
+		     , CONCERT_MAX
+		     , CONCERT_SEATS
+		  FROM CONTENTS
+		  JOIN CONCERT USING (CONTENT_NO)
+		 WHERE CONTENT_NO = ?
 </entry>
 <entry key="selectExhibitionForPayment">
 	SELECT CONTENT_NO
