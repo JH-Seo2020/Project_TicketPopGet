@@ -12,9 +12,8 @@
 	         , C.REGION           
 	         , C.CONTENT_CHIMG    
 	         , C.CONTENT_IMGPATH  
-	     FROM  CONTENTS C
-	    WHERE  CONTENT_KEYWORD
-	     LIKE '%#?%'
+	    FROM  CONTENTS C
+    	WHERE  REGEXP_LIKE(CONTENT_KEYWORD, '#?','i')
     )
 </entry>
 
@@ -34,12 +33,10 @@ SELECT *
 			         , C.CONTENT_CHIMG    
 			         , C.CONTENT_IMGPATH  
 			     FROM  CONTENTS C
-			    WHERE  CONTENT_KEYWORD
-			     LIKE '%#?%'
+   				 WHERE  REGEXP_LIKE(CONTENT_KEYWORD, '#?','i')
 		     )A
     	)
     WHERE RNUM BETWEEN ? AND ?
 </entry>
-
 </properties>
 

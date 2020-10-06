@@ -11,18 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.user.model.service.SearchService;
 import com.kh.user.model.vo.PageInfo;
+import com.kh.user.model.vo.Search;
+
+
 
 /**
  * Servlet implementation class search
  */
 @WebServlet("/search.me")
-public class Search extends HttpServlet {
+public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Search() {
+    public SearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +35,7 @@ public class Search extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String keyword = request.getParameter("keyword");
+		String keyword = request.getParameter("keyword"); //keyword 키값
 		
 		int listCount;		// 현재 총 게시글 개수
 		int currentPage; 	// 현재 페이지 (즉, 요청한 페이지)
@@ -63,10 +66,10 @@ public class Search extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<Search> search = new SearchService().searchList(pi,keyword);
+		ArrayList<SearchServlet> search = new SearchService().searchList(pi,keyword);
 		
 		
-		request.getRequestDispatcher("views/common/search.jsp").forward(request, response);
+		request.getRequestDispatcher("views/common/search.jsp?keyword="+keyword).forward(request, response);
 	}
 
 	/**

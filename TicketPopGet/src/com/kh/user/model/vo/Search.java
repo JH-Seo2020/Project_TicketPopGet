@@ -35,6 +35,21 @@ public class Search {
 		this.contentImgpath = contentImgpath;
 	}
 
+	
+	
+	public Search(int contentNo, String contentType, String contentTitle, String place, String price, String region,
+			String contentChimg, String contentImgpath) {
+		super();
+		this.contentNo = contentNo;
+		this.contentType = contentType;
+		this.contentTitle = contentTitle;
+		this.place = place;
+		this.price = price;
+		this.region = region;
+		this.contentChimg = contentChimg;
+		this.contentImgpath = contentImgpath;
+	}
+
 	public int getContentNo() {
 		return contentNo;
 	}
