@@ -34,6 +34,7 @@
         #exhibitionDetailBody{
             width: 100%;
             height: 30%;
+            background: #f6f6f6;
         }
         #exBody1, #exBody2,#exBody3 {
             float: left;

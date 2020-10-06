@@ -34,6 +34,7 @@
 	#playDetailBody{
 	    width: 100%;
 	    height: 30%;
+	    background: #f6f6f6;
 	}
 	#plBody1, #plBody2,#plBody3 {
 	    float: left;
@@ -203,25 +204,29 @@
                         		"playDay" : playDay
                         	},
                         	success:function(round){
+                        		//전역변수세팅!
+                        		var roundMax;
+                        		var roundSeats;
                         		
                         		if(round.length >= '1'){
-                        			console.log(round[0].playRoundCount);
+                        			console.log(round[0]);
                         			var options = "";
                         			for(var i in round){
-	                        			options += "<option value='"+round[i].playRoundCount+"'>" + round[i].playRoundCount +'회'+ "</option>"
+	                        			options += "<option value='"+round[i].playRoundCount+"'>" + round[i].playRoundCount +'회 : '+round[i].roundStart+'~'+round[i].roundEnd+ "</option>"
+                        				optionss = "<option value=''>선택</option>"+options;
+                        				
+                        				
+                        				callForSeat({"k":round[i].playRoundCount,"max":round[i].roundMax, "seat":round[i].roundSeats});
                         			}
-                        			console.log(options);
+                        			
+                        			
                         			$("#roundSelect").css("display","block");
-                        			$("#roundSelect").html(options);
-                        			$("#playStartEnd").css("display","block");
+                        			$("#roundSelect").html(optionss);
                         			$("#seatInfo").css("display","block");
                         			
                         			
-                        			//여기서 회차정보로 시간, 좌석 가져오는 ajax 한번 더 호출해야하나 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ와..진짜..
-                        			
                         		}else{
                         			$("#roundSelect").css("display","none");
-                        			$("#playStartEnd").css("display","none");
                         			$("#seatInfo").css("display","none");
                         		}
                         		
@@ -231,6 +236,17 @@
                         });
                     });
                 });
+                
+                //회차 클릭 시 남은 좌석 보여주는 함수
+                function callForSeat(result){
+                	$('#roundSelect').on('click',function(){
+                		if($('#roundSelect').val() == result.k){
+                			$('#seats').text((result.max-result.seat)+'석');
+                			$('#max').text('전체'+result.max+'석');
+                		}
+                	});
+                }
+                
             </script>
 
                 <div id="plSeatNo">
@@ -238,19 +254,18 @@
                     <select name="playRound" id="roundSelect" required>
                         
                     </select>
-                    <label id="playStartEnd">시작시간 ~ 끝나는시간</label>
                     
                     <div id="seatInfo">
                     <!--회차 선택 따라서 다르게 보여져야 할 부분-->
-	                    남은 좌석 : <lable>18</lable>&nbsp;/
-	                    <label>전체 35</label>
+	                    남은 좌석 : <lable id='seats'></lable>&nbsp;/
+	                    <label id='max'>전체</label>
                     </div>
                 </div>
             </div>
 
             <div width="100%" align="center">
                 <%if(loginUser != null){ %>
-                	<a class="btn btn-warning btn-lg">예매하기</a>
+                	<a class="btn btn-warning btn-lg">예매하기</a>	//여기도 함수호출해서,, select값 널이면 선택하게끔 유도필요
                 <%}else{ %>
                 	<a class="btn btn-warning btn-lg" onclick="call();">예매하기</a>
                 	<script>function call(){alert("로그인 후 이용해주세요!");}</script>

@@ -24,6 +24,10 @@ public class Play {
 	private Date playEndDate;
 	private String playRuntime;
 	private String playRoundCount;
+	private String roundStart;
+	private String roundEnd;
+	private int roundMax;
+	private int roundSeats;
 	
 	public Play() {
 		// TODO Auto-generated constructor stub
@@ -86,6 +90,17 @@ public class Play {
 		this.playStartDate = playStartDate;
 		this.playEndDate = playEndDate;
 		this.playRuntime = playRuntime;
+	}
+
+	
+	
+	public Play(String playRoundCount, String roundStart, String roundEnd, int roundMax, int roundSeats) {
+		super();
+		this.playRoundCount = playRoundCount;
+		this.roundStart = roundStart;
+		this.roundEnd = roundEnd;
+		this.roundMax = roundMax;
+		this.roundSeats = roundSeats;
 	}
 
 	public Play(String playRoundCount) {
@@ -251,12 +266,46 @@ public class Play {
 	
 	
 
+	public int getRoundMax() {
+		return roundMax;
+	}
+
+	public void setRoundMax(int roundMax) {
+		this.roundMax = roundMax;
+	}
+
+	public int getRoundSeats() {
+		return roundSeats;
+	}
+
+	public void setRoundSeats(int roundSeats) {
+		this.roundSeats = roundSeats;
+	}
+
 	public String getPlayRoundCount() {
 		return playRoundCount;
 	}
 
 	public void setPlayRoundCount(String playRoundCount) {
 		this.playRoundCount = playRoundCount;
+	}
+
+	
+	
+	public String getRoundStart() {
+		return roundStart;
+	}
+
+	public void setRoundStart(String roundStart) {
+		this.roundStart = roundStart;
+	}
+
+	public String getRoundEnd() {
+		return roundEnd;
+	}
+
+	public void setRoundEnd(String roundEnd) {
+		this.roundEnd = roundEnd;
 	}
 
 	@Override

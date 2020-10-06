@@ -34,6 +34,7 @@
         #concertDetailBody{
             width: 100%;
             height: 30%;
+            background: #f6f6f6;
         }
         #cdBody1, #cdBody2,#cdBody3 {
             float: left;

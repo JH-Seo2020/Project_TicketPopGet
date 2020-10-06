@@ -154,7 +154,12 @@ public class PlayDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Play (rset.getString("ROUND_COUNT")));
+				list.add(new Play (rset.getString("ROUND_COUNT"),
+								   rset.getString("round_start"),
+								   rset.getString("round_end"),
+								   rset.getInt("round_max"),
+								   rset.getInt("round_seats")
+								   ));
 			}
 			
 		} catch (SQLException e) {

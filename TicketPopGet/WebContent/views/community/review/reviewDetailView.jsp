@@ -189,14 +189,14 @@
 		                    $update = "<a class='btn' onclick='callForUpdate("+$replyNo+");'>수정💬</a>";
 		                    $delete = "<a class='btn' onclick='callForDelete("+$replyNo+");' data-toggle='modal' data-target='#deleteReviewReply'>삭제❌</a>";
 		                    $report = "<a class='btn' onclick='callForReport("+$replyNo+");' data-toggle='modal' data-target='#ReviewReport'>신고🚨</a>";
-		                    $like = "<a class='btn' onclick='call("+$replyNo+");'>추천💛</a><lable>7</lable>";	
+		                    	
 		                    
 							<%if(loginUser != null){%>
 								
 								if(result.list[i].userId == '<%=loginUser.getUserId()%>'){
 		                    		commentBtns = $update + "&nbsp;&nbsp;"+$delete;
 								}else{
-									commentBtns = $report +"&nbsp;&nbsp;"+ $like;
+									commentBtns = $report +"&nbsp;&nbsp;";
 								}
 								
 		                    <%}else{%>

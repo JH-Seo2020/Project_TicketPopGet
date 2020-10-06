@@ -56,6 +56,10 @@
 	</entry>
 	<entry key="selectRound">
 		select round_count
+		     , round_start
+		     , round_end
+		     , round_max
+		     , round_seats
 		  from round
 		  join contents using (content_no)
 		 where content_no = ?
