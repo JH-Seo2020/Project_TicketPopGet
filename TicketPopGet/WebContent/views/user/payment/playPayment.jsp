@@ -65,7 +65,38 @@ border: none;
 </style>
 </head>
 <body>
-  <form action="">
+  <form action="<%=contextPath %>/expayinsert.me" method="post">
+  
+    <!-- DB로 보낼 값들 숨겨서 넘겨주기 -->
+  <input type="hidden" name="viewDate" value="<%=playDate%>">
+  <input type="hidden" name="contentType" value="연극">
+  <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
+  <input type="hidden" name="contentNo" value="<%=playObject.getContentNo()%>">
+  <input type="hidden" name="paymentDate" value="">
+  <input type="hidden" name="paymentTotal" value="">
+  
+    <script>
+  	$(function(){
+  		//조건처리 : 무통장이라면 결제일이 비고, 카드라면 결제일이 오늘이 된다 (근데 아직 상태변경 조건은 안줬음)
+  		if($("input[name='paymentMethod']").on('change',function(){
+  			
+  			if($("input[name='paymentMethod']:checked").val() == '카드'){
+  				$("input[name='paymentDate']").val('<%=playDate%>');
+	  		}else{
+	  			$("input[name='paymentDate']").val('');
+	  		}
+  			
+  		}));
+  	
+  		//총 금액 : 매수 선택이 변할 때마다 그 값을 가져와야 함
+  		$('#choiceNo').on('change',function(){
+  			$("input[name='paymentTotal']").val($('#choiceNo').val()*<%=truePrice %>);
+  		});
+  	});
+  </script>
+  
+  
+  
     <div class="row">
       <div class="col-xs-12 ">
           
@@ -111,13 +142,25 @@ border: none;
                     </tr>
                     <tr>
                       <td>&nbsp;매수</td>
-                      <td><select id="gender" class="form-control" style="width: 80px;">
+                      <td><select required id="choiceNo" name="choiceNo" class="form-control" style="width: 80px;">
                         <option>선택</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
-                    </select></td>
+                    </select>
+                    <button id='decide' type="button" class='btn btn-warning btn-sm' style="margin-top:20px;">금액확인!</button>
+                    <script>
+                    	$(function(){
+                    		$('#decide').click(function(){
+                    			$('#TicketNum').html($('#choiceNo').val()+'장');
+                    			$('#nowPayment').html($('#choiceNo').val()*<%=truePrice %>+'원');
+                    			$('#totalPayment').html($('#choiceNo').val()*<%=truePrice %>+'원');
+                    		});
+                    	});
+                    </script>
+                    
+                    </td>
                     </tr>
                   </table>
                 </div>
@@ -127,8 +170,8 @@ border: none;
               <br>
               <div id="selectDate">
                 <b>결제방법</b><br><br>
-                <input type="radio"> 카드 <br>
-                <input type="radio"> 실시간 계좌이체 <br>
+                <input type="radio" name="paymentMethod" required value="카드"> 카드 <br>
+                <input type="radio" name="paymentMethod" required value="실시간 계좌이체"> 실시간 계좌이체 <br>
               </div>
             </div>
             
@@ -158,18 +201,18 @@ border: none;
                       </tr>
                       <tr>
                         <td>매수</td>
-                        <td style="text-align: right;"></td>
+                        <td style="text-align: right;" id="TicketNum"></td>
                       </tr>
                       <tr>
                         <td>티켓금액</td>
-                        <td style="text-align: right;"></td>
+                        <td style="text-align: right;" id="nowPayment"></td>
                       </tr>
                     </table>
                     <hr>
                     <table width=220px>
                       <tr>
                         <th>총결제금액</th>
-                        <th style="color: red; text-align: right;"></th>
+                        <th style="color: red; text-align: right;" id="totalPayment"></th>
                       </tr>
                     </table>
                     <br> <br>
