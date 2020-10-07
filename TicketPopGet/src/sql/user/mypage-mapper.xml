@@ -389,6 +389,12 @@ SELECT *
     	)
     WHERE RNUM BETWEEN ? AND ?
 </entry>
+<entry key="deleteWishlist">
+ 				DELETE 
+                  FROM WISHLIST
+                 WHERE WISH_NO = ?
+                   AND USER_NO = ?
+</entry>
 
 <entry key="selectShowContnetCount">
 SELECT COUNT(*) LISTVIEW 

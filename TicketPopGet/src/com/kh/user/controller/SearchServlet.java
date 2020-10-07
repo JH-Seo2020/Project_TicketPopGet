@@ -51,7 +51,7 @@ public class SearchServlet extends HttpServlet {
 		
 		pageLimit = 10;
 		
-		boardLimit = 10;
+		boardLimit = 5;
 		
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		
