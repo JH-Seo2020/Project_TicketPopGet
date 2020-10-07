@@ -134,7 +134,7 @@
 
 /* 찜리스트 */
 #mypage_wishlist {
-	height: 400px;
+	height: 450px;
 }
 
 /* 찜리스트목록 */
@@ -144,6 +144,7 @@
 	border-radius: 1em;
 	float: left;
 	margin-left: 50px;
+	height:350px;
 }
 /* 찜리스트목록 세부 항목 */
 .wishlist {
@@ -289,14 +290,23 @@
              		 %>
 					<div class="wishlist">
 						<img src="<%=contextPath%>/<%=w.getContentImgPath()%>/<%=w.getContentChimg()%>" width="200" height="250"><br>
-						<div class="wishlist_btn">
-							<button type="button" class="like_btn">
-								<img src="<%=contextPath%>/resources/img/imgForSearch/like_heart.png" width="30" height="30">
+						<div class="wishlist_btn" >
+							<button type="button" class="like_btn" onclick="changeImg();">
+								<img src="<%=contextPath%>/resources/img/imgForSearch/like_heart.png" id="img1" width="30" height="30">
 							</button>
 						</div>
 						<span ><%=w.getContentTitle()%> </span> <br>
                         <span style="color:red;"><%=w.getContentStatus()%></span> <br>
                         <span><%=w.getWishlistDate()%></span>
+                         <script type="text/javascript">
+				   		 function changeImg(){
+                       		 var img1 = document.getElementById("img1");
+                 
+                          img1.src = "<%=contextPath%>/resources/img/imgForSearch/heart.png";
+                          location.href="<%=contextPath%>/wishlistUpdate.my?wno="+<%=w.getWishNo()%>+"&"+"userNo="+<%=w.getUserNo()%>; 
+
+                      	 }
+		         	</script>
 					</div>
 					  <%} %>
        			  <%} %>

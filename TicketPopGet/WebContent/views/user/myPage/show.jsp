@@ -160,7 +160,11 @@
 	                  <td><%=ps.getContentType() %></td>
 	                  <td><%=ps.getViewDate() %></td>
 	                  <td><%=ps.getContentTitle() %></td>
+	                  <%if(ps.getReviewStatus().equals('N')){ %>
 	                  <td><button onclick="location.href='<%=contextPath%>/review_write.my?tno=<%=ps.getTicketNo()%>&userNo=<%=loginUser.getUserNo()%>&cno=<%=ps.getContentNo()%>'">후기작성</button>
+	                  <%} else{%>
+	                  <td><button disabled="disabled">후기작성</button>
+	                  <%} %>
 	                </tr>
 	                <%} %>
 	                <%} %>

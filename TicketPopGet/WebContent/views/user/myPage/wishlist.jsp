@@ -103,7 +103,10 @@
               %>
 		            <div class="wishlist" align="center"> 
 		                <img src="<%=contextPath%>/<%=w.getContentImgPath()%>/<%=w.getContentChimg()%>" width="200" height="250"><br>
-		                <div class="wishlist_btn"><button type="button" onclick="changeImg();" class="like_btn"><img src="<%=contextPath%>/resources/img/imgForSearch/like_heart.png" id="img1" width="30" height="30"></button></div>
+		                <div class="wishlist_btn">
+		                <button type="button" onclick="changeImg();" class="like_btn">
+		                <img src="<%=contextPath%>/resources/img/imgForSearch/like_heart.png" id="img1" width="30" height="30">
+		                </button></div>
 		                <span><%=w.getContentTitle()%> </span> <br>
                         <span style="color:red;"><%=w.getContentStatus()%></span> <br>
                         <span><%=w.getWishlistDate()%></span>
@@ -113,7 +116,7 @@
                         var img1 = document.getElementById("img1");
                  
                           img1.src = "<%=contextPath%>/resources/img/imgForSearch/heart.png";
-                          location.href="<%=contextPath%>/wishlistUpdate.my?wno="+<%=w.getWishNo()%>+"&"+"userNo="+<%=w.getUserNo()%>; 
+                          location.href="<%=contextPath%>/mypagewl.my?wno="+<%=w.getWishNo()%>+"&"+"userNo="+<%=w.getUserNo()%>; 
 
                        }
 		         	</script>
