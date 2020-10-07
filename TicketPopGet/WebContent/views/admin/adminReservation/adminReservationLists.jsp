@@ -36,7 +36,7 @@
 <body>
 <%@ include file="../adminCommon/adminMenubar.jsp" %>
     <div class="wrap" align="center">
-        <button class="returnMainPage">초기화면</button>
+        <button class="returnMainPage" onclick="location.href='<%=request.getContextPath()%>/main.ad'">초기화면</button>
     <div align="center">
         <h1 style="width: 500px;">컨텐츠 예매/결제현황</h1>
     </div>

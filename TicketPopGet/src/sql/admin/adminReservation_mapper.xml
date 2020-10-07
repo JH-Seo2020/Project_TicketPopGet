@@ -43,6 +43,7 @@
 		  FROM (SELECT ROWNUM RNUM,A.*
 		          FROM (SELECT TICKET_NO
 		                 , USER_ID
+		                 , C.CONTENT_NO
 		                 , RESERVATION_DATE
 		                 , PAYMENT_DATE
 		                 , PAYMENT_TYPE
@@ -69,6 +70,7 @@
 		  FROM (SELECT ROWNUM RNUM, A.*
 				  FROM (SELECT TICKET_NO
 							     , USER_ID
+							     , C.CONTENT_NO
 							     , RESERVATION_DATE
 							     , PAYMENT_DATE
 							     , PAYMENT_TYPE
@@ -90,6 +92,7 @@
 		  FROM (SELECT ROWNUM RNUM, A.*
 				 FROM(SELECT TICKET_NO
 						     , USER_ID
+						     , C.CONTENT_NO
 						     , RESERVATION_DATE
 						     , PAYMENT_DATE
 						     , PAYMENT_TYPE
@@ -107,6 +110,12 @@
 						   AND R.CONTENT_NO = ?
 						   ORDER BY TICKET_NO DESC)A)B
 			WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="reservationPaymentCancel">
+		UPDATE RESERVATION_PAYMENT
+		   SET PAYMENT_CANCEL = 'Y'
+		 WHERE TICKET_NO = ?
 	</entry>
 	
 </properties>

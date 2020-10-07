@@ -105,7 +105,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
 
         <div class="menuTitle">컨텐츠 예매현황</div>
         <div class="menuWrap">
-        <button>예매 및 견제현황</button>
+        <button onclick="location.href='<%=request.getContextPath()%>/list.adres?currentPage=1'">예매 및 결제현황</button>
         <button>예매 통계</button>
         </div>
 

@@ -3,6 +3,7 @@
 <%
 	Page p = (Page)request.getAttribute("p");
 	ArrayList<Reservation> list = (ArrayList<Reservation>)request.getAttribute("list");
+	Reservation re = (Reservation)request.getAttribute("r");
 %>
 <!DOCTYPE html>
 <html>
@@ -38,17 +39,20 @@
 <%@ include file="../adminCommon/adminMenubar.jsp" %>
     <div class="wrap" align="center">
         
+    <%if(!list.isEmpty()){ %>
     <div align="center">
-        <h1 style="width: 800px;">&lt;<%=list.get(0).getContentTitle() %>&gt;<%if(list.get(0).getContentDate() != null){%> <%=list.get(0).getContentDate()%> <%} %> <%if(list.get(0).getRound() != null){%>[<%=list.get(0).getRound()%>회차]<%} %> 
+        <h1 style="width: 1000px;">&lt;<%=list.get(0).getContentTitle() %>&gt;<%if(list.get(0).getContentDate() != null){%> <%=list.get(0).getContentDate()%> <%} %> <%if(list.get(0).getRound() != null){%>[<%=list.get(0).getRound()%>회차]<%} %> 
         </h1>
         <h1>
         	결제현황
         </h1>
     </div>
-    <button class="returnMainPage">이전으로</button>
-    
-    <%if(list.get(0).getContentDate() != null) {%>
-    <p style="float: right;">잔여티켓 :<%=list.get(0).getMax()-list.size()%> 전체티켓 <%=list.get(0).getMax()%> </p>
+    <%} %>
+    <button class="returnMainPage" onclick="location.href='<%=request.getContextPath()%>/list.adres?currentPage=1'">이전으로</button>
+    <%if(!list.isEmpty()) {%>
+	    <%if(list.get(0).getContentDate() != null) {%>
+	    	<p style="float: right;">잔여티켓 :<%=list.get(0).getMax()-list.size()%> 전체티켓 <%=list.get(0).getMax()%> </p>
+	    <%} %>
     <%} %>
     <table class="selectTable" border="1">
 
@@ -73,26 +77,32 @@
         <%}else {%>
 	            <%for(Reservation r : list) { %>
             	<tr style="height: 50px;">
-                <td><%=r.getTicketNo()%></td>
-                <td><%=r.getUser()%></td>
-                <td><%=r.getReservationDate() %></td>
-                <td>
-                <%if(r.getPaymentDate() == null) {%>
-                	-
-                <%}else { %>
-                	<%=r.getPaymentDate() %>
-                <%} %>
-                </td>
-                <td><%=r.getPaymentType() %></td>
-                <td><%=r.getPaymentStatus() %></td>
-                <td>
-                    <button class="btn btn-primary">예약취소</button>
-                </td>
+                	<td><%=r.getTicketNo()%></td>
+                	<td><%=r.getUser()%></td>
+                	<td><%=r.getReservationDate() %></td>
+                	<td>
+                	<%if(r.getPaymentDate() == null) {%>
+                		-
+                	<%}else { %>
+                		<%=r.getPaymentDate() %>
+               	 <%} %>
+                	</td>
+                	<td><%=r.getPaymentType() %></td>
+                	<td><%=r.getPaymentStatus() %></td>
+                	<td>
+                    <button class="btn btn-primary cancelBtn">예약취소</button>
+                	</td>
             </tr>
             <%} %>
         <%} %>
         </tbody>
-
+	<script>
+		$(function(){
+			$(".cancelBtn").click(function(){
+				location.href="cancel.adrepa?ticketNo="+$(this).parents("tr").children().eq(0).text()+"&contentNo=<%=re.getContentNo()%>&contentType=<%=re.getContentType()%>&round=<%=re.getRound()%>";
+			});	
+		});
+	</script>
     </table>
     <br><br>
     <div align="center">
