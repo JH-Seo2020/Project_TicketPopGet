@@ -391,7 +391,8 @@ public class MemberDao {
 	         
 	         if(rset.next()) {
 	            m = new Member(rset.getString("USER_PWD"),
-	            			   rset.getString("USER_NAME"));
+	            			   rset.getString("USER_NAME"),
+	            			   rset.getString("PHONE"));
 	         }
 	         
 	      } catch (SQLException e) {
