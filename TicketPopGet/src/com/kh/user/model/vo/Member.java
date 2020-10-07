@@ -18,6 +18,8 @@ public class Member {
 	private int reportCount;
 	private String delete_reason;
 	private int reportCounter;
+	private String bdate;
+	private String deleteStatus;
 	
 	public Member() {}
 
@@ -197,14 +199,32 @@ public class Member {
 		this.reportCounter = reportCounter;
 	}
 
+	public String getBdate() {
+		return bdate;
+	}
+
+	public void setBdate(String bdate) {
+		this.bdate = bdate;
+	}
+
+	public String getDeleteStatus() {
+		return deleteStatus;
+	}
+
+	public void setDeleteStatus(String deleteStatus) {
+		this.deleteStatus = deleteStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", email=" + email + ", phone=" + phone + ", birthdate=" + birthdate + ", gender=" + gender
 				+ ", deleteDate=" + deleteDate + ", status=" + status + ", blacklistStatus=" + blacklistStatus
-				+ ", reportCount=" + reportCount + ", delete_reason=" + delete_reason + "]";
+				+ ", reportCount=" + reportCount + ", delete_reason=" + delete_reason + ", reportCounter="
+				+ reportCounter + ", bdate=" + bdate + ", deleteStatus=" + deleteStatus + "]";
 	}
-	
-	
-	
+
+
+
+
 }

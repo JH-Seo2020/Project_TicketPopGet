@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -190,7 +191,7 @@ public class AdminMemberDao {
 	public Member selectMemberDetail(Connection conn, int userNo) {
 		// select문 => 한행
 		Member m = null;
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년MM월dd일");
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMemberDetail");
@@ -215,6 +216,7 @@ public class AdminMemberDao {
 			            rset.getString("blacklist_status"),
 			            rset.getInt("report_count"),
 			            rset.getString("delete_reason"));
+				m.setBdate(sdf.format(rset.getDate("birthdate")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.admin.adminMember.model.service.AdminMemberService;
 import com.kh.user.model.vo.Member;
 
@@ -36,9 +37,11 @@ public class AdminMemberDetailViewServlet extends HttpServlet {
 		Member m = new AdminMemberService().selectMemberDetail(userNo);
 		
 		
-		request.setAttribute("m", m);
+		response.setContentType("application/json; charset=UTF-8");
 		
-		request.getRequestDispatcher("views/admin/adminMember/adminMemberDetailView.jsp").forward(request, response);
+		Gson gson = new Gson();
+		
+		gson.toJson(m, response.getWriter());
 		
 	}
 

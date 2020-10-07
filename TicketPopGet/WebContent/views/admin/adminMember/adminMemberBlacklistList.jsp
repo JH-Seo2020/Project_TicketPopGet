@@ -102,7 +102,7 @@
 									result
 							);
 						},error:function(){
-							console.log("블랙리스트 상세조회 모달 ajax통신 실패");
+							//console.log("블랙리스트 상세조회 모달 ajax통신 실패");
 						}
 					});
 				});
