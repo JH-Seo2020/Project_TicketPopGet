@@ -88,20 +88,21 @@
             width: 1000px;
             margin-top: 25px;
             padding-bottom: 25px;
-            border-bottom:1px solid gray;
+         
             float: left;
         }
 
         .search_result_list div{float: left;}
 
         #search_result_content{
-            margin-left: 120px;
+            margin-left: 150px;
             font-size: 19px;
             margin-top:10px;
         }
         #search_result_content a{
             text-decoration: none;
             color: black;
+            font-size: 18px;
         }
 
         #search_result_reservation{
@@ -119,8 +120,7 @@
         .pagination .btn-prev, .pagination .btn-next, .pagination a span {display: inline-block; margin-right:2px; padding: 4px 12px; border:1px solid #ddd; border-radius: 4px; color: #111; background:#fff; text-decoration: none; text-align: center;}
         .pagination .btn-prev:hover, .pagination .btn-next:hover, .pagination a span:hover,
         .pagination .btn-prev:active, .pagination .btn-next:active, .pagination a span:active,
-        .pagination .btn-prev:focus, .pagination .btn-next:focus, .pagination a span:focus {color:#fff; background:#ff8149; border:1px solid #ff8149}
-        .pagination a .selected {color:#ff8149; border:1px solid #ff8149}
+        .pagination .btn-prev:focus, .pagination .btn-next:focus, .pagination a span:focus {color:#fff; background:#ff8149;  }
         .pagination .no-more-prev, .pagination .no-more-next {display:none}
     </style>
 </head>
@@ -134,14 +134,17 @@
             <!-- 검색결과입니다 -->
             
             <div class="search_result1">
-            <form>
-                <p style="height: 90px;">
+            <form  action="<%=contextPath%>/search.me" method="GET" id="searchForm" name="search">
+            	<input type="hidden" name="currentPage" value="1">
+           	    <p style="height: 90px;">
                     <span style="color:red; font-weight: bold; line-height: 130px;"><%=keyword%></span>
                     	에 대한 검색 결과 입니다.
                 </p>
                 <div id="search_result1">
-                    <input type="text" >
-                    <button id="search_button1"><img src="resources/img/imgForSearch/search.png"  width="30px" height="30px"></button>
+                    <input type="search" id="searchBar" name="keyword" placeholder="검색창">
+                    <button id="search_button1" type="submit" ><img src="resources/img/imgForSearch/search.png"  width="30px" height="30px"></button>
+                     
+	               
                 </div>
               </form>
             </div>
@@ -201,11 +204,11 @@
 	            <div class="search_result_list">
 	                <!-- 이미지 -->
 	                <div id="search_result_img" style="margin-left: 70px;">
-	                    <a href=""><img src="<%=contextPath%>/<%=s.getContentImgpath()%>/<%=s.getContentChimg()%>" width="150" ></a>
+	                    <img src="<%=contextPath%>/<%=s.getContentImgpath()%>/<%=s.getContentChimg()%>" width="150" >
 	                </div>
 	                <!-- 검색내용 -->
 	                <div id="search_result_content">
-	                    <h3><b><a href=""><%=s.getContentTitle()%></a></b></h3>
+	                    <h3><b><a href=><%=s.getContentTitle()%></a></b></h3>
 	                    <p>
 				                        장 소 : <%=s.getPlace()%> <br>
 				                        기 간 : <%=s.getRegion()%> <br>

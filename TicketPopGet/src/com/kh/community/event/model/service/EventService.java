@@ -202,4 +202,66 @@ public class EventService {
 		return result;
 	}
 
+	/**
+	 * 14. 화면로딩직후 보여줄 추천개수
+	 * @param commentNo
+	 * @return
+	 */
+	public int selectCountGood(int commentNo) {
+		Connection conn = getConnection();
+		int result = new EventDao().selectCountGood(conn, commentNo);
+		close(conn);
+		return result;
+	}
+
+	/**
+	 * 15. 화면 로딩 직후 회원이 추천경력 있는지 알아보는 서비스
+	 * @param commentNo
+	 * @param userNo
+	 * @return
+	 */
+	public int selectAlreadyGood(int commentNo, int userNo) {
+		Connection conn = getConnection();
+		int result = new EventDao().selectAlreadyGood(conn, commentNo, userNo);
+		close(conn);
+		return result;
+	}
+
+	/**
+	 * 16. 추천 insert
+	 * @param commentNo
+	 * @param eventNo
+	 * @return
+	 */
+	public int updateLike(int commentNo, int eventNo, int userNo) {
+		Connection conn = getConnection();
+		int result = new EventDao().updateLike(conn, commentNo, eventNo, userNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	/**
+	 * 17. 추천 delete
+	 * @param commentNo
+	 * @param eventNo
+	 * @param userNo
+	 * @return
+	 */
+	public int deleteLike(int commentNo, int eventNo, int userNo) {
+		Connection conn = getConnection();
+		int result = new EventDao().deleteLike(conn, commentNo, eventNo, userNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
 }

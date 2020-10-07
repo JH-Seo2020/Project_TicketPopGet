@@ -108,16 +108,18 @@
                         <span style="color:red;"><%=w.getContentStatus()%></span> <br>
                         <span><%=w.getWishlistDate()%></span>
 		            </div>
+				    <script type="text/javascript">
+				    function changeImg(){
+                        var img1 = document.getElementById("img1");
+                 
+                          img1.src = "<%=contextPath%>/resources/img/imgForSearch/heart.png";
+                          location.href="<%=contextPath%>/wishlistUpdate.my?wno="+<%=w.getWishNo()%>+"&"+"userNo="+<%=w.getUserNo()%>; 
+
+                       }
+		         	</script>
               <%} %>
          <%} %>
-         <script type="text/javascript">
-         	function changeImg(){
-         		var img1 = document.getElementById("img1");
-         		
-         		img1.src = "<%=contextPath%>/resources/img/imgForSearch/heart.png";
-         		
-         	}
-         </script>
+    
 		            
         </div>
         
