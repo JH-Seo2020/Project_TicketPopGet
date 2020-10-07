@@ -118,7 +118,7 @@
                     </th>
                 </tr>
                 <tr>
-                    <th><button type="button" onclick="location.href='<%=request.getContextPath()%>/list.adre?currentPage=1'">>예매 및 결제현황</button></th>
+                    <th><button type="button" onclick="location.href='<%=request.getContextPath()%>/list.adres?currentPage=1'">예매 및 결제현황</button></th>
                 </tr>
                 <tr>
                     <th><button type="button">예매통계</button></th>

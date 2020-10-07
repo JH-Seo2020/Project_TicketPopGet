@@ -35,10 +35,10 @@ public class AdminReservationService {
 	 * @param contentType	컨텐츠 타입
 	 * @return				조회된 행 수
 	 */
-	public int paymentListCount(int contentNo,String contentType) {
+	public int paymentListCount(int contentNo,String contentType, int round) {
 		Connection conn = getConnection();
 		
-		int result = new AdminReservationDao().paymentListCount(conn, contentNo, contentType);
+		int result = new AdminReservationDao().paymentListCount(conn, contentNo, contentType, round);
 		
 		close(conn);
 		
@@ -61,6 +61,23 @@ public class AdminReservationService {
 		return list;
 	}
 	
-	
+	/**
+	 * 예약 취소용 서비스
+	 * @param ticketNo	취소할 예매번호
+	 * @return			처리된 행 수
+	 */
+	public int reservationCancel(int ticketNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new AdminReservationDao().reservationCancel(conn, ticketNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
 	
 }

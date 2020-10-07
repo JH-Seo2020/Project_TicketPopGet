@@ -40,7 +40,7 @@ public class AdminPaymentListServlet extends HttpServlet {
 		String contentType = request.getParameter("contentType");
 		int round = Integer.parseInt(request.getParameter("round"));
 		
-		int listCount = new AdminReservationService().paymentListCount(contentNo, contentType);
+		int listCount = new AdminReservationService().paymentListCount(contentNo, contentType, round);
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int boardLimit = 10;
 		int pageLimit = 10;
@@ -57,15 +57,18 @@ public class AdminPaymentListServlet extends HttpServlet {
 		
 		ArrayList<Reservation> list = new AdminReservationService().reservationList(p, contentNo, contentType, round);
 		
+		Reservation r = new Reservation();
+		r.setContentNo(contentNo);
+		r.setContentType(contentType);
+		r.setRound(String.valueOf(round));
+		
+		request.setAttribute("r", r);
 		request.setAttribute("list", list);
 		request.setAttribute("p", p);
 		
-		if(list.isEmpty()) {
-			request.getSession().setAttribute("alertMsg", "조회결과가 존재하지 않습니다.");
-			response.sendRedirect(request.getContextPath() + "/list.adres?currentPage=1");
-		}else {
-			request.getRequestDispatcher("views/admin/adminReservation/adminPaymentList.jsp").forward(request, response);
-		}
+		
+		request.getRequestDispatcher("views/admin/adminReservation/adminPaymentList.jsp").forward(request, response);
+		
 			
 		
 	}

@@ -53,7 +53,7 @@ public class AdminReservationDao {
 		return result;
 	}
 	
-	public int paymentListCount(Connection conn,int contentNo,String contentType) {
+	public int paymentListCount(Connection conn,int contentNo,String contentType, int round) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -67,6 +67,7 @@ public class AdminReservationDao {
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setInt(1, contentNo);
+				pstmt.setInt(2, round);
 				rset = pstmt.executeQuery();
 				if(rset.next()) {
 					result = rset.getInt(1);
@@ -151,6 +152,8 @@ public class AdminReservationDao {
 					r.setMax(rset.getInt("round_max"));
 					r.setSeats(rset.getInt("round_seats"));
 					r.setRound(rset.getString("round_count"));
+					r.setContentNo(rset.getInt("content_no"));
+					r.setContentType(contentType);
 					
 					list.add(r);
 				}
@@ -181,6 +184,8 @@ public class AdminReservationDao {
 					r.setPaymentStatus(rset.getString("payment_status"));
 					r.setPaymentTotal(rset.getString("payment_total"));
 					r.setContentTitle(rset.getString("content_title"));
+					r.setContentNo(rset.getInt("content_no"));
+					r.setContentType(contentType);
 					
 					list.add(r);
 				}
@@ -214,6 +219,8 @@ public class AdminReservationDao {
 					r.setContentDate(rset.getDate("concert_date"));
 					r.setMax(rset.getInt("concert_max"));
 					r.setSeats(rset.getInt("concert_seats"));
+					r.setContentNo(rset.getInt("content_no"));
+					r.setContentType(contentType);
 					
 					list.add(r);
 				}
@@ -223,6 +230,25 @@ public class AdminReservationDao {
 			
 		}
 		return list;
+	}
+	
+	public int reservationCancel(Connection conn, int ticketNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("reservationPaymentCancel");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, ticketNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 }
