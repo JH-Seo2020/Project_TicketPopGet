@@ -218,16 +218,16 @@
                 	var $resultDay = ($currentDay - <%=playObject.getPlayStartDate()%> < 0 ? '<%=playObject.getPlayStartDate()%>': '0');
                     $("#plCalendar").datepicker({
                         dateFormat: "yy-mm-dd",     
-                        minDate: '<%=playObject.getPlayStartDate()%>',    //test용! 회차 처리후에 조건처리변수로 다시 담아줄 예정입니다.
+                        minDate: $resultDay,   
                         maxDate: '<%=playObject.getPlayEndDate()%>'       
-                        //일단 이정도만? 주말 예외처리..이런건 차차 생각해봐요..
+                        
                     });
                    
                     $("#plCalendar").on("change",function(){
                         playDay = $(this).val();         //회원이 고른 날짜 변수에담음
-                        $("#plSeatNo>span").text(playDay);   //고른 날짜 표기 (필요없으시면 지워도됩니다)
+                        $("#plSeatNo>span").text(playDay);   //고른 날짜 표기
                         
-                        //회차정보 조회용 ajax 호출..
+                        //회차정보 조회용 ajax 호출
                         $.ajax({
                         	url:"<%=contextPath%>/round.inplay",
                         	type:"get",

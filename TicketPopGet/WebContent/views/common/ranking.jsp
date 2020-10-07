@@ -65,13 +65,13 @@
                 <%if(rank.isEmpty()){ %>
                 	<td colspan=6>보여드릴 순위가 없습니다.</td>
                 <%}else{ %>
-                	<%for(MainContent r : rank){ %>
+                	<%for(int i = 0; i < 10; i++){ %>
 		                <tr align="center">
-		                    <td><%=r.getRownum() %></td>
-		                    <td><img src="<%=contextPath %>/<%=r.getImgPath() %>/<%=r.getChangeImg() %>" width="70px;" height="100px;"></td>
-		                    <td><a href="<%=contextPath%>/'<%=r.getTitle()%>'.detail?contentNo=<%=r.getContentNo()%>"><%=r.getGenre() %> : <%=r.getTitle() %></a></td>
-		                    <td><%=r.getRate() %> %</td>
-		                    <td><%=r.getConcertDate() %></td>
+		                    <td><%=rank.get(i).getRownum() %></td>
+		                    <td><img src="<%=contextPath %>/<%=rank.get(i).getImgPath() %>/<%=rank.get(i).getChangeImg() %>" width="70px;" height="100px;"></td>
+		                    <td><a href="<%=contextPath%>/'<%=rank.get(i).getTitle()%>'.detail?contentNo=<%=rank.get(i).getContentNo()%>"><%=rank.get(i).getGenre() %> : <%=rank.get(i).getTitle() %></a></td>
+		                    <td><%=rank.get(i).getRate() %> %</td>
+		                    <td><%=rank.get(i).getConcertDate() %></td>
 		                </tr>
 		           <%} %>
                 <%} %>
