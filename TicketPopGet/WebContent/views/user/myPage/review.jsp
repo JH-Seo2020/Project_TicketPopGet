@@ -165,7 +165,7 @@
 	        	
 	    	   
 	    	   $(".table>tbody>tr").click(function(){
-					var rno = $(this).children().eq(1).text(); 
+					var rno = $(this).children().eq(0).text(); 
 					var userNo = "<%=userNo%>";
 					location.href="<%=contextPath%>/review_detail.my?rno="+rno+"&"+"userNo="+userNo; 
 				});
