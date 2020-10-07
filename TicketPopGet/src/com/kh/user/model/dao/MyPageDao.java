@@ -119,6 +119,34 @@ public class MyPageDao {
 	}
 	
 	/**
+	 * 메인 찜리스트삭제
+	 * @param conn
+	 * @param wno
+	 * @param userNo
+	 * @return
+	 */
+	public int deletemainWishList(Connection conn, int wno, int userNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deletemainWishList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, wno);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/**
 	 * 메인 관람공연/전시
 	 * @param conn
 	 * @param userNo

@@ -58,7 +58,7 @@
         <li class="serviceMenu"><a href="<%= request.getContextPath() %>/search.fo?currentPage=1&type=예매/취소">예매/취소</a></li>
         <li class="serviceMenu"><a href="<%= request.getContextPath() %>/search.fo?currentPage=1&type=기타">기타</a></li>
       </ul>
-      	<%if(loginUser != null){ %>
+         <%if(loginUser != null){ %>
       <ul class="serviceTopMenu">
         <li class="serviceMenu"><a class="help_meu" href="<%= request.getContextPath() %>/list.qo?currentPage=1">1 : 1문의</a></li>
         <li class="serviceMenu"><a href="<%= request.getContextPath() %>/list.qo?currentPage=1">문의내역</a></li>

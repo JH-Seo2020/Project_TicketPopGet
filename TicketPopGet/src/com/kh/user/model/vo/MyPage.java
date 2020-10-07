@@ -19,12 +19,13 @@ public class MyPage {
 	private Date reviewDate; //후기작성일
 	private String contentChimg; //수정이미지
 	private String contentImgPath; //파일경로
+    private String reviewStatus; // 후기상태
 	
 	public MyPage() {}
 
 	public MyPage(int userNo, String userId, int ticketNo, int contentNo, String contentType, Date viewDate,
 			String contentTitle, int reviewNo, String reviewTitle, Clob reviewContent, int reviewPoint, Date reviewDate,
-			String contentChimg, String contentImgPath) {
+			String contentChimg, String contentImgPath, String reviewStatus) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -40,11 +41,8 @@ public class MyPage {
 		this.reviewDate = reviewDate;
 		this.contentChimg = contentChimg;
 		this.contentImgPath = contentImgPath;
+		this.reviewStatus = reviewStatus;
 	}
-
-
-
-
 
 	public MyPage(int ticketNo, String contentType, Date viewDate, String contentTitle,
 			      int userNo, int contentNo) {
@@ -219,13 +217,24 @@ public class MyPage {
 		this.contentImgPath = contentImgPath;
 	}
 
+	public String getReviewStatus() {
+		return reviewStatus;
+	}
+
+	public void setReviewStatus(String reviewStatus) {
+		this.reviewStatus = reviewStatus;
+	}
+
 	@Override
 	public String toString() {
-		return "MyPage [userNo=" + userNo + ", userId=" + userId + ", ticketNo=" + ticketNo + ", contentType="
-				+ contentType + ", viewDate=" + viewDate + ", contentTitle=" + contentTitle + ", reviewNo=" + reviewNo
-				+ ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent + ", reviewPoint=" + reviewPoint
-				+ ", reviewDate=" + reviewDate + "]";
+		return "MyPage [userNo=" + userNo + ", userId=" + userId + ", ticketNo=" + ticketNo + ", contentNo=" + contentNo
+				+ ", contentType=" + contentType + ", viewDate=" + viewDate + ", contentTitle=" + contentTitle
+				+ ", reviewNo=" + reviewNo + ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent
+				+ ", reviewPoint=" + reviewPoint + ", reviewDate=" + reviewDate + ", contentChimg=" + contentChimg
+				+ ", contentImgPath=" + contentImgPath + ", reviewStatus=" + reviewStatus + "]";
 	}
+
+	
 
 	
 	

@@ -42,6 +42,27 @@ public class MyPageService {
 	}
 	
 	/**
+	 * 메인 찜리스트 삭제
+	 * @param wno
+	 * @param userNo
+	 * @return
+	 */
+	public int deletemainWishList(int wno, int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new MyPageDao().deletemainWishList(conn, wno, userNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	/**
 	 * 나의 관람 공연/전시
 	 * @param userNo
 	 * @return

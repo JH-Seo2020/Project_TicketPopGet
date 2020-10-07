@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.user.model.service.MyPageService;
 
 /**
- * Servlet implementation class MyPageWishListUpdateServlet
+ * Servlet implementation class MyPageMainWishListServlet
  */
-@WebServlet("/wishlistUpdate.my")
-public class MyPageWishListUpdateServlet extends HttpServlet {
+@WebServlet("/mypagewl.my")
+public class MyPageMainWishListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageWishListUpdateServlet() {
+    public MyPageMainWishListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,7 +37,7 @@ public class MyPageWishListUpdateServlet extends HttpServlet {
 		
 		if(result>0) {
 
-			response.sendRedirect(request.getContextPath()+"/wishlist.my?currentPage=1&userNo="+userNo);
+			response.sendRedirect(request.getContextPath()+"/mypage.my?userNo="+userNo);
 
 		}
 		else {
