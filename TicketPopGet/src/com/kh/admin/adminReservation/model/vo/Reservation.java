@@ -9,17 +9,25 @@ public class Reservation {
 	private int ticketNum;
 	private int roundNo;
 	private String contentType;
-	private int userNo;
+	private String user;
 	private int contentNo;
 	private Date paymentDate;
 	private String paymentType;
 	private String paymentStatus;
 	private String paymentTotal;
 	private String paymentCancel;
+	private String contentTitle;
+	private Date contentDate;
+	private int max;
+	private int seats;
+	private String round;
 	
+	public Reservation() {}
+
 	public Reservation(int ticketNo, Date reservationDate, Date viewDate, int ticketNum, int roundNo,
-			String contentType, int userNo, int contentNo, Date paymentDate, String paymentType, String paymentStatus,
-			String paymentTotal, String paymentCancel) {
+			String contentType, String user, int contentNo, Date paymentDate, String paymentType, String paymentStatus,
+			String paymentTotal, String paymentCancel, String contentTitle, Date contentDate, int max, int seats,
+			String round) {
 		super();
 		this.ticketNo = ticketNo;
 		this.reservationDate = reservationDate;
@@ -27,13 +35,18 @@ public class Reservation {
 		this.ticketNum = ticketNum;
 		this.roundNo = roundNo;
 		this.contentType = contentType;
-		this.userNo = userNo;
+		this.user = user;
 		this.contentNo = contentNo;
 		this.paymentDate = paymentDate;
 		this.paymentType = paymentType;
 		this.paymentStatus = paymentStatus;
 		this.paymentTotal = paymentTotal;
 		this.paymentCancel = paymentCancel;
+		this.contentTitle = contentTitle;
+		this.contentDate = contentDate;
+		this.max = max;
+		this.seats = seats;
+		this.round = round;
 	}
 
 	public int getTicketNo() {
@@ -84,12 +97,12 @@ public class Reservation {
 		this.contentType = contentType;
 	}
 
-	public int getUserNo() {
-		return userNo;
+	public String getUser() {
+		return user;
 	}
 
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 	public int getContentNo() {
@@ -140,13 +153,56 @@ public class Reservation {
 		this.paymentCancel = paymentCancel;
 	}
 
+	public String getContentTitle() {
+		return contentTitle;
+	}
+
+	public void setContentTitle(String contentTitle) {
+		this.contentTitle = contentTitle;
+	}
+
+	public Date getContentDate() {
+		return contentDate;
+	}
+
+	public void setContentDate(Date contentDate) {
+		this.contentDate = contentDate;
+	}
+
+	public int getMax() {
+		return max;
+	}
+
+	public void setMax(int max) {
+		this.max = max;
+	}
+
+	public int getSeats() {
+		return seats;
+	}
+
+	public void setSeats(int seats) {
+		this.seats = seats;
+	}
+
+	public String getRound() {
+		return round;
+	}
+
+	public void setRound(String round) {
+		this.round = round;
+	}
+
 	@Override
 	public String toString() {
 		return "Reservation [ticketNo=" + ticketNo + ", reservationDate=" + reservationDate + ", viewDate=" + viewDate
-				+ ", ticketNum=" + ticketNum + ", roundNo=" + roundNo + ", contentType=" + contentType + ", userNo="
-				+ userNo + ", contentNo=" + contentNo + ", paymentDate=" + paymentDate + ", paymentType=" + paymentType
+				+ ", ticketNum=" + ticketNum + ", roundNo=" + roundNo + ", contentType=" + contentType + ", user="
+				+ user + ", contentNo=" + contentNo + ", paymentDate=" + paymentDate + ", paymentType=" + paymentType
 				+ ", paymentStatus=" + paymentStatus + ", paymentTotal=" + paymentTotal + ", paymentCancel="
-				+ paymentCancel + "]";
+				+ paymentCancel + ", contentTitle=" + contentTitle + ", contentDate=" + contentDate + ", max=" + max
+				+ ", seats=" + seats + ", round=" + round + "]";
 	}
+
+	
 	
 }
