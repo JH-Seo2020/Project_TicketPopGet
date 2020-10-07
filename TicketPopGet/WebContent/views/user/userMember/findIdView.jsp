@@ -54,6 +54,7 @@
         <form action="" align="center">
             
             <div class="chk" style="font-size: 15px;">
+            <input type="hidden" name="userNo">
                 <b><%=m.getUserName() %></b>님의 아이디는 <b><%=m.getUserId() %></b>입니다.
             </div>
             <br><br>

@@ -71,10 +71,22 @@ public class Member {
 		this.userName = userName;
 	}
 	
+	// pass찾기
+	public Member(String userPwd, String userName, String phone) {
+		super();
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+	}
 
+
+	
+
+	
 	public int getUserNo() {
 		return userNo;
 	}
+
 
 
 	public void setUserNo(int userNo) {

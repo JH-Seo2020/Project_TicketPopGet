@@ -121,6 +121,7 @@
 	    SELECT 
 		       USER_PWD
 		     , USER_NAME
+		     , PHONE
 		  FROM MEMBER
 		 WHERE USER_NAME = ?
 	       AND USER_ID = ?
