@@ -191,12 +191,7 @@
 	margin-left: 20px;
 }
 
-.watchshow_btn {
-	margin-bottom: 20px;
-	background-color: white;
-	border: 1px solid tomato;
-	cursor: pointer;
-}
+
 </style>
 </head>
 <body>
@@ -316,11 +311,11 @@
 			<div id="mypage_watchshow">
 				<p style="float: left; margin-left: 50px;">
 					<b style="font-size: 30px;">나의 관람공연/전시</b>
-					<button  onclick="location.href='<%=contextPath%>/review.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>'" class="more_btn">더보기</button>
+					<button  onclick="location.href='<%=contextPath%>/show.my?currentPage=1&userNo=<%=loginUser.getUserNo()%>'" class="more_btn">더보기</button>
 				</p>
 				<div class="watchshow_area" align="left">
 					<%
-               			 if(wishlist.isEmpty()){
+               			 if(mps.isEmpty()){
            			 %>
         			<%
              		    }else{ 

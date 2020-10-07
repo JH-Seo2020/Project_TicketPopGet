@@ -179,7 +179,7 @@
               			}else{ 
               		           for(Reservation r : re) {
               		%>
-				<%-- if문? 암튼 줘서,,, 예매인지 그거 조건 다 줘서,, 취소면 취소페이지로만 가게해야됨!!!!!! onclick (if문) --%>
+	
 					<%if(r.getPaymentCancel()=="N"){ %>
 					<tr onClick="location.href='<%=contextPath%>/re_detail.my?userNo=<%=loginUser.getUserNo()%>&tno=<%=r.getTicketNo()%>'">
 						<td><%=r.getTicketNo() %></td>

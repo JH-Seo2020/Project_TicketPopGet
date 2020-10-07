@@ -149,23 +149,30 @@
               			if(mps.isEmpty()){
               		%>
               		<tr>
-              			<td  colspan="4">조회되는 리스트가 없슴니당</td>
+              			<td  colspan="4">조회되는 리스트가 없습니다.</td>
               		</tr>
               		<%
               			}else{ 
-              		              		   for(MyPage ps : mps) {
+              		            for(MyPage ps : mps) {
               		%>
+              		
+              		<%if(ps.getReviewStatus()!="N"){ %>
 	                <tr>
 	                  <td><%=ps.getTicketNo() %></td>
 	                  <td><%=ps.getContentType() %></td>
 	                  <td><%=ps.getViewDate() %></td>
 	                  <td><%=ps.getContentTitle() %></td>
-	                  <%if(ps.getReviewStatus().equals('N')){ %>
-	                  <td><button onclick="location.href='<%=contextPath%>/review_write.my?tno=<%=ps.getTicketNo()%>&userNo=<%=loginUser.getUserNo()%>&cno=<%=ps.getContentNo()%>'">후기작성</button>
-	                  <%} else{%>
-	                  <td><button disabled="disabled">후기작성</button>
-	                  <%} %>
+	                  <td><button onclick="location.href='<%=contextPath%>/review_write.my?tno=<%=ps.getTicketNo()%>&userNo=<%=loginUser.getUserNo()%>&cno=<%=ps.getContentNo()%>'">후기작성</button><td>
 	                </tr>
+	                <%} else {%>
+	                  <tr>
+	                  <td><%=ps.getTicketNo() %></td>
+	                  <td><%=ps.getContentType() %></td>
+	                  <td><%=ps.getViewDate() %></td>
+	                  <td><%=ps.getContentTitle() %></td>
+	                  <td><button disabled="disabled">후기작성</button>
+	                	</tr>
+	                <%} %>
 	                <%} %>
 	                <%} %>
               </tbody>

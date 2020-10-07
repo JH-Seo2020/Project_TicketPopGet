@@ -734,7 +734,8 @@ public class MyPageDao {
 								   rset.getDate("VIEW_DATE"),
 								   rset.getString("CONTENT_TITLE"),
 								   rset.getInt("USER_NO"),
-								   rset.getInt("CONTENT_NO")));
+								   rset.getInt("CONTENT_NO"),
+								   rset.getString("RP_REVIEW_STATUS")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -814,7 +815,8 @@ public class MyPageDao {
 								   rset.getDate("VIEW_DATE"),
 								   rset.getString("CONTENT_TITLE"),
 								   rset.getInt("USER_NO"),
-								   rset.getInt("CONTENT_NO")));
+								   rset.getInt("CONTENT_NO"),
+								   rset.getString("RP_REVIEW_STATUS")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

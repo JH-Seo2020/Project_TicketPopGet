@@ -45,7 +45,7 @@ public class MyPage {
 	}
 
 	public MyPage(int ticketNo, String contentType, Date viewDate, String contentTitle,
-			      int userNo, int contentNo) {
+			      int userNo, int contentNo, String reviewStatus) {
 		super();
 		this.ticketNo = ticketNo;
 		this.contentType = contentType;
@@ -53,6 +53,7 @@ public class MyPage {
 		this.contentTitle = contentTitle;
 		this.userNo = userNo;
 		this.contentNo = contentNo;
+		this.reviewStatus = reviewStatus;
 	}
 	
 	public MyPage(int userNo, int reviewNo, String contentTitle, String reviewTitle, Date reviewDate) {
@@ -86,6 +87,7 @@ public class MyPage {
 		this.ticketNo = ticketNo;
 		this.contentNo = contentNo;
 		this.userNo = userNo;
+		
 	}
 	
 	
@@ -98,6 +100,7 @@ public class MyPage {
 		this.contentChimg = contentChimg;
 		this.contentImgPath = contentImgPath;
 		this.viewDate = viewDate;
+		
 	}
 
 	public int getUserNo() {

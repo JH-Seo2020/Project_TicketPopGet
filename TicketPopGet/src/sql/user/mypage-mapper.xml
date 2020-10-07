@@ -52,7 +52,7 @@ SELECT
 
 
 <entry key="mainShowList">
-  SELECT 
+     SELECT 
          RP.TICKET_NO
       ,  C.CONTENT_TITLE
       ,  RP.USER_NO
@@ -65,11 +65,11 @@ SELECT
   INNER  JOIN CONTENTS C
      ON  RP.CONTENT_NO = C.CONTENT_NO
         INNER  JOIN REVIEW R
-           ON  RP.TICKET_NO = R.TICKET_NO
+     ON  RP.TICKET_NO = R.TICKET_NO
   WHERE  RP.USER_NO = ?
     AND  RP.PAYMENT_STATUS = 'Y'
     AND  RP.PAYMENT_CANCEL = 'N'
-    AND  R.REVIEW_STATUS = 'N'
+   
 
 </entry>
 
@@ -352,7 +352,7 @@ SELECT *
 <entry key="selectShowListCount">
 SELECT COUNT(*) LISTVIEW 
  FROM(
-          SELECT 
+            SELECT 
 	                RP.TICKET_NO
 	             ,  RP.CONTENT_TYPE
 	             ,  RP.VIEW_DATE
@@ -364,12 +364,10 @@ SELECT COUNT(*) LISTVIEW
 	            ON  M.USER_NO = RP.USER_NO
 	         INNER  JOIN CONTENTS C
 	            ON  RP.CONTENT_NO = C.CONTENT_NO
-	               INNER  JOIN REVIEW R
-	                  ON  RP.TICKET_NO = R.TICKET_NO
 	         WHERE  RP.USER_NO = ?
 	           AND  RP.PAYMENT_STATUS = 'Y'
 	           AND  RP.PAYMENT_CANCEL = 'N'
-	                 AND  R.REVIEW_STATUS = 'N'
+               AND  RP.RP_REVIEW_STATUS = 'N'
     )
 </entry>
 
@@ -380,7 +378,33 @@ SELECT *
  			ROWNUM RNUM
  		  , A.*
  	  FROM  (	  
-		         SELECT 
+	            SELECT 
+		                RP.TICKET_NO
+		             ,  RP.CONTENT_TYPE
+		             ,  RP.VIEW_DATE
+		             ,  C.CONTENT_TITLE
+		             ,  RP.USER_NO
+		             ,  RP.CONTENT_NO
+		             ,  RP_REVIEW_STATUS
+		          FROM  RESERVATION_PAYMENT RP
+		         INNER  JOIN  MEMBER M
+		            ON  M.USER_NO = RP.USER_NO
+		         INNER  JOIN CONTENTS C
+		            ON  RP.CONTENT_NO = C.CONTENT_NO
+		         WHERE  RP.USER_NO = ?
+		           AND  RP.PAYMENT_STATUS = 'Y'
+		           AND  RP.PAYMENT_CANCEL = 'N'
+	               AND  RP.RP_REVIEW_STATUS = 'N'
+		     )A
+    	)
+    WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+
+<entry key="selectShowContnetCount">
+SELECT COUNT(*) LISTVIEW 
+ FROM(
+              SELECT 
 		                RP.TICKET_NO
 		             ,  RP.CONTENT_TYPE
 		             ,  RP.VIEW_DATE
@@ -392,40 +416,11 @@ SELECT *
 		            ON  M.USER_NO = RP.USER_NO
 		         INNER  JOIN CONTENTS C
 		            ON  RP.CONTENT_NO = C.CONTENT_NO
-                 INNER  JOIN REVIEW R
-                    ON  RP.TICKET_NO = R.TICKET_NO
 		         WHERE  RP.USER_NO = ?
+	               AND  RP.CONTENT_TYPE= ?
 		           AND  RP.PAYMENT_STATUS = 'Y'
 		           AND  RP.PAYMENT_CANCEL = 'N'
-                   AND  R.REVIEW_STATUS = 'N'
-		     )A
-    	)
-    WHERE RNUM BETWEEN ? AND ?
-</entry>
-
-
-<entry key="selectShowContnetCount">
-SELECT COUNT(*) LISTVIEW 
- FROM(
-           SELECT 
-	               RP.TICKET_NO
-	            ,  C.CONTENT_TYPE
-	            ,  RP.VIEW_DATE
-	            ,  C.CONTENT_TITLE
-	            ,  RP.CONTENT_NO
-	            ,  RP.USER_NO
-	         FROM  RESERVATION_PAYMENT RP
-	        INNER  JOIN MEMBER M
-	           ON  M.USER_NO = RP.TICKET_NO
-	        INNER  JOIN CONTENTS C
-	           ON  C.CONTENT_NO = RP.CONTENT_NO
-	        INNER  JOIN REVIEW R
-	           ON  R.TICKET_NO = RP.TICKET_NO
-	        WHERE  RP.USER_NO = ?
-	          AND  RP.CONTENT_TYPE= ?
-	          AND  RP.PAYMENT_STATUS = 'Y'
-	          AND  RP.PAYMENT_CANCEL = 'N'
-	          AND  R.REVIEW_STATUS = 'N'
+	               AND  RP.RP_REVIEW_STATUS = 'N'
     )
 </entry>
 
@@ -436,25 +431,24 @@ SELECT *
  			ROWNUM RNUM
  		  , A.*
  	  FROM  (	  
-				SELECT 
-		               RP.TICKET_NO
-		            ,  RP.CONTENT_TYPE
-		            ,  RP.VIEW_DATE
-		            ,  C.CONTENT_TITLE
-		            ,  RP.CONTENT_NO
-		            ,  RP.USER_NO
-		         FROM  RESERVATION_PAYMENT RP
-		        INNER  JOIN MEMBER M
-		           ON  M.USER_NO = RP.TICKET_NO
-		        INNER  JOIN CONTENTS C
-		           ON  RP.CONTENT_NO = C.CONTENT_NO
-		        INNER  JOIN REVIEW R
-		           ON  R.TICKET_NO = RP.TICKET_NO
-		        WHERE  RP.USER_NO = ?
-		          AND  RP.CONTENT_TYPE= ?
-		          AND  RP.PAYMENT_STATUS = 'Y'
-		          AND  RP.PAYMENT_CANCEL = 'N'
-		          AND  R.REVIEW_STATUS = 'N'
+			SELECT 
+	                RP.TICKET_NO
+	             ,  RP.CONTENT_TYPE
+	             ,  RP.VIEW_DATE
+	             ,  C.CONTENT_TITLE
+	             ,  RP.USER_NO
+	             ,  RP.CONTENT_NO
+	             ,  RP.RP_REVIEW_STATUS
+	          FROM  RESERVATION_PAYMENT RP
+	         INNER  JOIN  MEMBER M
+	            ON  M.USER_NO = RP.USER_NO
+	         INNER  JOIN CONTENTS C
+	            ON  RP.CONTENT_NO = C.CONTENT_NO
+	         WHERE  RP.USER_NO = ?
+               AND  RP.CONTENT_TYPE= ?
+	           AND  RP.PAYMENT_STATUS = 'Y'
+	           AND  RP.PAYMENT_CANCEL = 'N'
+               AND  RP.RP_REVIEW_STATUS = 'N'
 		     )A
     	)
     WHERE RNUM BETWEEN ? AND ?
