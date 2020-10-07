@@ -93,7 +93,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
         <div class="menuWrap">
         <button type="button" onclick="location.href='<%=request.getContextPath()%>/list.adno?currentPage=1'">공지사항 관리</button>
         <button type="button" onclick="location.href='<%=request.getContextPath()%>/list.adfa?currentPage=1'">FAQ</button>
-        <button>1대1문의 관리</button>
+        <!-- <button>1대1문의 관리</button> -->
         <button onclick="location.href='<%=request.getContextPath()%>/list.adre?currentPage=1'">신고관리</button>
         </div>
         
