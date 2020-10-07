@@ -38,16 +38,21 @@ public class LoginAdminServlet extends HttpServlet {
 		String userPwd = request.getParameter("userPwd"); // 입력한 비밀번호
 		
 		if(userId.equals("ADMIN")) {
+			
 			int loginAdmin = new MemberService().loginAdmin(userId, userPwd);
+			
 			if(loginAdmin != 0) {
 				request.getRequestDispatcher("views/admin/adminCommon/adminMainMenu.jsp").forward(request, response);;
+			}else {
+				request.setAttribute("errorMsg", "로그인에 실패하였습니다.");
+				
+				RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+				view.forward(request,  response);
 			}
+			
 		}else {
 			
-			request.setAttribute("errorMsg", "로그인에 실패하였습니다.");
 			
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request,  response);
 		}
 	}
 
