@@ -48,15 +48,17 @@
     }
     .area{float: left;}
     #noticeDiv{margin-left:5%}
+    #leftmenu{ margin-left:11%;}
+    #contentArea{margin-left:0%;}
 </style>
 <body>
 <!-- 상단 메뉴바  -->
 <%@ include file="/views/common/menubar.jsp"%>
-	<div class="area">
+	<div class="area"  id="leftmenu">
     <!-- 왼쪽메뉴바 -->
     <%@ include file="/views/serviceCenter/serviceMenubar.jsp"%>
     </div>
-   <div class="area">
+   <div class="area" id="contentArea">
         <div>
             <h2 class="noticetitle"><b>1 : 1문의</b></h2>
             <nav id="topMenu">
