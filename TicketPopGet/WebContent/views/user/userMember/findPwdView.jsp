@@ -50,11 +50,11 @@
 <!-- 메뉴바  -->
 <%@ include file="/views/common/menubar.jsp"%>
     <div class="loginbox">
-        <h1>아이디 찾기</h1>
+        <h1>비밀번호 찾기</h1>
         <form action="" align="center">
             
             <div class="chk" style="font-size: 15px;">
-                <b><%=m.getUserName() %></b>님의 아이디는 <b><%=m.getUserId() %></b>입니다.
+                <b><%=m.getUserName() %></b>님의 비밀번호는 <b><%=m.getUserPwd() %></b>입니다.
             </div>
             <br><br>
             <div class="btnwrap">

@@ -117,4 +117,13 @@
 		 WHERE USER_NAME = ?
 	       AND PHONE = ?
 	 </entry>
+	 <entry key="findUserPwd">
+	    SELECT 
+		       USER_PWD
+		     , USER_NAME
+		  FROM MEMBER
+		 WHERE USER_NAME = ?
+	       AND USER_ID = ?
+	       AND PHONE = ?
+	 </entry>
 </properties>

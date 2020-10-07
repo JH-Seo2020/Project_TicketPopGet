@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <style>
-    .loginbox{
+    .searchIdbox{
         width: 700px;
         height: 700px;
         margin-left: 25%;
@@ -15,7 +15,7 @@
         padding: 25px 15px;
         box-sizing: border-box;
     }
-    .loginbox h1{
+    .searchIdbox h1{
         width: 100%;
         height: 40px;
         font-size: 35px;
@@ -24,14 +24,14 @@
         margin-bottom: 50px;
         text-align: center;
     }
-    #loginid, #loginpw{
+    #userName, #phone{
         width: 200px;
         height: 25px;
         box-sizing: border-box;
         margin-bottom: 15px;
         font-size: 14px;
     }
-    .labelid{
+    .userName{
         
         /* color: #666; */
         margin-left: 15px;
@@ -75,29 +75,24 @@
     }
 </style>
 <body>
-<!-- 메뉴바  -->
+<!-- 상단 메뉴바  -->
 <%@ include file="/views/common/menubar.jsp"%>
 
-    <div class="loginbox">
-        <h1>로그인</h1>
-        <form id="loginForm" action="<%= request.getContextPath() %>/login.me" method="post" align="center">
-            <label for="loginid" class="labelid">아이디</label>
-            <input type="text" id="loginid" name="userId" required><br>
-            <label for="loginpw" class="labelpw">패스워드</label>&nbsp;
-            <input type="password" id="loginpw" name="userPwd" required>
+    <div class="searchIdbox">
+        <h1>비밀번호 찾기</h1>
+        <form id="searchForm" action="<%= request.getContextPath() %>/findPwd.me" method="post" align="center">
+            <label for="userName" class="userName">이름</label>
+            <input type="text" id="userName" name="userName" required><br>
+            <label for="userId" class="userId">아이디</label>
+            <input type="text" id="userId" name="userId" required><br>
+            <label for="phone" class="phone">전화번호</label>
+            <input type="text" id="phone" name="phone" required>
 
             <br>
             <div class="btnwrap">
-                <input type="submit" id="loginbtn" value="로그인">
+                <input type="submit" id="loginbtn" value="비밀번호찾기">
             </div>
             <br>
- 
-            <div class="search">
-                <span class="text">아이디 또는 비밀번호를 잊으셨나요?</span>
-                <a href="<%= request.getContextPath() %>/findIdView.me">ID찾기</a>
-                <a href="<%= request.getContextPath() %>/findPwdView.me">PASS찾기</a>
-            </div>
-
         </form>
         
         <script>

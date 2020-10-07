@@ -168,12 +168,24 @@ public class MemberService {
 		
 		Connection conn = getConnection();
 		
-		Member findUserId = new MemberDao().findUserId(conn, userName, phone);
+		Member m = new MemberDao().findUserId(conn, userName, phone);
 		
 		close(conn);
 	      
-	    return findUserId;
+	    return m;
 		
+	}
+
+
+	public Member findUserPwd(String userName, String userId, String phone) {
+		
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().findUserPwd(conn, userName, userId, phone);
+		
+		close(conn);
+	      
+	    return m;
 	}
    
    

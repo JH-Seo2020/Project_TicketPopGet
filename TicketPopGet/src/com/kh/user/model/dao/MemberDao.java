@@ -356,4 +356,37 @@ public class MemberDao {
 	      return m;
 	}
 
+	public Member findUserPwd(Connection conn, String userName, String userId, String phone) {
+
+		  Member m = null;
+	      
+	      PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+	      
+	      String sql = prop.getProperty("findUserPwd");
+	      
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, userName);
+	         pstmt.setString(2, userId);
+	         pstmt.setString(3, phone);
+	         
+	         rset = pstmt.executeQuery();
+	         
+	         if(rset.next()) {
+	            m = new Member(rset.getString("USER_ID"),
+	            			   rset.getString("USER_NAME"));
+	         }
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(rset);
+	         close(pstmt);
+	      }
+	      
+	      return m;
+	}
+
 }
