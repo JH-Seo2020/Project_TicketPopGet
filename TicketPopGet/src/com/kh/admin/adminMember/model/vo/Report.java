@@ -13,6 +13,7 @@ public class Report {
 	private Date reportDate;
 	private String reportStatus;
 	private int contentNo;
+	private int reportCount;
 	
 	public Report() {}
 
@@ -101,14 +102,22 @@ public class Report {
 	public void setContentNo(int contentNo) {
 		this.contentNo = contentNo;
 	}
+	
+	public int getReportCount() {
+		return reportCount;
+	}
+
+	public void setReportCount(int reportCount) {
+		this.reportCount = reportCount;
+	}
 
 	@Override
 	public String toString() {
 		return "Report [reportNo=" + reportNo + ", reporter=" + reporter + ", troublemaker=" + troublemaker
 				+ ", reportType=" + reportType + ", reportCate=" + reportCate + ", reportContent=" + reportContent
-				+ ", reportDate=" + reportDate + ", reportStatus=" + reportStatus + ", contentNo=" + contentNo + "]";
+				+ ", reportDate=" + reportDate + ", reportStatus=" + reportStatus + ", contentNo=" + contentNo
+				+ ", reportCount=" + reportCount + "]";
 	}
-
 
 	
 }

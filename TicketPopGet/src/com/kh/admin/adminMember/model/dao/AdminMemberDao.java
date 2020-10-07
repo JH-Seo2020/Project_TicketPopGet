@@ -281,7 +281,9 @@ public class AdminMemberDao {
 			            rset.getInt("report_count"),
 			            rset.getString("delete_reason")
 						));
+				
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -343,6 +345,31 @@ public class AdminMemberDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int searchReportCount(Connection conn, int userNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchReportCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
 			close(pstmt);
 		}
 		return result;

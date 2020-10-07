@@ -185,4 +185,11 @@
 		 WHERE USER_NO = ?
 		   AND BLACKLIST_STATUS='Y'
 	</entry>
+	
+	<entry key="searchReportCount">
+		SELECT COUNT(*)
+		  FROM REPORT
+		  WHERE TROUBLEMAKER = ?
+	</entry>
+	
 </properties>
