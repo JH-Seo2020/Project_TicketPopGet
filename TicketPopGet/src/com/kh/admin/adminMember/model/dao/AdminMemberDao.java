@@ -68,7 +68,7 @@ public class AdminMemberDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, selectUserType);
-			pstmt.setString(2, selectUser);
+			pstmt.setString(2, "%"+selectUser+"%");
 			
 			rset = pstmt.executeQuery();
 			
@@ -155,7 +155,7 @@ public class AdminMemberDao {
 			int startRow = (p.getCurrentPage() - 1) * p.getBoardLimit() + 1;
 			int endRow = startRow + p.getBoardLimit() - 1;
 			
-			pstmt.setString(1, selectUser);
+			pstmt.setString(1, "%"+selectUser+"%");
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
 			

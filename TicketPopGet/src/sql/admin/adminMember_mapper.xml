@@ -10,7 +10,7 @@
 		SELECT
 		       COUNT(*)
 		  FROM MEMBER
-		  WHERE ? = ?
+		  WHERE ? LIKE ?
 	</entry>
 	<entry key="selectMemberList">
 		SELECT B.*
@@ -60,7 +60,7 @@
 		                  , REPORT_COUNT
 		                  , DELETE_REASON
 		              FROM MEMBER
-                      WHERE USER_ID = ? 
+                      WHERE USER_ID LIKE ?
 		              )A
 		        )B
              WHERE RNUM BETWEEN ? AND ?
@@ -87,7 +87,7 @@
 		                  , REPORT_COUNT
 		                  , DELETE_REASON
 		              FROM MEMBER
-                      WHERE USER_NAME = ? 
+                      WHERE USER_NAME LIKE ? 
 		              )A
 		        )B
              WHERE RNUM BETWEEN ? AND ?
@@ -114,7 +114,7 @@
 		                  , REPORT_COUNT
 		                  , DELETE_REASON
 		              FROM MEMBER
-                      WHERE Phone = ? 
+                      WHERE PHONE LIKE ? 
 		              )A
 		        )B
              WHERE RNUM BETWEEN ? AND ?

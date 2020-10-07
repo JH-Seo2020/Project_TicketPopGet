@@ -99,7 +99,7 @@
 						if(f != null){
 							$("#updateFaqNo").val(f.faqNo);
 							$("#faqTitle2").val(f.faqTitle);
-							$("#faqType2>option[value="+f.faqType+"]").attr("selected", "true");
+							$("#faqType2>option[value="+f.faqType+"]").attr("selected", "selected");
 							$("#faqContent2").text(f.faqContent);
 						}
 					},error:function(){

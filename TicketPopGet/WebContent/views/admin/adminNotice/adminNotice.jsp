@@ -205,7 +205,7 @@
   		  			type:"post",
   		  			success:function(n){
   		  				$("#updateTitle").val(n.noticeTitle);
-  		  				$("#updateType>option[value="+n.noticeType+"]").attr("selected", "true");
+  		  				$("#updateType>option[value="+n.noticeType+"]").attr("selected", "selected");
   		  				$("#updateContent").text(n.noticeContent);
   		  				$("#updateDate").text(n.noticeDate);
   		  				$("#updateNo").val(n.noticeNo);

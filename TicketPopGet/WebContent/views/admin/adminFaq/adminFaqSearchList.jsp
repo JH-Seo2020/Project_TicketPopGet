@@ -101,7 +101,7 @@
 						if(f != null){
 							$("#updateFaqNo").val(f.faqNo);
 							$("#faqTitle2").val(f.faqTitle);
-							$("#faqType2>option[value="+f.faqType+"]").attr("selected", "true");
+							$("#faqType2>option[value="+f.faqType+"]").attr("selected", "selected");
 							$("#faqContent2").text(f.faqContent);
 						}
 					},error:function(){
@@ -240,7 +240,6 @@
                         <td width="250" align="right">
                             <button id="insertFaqBtn" class="btn btn-primary" style="height: 35px; display:none">등록</button>
                             <button type="button" id="updateFaqBtn" onclick="unlock();" class="btn btn-primary" style="height: 35px;">수정</button>
-                            <button type="button" id="deleteFaqBtn" class="btn btn-danger deleteFaqBtn2" style="height: 35px;">삭제</button>
                         </td>
                     </tr>
                     </table>

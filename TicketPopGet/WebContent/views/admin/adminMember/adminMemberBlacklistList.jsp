@@ -130,10 +130,6 @@
 
     </table>
     
-    <form action="" style="float: right;">
-        <input type="text" name="selectUser"> 
-        <button type="submit">검색</button>
-    </form>
     <br><br>
         <div align="center">
 		<%if(p.getCurrentPage() != p.getStartPage()) {%>

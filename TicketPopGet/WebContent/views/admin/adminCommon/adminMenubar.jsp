@@ -100,23 +100,23 @@ String alertMsg = (String)session.getAttribute("alertMsg");
 
         <div class="menuTitle">컨텐츠관리</div>
         <div class="menuWrap">
-        <button onclick="location.href='<%=request.getContextPath()%>/list.adco?currentPage=1'">컨텐츠 조회</button>
+        <button onclick="location.href='<%=request.getContextPath()%>/list.adco?currentPage=1'">컨텐츠 조회/등록</button>
         </div>
 
         <div class="menuTitle">컨텐츠 예매현황</div>
         <div class="menuWrap">
         <button onclick="location.href='<%=request.getContextPath()%>/list.adres?currentPage=1'">예매 및 결제현황</button>
-        <button>예매 통계</button>
+       <!--<button>예매 통계</button> -->
         </div>
 
-        <div class="menuTitle">커뮤니티 관리</div>
+       <!-- <div class="menuTitle">커뮤니티 관리</div> -->
         <div class="menuWrap">
-        <button>후기관리</button>
-        <button>자율홍보 게시판</button>
-        <button>댓글이벤트 관리</button>
-        <button>댓글이벤트 참가자</button>
-        <button>댓글이벤트 당첨자</button>
-        </div>
+       <!-- <button>후기관리</button> -->
+       <!-- <button>자율홍보 게시판</button> -->
+       <!-- <button>댓글이벤트 관리</button> -->
+       <!-- <button>댓글이벤트 참가자</button> -->
+       <!-- <button>댓글이벤트 당첨자</button> -->
+      </div>
     </div>
     <script>
         $(function(){

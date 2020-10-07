@@ -59,8 +59,7 @@
         </div>
         <div align="right">
             <span>관리자</span>
-            <a href="">로그아웃</a>
-            <a href="">사용자페이지</a>
+            <a href="<%=request.getContextPath()%>">로그아웃</a>
         </div>
         <div class="mainPageTableWrap" align="center">  
             <table align="center">
@@ -121,31 +120,31 @@
                     <th><button type="button" onclick="location.href='<%=request.getContextPath()%>/list.adres?currentPage=1'">예매 및 결제현황</button></th>
                 </tr>
                 <tr>
-                    <th><button type="button">예매통계</button></th>
+                 <!-- <th><button type="button">예매통계</button></th>  -->
                 </tr>
             </table>
         </div>
-        <div class="mainPageTableWrap" align="center">
+       <div class="mainPageTableWrap" align="center">
             <table align="center">
                 <tr>
                     <th class="menuTitle">
-                        <span>커뮤니티</span>
+                     <!--   <span>커뮤니티</span> -->
                     </th>
                 </tr>
                 <tr>
-                    <th><button type="button">후기관리</button></th>
+                <!-- <th><button type="button">후기관리</button></th>  -->
                 </tr>
                 <tr>
-                    <th><button type="button">자율홍보 관리</button></th>
+                 <!--   <th><button type="button">자율홍보 관리</button></th>  -->
                 </tr>
                 <tr>
-                    <th><button type="button">댓글이벤트 관리</button></th>
+                  <!--  <th><button type="button">댓글이벤트 관리</button></th>  -->
                 </tr>
                 <tr>
-                    <th><button type="button">댓글이벤트 참가자</button></th>
+                  <!--  <th><button type="button">댓글이벤트 참가자</button></th>  -->
                 </tr>
                 <tr>
-                    <th><button type="button">댓글이벤트 당첨자</button></th>
+                  <!--  <th><button type="button">댓글이벤트 당첨자</button></th>  -->
                 </tr>
             </table>
         </div>

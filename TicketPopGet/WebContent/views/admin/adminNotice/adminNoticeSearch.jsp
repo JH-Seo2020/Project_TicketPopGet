@@ -45,7 +45,8 @@
     }
 
     #noticeTable th{background: #6495ed;}
-    #noticeContent{width: 100%; height: 555px; border: 2px solid #6495ed;;}
+    #noticeContent{width: 100%; height: 555px; border: 2px solid #6495ed;}
+    #updateContent{width: 100%; height: 555px; border: 2px solid #6495ed;}
     #noticeTable input, #noticeTable select{width: 100%;}
 </style>
 </head>
@@ -175,7 +176,7 @@
                             <td width="250">
                                 <select name="type">
                                     <option value="시스템">시스템</option>
-                                    <option value="변경/취소">변경/취소</option>
+                                    <option value="변경및취소">변경/취소</option>
                                     <option value="기타">기타</option>
                                 </select>
                             </td>
@@ -185,7 +186,7 @@
                             </td>
                         </tr>
                     </table>
-                        <textarea name="noticeContent" id="noticeContent" style="resize: none;"></textarea>
+                        <textarea name="noticeContent" id="noticeContent" style="resize: none; width:100%;"></textarea>
                 </div>
             </div>
         </form>
@@ -206,7 +207,7 @@
   		  			type:"post",
   		  			success:function(n){
   		  				$("#updateTitle").val(n.noticeTitle);
-  		  				$("#updateType>option[value="+n.noticeType+"]").attr("selected", "true");
+  		  				$("#updateType>option[value="+n.noticeType+"]").attr("selected", "selected");
   		  				$("#updateContent").text(n.noticeContent);
   		  				$("#updateDate").text(n.noticeDate);
   		  				$("#updateNo").val(n.noticeNo);
