@@ -233,6 +233,28 @@ public class MyPageService {
 	}
 	
 	/**
+	 * 찜리스트 삭제
+	 * @param wno
+	 * @param userNo
+	 * @return
+	 */
+	public int deleteWishlist(int wno, int userNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MyPageDao().deleteWishlist(conn, wno, userNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	/**
 	 * 나의관람공연 개수 조회
 	 * @return
 	 * @author 이금이
