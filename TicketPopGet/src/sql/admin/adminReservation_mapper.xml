@@ -1,5 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-
+	
+	<entry key="reservationListCount">
+		SELECT COUNT(*)
+		  FROM RESERVATION_PAYMENT
+		 WHERE PAYMENT_CANCEL = 'N'
+	</entry>
+	
+	<entry key="paymentPlayCount">
+		SELECT COUNT(*)
+          FROM RESERVATION_PAYMENT R
+          JOIN MEMBER M ON (R.USER_NO=M.USER_NO)
+          JOIN CONTENTS C ON (R.CONTENT_NO=C.CONTENT_NO)
+          JOIN ROUND RO ON (R.ROUND_NO=RO.ROUND_NO)
+         WHERE PAYMENT_CANCEL = 'N'
+           AND R.CONTENT_NO = ?
+           AND RO.ROUND_NO = ?
+	</entry>
+	
+	<entry key="paymentExhibitionCount">
+		SELECT COUNT(*)
+		  FROM RESERVATION_PAYMENT R 
+		  JOIN MEMBER M ON (R.USER_NO=M.USER_NO)
+		  JOIN CONTENTS C ON (R.CONTENT_NO=C.CONTENT_NO)
+		 WHERE PAYMENT_CANCEL = 'N'
+		   AND R.CONTENT_NO = ?
+	</entry>
+	
+	<entry key="paymentConcertCount">
+		SELECT COUNT(*)
+		  FROM RESERVATION_PAYMENT R 
+		  JOIN MEMBER M ON (R.USER_NO=M.USER_NO)
+		  JOIN CONTENTS C ON (R.CONTENT_NO=C.CONTENT_NO)
+		  JOIN CONCERT CC ON (R.CONTENT_NO=CC.CONTENT_NO)
+		 WHERE PAYMENT_CANCEL = 'N'
+		   AND R.CONTENT_NO = ?
+	</entry>
+	
+	<entry key="reservationListPlay">
+		SELECT B.*
+		  FROM (SELECT ROWNUM RNUM,A.*
+		          FROM (SELECT TICKET_NO
+		                 , USER_ID
+		                 , RESERVATION_DATE
+		                 , PAYMENT_DATE
+		                 , PAYMENT_TYPE
+		                 , PAYMENT_STATUS
+		                 , PAYMENT_TOTAL
+		                 , CONTENT_TITLE
+		                 , ROUND_DATE
+		                 , ROUND_MAX
+		                 , ROUND_SEATS
+		                 , ROUND_COUNT
+		              FROM RESERVATION_PAYMENT R
+		              JOIN MEMBER M ON (R.USER_NO=M.USER_NO)
+		              JOIN CONTENTS C ON (R.CONTENT_NO=C.CONTENT_NO)
+		              JOIN ROUND RO ON (R.ROUND_NO=RO.ROUND_NO)
+		             WHERE PAYMENT_CANCEL = 'N'
+		               AND R.CONTENT_NO = ?
+		               AND RO.ROUND_NO = ?
+		             ORDER BY TICKET_NO DESC)A)B
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="reservationListExhibition">
+		SELECT B.*
+		  FROM (SELECT ROWNUM RNUM, A.*
+				  FROM (SELECT TICKET_NO
+							     , USER_ID
+							     , RESERVATION_DATE
+							     , PAYMENT_DATE
+							     , PAYMENT_TYPE
+							     , PAYMENT_STATUS
+							     , PAYMENT_TOTAL
+							     , CONTENT_TITLE
+							  FROM RESERVATION_PAYMENT R 
+							  JOIN MEMBER M ON (R.USER_NO=M.USER_NO)
+							  JOIN CONTENTS C ON (R.CONTENT_NO=C.CONTENT_NO)
+							 WHERE PAYMENT_CANCEL = 'N'
+							   AND R.CONTENT_NO = ?
+							 ORDER BY TICKET_NO DESC)A)B
+		WHERE RNUM BETWEEN ? AND ?
+		
+	</entry>
+	
+	<entry key="reservationListConcert">
+		SELECT B.*
+		  FROM (SELECT ROWNUM RNUM, A.*
+				 FROM(SELECT TICKET_NO
+						     , USER_ID
+						     , RESERVATION_DATE
+						     , PAYMENT_DATE
+						     , PAYMENT_TYPE
+						     , PAYMENT_STATUS
+						     , PAYMENT_TOTAL
+						     , CONTENT_TITLE
+						     , CONCERT_DATE
+						     , CONCERT_MAX
+						     , CONCERT_SEATS
+						  FROM RESERVATION_PAYMENT R 
+						  JOIN MEMBER M ON (R.USER_NO=M.USER_NO)
+						  JOIN CONTENTS C ON (R.CONTENT_NO=C.CONTENT_NO)
+						  JOIN CONCERT CC ON (R.CONTENT_NO=CC.CONTENT_NO)
+						 WHERE PAYMENT_CANCEL = 'N'
+						   AND R.CONTENT_NO = ?
+						   ORDER BY TICKET_NO DESC)A)B
+			WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 </properties>
