@@ -174,7 +174,7 @@ input[type=checkbox] {
 	       function fnClickDetail() {
 	        	
 	    	   $(".table>tbody>tr").click(function(){
-					var ano = $(this).children().eq(1).text(); 
+					var ano = $(this).children().eq(0).text(); 
 					var userNo = "<%=userNo%>";
 					
 					location.href="<%=contextPath%>/adboard_detail.my?ano="+ano+"&"+"userNo="+userNo; 
