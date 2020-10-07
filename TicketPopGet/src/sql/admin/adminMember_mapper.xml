@@ -10,7 +10,19 @@
 		SELECT
 		       COUNT(*)
 		  FROM MEMBER
-		  WHERE ? LIKE ?
+		  WHERE USER_ID LIKE ?
+	</entry>
+		<entry key="selectMemberNameCount">
+		SELECT
+		       COUNT(*)
+		  FROM MEMBER
+		  WHERE USER_NAME LIKE ?
+	</entry>
+		<entry key="selectMemberPhoneCount">
+		SELECT
+		       COUNT(*)
+		  FROM MEMBER
+		  WHERE PHONE LIKE ?
 	</entry>
 	<entry key="selectMemberList">
 		SELECT B.*

@@ -63,13 +63,19 @@ public class AdminMemberDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectMemberCount");
-		
+		String sql = "";
+		if(selectUserType.equals("USER_ID")) {
+			sql=prop.getProperty("selectMemberCount");
+		}else if(selectUserType.equals("USER_NAME")) {
+			sql=prop.getProperty("selectMemberNameCount");
+		}else if(selectUserType.equals("PHONE")){
+			sql=prop.getProperty("selectMemberPhoneCount");
+		}
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, selectUserType);
-			pstmt.setString(2, "%"+selectUser+"%");
+			pstmt.setString(1, "%"+selectUser+"%");
 			
 			rset = pstmt.executeQuery();
 			
@@ -82,7 +88,6 @@ public class AdminMemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		
 		return result;
 		
 	}

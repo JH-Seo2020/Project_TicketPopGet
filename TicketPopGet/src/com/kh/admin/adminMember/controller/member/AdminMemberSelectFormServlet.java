@@ -60,10 +60,12 @@ public class AdminMemberSelectFormServlet extends HttpServlet {
 		
 		ArrayList<Member> list = new AdminMemberService().selectMember(p, selectUser, selectUserType);
 		
+		request.setAttribute("selectUser", selectUser);
+		request.setAttribute("selectUserType", selectUserType);
 		request.setAttribute("page", p);
 		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("views/admin/adminMember/adminMemberList.jsp").forward(request, response);
+		request.getRequestDispatcher("views/admin/adminMember/adminMemberSelectList.jsp").forward(request, response);
 		}
 		
 		
