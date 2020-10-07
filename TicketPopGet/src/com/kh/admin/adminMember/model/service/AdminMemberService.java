@@ -119,6 +119,10 @@ public class AdminMemberService {
 		
 		ArrayList<Member> list = new AdminMemberDao().selectBlacklistList(conn, p);
 		
+		for(Member m : list) {
+			m.setReportCounter(new AdminMemberDao().searchReportCount(conn, m.getUserNo()));
+		}
+		
 		close(conn);
 		
 		return list;
@@ -141,6 +145,11 @@ public class AdminMemberService {
 		
 	}
 	
+	/**
+	 * 블랙리스트 해제용 서비스
+	 * @param userNo	블랙리스트 해제할 회원 번호
+	 * @return
+	 */
 	public int blacklistUnlock(int userNo) {
 		
 		Connection conn = getConnection();
@@ -152,6 +161,21 @@ public class AdminMemberService {
 		}else {
 			rollback(conn);
 		}
+		return result;
+	}
+	
+	/**
+	 * 누적신고수 조회용 서비스
+	 * @param userNo	조회할 회원
+	 * @return
+	 */
+	public int searchReportCount(int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new AdminMemberDao().searchReportCount(conn, userNo);
+		
+		close(conn);
+		
 		return result;
 	}
 	

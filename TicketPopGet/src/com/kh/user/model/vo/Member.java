@@ -17,6 +17,7 @@ public class Member {
 	private String blacklistStatus;
 	private int reportCount;
 	private String delete_reason;
+	private int reportCounter;
 	
 	public Member() {}
 
@@ -174,6 +175,14 @@ public class Member {
 
 	public void setDelete_reason(String delete_reason) {
 		this.delete_reason = delete_reason;
+	}
+	
+	public int getReportCounter() {
+		return reportCounter;
+	}
+
+	public void setReportCounter(int reportCounter) {
+		this.reportCounter = reportCounter;
 	}
 
 	@Override

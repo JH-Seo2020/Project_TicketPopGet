@@ -64,7 +64,7 @@
             <tr style="height: 50px;">
                 <td class="userNo"><%=m.getUserNo() %></td>
                 <td><%=m.getUserId() %></td>
-                <td><%=m.getReportCount()%></td>
+                <td><%=m.getReportCounter()%></td>
                 <td>
                     <button type="button" class="btn btn-primary blacklistDetail" data-toggle="modal" data-target="#reportMyModal">
                         	내용확인
