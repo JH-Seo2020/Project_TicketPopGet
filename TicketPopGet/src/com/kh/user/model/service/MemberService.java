@@ -22,7 +22,7 @@ public class MemberService {
       
       Member loginMember = new MemberDao().loginMember(conn, userId, userPwd);
       
-      JDBCTemplate.close(conn);
+      close(conn);
       
       return loginMember;
    }
@@ -137,32 +137,44 @@ public class MemberService {
       return result;
    }
    
-   /**
-    *  정보변경
- * @param m
- * @return
- * @author 이금이
- */
-public Member updateMember(Member m) {
-	
-	Connection conn = getConnection();
-	
-	int result = new MemberDao().updateMember(conn, m);
-	
-	Member updateMember = null;
-	
-	if(result>0) {
-		commit(conn);
+	   /**
+	    *  정보변경
+	 * @param m
+	 * @return
+	 * @author 이금이
+	 */
+	public Member updateMember(Member m) {
 		
-		updateMember = new MemberDao().selectMember(conn, m.getUserId());
-	}else {
-		rollback(conn);
-	}
-	close(conn);
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateMember(conn, m);
+		
+		Member updateMember = null;
+		
+		if(result>0) {
+			commit(conn);
+			
+			updateMember = new MemberDao().selectMember(conn, m.getUserId());
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMember;
+		   
+	   }
 	
-	return updateMember;
-	   
-   }
+	public Member findUserId(String userName, String phone) {
+		
+		Connection conn = getConnection();
+		
+		Member findUserId = new MemberDao().findUserId(conn, userName, phone);
+		
+		close(conn);
+	      
+	    return findUserId;
+		
+	}
    
    
 

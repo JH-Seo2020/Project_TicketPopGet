@@ -109,4 +109,12 @@
 			    , ?
 			)
 	 </entry>
+	 <entry key="findUserId">
+	    SELECT 
+		       USER_ID
+		     , USER_NAME
+		  FROM MEMBER
+		 WHERE USER_NAME = ?
+	       AND PHONE = ?
+	 </entry>
 </properties>

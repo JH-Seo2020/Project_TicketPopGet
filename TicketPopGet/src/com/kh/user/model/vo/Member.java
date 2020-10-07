@@ -63,10 +63,18 @@ public class Member {
 		this.email = email;
 	}
 
+	//id찾기
+	public Member(String userId, String userName) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+	}
+	
 
 	public int getUserNo() {
 		return userNo;
 	}
+
 
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;

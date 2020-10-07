@@ -289,37 +289,71 @@ public class MemberDao {
       return result;
    }
    
-   /**
- * @param conn
- * @param m
- * @return
- * @author 이금이
- */
-public int updateMember(Connection conn, Member m) {
-	   int result = 0;
-	   
-	   PreparedStatement pstmt = null;
-	   String sql = prop.getProperty("updateInfo");
-	   
-	   try {
-		pstmt=conn.prepareStatement(sql);
+   
+   
+	   /**
+	 * @param conn
+	 * @param m
+	 * @return
+	 * @author 이금이
+	 */
+	public int updateMember(Connection conn, Member m) {
+		   int result = 0;
+		   
+		   PreparedStatement pstmt = null;
+		   String sql = prop.getProperty("updateInfo");
+		   
+		   try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getUserName());
+			pstmt.setDate(2, m.getBirthdate());
+			pstmt.setString(3, m.getGender());
+			pstmt.setString(4, m.getPhone());
+			pstmt.setString(5, m.getEmail());
+			pstmt.setString(6, m.getUserId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		   
+		   return result;
+	   }
+
+	public Member findUserId(Connection conn, String userName, String phone) {
 		
-		pstmt.setString(1, m.getUserName());
-		pstmt.setDate(2, m.getBirthdate());
-		pstmt.setString(3, m.getGender());
-		pstmt.setString(4, m.getPhone());
-		pstmt.setString(5, m.getEmail());
-		pstmt.setString(6, m.getUserId());
-		
-		result = pstmt.executeUpdate();
-		
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close(pstmt);
-	} 
-	   
-	   return result;
-   }
+		Member m = null;
+	      
+	      PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+	      
+	      String sql = prop.getProperty("findUserId");
+	      
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, userName);
+	         pstmt.setString(2, phone);
+	         
+	         rset = pstmt.executeQuery();
+	         
+	         if(rset.next()) {
+	            m = new Member(rset.getString("USER_ID"),
+	            			   rset.getString("USER_NAME"));
+	         }
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(rset);
+	         close(pstmt);
+	      }
+	      
+	      return m;
+	}
 
 }

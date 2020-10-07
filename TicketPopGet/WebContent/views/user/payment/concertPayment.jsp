@@ -55,7 +55,7 @@ border: none;
 .select{
   background-color: #ffb3005d;
   width: 150px;
-  height: 190px;
+  height: 210px;
   float: left;
 }
 
@@ -147,7 +147,12 @@ border: none;
 	                      		<option value="3">3</option>
 	                      		<option value="4">4</option>
 	                  		</select>
+	                  	</td>
+	                  	</tr>
+	                  	<tr>
+	                  	<td colspan="2">
 	                  		<button id='decide' type="button" class='btn btn-warning btn-sm' style="margin-top:20px;">금액확인!</button>
+	                  	</td>
 			                    <script>
 			                    	$(function(){
 			                    		$('#decide').click(function(){
@@ -157,7 +162,7 @@ border: none;
 			                    		});
 			                    	});
 			                    </script>
-	                  	</td>
+			                    
 	                  </tr>
 	                </table>
 	              </div>

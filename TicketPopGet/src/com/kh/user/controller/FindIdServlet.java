@@ -1,4 +1,4 @@
-package com.kh.payment.controller;
+package com.kh.user.controller;
 
 import java.io.IOException;
 
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.concert.model.vo.Concert;
-import com.kh.payment.model.service.PaymentService;
+import com.kh.user.model.service.MemberService;
+import com.kh.user.model.vo.Member;
 
 /**
- * Servlet implementation class ConcertPaymentViewServlet
+ * Servlet implementation class FindIdServlet
  */
-@WebServlet("/conpay.me")
-public class ConcertPaymentViewServlet extends HttpServlet {
+@WebServlet("/findId.me")
+public class FindIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConcertPaymentViewServlet() {
+    public FindIdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +32,16 @@ public class ConcertPaymentViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int contentNo = Integer.parseInt(request.getParameter("contentNo"));
+		request.setCharacterEncoding("UTF-8");
 		
-		Concert cObject = new PaymentService().selectConcertPayment(contentNo);
+		String userName = request.getParameter("userName");
+		String phone = request.getParameter("phone");
 		
-		request.setAttribute("cObject", cObject);
+		Member m = new MemberService().findUserId(userName, phone);
 		
-		RequestDispatcher view = request.getRequestDispatcher("views/user/payment/concertPayment.jsp");
+		request.setAttribute("m", m);
+		
+		RequestDispatcher view = request.getRequestDispatcher("views/user/userMember/findIdView.jsp");
 		view.forward(request, response);
 	}
 
