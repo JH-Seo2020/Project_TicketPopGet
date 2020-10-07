@@ -62,13 +62,20 @@ Contents c = (Contents)request.getAttribute("c");
                         <th>분류</th>
                         <td>콘서트</td>
                         <td style="float: right;">
-                            <button type="button" class="btn btn-danger" onclick="location.href='delete.adco?contentNo=<%=c.getContentNo()%>&contentType=<%=c.getContentType()%>'" style="float:right;">삭제</button>
+                            <button type="button" class="btn btn-danger" onclick="delete1();" style="float:right;">삭제</button>
                             <button type="button" id="updateBtn" class="btn btn-primary" style="float:right;">수정</button>
                             <button type="submit" id="insertBtn" class="btn btn-primary" style="float:right; display:none;">등록</button>
                         </td>
                     </tr>
                     <tr>
                     <script>
+                    function delete1(){
+                    	if(confirm("정말 삭제하시겠습니까?") == true){
+                    		location.href="delete.adco?contentNo=<%=c.getContentNo()%>&contentType=<%=c.getContentType()%>";
+                    	}else{
+                    		alert("취소되었습니다.");
+                    	}
+                    };
                 		$(function(){
                 			$("#updateBtn").click(function(){
                 				$("#contentTitle").removeAttr("disabled");
