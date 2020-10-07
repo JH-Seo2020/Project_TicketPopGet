@@ -159,6 +159,7 @@
 		<script>
 			$(function(){
 				selectCommentList(1);
+				var $like;
 			});
 			
 			//1. 댓글 리스트 조회용 ajax 
@@ -182,7 +183,7 @@
 			                    $update = "<a class='btn' onclick='callForUpdate("+$commentNo+");'>수정💬</a>";
 			                    $delete = "<a class='btn' onclick='callForDelete("+$commentNo+");' data-toggle='modal' data-target='#deleteReviewReply'>삭제❌</a>";
 			                    $report = "<a class='btn' onclick='callForReport("+$commentNo+");' data-toggle='modal' data-target='#eventReport'>신고🚨</a>";
-			                    $like = "<a class='btn' onclick='call("+$commentNo+");'>추천💛</a><lable>7</lable>";	
+			                    $like = "<span id='thumbsup'><a class='btn' onclick='call("+$commentNo+");'>추천💛</a><lable id='good'></lable></span>";	
 			                    
 								<%if(loginUser != null){%>
 									
@@ -203,7 +204,11 @@
 										 + "<td><input type='hidden' value="+result.list[i].commentNo +"></td>" 
 										 + "<td id='eventReplyBtns'>"+commentBtns+"</td></tr>";
 								
-										 
+								
+								<%if(loginUser != null){%>
+									callForUserGood($commentNo);
+								<%}%>
+								countLike($commentNo);
 							}
 							
 						   var $boardLimit = result.pi.boardLimit;
@@ -372,6 +377,80 @@
 						}
 					});
 			}
+			
+			//6. 댓글추천함수 (로딩직후 실행될)
+			function countLike(commentNo){
+				$.ajax({
+					url : "<%=contextPath%>/view.like",
+					type : "get",
+					data : {"commentNo" : commentNo},
+					success : function(result){
+						
+						<%if(loginUser != null){%>
+							$('#good').text(result);
+						<%}%>
+						
+					}, error : function(){
+						console.log('통신실패');
+					}
+				});
+			}
+			
+			//7. 유저추천버튼판별함수
+			<%if(loginUser != null){%>
+			function callForUserGood(commentNo){
+				$.ajax({
+					url : "<%=contextPath%>/view.userlike",
+					type : "get",
+					data : {"commentNo" : commentNo},
+					success : function(result){
+						console.log(result);
+						if(result>0){
+							$('#thumbsup').html("<a class='btn' onclick='cancle("+commentNo+");'>추천해제</a><lable id='good'></lable>");
+							countLike(commentNo);
+						}else{
+							$('#thumbsup').html("<a class='btn' onclick='call("+commentNo+");'>추천💛</a><lable id='good'></lable>");
+							countLike(commentNo);
+						}
+						
+					}, error : function(){
+						console.log('통신실패');
+					}
+				});
+			}
+			
+			//8. 추천 insert
+			function call(commentNo){
+				$.ajax({
+					url : "<%=contextPath%>/comment.updatelike",
+					type : "get",
+					data : {"commentNo" : commentNo,
+						"eventNo" : <%=evObject.getEventNo()%>},
+					success : function(result){
+						callForUserGood(commentNo);
+					}, error : function(){
+						console.log('통신실패');
+					}
+				});
+			}
+			
+			//9. 추천 delete
+			function cancle(commentNo){
+				$.ajax({
+					url : "<%=contextPath%>/comment.deletelike",
+					type : "get",
+					data : {"commentNo" : commentNo,
+						"eventNo" : <%=evObject.getEventNo()%>},
+					success : function(result){
+						callForUserGood(commentNo);
+						
+					}, error : function(){
+						console.log('통신실패');
+					}
+				});
+			}
+			
+			<%}%>
 			
 		</script>
 

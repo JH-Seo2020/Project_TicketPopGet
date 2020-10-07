@@ -160,4 +160,36 @@
 	    , ?
 	)
 	</entry>
+	<entry key="selectCountGood">
+		SELECT COUNT(*) AS COUNTLIKE
+		  FROM REPLY_LIKE
+		 WHERE COMMENT_NO = ?
+	</entry>
+	<entry key="selectAlreadyGood">
+		SELECT COUNT(*) AS ALREADYGOOD
+		  FROM REPLY_LIKE
+		 WHERE COMMENT_NO = ?
+		   AND USER_NO = ?
+	</entry>
+	<entry key="updateLike">
+		INSERT 
+		  INTO REPLY_LIKE
+		     (
+		      LIKE_NO
+		    , EVENT_NO
+		    , USER_NO
+	        , COMMENT_NO
+		) values(
+		    SEQ_REPLY_LNO.nextval
+		    , ?
+		    , ?
+	        , ?
+		)
+	</entry>
+	<entry key="deleteLike">
+		DELETE 
+		  FROM REPLY_LIKE
+		 WHERE COMMENT_NO = ?
+		   AND USER_NO = ?
+	</entry>
 </properties>
