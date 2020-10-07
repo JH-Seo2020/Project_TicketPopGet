@@ -89,6 +89,7 @@ body {
 			<div class="card">
 				<div class="card-body">
 					<form id="enrollForm" action="<%=contextPath%>/update.my" method="POST">
+					
 						<div class="form-group row">
 							<label for="userId" class="col-md-4 col-form-label text-md-right">아이디</label>
 							<input type="text" id="userId" readonly class="form-control" name="userId" value="<%=userId%>" style="width: 400px;">
@@ -114,7 +115,7 @@ body {
 								<option value="F">여</option>
 							</select>
 						</div>
-
+				
 					    <div class="form-group row">                                    
                                <label for="phone" class="col-md-4 col-form-label text-md-right">전화번호</label>
                                	<input type="text" id="phone" name="phone" required class="form-control" value="<%=phone%>" style="width: 400px;" placeholder="(-)제외한 전화번호 입력" required>
@@ -130,7 +131,7 @@ body {
 						<div class="col-md-6 offset-md-4">
 						
 							<button type="submit" onclick="info_change()" class="btnRegister">회원정보수정</button>
-							<button onclick="location.href='information.jsp'" class="btnRegister">이전으로</button>
+							<button onclick="location.href='<%=contextPath%>/mypage.my'" class="btnRegister">이전으로</button>
 						</div>
 						
 					</form>

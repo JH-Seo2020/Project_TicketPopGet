@@ -142,7 +142,9 @@
                 </p>
                 <div id="search_result1">
                     <input type="search" id="searchBar" name="keyword" placeholder="검색창">
-                    <button id="search_button1" type="submit" ><img src="resources/img/imgForSearch/search.png"  width="30px" height="30px"></button>
+                    <button id="search_button1" type="submit" >
+                     <img src="resources/img/imgForSearch/search.png"  width="30px" height="30px">
+                    </button>
                      
 	               
                 </div>
