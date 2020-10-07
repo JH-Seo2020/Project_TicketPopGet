@@ -35,12 +35,16 @@ public class MyPageReservationDetail extends HttpServlet {
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		int tno = Integer.parseInt(request.getParameter("tno"));
 		
+		
 		Reservation re = new MyPageService().selectReservationDetail(userNo, tno);
+		System.out.println(re);
 		
 		request.setAttribute("re", re);
 		
+		
 		RequestDispatcher view = request.getRequestDispatcher("views/user/myPage/reservation_detail.jsp");
 		view.forward(request, response);
+		
 	}
 
 	/**

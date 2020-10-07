@@ -179,8 +179,6 @@
               			}else{ 
               		           for(Reservation r : re) {
               		%>
-	
-					<%if(r.getPaymentCancel()=="N"){ %>
 					<tr onClick="location.href='<%=contextPath%>/re_detail.my?userNo=<%=loginUser.getUserNo()%>&tno=<%=r.getTicketNo()%>'">
 						<td><%=r.getTicketNo() %></td>
 						<td><%=r.getReservationDate() %></td>
@@ -191,18 +189,6 @@
 						<td><%=r.getPaymentStatus() %></td>
 						<td><%=r.getPaymentCancel() %></td>
 					</tr>
-					<%} else{%>
-					<tr onClick="location.href='<%=contextPath%>/re_cancel.my?userNo=<%=loginUser.getUserNo()%>&tno=<%=r.getTicketNo()%>'">
-						<td><%=r.getTicketNo() %></td>
-						<td><%=r.getReservationDate() %></td>
-						<td><%=r.getContnetTitle() %></td>
-						<td><%=r.getViewDate()%></td>
-						<td><%=r.getTicketNum()%>매</td>
-						<td><%=r.getPaymentType() %></td>
-						<td><%=r.getPaymentStatus() %></td>
-						<td><%=r.getPaymentCancel() %></td>
-					</tr>
-					<%} %>
 					<%} %>
 	                <%} %>
 				</tbody>
