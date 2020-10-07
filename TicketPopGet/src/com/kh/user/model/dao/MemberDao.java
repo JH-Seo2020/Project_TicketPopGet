@@ -324,6 +324,13 @@ public class MemberDao {
 		   return result;
 	   }
 
+	/**
+	 * @param conn
+	 * @param userName
+	 * @param phone
+	 * @return
+	 * @author 김현선
+	 */
 	public Member findUserId(Connection conn, String userName, String phone) {
 		
 		Member m = null;
@@ -356,6 +363,14 @@ public class MemberDao {
 	      return m;
 	}
 
+	/**
+	 * @param conn
+	 * @param userName
+	 * @param userId
+	 * @param phone
+	 * @return
+	 * @author 김현선
+	 */
 	public Member findUserPwd(Connection conn, String userName, String userId, String phone) {
 
 		  Member m = null;
@@ -375,7 +390,7 @@ public class MemberDao {
 	         rset = pstmt.executeQuery();
 	         
 	         if(rset.next()) {
-	            m = new Member(rset.getString("USER_ID"),
+	            m = new Member(rset.getString("USER_PWD"),
 	            			   rset.getString("USER_NAME"));
 	         }
 	         
