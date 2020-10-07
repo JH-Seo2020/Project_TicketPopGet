@@ -27,7 +27,8 @@
 		                         , CONTENT_CHIMG
 		                         , CONTENT_IMGPATH
 		                      FROM CONTENTS
-		                     WHERE CONTENT_STATUS='Y')A)B
+		                     WHERE CONTENT_STATUS='Y'
+		                     ORDER BY CONTENT_NO DESC)A)B
  WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
