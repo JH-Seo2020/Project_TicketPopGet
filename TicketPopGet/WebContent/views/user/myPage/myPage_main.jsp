@@ -239,7 +239,7 @@
 								<th>매수</th>
 								<th>결제방법</th>
 								<th>결제여부</th>
-								<th>예매상태</th>
+								<th>예매취소여부</th>
 							</tr>
 						</thead>
 						<tbody>

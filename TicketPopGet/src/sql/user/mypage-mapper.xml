@@ -171,7 +171,7 @@ SELECT *
 </entry>
 
 <entry key="selectReservationDetail">
-  SELECT
+      SELECT
               RP.TICKET_NO
             , C.CONTENT_TITLE
             , RP.VIEW_DATE

@@ -11,6 +11,7 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -142,7 +143,9 @@
                 </p>
                 <div id="search_result1">
                     <input type="search" id="searchBar" name="keyword" placeholder="검색창">
-                    <button id="search_button1" type="submit" ><img src="resources/img/imgForSearch/search.png"  width="30px" height="30px"></button>
+                    <button id="search_button1" type="submit" >
+                     <img src="resources/img/imgForSearch/search.png"  width="30px" height="30px">
+                    </button>
                      
 	               
                 </div>
@@ -202,6 +205,8 @@
         
 	            <!-- 목록하나 -->
 	            <div class="search_result_list">
+	            <% 	String getPrice = s.getPrice();
+    				String price = getPrice.substring(0,getPrice.length()-2); %>
 	                <!-- 이미지 -->
 	                <div id="search_result_img" style="margin-left: 70px;">
 	                    <img src="<%=contextPath%>/<%=s.getContentImgpath()%>/<%=s.getContentChimg()%>" width="150" >
@@ -212,7 +217,7 @@
 	                    <p>
 				                        장 소 : <%=s.getPlace()%> <br>
 				                        기 간 : <%=s.getRegion()%> <br>
-				                        가 격 : <%=s.getPrice()%> <br>
+				                        가 격 : <%=price%> <br>
 	                    </p>
 	                </div>
 		                <%--

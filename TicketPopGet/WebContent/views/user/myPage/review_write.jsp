@@ -115,7 +115,8 @@
 	                    <th>작성일</th>
 	                    <td><input type="date" name="reviewdate" value="<%=mp.getReviewDate() %>" readonly style="border:none;"></td>
 	                    <th>평점</th>
-	                    <td><input type="number" name="reviewpoint" min="1" max="10" placeholder="1~10점까지 점수매겨주세요" style="border:none; width: 250px;" required></td>
+	                    <td><input type="number" name="reviewpoint" min="1" max="10" placeholder="1~10점까지 점수매겨주세요" 
+	                           style="border:none; width: 250px;" required></td>
 	                </tr>
 	                <tr>
 	                    <th>제목</th>
