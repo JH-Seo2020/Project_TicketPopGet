@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList, com.kh.common.model.vo.MainContent" %>
 <%
 	ArrayList<MainContent> rank = (ArrayList<MainContent>)request.getAttribute("rank");
+	String genreChoice = (String)"";
 %>
 <!DOCTYPE html>
 <html>
@@ -54,6 +55,7 @@
                 <a class="btn btn-warning">성별</a>
                 <a class="btn btn-warning">주간예매율</a>-->
             </div>
+            
             <table class="table table-striped">
                 <tr align="center">
                     <th>순위</th>
@@ -66,10 +68,20 @@
                 	<td colspan=6>보여드릴 순위가 없습니다.</td>
                 <%}else{ %>
                 	<%for(int i = 0; i < 10; i++){ %>
+                	
+                	<%
+                		if(rank.get(i).getTitle().equals("연극")){
+                			genreChoice = "play";
+                		}else{
+                			genreChoice = "concert";
+                		}
+                	
+                	%>
+		            
 		                <tr align="center">
 		                    <td><%=rank.get(i).getRownum() %></td>
 		                    <td><img src="<%=contextPath %>/<%=rank.get(i).getImgPath() %>/<%=rank.get(i).getChangeImg() %>" width="70px;" height="100px;"></td>
-		                    <td><a href="<%=contextPath%>/'<%=rank.get(i).getTitle()%>'.detail?contentNo=<%=rank.get(i).getContentNo()%>"><%=rank.get(i).getGenre() %> : <%=rank.get(i).getTitle() %></a></td>
+		                    <td><a id='showDetail' href="<%=contextPath%>/<%=genreChoice %>.detail?contentNo=<%=rank.get(i).getContentNo()%>" ><%=rank.get(i).getGenre() %> : <%=rank.get(i).getTitle() %></a></td>                  
 		                    <td><%=rank.get(i).getRate() %> %</td>
 		                    <td><%=rank.get(i).getConcertDate() %></td>
 		                </tr>
