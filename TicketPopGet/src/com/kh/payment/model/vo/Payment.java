@@ -17,6 +17,11 @@ public class Payment {
 	private String paymentType;		// 결제방법
 	private String paymentStatus;	// 결제여부
 	private String paymentTotal;	// 총결제금액
+	private String userId;			//
+	private String userName;		//
+	private String email;			//
+	private String phone;			//
+	private int ticketNo;
 
 	
 	public Payment() {}
@@ -41,6 +46,31 @@ public class Payment {
 		this.paymentType = paymentType;
 		this.paymentStatus = paymentStatus;
 		this.paymentTotal = paymentTotal;
+	}
+
+	
+
+
+	public Payment(Date reservationDate, Date viewDate, int ticketNum, int roundNo, String contentType,String contentTitle,
+			int userNo,int contentNo, Date paymentDate, String paymentType, String paymentTotal, String userId, String userName,
+			String email, String phone, int ticketNo) {
+		super();
+		this.reservationDate = reservationDate;
+		this.viewDate = viewDate;
+		this.ticketNum = ticketNum;
+		this.roundNo = roundNo;
+		this.contentType = contentType;
+		this.contentTitle = contentTitle;
+		this.userNo = userNo;
+		this.contentNo = contentNo;
+		this.paymentDate = paymentDate;
+		this.paymentType = paymentType;
+		this.paymentTotal = paymentTotal;
+		this.userId = userId;
+		this.userName = userName;
+		this.email = email;
+		this.phone = phone;
+		this.ticketNo = ticketNo;
 	}
 
 
@@ -150,6 +180,76 @@ public class Payment {
 		this.paymentTotal = paymentTotal;
 	}
 	
+	
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	
+
+
+	public int getTicketNo() {
+		return ticketNo;
+	}
+
+
+
+
+	public void setTicketNo(int ticketNo) {
+		this.ticketNo = ticketNo;
+	}
+
+
 
 
 	@Override

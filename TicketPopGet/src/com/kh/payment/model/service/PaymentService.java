@@ -75,6 +75,38 @@ public class PaymentService {
 		close(conn);
 		return playObject;
 	}
+
+	
+	/**
+	 * 5. 방금 insert한 결제정보 가져오기(아임포트용)
+	 * @param ticketNum
+	 * @return
+	 */
+	public Payment selectRecentPayment(int userNo) {
+		Connection conn = getConnection();
+		Payment selectPay = new PaymentDao().selectRecentPayment(conn, userNo);
+		close(conn);
+		return selectPay;
+	}
+
+
+	/**
+	 * 6. 결제 성공 시 결제 여부, 날짜 업데이트용 
+	 * @param ticketNo
+	 * @return
+	 */
+	public int updatePaymentStatus(int ticketNo) {
+		
+		Connection conn = getConnection();
+		int result = new PaymentDao().updatePaymentStatus(conn,ticketNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	
 
 }

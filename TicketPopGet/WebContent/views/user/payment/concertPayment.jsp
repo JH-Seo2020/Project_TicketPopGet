@@ -172,7 +172,7 @@ border: none;
 	            <br>
 	            <div id="selectDate">
 	              <b>결제방법</b><br><br>
-	              <input type="radio" name="paymentMethod" required value="카드결제"> 카드결제 <br>
+	              <input type="radio" name="paymentMethod" required value="카드"> 카드 <br>
 	              <input type="radio" name="paymentMethod" required value="무통장입금"> 무통장입금<br>
 	            </div>
 	          </div>

@@ -171,7 +171,7 @@ border: none;
               <div id="selectDate">
                 <b>결제방법</b><br><br>
                 <input type="radio" name="paymentMethod" required value="카드"> 카드 <br>
-                <input type="radio" name="paymentMethod" required value="실시간 계좌이체"> 실시간 계좌이체 <br>
+                <input type="radio" name="paymentMethod" required value="무통장입금"> 무통장입금 <br>
               </div>
             </div>
             

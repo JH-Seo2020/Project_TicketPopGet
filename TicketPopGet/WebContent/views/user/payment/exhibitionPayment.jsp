@@ -22,6 +22,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <!-- iamport.payment.js -->
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style>
 nav > .nav.nav-tabs{
 border: none;
@@ -100,6 +102,8 @@ border: none;
   		$('#choiceNo').on('change',function(){
   			$("input[name='paymentTotal']").val($('#choiceNo').val()*<%=truePrice %>);
   		});
+  	
+  	
   	});
   </script>
   
@@ -159,7 +163,7 @@ border: none;
               <div id="selectDate">
                 <b>결제방법</b><br><br>
                 <input type="radio" name="paymentMethod" required value="카드"> 카드 <br>
-                <input type="radio" name="paymentMethod" required value="실시간 계좌이체"> 실시간 계좌이체 <br>
+                <input type="radio" name="paymentMethod" required value="무통장입금"> 무통장입금 <br>
               </div>
             </div>
             

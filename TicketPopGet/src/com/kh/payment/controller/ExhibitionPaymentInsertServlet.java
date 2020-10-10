@@ -66,8 +66,15 @@ public class ExhibitionPaymentInsertServlet extends HttpServlet {
 		
 		if(result>0) {
 			
-			request.getSession().setAttribute("alertMsg", "성공적으로 결제되었습니다. 마이페이지에서 확인하세요!");
-			response.sendRedirect(request.getContextPath() + "/reservation.my?currentPage=1&userNo="+userNo);
+			//select문 실행해서 db에 방금 저장한 정보 다시 가져오기 
+			Payment selectPay = new PaymentService().selectRecentPayment(userNo);
+			
+			//결제포트 띄워줄 페이지(빈걸로 하나만들어서)로 전송 
+			request.setAttribute("selectPay",selectPay);
+			request.getRequestDispatcher("views/user/payment/payAPIPage.jsp").forward(request, response);
+			
+//			request.getSession().setAttribute("alertMsg", "성공적으로 결제되었습니다. 마이페이지에서 확인하세요!");
+//			response.sendRedirect(request.getContextPath() + "/reservation.my?currentPage=1&userNo="+userNo);
 			
 		}else {
 			request.setAttribute("errorMsg", "결제가 되지 않습니다. 다시 시도해주세요.");

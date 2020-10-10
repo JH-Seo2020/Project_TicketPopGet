@@ -169,4 +169,67 @@ public class PaymentDao {
 		return conObject;
 	}
 
+
+	public Payment selectRecentPayment(Connection conn, int userNo) {
+		
+		Payment selectPay = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectRecentPayment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				selectPay = new Payment(
+						rset.getDate("RESERVATION_DATE"),
+						rset.getDate("VIEW_DATE"),
+						rset.getInt("TICKET_NUM"),
+						rset.getInt("ROUND_NO"),
+						rset.getString("CONTENT_TYPE"),
+						rset.getString("CONTENT_TITLE"),
+							rset.getInt("USER_NO"),
+							rset.getInt("CONTENT_NO"),
+							rset.getDate("PAYMENT_DATE"),
+							rset.getString("PAYMENT_TYPE"),
+							rset.getString("PAYMENT_TOTAL"),
+							rset.getString("USER_ID"),
+							rset.getString("USER_NAME"),
+							rset.getString("EMAIL"),
+							rset.getString("PHONE"),
+							rset.getInt("TICKET_NO")
+							);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return selectPay;
+	}
+
+
+	public int updatePaymentStatus(Connection conn, int ticketNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePaymentStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ticketNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }
